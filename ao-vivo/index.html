@@ -447,210 +447,444 @@ img, a {
 
 
 
-  <!-- ————— 1) LÓGICA DO WEBINAR (vídeo, chat, contagem, ofertas) ————— -->
-  <script>
-  (function(){
-    const configDay        = 3;      //  dom0..sab6
-    const configHour       = 17;     //  Hora de início
-    const configMinute     = 35;     //  Minuto de início
-    const durationMinutes  = 24;     //  Duração do vídeo
 
-    // Elementos
-    const video         = document.getElementById('customVideo');
-    const playButton    = document.getElementById('playButton');
-    const overlay       = document.getElementById('videoClickOverlay');
-    const videoContainer= document.getElementById('videoContainer');
+
+<script>  //PROGRAMAR LIVE
+    const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 17;         // HORA 
+    const configMinute = 37;      // MINUTO
+    const durationMinutes = 24;    // duração do video
+
+    const video = document.getElementById('customVideo');
+    const playButton = document.getElementById('playButton');
+    const overlay = document.getElementById('videoClickOverlay');
+    const videoContainer = document.getElementById('videoContainer');
     const chatContainer = document.getElementById('chatContainer');
-    const messages      = document.getElementById('messages');
-    const nextSession   = document.getElementById('nextSession');
-    const nameFormWrap  = document.getElementById('nameFormWrapper');
-    const viewerCounter = document.getElementById('viewerCounter');
-    const offerSection  = document.getElementById('offerSection');
-    const waitingMsg    = document.getElementById('waitingMessage');
-    const closedMsg     = document.getElementById('eventClosedMessage');
+    const messages = document.getElementById('messages');
+    const nextSession = document.getElementById('nextSession');
+    const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
 
-    const programmedMessages = [
-      { time: 10, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
-      { time: 15, name: "Carlos",   text: "Conteúdo incrível!" },
-      { time: 20, name: "Ana",      text: "Valeu pela explicação!" }
+    const programmedMessages = [   //COMENTARIOS
+        { time: 10, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+        { time: 15, name: "Carlos", text: "Conteúdo incrível!" },
+        { time: 20, name: "Ana", text: "Valeu pela explicação!" }
     ];
 
-    let shownProgrammed  = new Set();
-    let videoStarted     = false;
-    let viewerIntervalId;
-    window.userName      = localStorage.getItem('webinarUserName') || "";
+    let shownProgrammedMessages = new Set();
+    let videoJaIniciado = false;
+    let viewerInterval;
+    let userName = "";
 
     function isWebinarTime() {
-      const now = new Date();
-      if (now.getDay() !== configDay) return false;
-      const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute);
-      const end   = new Date(start.getTime() + durationMinutes * 60000);
-      return now >= start && now <= end;
+        const now = new Date();
+        const day = now.getDay();
+        const webinarStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+        const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
+        return day === configDay && now >= webinarStart && now <= webinarEnd;
     }
 
     function getNextSessionDate() {
-      const now = new Date();
-      let days = (configDay - now.getDay() + 7) % 7;
-      if (days === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute)))
-        days = 7;
-      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + days, configHour, configMinute);
-      return next.toLocaleString('pt-BR');
+        const now = new Date();
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+            daysUntilNext = 7;
+        }
+        const nextDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+        return nextDate.toLocaleString('pt-BR');
+    }
+
+
+
+
+  
+    
+
+
+function startWebinar() {
+    // ✅ Zera o chat
+    messages.innerHTML = "";
+    shownProgrammedMessages.clear();
+
+    // mostra vídeo e chat
+    videoContainer.style.display = "block";
+    chatContainer.style.display = "block";
+
+    // instante "oficial" de início do webinar (hoje às configHour:configMinute)
+    const now = new Date();
+    const webinarStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        configHour,
+        configMinute,
+        0
+    );
+
+    // calcula há quantos segundos a live já está rodando
+    const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
+
+    // sincroniza o vídeo
+    if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+        video.currentTime = secondsSinceStart;
+    }
+
+    // já marca como "enviadas" as mensagens que deveriam ter aparecido antes
+    programmedMessages.forEach(msg => {
+        if (msg.time < secondsSinceStart) {
+            shownProgrammedMessages.add(msg.time);
+        }
+    });
+
+    // dispara a checagem de mensagens programadas a cada segundo
+    setInterval(checkProgrammedMessages, 1000);
+
+    // contador de “pessoas assistindo”
+    const viewerElement = document.getElementById('viewerCounter');
+    function updateViewerCount() {
+        const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
+        viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
+    }
+    updateViewerCount();
+    viewerInterval = setInterval(updateViewerCount, 15000);
+
+
+    
+
+    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA
+
+    if (offerDelayMs > 0) {
+        // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
+        setTimeout(() => {
+            document.getElementById('offerSection').style.display = 'block';
+        }, offerDelayMs);
+    } else {
+        // se já passou do ponto de 1240 s, exibe imediatamente
+        document.getElementById('offerSection').style.display = 'block';
+    }
+}
+
+
+   function checkProgrammedMessages() {
+        const currentTime = video.currentTime;
+        programmedMessages.forEach(msg => {
+            if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
+                addMessage(msg.name, msg.text);
+                shownProgrammedMessages.add(msg.time);
+            }
+        });
     }
 
     function addMessage(user, text) {
-      const div = document.createElement('div');
-      div.className = 'chat-message';
-      div.innerHTML = `<strong>${user}:</strong> ${text}`;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
+        const div = document.createElement('div');
+        div.className = 'chat-message';
+        div.innerHTML = `<strong>${user}:</strong> ${text}`;
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
     }
 
-    function checkProgrammedMessages() {
-      const t = video.currentTime;
-      programmedMessages.forEach(m => {
-        if (t >= m.time && !shownProgrammed.has(m.time)) {
-          addMessage(m.name, m.text);
-          shownProgrammed.add(m.time);
+    function sendMessage() {
+        const input = document.getElementById('userMessage');
+        const text = input.value.trim();
+        if (text) {
+            addMessage(userName, text);
+            input.value = '';
         }
-      });
     }
 
-    function updateViewerCount() {
-      const n = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
-      viewerCounter.innerHTML = `<strong>${n}</strong> pessoas assistindo agora.`;
+    function iniciarVideo() {
+        if (videoJaIniciado) return;
+        videoJaIniciado = true;
+        playButton.style.display = 'none';
+        overlay.style.display = 'none';
+        video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
     }
 
-    function startWebinar() {
-      messages.innerHTML = "";
-      shownProgrammed.clear();
-      videoContainer.style.display = chatContainer.style.display = 'block';
+function saveUserName() {
+  const nameInput = document.getElementById('userNameInput');
+  const name = nameInput.value.trim();
+  const nameFormWrapper = document.getElementById('nameFormWrapper');
 
-      const now    = new Date();
-      const start  = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute);
-      const offset = Math.floor((now - start) / 1000);
-      if (offset >= 0 && offset <= videoDuration)
-        video.currentTime = offset;
+  if (!name) {
+    return alert("Por favor, digite seu nome.");
+  }
 
-      setInterval(checkProgrammedMessages, 1000);
-      updateViewerCount();
-      viewerIntervalId = setInterval(updateViewerCount, 15000);
+  // 1️⃣ guarda globalmente pro tracker ler depois
+  window.userName = name;
 
-      const delayOffer = (start.getTime() + 60000) - now.getTime();
-      if (delayOffer > 0)
-        setTimeout(() => offerSection.style.display = 'block', delayOffer);
-      else
-        offerSection.style.display = 'block';
-    }
+  // 2️⃣ opcional: persiste entre recargas
+  localStorage.setItem('webinarUserName', name);
 
-    function showCountdown() {
-      waitingMsg.style.display = 'block';
-      function tick() {
-        const diff = getNextSessionDateObject() - new Date();
-        if (diff <= 0) return location.reload();
-        const s = Math.floor(diff/1000);
-        const d = Math.floor(s/86400), h = Math.floor((s%86400)/3600);
-        const m = Math.floor((s%3600)/60),   sec = s%60;
-        waitingMsg.querySelector('#countdown').textContent =
-          `${d} dias ${h} horas ${m} minutos ${sec} segundos`;
-      }
-      tick(); setInterval(tick,1000);
-    }
-    function getNextSessionDateObject() {
-      const now = new Date(), days = (configDay - now.getDay() +7)%7 || 7;
-      return new Date(now.getFullYear(),now.getMonth(),now.getDate()+days,configHour,configMinute);
-    }
+  // 3️⃣ esconde o formulário e segue com a lógica
+  nameFormWrapper.style.display = "none";
 
-    function showEventClosed() {
-      [nameFormWrap, waitingMsg, videoContainer, chatContainer].forEach(el=>el.style.display='none');
-      closedMsg.style.display = 'block';
-    }
+  if (isWebinarTime()) {
+    startWebinar();
+  } else {
+    nextSession.innerHTML =
+      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+  }
+}
 
-    function saveUserName() {
-      const name = document.getElementById('userNameInput').value.trim();
-      if (!name) return alert("Por favor, digite seu nome.");
-      window.userName = name;
-      localStorage.setItem('webinarUserName', name);
-      nameFormWrap.style.display = 'none';
-      if (isWebinarTime()) startWebinar();
-      else nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-    }
+    playButton.addEventListener('click', iniciarVideo);
+    overlay.addEventListener('click', iniciarVideo);
 
-    // Event listeners
-    playButton.addEventListener('click', () => { if (!videoStarted){ videoStarted = true; playButton.style.display = overlay.style.display = 'none'; video.play(); }});
-    overlay.addEventListener('click', () => playButton.click());
-    window.onload = () => {
-      const now = new Date();
-      const start = getNextSessionDateObject(), end = new Date(start.getTime() + durationMinutes*60000);
-      const closeEnd = new Date(end.getTime() + 22*3600000);
-      if (now < start) showCountdown();
-      else if (now <= end) nameFormWrap.style.display='block';
-      else if (now <= closeEnd) showEventClosed();
-      else showCountdown();
-    };
-
-    // Expose for override in tracker script
-    window.isWebinarTime      = isWebinarTime;
-    window.getNextSessionDate = getNextSessionDate;
-    window.startWebinar       = startWebinar;
-  })();
-  </script>
-
-
-  <!-- ————— 2) TRACKER (único, no final do body) ————— -->
-  <script>
-  (function(){
-    // 1️⃣ Browser ID
-    let browserId = localStorage.getItem('webinarBrowserId');
-    if (!browserId) {
-      browserId = crypto.randomUUID();
-      localStorage.setItem('webinarBrowserId', browserId);
-    }
-
-    // 2️⃣ Restaura nome salvo
-    const saved = localStorage.getItem('webinarUserName');
-    if (saved) window.userName = saved;
-
-    // 3️⃣ Conta tempo ativo
-    let activeTime = 0, lastResume = Date.now();
-    const onResume = () => lastResume = Date.now();
-    const onPause  = () => activeTime += Date.now() - lastResume;
-    document.addEventListener('visibilitychange', () =>
-      document.hidden ? onPause() : onResume()
-    );
-    onResume();
-
-    // 4️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwi6P7EutyjPLIlhjprWsLiIbpBWPy9yMmaafFPkcWA1YwhktMvNN2l--S_2SASbyqlnA/exec';
-
-    // 5️⃣ Override de saveUserName
-    window.saveUserName = function(){
-      const name = document.getElementById('userNameInput').value.trim();
-      if (!name) return alert("Por favor, digite seu nome.");
-      window.userName = name;
-      localStorage.setItem('webinarUserName', name);
-      document.getElementById('nameFormWrapper').style.display = 'none';
-      if (window.isWebinarTime()) window.startWebinar();
-      else document.getElementById('nextSession').innerHTML =
-        `<p>A próxima transmissão será: <strong>${window.getNextSessionDate()}</strong></p>`;
-    };
-
-    // 6️⃣ Envia só UMA VEZ, no unload
-    window.addEventListener('beforeunload', function(){
-      if (!document.hidden) onPause();
-      const params = new URLSearchParams({
-        browserId,
-        userName: window.userName || '',
-        activeTimeMs: activeTime
-      });
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
-      } else {
-        fetch(`${WEB_APP_URL}?${params}`, { method: 'GET' });
-      }
+    
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
     });
-  })();
-  </script>
+ 
+  
+  
+window.onload = function() {
+    const now = new Date();
+    const lastWebinar = getLastWebinarDate();
+    const webinarStart = lastWebinar;
+    const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));   // TEMPO AO FINAL DA LIVE QUE FICA COMO ENCERRADO
+
+    if (now < webinarStart) {
+        showCountdown();
+    } else if (now >= webinarStart && now <= webinarEnd) {
+        nameForm.style.display = "block";
+    } else if (now > webinarEnd && now <= encerramentoEnd) {
+        showEventClosed();
+    } else {
+        showCountdown();
+    }
+};
+
+
+function showCountdown() {
+    const waitingDiv = document.getElementById('waitingMessage');
+    waitingDiv.style.display = "block";
+
+    const targetDate = getNextWebinarDate();
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            location.reload();  // Quando chega o horário, recarrega a página
+            return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+         document.getElementById('countdown').textContent =
+    `${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos`;
+
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+function getNextSessionDateObject() {
+    const now = new Date();
+    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+
+    if (now >= targetDate) {
+        // Se já passou o horário de hoje, calcula para a próxima semana
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0) daysUntilNext = 7;  // Garante que seja a próxima semana
+        targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    } else {
+        // Se ainda não chegou o horário de hoje, mas é o mesmo dia
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0 && now < targetDate) {
+            // Continua com o horário de hoje
+        } else {
+            targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+        }
+    }
+
+    return targetDate;
+}
+
+
+function showEventClosed() {
+    // Esconde os outros blocos
+    document.getElementById('nameFormWrapper').style.display = "none";
+    document.getElementById('waitingMessage').style.display = "none";
+    document.getElementById('videoContainer').style.display = "none";
+    document.getElementById('chatContainer').style.display = "none";
+
+    // Mostra a mensagem de encerrado
+    document.getElementById('eventClosedMessage').style.display = "block";
+}
+
+
+
+function getNextWebinarDate() {
+    const now = new Date();
+    let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+
+    // Se hoje for domingo e já passou do horário, joga para o domingo da próxima semana
+    if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+        daysUntilNext = 7;
+    }
+
+    const nextWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    return nextWebinar;
+}
+
+
+
+function getLastWebinarDate() {
+    const now = new Date();
+    let daysSinceLast = (now.getDay() - configDay + 7) % 7;
+
+    // Se hoje for domingo mas ainda não chegou o horário, pega o domingo anterior
+    if (daysSinceLast === 0 && now.getHours() < configHour) {
+        daysSinceLast = 7;
+    }
+
+    const lastWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceLast, configHour, configMinute, 0);
+    return lastWebinar;
+}
+
+
+
+
+
+
+  // Função simples para transformar URLs em <a> clicáveis
+  function linkify(text) {
+    return text
+      // https:// ou http://
+      .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+      // www. algo
+      .replace(/\b(www\.[^\s]+)/g, '<a href="http://$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function addMessage(user, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    // aplicamos a linkify no text
+    const safeText = linkify(text);
+    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+  
+
+// Bloqueia pinça (touchmove com 2 dedos)
+document.addEventListener('touchmove', function(e) {
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// Bloqueia duplo-toque rápido
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+// Bloqueia gestos específicos no iOS
+document.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
+});
+
+
+
+// Bloqueia o menu de contexto (clique direito)
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Impede copiar/recortar/selecionar texto
+['copy','cut','selectstart','dragstart'].forEach(evt =>
+  document.addEventListener(evt, e => e.preventDefault())
+);
+
+// Bloqueia atalho Ctrl+C, Ctrl+U (ver fonte), Ctrl+S, Ctrl+P e F12
+document.addEventListener('keydown', e => {
+  const forbidden =
+    // combinações de Ctrl + C, U, S, P, A
+    (e.ctrlKey &&
+      ['c','u','s','p','a'].includes(e.key.toLowerCase()))
+    // F12
+    || e.key === 'F12';
+  if (forbidden) e.preventDefault();
+});
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+  <script>
+  let browserId = localStorage.getItem('webinarBrowserId');
+  if (!browserId) {
+    browserId = crypto.randomUUID();
+    localStorage.setItem('webinarBrowserId', browserId);
+  }
+
+  // 2️⃣ Se houve nome salvo, coloca em window.userName
+  const saved = localStorage.getItem('webinarUserName');
+  if (saved) window.userName = saved;
+
+  // 3️⃣ Conta tempo ativo na aba
+  let activeTime = 0, lastResume = Date.now();
+  const onResume = () => lastResume = Date.now();
+  const onPause  = () => activeTime += Date.now() - lastResume;
+  document.addEventListener('visibilitychange', () =>
+    document.hidden ? onPause() : onResume()
+  );
+  onResume();
+
+  // 4️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
+  const WEB_APP_URL =
+    'https://script.google.com/macros/s/AKfycbwi6P7EutyjPLIlhjprWsLiIbpBWPy9yMmaafFPkcWA1YwhktMvNN2l--S_2SASbyqlnA/exec';
+
+  // 5️⃣ Substitua a sua função saveUserName POR ESTA ÚNICA COPIA
+  function saveUserName() {
+    const name = document.getElementById('userNameInput').value.trim();
+    if (!name) return alert("Por favor, digite seu nome.");
+    window.userName = name;
+    localStorage.setItem('webinarUserName', name);
+    document.getElementById('nameFormWrapper').style.display = 'none';
+    // chama a sua lógica normal de startWebinar() ou showCountdown()
+    if (isWebinarTime()) startWebinar();
+    else nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+  }
+
+  // 6️⃣ Antes de sair/recarregar, dispara o tracker UMA ÚNICA VEZ
+  window.addEventListener('beforeunload', () => {
+    if (!document.hidden) onPause();
+    const params = new URLSearchParams({
+      browserId,
+      userName: window.userName || '',
+      activeTimeMs: activeTime
+    });
+    // beacon evita preflight e não bloqueia o unload
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
+    } else {
+      fetch(`${WEB_APP_URL}?${params}`, { method: 'GET' });
+    }
+  });
+</script>
+
+
+
 
 
 </body>
