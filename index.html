@@ -248,6 +248,20 @@
     box-sizing: border-box;
 }
 
+
+/* → evita seleção de texto e arrasto de imagens/links */
+html, body {
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
+}
+img, a {
+  -webkit-user-drag: none !important;
+      user-drag: none !important;
+}
+
+
     </style>
 </head>
 <body>
@@ -606,7 +620,29 @@ document.addEventListener('touchend', function(e) {
 document.addEventListener('gesturestart', function(e) {
   e.preventDefault();
 });
+
+
+
+// Bloqueia o menu de contexto (clique direito)
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Impede copiar/recortar/selecionar texto
+['copy','cut','selectstart','dragstart'].forEach(evt =>
+  document.addEventListener(evt, e => e.preventDefault())
+);
+
+// Bloqueia atalho Ctrl+C, Ctrl+U (ver fonte), Ctrl+S, Ctrl+P e F12
+document.addEventListener('keydown', e => {
+  const forbidden =
+    // combinações de Ctrl + C, U, S, P, A
+    (e.ctrlKey &&
+      ['c','u','s','p','a'].includes(e.key.toLowerCase()))
+    // F12
+    || e.key === 'F12';
+  if (forbidden) e.preventDefault();
+});
 </script>
+
 
 
 </body>
