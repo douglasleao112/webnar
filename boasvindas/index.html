@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>Venda Para Mais de 3% da Lista</title>
+  <style>
+    /* reset básico */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: Arial, sans-serif; color: #333; }
+
+    .container {
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    /* countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      font-size: 16px;
+    }
+    .countdown div {
+      flex: 1;
+    }
+    .countdown .value {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    /* botão pulsante */
+    .btn {
+      display: inline-block;
+      background-color: #77a116;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 6px;
+      margin: 16px 0;
+      animation: zoom 1.5s infinite alternate ease-in-out;
+    }
+    @keyframes zoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.1); }
+    }
+
+    /* lista de itens */
+    .features {
+      text-align: left;
+      margin: 24px 0;
+    }
+    .features li {
+      margin-bottom: 12px;
+      list-style: none;
+      padding-left: 24px;
+      position: relative;
+    }
+    .features li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #77a116;
+    }
+
+    /* foto circular */
+    .photo-wrapper {
+      margin: 32px 0;
+    }
+    .photo-wrapper img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* seção de autor */
+    .author {
+      text-align: left;
+      margin-bottom: 40px;
+    }
+    .author h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .author p {
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    footer {
+      font-size: 12px;
+      color: #888;
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- título -->
+    <h1>Venda Para Mais de 3% da Lista, no Automático</h1>
+    <p class="subtitle">(com tráfego frio, em menos de 30 dias)</p>
+
+    <!-- contador -->
+    <div class="countdown">
+      <div><div id="days"    class="value">0</div>dias</div>
+      <div><div id="hours"   class="value">0</div>horas</div>
+      <div><div id="minutes" class="value">0</div>minutos</div>
+      <div><div id="seconds" class="value">0</div>segundos</div>
+    </div>
+
+    <!-- botão CTA -->
+    <a class="btn" href="https://www.dougleao.com.br/webnar-start">INSCREVA-SE AGORA</a>
+
+    <!-- lista de benefícios -->
+    <ul class="features">
+      <li>Como criar receita constante e não depender de lançamentos para pagar as contas</li>
+      <li>O mecanismo por trás dos funis de webinários que convertem mais que lançamentos clássicos</li>
+      <li>O passo a passo dos webinários automatizados que vendem para mais de 3% da lista</li>
+      <li>Como implementar tudo em menos de 30 dias, com 100% de certeza de que terá lucro</li>
+    </ul>
+
+    <!-- foto do palestrante -->
+    <div class="photo-wrapper">
+      <img src="https://static.wixstatic.com/media/7f5efc_bbf3a41109cf4592b560de2bea041fbf~mv2.jpg"
+           >
+    </div>
+
+    <!-- seção Quem sou eu -->
+    <div class="author">
+      <h2>Quem sou eu “na fila do pão”?</h2>
+      <p>Meu nome é André Chaves, e eu fiz mais de 3 milhões de Reais com webinários automatizados só no nicho de Direito, e foquei exclusivamente em webinários automatizados desde 2021.</p>
+      <p>Fui o responsável pela criação de muitas outras operações de webinários automatizados que faturam múltiplos 7 dígitos ao ano.</p>
+      <p>E agora, você tem a chance de ver como você também pode ter uma operação de webinários – vendendo pra você o tempo todo.</p>
+      <p>Toque no botão abaixo, se inscreva e entre no nosso grupo do WhatsApp. É lá que você vai receber todas as informações e o link para o evento:</p>
+      <a class="btn" href="https://www.dougleao.com.br/webnar-start">INSCREVA-SE AGORA</a>
+    </div>
+
+    <footer>Copyright © 2025 Método VSE. Todos os Direitos Reservados.</footer>
+  </div>
+
+  <script>
+  /*************************************************************************
+   * CONFIGURAÇÃO:
+   * - Se quiser usar uma data fixa, preencha EVENT_DATETIME (ISO, ex: '2025-06-23T19:00:00')
+   * - Senão deixe EVENT_DATETIME = '' e ele usará DEFAULT_WEEKDAY/DEFAULT_HOUR/DEFAULT_MINUTE
+   *************************************************************************/
+  const EVENT_DATETIME = '';      // ex: '2025-06-23T19:00:00'
+  const DEFAULT_WEEKDAY = 1;      // 0=domingo,1=segunda,…6=sábado
+  const DEFAULT_HOUR    = 19;     // hora do evento
+  const DEFAULT_MINUTE  = 0;      // minuto do evento
+
+  /**
+   * Retorna um objeto Date:
+   *  • se EVENT_DATETIME não for vazio, usa essa data exata;
+   *  • senão, calcula o próximo DEFAULT_WEEKDAY às DEFAULT_HOUR:DEFAULT_MINUTE.
+   */
+  function getEventDateTime() {
+    if (EVENT_DATETIME) {
+      return new Date(EVENT_DATETIME);
+    }
+    const now = new Date();
+    // quantos dias até o DEFAULT_WEEKDAY
+    let daysUntil = (DEFAULT_WEEKDAY - now.getDay() + 7) % 7;
+    // cria a data candidata
+    const candidate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + daysUntil,
+      DEFAULT_HOUR,
+      DEFAULT_MINUTE,
+      0
+    );
+    // se hoje já for o mesmo dia mas o horário já passou, agenda pra próxima semana
+    if (daysUntil === 0 && now >= candidate) {
+      candidate.setDate(candidate.getDate() + 7);
+    }
+    return candidate;
+  }
+
+  // Data alvo do seu evento
+  const targetDate = getEventDateTime();
+
+  // Formata número com 2 dígitos
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  // Atualiza o contador na página (IDs: days, hours, minutes, seconds)
+  function updateCountdown() {
+    const now  = new Date();
+    let   diff = targetDate - now;
+    if (diff < 0) diff = 0;
+
+    const days    = Math.floor(diff / 86400000);
+    const hours   = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('days').textContent    = days;
+    document.getElementById('hours').textContent   = pad(hours);
+    document.getElementById('minutes').textContent = pad(minutes);
+    document.getElementById('seconds').textContent = pad(seconds);
+  }
+
+  // Inicia o timer
+  function startCountdown() {
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  window.addEventListener('load', startCountdown);
+</script>
+
+
+</body>
+</html>

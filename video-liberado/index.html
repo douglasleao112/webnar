@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Webinar Ao Vivo</title>
+    <title>Webinar Reprise</title>
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -331,6 +331,30 @@ img, a {
 }
 
 
+
+
+
+    /* 2) Desabilitar visualmente o chat */
+    #userMessage[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #sendButton[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+
+        /* 3) Header da reprise */
+    #replayHeader {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 20px 0;
+      display: none;  /* será mostrado via JS */
+    }
+
+    
     </style>
 </head>
 <body>
@@ -369,6 +393,15 @@ img, a {
 <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
 
     <div class="player-wrapper">
+
+
+         <video id="customVideo" controls preload="metadata" width="100%"
+           src="https://seu-servidor.com/gravacao.mp4">
+      Seu navegador não suporta vídeo HTML5.
+    </video>
+
+
+
         <video id="customVideo" preload="metadata" playsinline>
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
