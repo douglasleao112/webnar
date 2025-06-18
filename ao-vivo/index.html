@@ -540,8 +540,10 @@ function startWebinar() {
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
-    // ⏱️ PITCH BOTÃO OFERTA
-    const offerDelayMs = (webinarStart.getTime() + 10 * 1000) - now.getTime();
+
+    
+
+    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA
 
     if (offerDelayMs > 0) {
         // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
@@ -555,14 +557,7 @@ function startWebinar() {
 }
 
 
-
-
-
-
-
-
-
-    function checkProgrammedMessages() {
+   function checkProgrammedMessages() {
         const currentTime = video.currentTime;
         programmedMessages.forEach(msg => {
             if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
@@ -628,7 +623,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));   // TEMPO AO FINAL DA LIVE QUE FICA COMO ENCERRADO
 
     if (now < webinarStart) {
         showCountdown();
