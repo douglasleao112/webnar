@@ -752,38 +752,45 @@ function getLastWebinarDate() {
 
 
 
-
-
-
-
 <script>
-  // 1️⃣ Monte o query string
-  function enviarTracker(browserId, userName, activeTimeMs) {
-    const base = 'https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec';
-    const qs   = new URLSearchParams({
-      browserId:    browserId,
-      userName:     userName,
-      activeTimeMs: activeTimeMs
-    }).toString();
-
-    // 2️⃣ Dispare um GET (não dispara preflight)
-    fetch(`${base}?${qs}`, {
-      method: 'GET'
-    })
-    .then(res => res.text())
-    .then(txt => console.log('Tracker respondeu:', txt))
-    .catch(err => console.error('Erro no tracker:', err));
+  // 1) Gera ou recupera ID fixo
+  let browserId = localStorage.getItem('webinarBrowserId');
+  if (!browserId) {
+    browserId = crypto.randomUUID();
+    localStorage.setItem('webinarBrowserId', browserId);
   }
 
-  // Exemplo de uso:
+  // 2) Mede tempo ativo na aba
+  let activeTime = 0, lastResume = Date.now();
+  const onResume = () => lastResume = Date.now();
+  const onPause  = () => activeTime += Date.now() - lastResume;
+  document.addEventListener('visibilitychange', () =>
+    document.hidden ? onPause() : onResume()
+  );
+  onResume();
+
+  // 3) URL do seu Web App (deploy “Anyone, even anonymous”)
+  const WEB_APP_URL = 
+    'https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec';
+
+  // 4) Antes de sair da página, envia um GET simples (sem CORS issues)
   window.addEventListener('beforeunload', () => {
-    // finalize sua lógica de contagem de tempo antes
-    const browserId    = localStorage.getItem('webinarBrowserId');
-    const userName     = window.userName || '';
-    const activeTimeMs = /* sua variável de tempo ativo em ms */;
-    enviarTracker(browserId, userName, activeTimeMs);
+    if (!document.hidden) onPause();  // atualiza activeTime
+    const params = new URLSearchParams({
+      browserId,
+      userName: window.userName || '', // garanta que, no seu saveUserName(), você faça: window.userName = name;
+      activeTimeMs: activeTime
+    });
+    // sendBeacon funciona mesmo no beforeunload
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
+    } else {
+      // fallback
+      fetch(`${WEB_APP_URL}?${params}`, { method: 'GET' });
+    }
   });
 </script>
+
 
 
 
