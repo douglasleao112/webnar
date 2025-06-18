@@ -302,11 +302,13 @@
     </div>
 </div>
 
+
+
+
 <script>
-let webinarStartTimestamp = null;
     const configDay = 3;        
     const configHour = 3;       
-    const configMinute = 10;    
+    const configMinute = 4;    
     const durationMinutes = 29;  
 
     const video = document.getElementById('customVideo');
@@ -320,7 +322,7 @@ let webinarStartTimestamp = null;
     const videoDuration = durationMinutes * 60;
 
     const programmedMessages = [
-        { time: 20, name: "Juliana", text: "👍  mudou minha vida! www.google.com.br" },
+        { time: 20, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
         { time: 600, name: "Carlos", text: "Conteúdo incrível!" },
         { time: 1200, name: "Ana", text: "Valeu pela explicação!" }
     ];
@@ -348,56 +350,41 @@ let webinarStartTimestamp = null;
         return nextDate.toLocaleString('pt-BR');
     }
 
-  function startWebinar() {
-  // limpa chat
-  messages.innerHTML = "";
-  shownProgrammedMessages.clear();
+    function startWebinar() {
+        // ✅ Zera o chat
+        messages.innerHTML = "";
+        shownProgrammedMessages.clear();
 
-  // mostra containers
-  videoContainer.style.display = "block";
-  chatContainer.style.display = "block";
+        videoContainer.style.display = "block";
+        chatContainer.style.display = "block";
 
-  // calcula quantos segundos já se passaram desde o início oficial
-  const now = new Date();
-  const startTime = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    configHour,
-    configMinute,
-    0
-  );
-  webinarStartTimestamp = startTime.getTime();
+        const now = new Date();
+        const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+        const secondsSinceStart = Math.floor((now - startTime) / 1000);
 
-  // sincroniza o vídeo (se quiser)
-  const elapsedSinceStart = Math.floor((Date.now() - webinarStartTimestamp) / 1000);
-  if (elapsedSinceStart >= 0 && elapsedSinceStart <= videoDuration) {
-    video.currentTime = elapsedSinceStart;
-  }
+        if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+            video.currentTime = secondsSinceStart;
+        }
 
-  // ** Agendamento de comentários pelo relógio, não pelo video.currentTime **
-  setInterval(() => {
-    const elapsed = Math.floor((Date.now() - webinarStartTimestamp) / 1000);
-    programmedMessages.forEach(msg => {
-      if (elapsed >= msg.time && !shownProgrammedMessages.has(msg.time)) {
-        addMessage(msg.name, msg.text);
-        shownProgrammedMessages.add(msg.time);
-      }
-    });
-  }, 1000);
+        // ✅ Marcar mensagens anteriores como já enviadas
+        programmedMessages.forEach(msg => {
+            if (msg.time < secondsSinceStart) {
+                shownProgrammedMessages.add(msg.time);
+            }
+        });
 
-  // contador de “pessoas assistindo”
-  updateViewerCount();
-  viewerInterval = setInterval(updateViewerCount, 15000);
+        setInterval(checkProgrammedMessages, 1000);
+
+       const viewerElement = document.getElementById('viewerCounter');
+
+function updateViewerCount() {
+    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
+   viewerElement.innerHTML = <strong>${random}</strong> pessoas assistindo agora.;
 }
 
-	
-	
-	
-	
-	
-	
-	
+        updateViewerCount();
+        viewerInterval = setInterval(updateViewerCount, 15000);
+    }
 	
 	
 
@@ -414,7 +401,7 @@ let webinarStartTimestamp = null;
     function addMessage(user, text) {
         const div = document.createElement('div');
         div.className = 'chat-message';
-        div.innerHTML = `<strong>${user}:</strong> ${text}`;
+        div.innerHTML = <strong>${user}:</strong> ${text};
         messages.appendChild(div);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -448,7 +435,7 @@ let webinarStartTimestamp = null;
         if (isWebinarTime()) {
             startWebinar();
         } else {
-            nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+            nextSession.innerHTML = <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
         }
     } else {
         alert("Por favor, digite seu nome.");
@@ -503,7 +490,7 @@ function showCountdown() {
         const seconds = totalSeconds % 60;
 
         document.getElementById('countdown').innerHTML =
-    `<div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>`;
+    <div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>;
 
     }
 
@@ -590,13 +577,15 @@ function getLastWebinarDate() {
     div.className = 'chat-message';
     // aplicamos a linkify no text
     const safeText = linkify(text);
-    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+    div.innerHTML = <strong>${user}:</strong> ${safeText};
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
 
 
 </script>
+
+
 
 </body>
 </html>
