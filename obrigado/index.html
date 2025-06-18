@@ -50,10 +50,6 @@
       box-sizing: border-box;
     }
 
-    @keyframes zoom {
-      from { transform: scale(1); }
-      to { transform: scale(1.1); }
-    }
 
     @media (max-width: 480px) {
       h1, h2 {
@@ -72,6 +68,25 @@
         padding: 12px;
       }
     }
+
+      /* Barra de progresso no topo */
+  #loadingBarContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #e0e0e0;
+    z-index: 9999;
+  }
+
+  #loadingBar {
+    height: 100%;
+    width: 0%;
+    background-color: #22c55e;
+    transition: width 3s linear;
+  }
+
   </style>
   <script>
     setTimeout(function() {
@@ -80,6 +95,12 @@
   </script>
 </head>
 <body>
+
+    <div id="loadingBarContainer">
+  <div id="loadingBar"></div>
+</div>
+
+
   <div class="container">
     <h2>Quase lá!</h2>
     <p>Já reservamos um lugar pra você no evento, mas <span class="highlight">falta um passo</span> pra você participar:</p>
@@ -88,5 +109,18 @@
 
     <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE">Entrar no grupo do WhatsApp</a>
   </div>
+
+  <script>
+  window.addEventListener('load', function() {
+    const bar = document.getElementById('loadingBar');
+    
+    // Faz a barra crescer até 90% em 3 segundos
+    setTimeout(function() {
+      bar.style.width = '90%';
+    }, 50);
+  });
+</script>
+
+
 </body>
 </html>
