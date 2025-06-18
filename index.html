@@ -269,13 +269,19 @@ img, a {
 }
 
 #eventClosedMessage {
-  height: 100vh;               /* ocupa toda a altura da viewport */
-  display: flex;               /* ativa o flexbox */
-  align-items: center;         /* centraliza verticalmente */
-  justify-content: center;     /* centraliza horizontalmente */
+  position: fixed;      /* fixa sobre a viewport inteira */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;        /* inicialmente escondido */
+  align-items: center;  /* centraliza verticalmente */
+  justify-content: center; /* centraliza horizontalmente */
+  background: #fff;     /* você pode querer um fundo branco */
   text-align: center;
-  padding: 20px;
   box-sizing: border-box;
+  padding: 20px;
+  z-index: 9999;        /* por cima de tudo */
 }
 
 #eventClosedMessage h2 {
