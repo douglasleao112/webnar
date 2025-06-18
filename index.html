@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webinar Ao Vivo</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        #videoContainer, #chatContainer, #nameForm {
+            display: none;
+            margin: 20px auto;
+            max-width: 480px;
+            width: 100%;
+        }
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        #customVideo {
+            width: 100%;
+            display: block;
+        }
+        #videoClickOverlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            cursor: pointer;
+            z-index: 3;
+        }
+        #playButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0);
+            color: white;
+            font-size: 24px;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 4;
+        }
+        /* Chat Layout */
+        #chatContainer {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .chat-message {
+            background: #f1f3f5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #333;
+        }
+        .chat-message strong {
+            color: #365899;
+            display: block;
+            margin-bottom: 4px;
+        }
+        #chatInputArea {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 6px 10px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        #userMessage {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 6px 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+        #sendButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 6px;
+            width: 40px;
+            height: 40px;
+        }
+        #sendButton img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+#chatContainer h3 {
+    font-size: 13px;      /* ✅ Tamanho menor */
+    font-weight: bold;
+    color: #333;
+	margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+
+        /* Formulário de Nome */
+        #nameForm {
+            display: none;
+            max-width: 400px;
+            width: 100%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        #nameForm img.logo {
+            width: 120px;
+            margin-bottom: 12px;
+        }
+        #nameForm h3 {
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #nameForm p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        #nameForm input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        #nameForm button {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #nameForm .link {
+            display: block;
+            margin-top: 12px;
+            color: #007BFF;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        #nameForm .link:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            #chatContainer, #nameForm, #videoContainer {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+            #chatInputArea {
+                flex-wrap: wrap;
+            }
+        }
+		
+            #viewerCounter {
+            font-size: 12px;       /* ✅ Diminui o tamanho */
+            color: #555;            /* ✅ Deixa mais discreto */
+            margin-top: 8px;
+            }
+            #viewerCounter strong {
+            color: red;             /* ✅ Mantém o número em destaque */
+            font-size: 12px;
+            }
+
+
+    </style>
+</head>
+<body>
+
+
+
+<div id="nameForm">
+    <img class="logo" src="https://static.wixstatic.com/media/7f5efc_5c6a0eddee8742e18e264e69702e837e~mv2.png" alt="Método VSE">
+    <h3>Como Criar um Funil de Webinários Automatizados de Alta Conversão</h3>
+    <p>Por favor, entre no webinar utilizando o mesmo nome que você informou na inscrição.</p>
+    <input type="text" id="userNameInput" placeholder="Seu nome...">
+    <button onclick="saveUserName()">ENTRAR</button>
+    <a href="#" class="link">Ou, clique aqui para se inscrever neste webinário agora.</a>
+</div>
+
+
+
+<div id="nextSession"></div>
+
+<div id="videoContainer">
+
+
+
+
+    <div class="player-wrapper">
+        <video id="customVideo" preload="metadata" playsinline poster="https://static.wixstatic.com/media/7f5efc_959fc9416ee3458fafb3435f37b5d83e~mv2.gif">
+            <source src="https://video.wixstatic.com/video/7f5efc_30c5d2bb3aae47db9d86a26715567d08/480p/mp4/file.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div id="videoClickOverlay"></div>
+        <button id="playButton">▶</button>
+    </div>
+
+    <!-- ✅ Contador de pessoas assistindo logo abaixo do vídeo -->
+    <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
+</div>
+
+<div id="chatContainer">
+    <h3>Chat</h3>
+    <div id="messages"></div>
+
+    <div id="chatInputArea">
+        <input type="text" id="userMessage" placeholder="Escreva sua mensagem...">
+        <button id="sendButton" onclick="sendMessage()">
+    <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
+</button>
+    </div>
+</div>
+
+<script>
+    const configDay = 3;        
+    const configHour = 2;       
+    const configMinute = 57;    
+    const durationMinutes = 29;  
+
+    const video = document.getElementById('customVideo');
+    const playButton = document.getElementById('playButton');
+    const overlay = document.getElementById('videoClickOverlay');
+    const videoContainer = document.getElementById('videoContainer');
+    const chatContainer = document.getElementById('chatContainer');
+    const messages = document.getElementById('messages');
+    const nextSession = document.getElementById('nextSession');
+    const nameForm = document.getElementById('nameForm');
+    const videoDuration = durationMinutes * 60;
+
+    const programmedMessages = [
+        { time: 10, name: "Juliana", text: "Isso mudou minha vida!" },
+        { time: 600, name: "Carlos", text: "Conteúdo incrível!" },
+        { time: 1200, name: "Ana", text: "Valeu pela explicação!" }
+    ];
+
+    let shownProgrammedMessages = new Set();
+    let videoJaIniciado = false;
+    let viewerInterval;
+    let userName = "";
+
+    function isWebinarTime() {
+        const now = new Date();
+        const day = now.getDay();
+        const webinarStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+        const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
+        return day === configDay && now >= webinarStart && now <= webinarEnd;
+    }
+
+    function getNextSessionDate() {
+        const now = new Date();
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+            daysUntilNext = 7;
+        }
+        const nextDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+        return nextDate.toLocaleString('pt-BR');
+    }
+
+    function startWebinar() {
+        // ✅ Zera o chat
+        messages.innerHTML = "";
+        shownProgrammedMessages.clear();
+
+        videoContainer.style.display = "block";
+        chatContainer.style.display = "block";
+
+        const now = new Date();
+        const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+        const secondsSinceStart = Math.floor((now - startTime) / 1000);
+
+        if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+            video.currentTime = secondsSinceStart;
+        }
+
+        // ✅ Marcar mensagens anteriores como já enviadas
+        programmedMessages.forEach(msg => {
+            if (msg.time < secondsSinceStart) {
+                shownProgrammedMessages.add(msg.time);
+            }
+        });
+
+        setInterval(checkProgrammedMessages, 1000);
+
+       const viewerElement = document.getElementById('viewerCounter');
+
+function updateViewerCount() {
+    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
+    viewerElement.innerHTML = <strong>${random}</strong> pessoas assistindo agora.;
+}
+
+        updateViewerCount();
+        viewerInterval = setInterval(updateViewerCount, 15000);
+    }
+	
+	
+
+    function checkProgrammedMessages() {
+        const currentTime = video.currentTime;
+        programmedMessages.forEach(msg => {
+            if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
+                addMessage(msg.name, msg.text);
+                shownProgrammedMessages.add(msg.time);
+            }
+        });
+    }
+
+    function addMessage(user, text) {
+        const div = document.createElement('div');
+        div.className = 'chat-message';
+        div.innerHTML = <strong>${user}:</strong> ${text};
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('userMessage');
+        const text = input.value.trim();
+        if (text) {
+            addMessage(userName, text);
+            input.value = '';
+        }
+    }
+
+    function iniciarVideo() {
+        if (videoJaIniciado) return;
+        videoJaIniciado = true;
+        playButton.style.display = 'none';
+        overlay.style.display = 'none';
+        video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
+    }
+
+    function saveUserName() {
+        const nameInput = document.getElementById('userNameInput');
+        const name = nameInput.value.trim();
+        if (name.length > 0) {
+            userName = name;
+            nameForm.style.display = "none";
+            if (isWebinarTime()) {
+                startWebinar();
+            } else {
+                nextSession.innerHTML = <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
+            }
+        } else {
+            alert("Por favor, digite seu nome.");
+        }
+    }
+
+    playButton.addEventListener('click', iniciarVideo);
+    overlay.addEventListener('click', iniciarVideo);
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+   window.onload = function() {
+    if (isWebinarTime()) {
+        nameForm.style.display = "block";
+    } else {
+        nextSession.innerHTML = <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
+    }
+};
+</script>
+
+</body>
+</html>
