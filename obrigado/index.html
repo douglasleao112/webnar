@@ -84,7 +84,7 @@
     height: 100%;
     width: 0%;
     background-color: #22c55e;
-    transition: width 3s linear;
+    transition: width 30s linear;  /* ⬅️ Tempo da animação ajustado para 30 segundos */
   }
 
   </style>
@@ -114,9 +114,9 @@
   window.addEventListener('load', function() {
     const bar = document.getElementById('loadingBar');
     
-    // Faz a barra crescer até 90% em 3 segundos
+    // Faz a barra crescer até o final no tempo determinado
     setTimeout(function() {
-      bar.style.width = '90%';
+      bar.style.width = '100%';
     }, 50);
   });
 </script>
