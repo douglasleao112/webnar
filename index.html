@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webinar Ao Vivo</title>
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
@@ -64,7 +67,7 @@
             padding: 8px 12px;
             border-radius: 8px;
             margin-bottom: 8px;
-            font-size: 14px;
+            font-size: 12px;
             color: #333;
         }
         .chat-message strong {
@@ -72,23 +75,24 @@
             display: block;
             margin-bottom: 4px;
         }
-  #chatInputArea {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 6px 10px;
-    box-sizing: border-box;
-    width: 100%;
-}
-#userMessage {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 6px 10px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
+        #chatInputArea {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 6px 10px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        #userMessage {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 6px 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
         #sendButton {
             background: none;
             border: none;
@@ -103,6 +107,14 @@
             height: 60%;
             object-fit: contain;
         }
+#chatContainer h3 {
+    font-size: 13px;      /* ✅ Tamanho menor */
+    font-weight: bold;
+    color: #333;
+	margin-top: 4px;
+    margin-bottom: 10px;
+}
+
 
         /* Formulário de Nome */
         #nameForm {
@@ -122,7 +134,7 @@
         }
         #nameForm h3 {
             color: #000;
-            font-size: 18px;
+            font-size: 14px;
             margin-bottom: 10px;
             font-weight: bold;
         }
@@ -161,22 +173,74 @@
             text-decoration: underline;
         }
 
-        /* Mobile fix extra */
-        @media (max-width: 480px) {
+        /* Mobile Fixes */
+        @media (max-width: 500px) {
             body {
                 padding: 10px;
             }
-            #nameForm {
-                padding: 15px;
+            #chatContainer, #nameForm, #videoContainer {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+            #chatInputArea {
+                flex-wrap: wrap;
             }
         }
 		
+            #viewerCounter {
+            font-size: 12px;       /* ✅ Diminui o tamanho */
+            color: #555;            /* ✅ Deixa mais discreto */
+            margin-top: 8px;
+            }
+            #viewerCounter strong {
+            color: red;             /* ✅ Mantém o número em destaque */
+            font-size: 12px;
+            }
+#waitingMessage {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#waitingMessage h2 {
+    color: #000;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#waitingMessage p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#countdown {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#nameFormWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
     </style>
 </head>
 <body>
 
 
-
+<div id="nameFormWrapper">
 <div id="nameForm">
     <img class="logo" src="https://static.wixstatic.com/media/7f5efc_5c6a0eddee8742e18e264e69702e837e~mv2.png" alt="Método VSE">
     <h3>Como Criar um Funil de Webinários Automatizados de Alta Conversão</h3>
@@ -185,10 +249,20 @@
     <button onclick="saveUserName()">ENTRAR</button>
     <a href="#" class="link">Ou, clique aqui para se inscrever neste webinário agora.</a>
 </div>
+</div>
 
 
 
 <div id="nextSession"></div>
+
+
+<div id="waitingMessage" style="display:none;">
+    <h2>Quase lá!</h2>
+    <p>Está quase na hora! Aguarde, nosso evento começa em breve!</p>
+    <div id="countdown"></div>
+</div>
+
+
 
 <div id="videoContainer">
 
@@ -222,8 +296,8 @@
 
 <script>
     const configDay = 3;        
-    const configHour = 1;       
-    const configMinute = 57;    
+    const configHour = 2;       
+    const configMinute = 13;    
     const durationMinutes = 29;  
 
     const video = document.getElementById('customVideo');
@@ -293,13 +367,15 @@
        const viewerElement = document.getElementById('viewerCounter');
 
 function updateViewerCount() {
-    const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;
+    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
     viewerElement.innerHTML = <strong>${random}</strong> pessoas assistindo agora.;
 }
 
         updateViewerCount();
-        viewerInterval = setInterval(updateViewerCount, 5000);
+        viewerInterval = setInterval(updateViewerCount, 15000);
     }
+	
+	
 
     function checkProgrammedMessages() {
         const currentTime = video.currentTime;
@@ -359,9 +435,72 @@ function updateViewerCount() {
         e.preventDefault();
     });
 
-    window.onload = function() {
+window.onload = function() {
+    const now = new Date();
+    const webinarStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+    const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));  // +22 horas depois do fim
+
+    if (now < webinarStart) {
+        showCountdown();
+    } else if (now >= webinarStart && now <= webinarEnd) {
         nameForm.style.display = "block";
-    };
+    } else if (now > webinarEnd && now <= encerramentoEnd) {
+        showEventClosed();
+    } else {
+        showCountdown();
+    }
+};
+
+
+
+function showCountdown() {
+    const waitingDiv = document.getElementById('waitingMessage');
+    waitingDiv.style.display = "block";
+
+    const targetDate = getNextSessionDateObject();
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            location.reload();  // Quando chega o horário, recarrega a página
+            return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        document.getElementById('countdown').innerHTML =
+            <div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+function getNextSessionDateObject() {
+    const now = new Date();
+    let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+    if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+        daysUntilNext = 7;
+    }
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+}
+
+
+function showEventClosed() {
+    document.body.innerHTML = 
+        <div style="display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; font-family: Arial, sans-serif;">
+            <h2>Evento Encerrado.</h2>
+        </div>
+    ;
+}
+
 </script>
 
 </body>
