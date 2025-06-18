@@ -279,6 +279,46 @@ img, a {
 }
 
 
+#offerSection .price-old {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+#offerSection .price-old span {
+  text-decoration: line-through;
+  color: #999;
+}
+
+#offerSection .price-new {
+  color: #28a745;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+#offerSection button {
+  background-color: #ff7d00; /* laranja vibrante */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 8px;
+}
+
+#offerSection button:hover {
+  opacity: 0.9;
+}
+
+#offerSection .discount-note {
+  color: #333;
+  font-size: 12px;
+}
+
+
     </style>
 </head>
 <body>
@@ -313,6 +353,9 @@ img, a {
 
 <div id="videoContainer">
 
+ <!-- ✅ Contador de pessoas assistindo logo abaixo do vídeo -->
+<div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
+
     <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline poster="https://static.wixstatic.com/media/7f5efc_959fc9416ee3458fafb3435f37b5d83e~mv2.gif">
             <source src="https://video.wixstatic.com/video/7f5efc_30c5d2bb3aae47db9d86a26715567d08/480p/mp4/file.mp4" type="video/mp4">
@@ -322,9 +365,26 @@ img, a {
         <button id="playButton">▶</button>
     </div>
 
-    <!-- ✅ Contador de pessoas assistindo logo abaixo do vídeo -->
-    <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
+    
 </div>
+
+
+
+<!-- Oferta especial, inicialmente escondida -->
+<div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
+  <div class="price-old">
+    Normalmente custa: <span>R$ 500</span>
+  </div>
+  <div class="price-new">
+    Somente agora: <span>R$ 27,90 Pagamento Único</span>
+  </div>
+  <button id="offerButton">Acessar os Segredos Ocultos de Adão e Eva</button>
+  <div class="discount-note">
+    APROVEITE AGORA: 90% de desconto.
+  </div>
+</div>
+
+
 
 <div id="chatContainer">
     <h3>Chat</h3>
@@ -417,6 +477,10 @@ function updateViewerCount() {
 
         updateViewerCount();
         viewerInterval = setInterval(updateViewerCount, 15000);
+
+          setTimeout(() => {
+    document.getElementById('offerSection').style.display = 'block';
+  }, 10 * 1000); // tempo botão do pitch
     }
 	
 	
