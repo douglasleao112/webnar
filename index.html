@@ -302,13 +302,10 @@
     </div>
 </div>
 
-
-
-
 <script>
     const configDay = 3;        
     const configHour = 3;       
-    const configMinute = 4;    
+    const configMinute = 2;    
     const durationMinutes = 29;  
 
     const video = document.getElementById('customVideo');
@@ -379,7 +376,7 @@
 
 function updateViewerCount() {
     const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
-   viewerElement.innerHTML = <strong>${random}</strong> pessoas assistindo agora.;
+   viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
 }
 
         updateViewerCount();
@@ -401,7 +398,7 @@ function updateViewerCount() {
     function addMessage(user, text) {
         const div = document.createElement('div');
         div.className = 'chat-message';
-        div.innerHTML = <strong>${user}:</strong> ${text};
+        div.innerHTML = `<strong>${user}:</strong> ${text}`;
         messages.appendChild(div);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -435,7 +432,7 @@ function updateViewerCount() {
         if (isWebinarTime()) {
             startWebinar();
         } else {
-            nextSession.innerHTML = <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
+            nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
         }
     } else {
         alert("Por favor, digite seu nome.");
@@ -490,7 +487,7 @@ function showCountdown() {
         const seconds = totalSeconds % 60;
 
         document.getElementById('countdown').innerHTML =
-    <div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>;
+    `<div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>`;
 
     }
 
@@ -577,15 +574,13 @@ function getLastWebinarDate() {
     div.className = 'chat-message';
     // aplicamos a linkify no text
     const safeText = linkify(text);
-    div.innerHTML = <strong>${user}:</strong> ${safeText};
+    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
 
 
 </script>
-
-
 
 </body>
 </html>
