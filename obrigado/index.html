@@ -71,6 +71,26 @@
         padding: 12px;
       }
     }
+
+        /* lista de itens */
+    .features {
+      text-align: left;
+      margin: 24px 0;
+    }
+    .features li {
+      margin-bottom: 12px;
+      list-style: none;
+      padding-left: 24px;
+      position: relative;
+    }
+    .features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #77a116;
+    }
+
+
   </style>
   <script>
     setTimeout(function() {
@@ -79,17 +99,21 @@
   </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Quase lá!</h1>
-    <p>Já reservamos um lugar pra você no evento, mas <span class="highlight">falta um passo</span> pra você participar:</p>
 
-    <p>Em alguns instantes, você deve ser redirecionado para o nosso <span class="highlight">grupo de WhatsApp</span></p>
 
-    <p><span class="highlight">(é lá que vamos enviar todas as informações e o link do evento)</span></p>
+    <!-- lista de benefícios -->
+    <ul class="features">
+       <center> <h2>Quase lá!</h2><br></center>
+      <p>Já reservamos um lugar pra você no evento, mas <span class="highlight">falta um passo</span> pra você participar:</p>
+      <p>Em alguns instantes, você deve ser redirecionado para o nosso <span class="highlight">grupo de WhatsApp</span></p>
+       <p><span class="highlight">(é lá que vamos enviar todas as informações e o link do evento)</span></p>
+     
+    </ul><br>
+ <!-- botão CTA -->
+    <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE"  style="padding: 18px 56px;">Entrar no grupo do WhatsApp</a>
+ <p style="margin-top: 20px;">Se você não for redirecionado, <span class="highlight">clique no botão acima e entre no grupo.</span></p>
 
-    <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE">Entrar no grupo do WhatsApp</a>
 
-    <p style="margin-top: 20px;">Se você não for redirecionado, <span class="highlight">clique no botão acima e entre no grupo.</span></p>
-  </div>
+
 </body>
 </html>
