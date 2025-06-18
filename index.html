@@ -479,45 +479,57 @@ img, a {
         return nextDate.toLocaleString('pt-BR');
     }
 
-    function startWebinar() {
-        // ✅ Zera o chat
-        messages.innerHTML = "";
-        shownProgrammedMessages.clear();
+ function startWebinar() {
+    // ✅ Zera o chat
+    messages.innerHTML = "";
+    shownProgrammedMessages.clear();
 
-        videoContainer.style.display = "block";
-        chatContainer.style.display = "block";
+    // mostra vídeo e chat
+    videoContainer.style.display = "block";
+    chatContainer.style.display = "block";
 
-        const now = new Date();
-        const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
-        const secondsSinceStart = Math.floor((now - startTime) / 1000);
+    // calcula há quantos segundos a live já está rodando
+    const now = new Date();
+    const webinarStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        configHour,
+        configMinute,
+        0
+    );
+    const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
 
-        if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
-            video.currentTime = secondsSinceStart;
+    // sincroniza o vídeo
+    if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+        video.currentTime = secondsSinceStart;
+    }
+
+    // já marca como "enviadas" as mensagens que deveriam ter aparecido antes
+    programmedMessages.forEach(msg => {
+        if (msg.time < secondsSinceStart) {
+            shownProgrammedMessages.add(msg.time);
         }
+    });
 
-        // ✅ Marcar mensagens anteriores como já enviadas
-        programmedMessages.forEach(msg => {
-            if (msg.time < secondsSinceStart) {
-                shownProgrammedMessages.add(msg.time);
-            }
-        });
+    // dispara a checagem de mensagens programadas
+    setInterval(checkProgrammedMessages, 1000);
 
-        setInterval(checkProgrammedMessages, 1000);
+    // contador de “pessoas assistindo”
+    const viewerElement = document.getElementById('viewerCounter');
+    function updateViewerCount() {
+        const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
+        viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
+    }
+    updateViewerCount();
+    viewerInterval = setInterval(updateViewerCount, 15000);
 
-       const viewerElement = document.getElementById('viewerCounter');
-
-function updateViewerCount() {
-    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
-   viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
+    // ⏱️ agenda a exibição da oferta 1240s (20m40s) depois do início
+    setTimeout(() => {
+        document.getElementById('offerSection').style.display = 'block';
+    }, 1240 * 1000);
 }
 
-        updateViewerCount();
-        viewerInterval = setInterval(updateViewerCount, 15000);
-
-          setTimeout(() => {
-    document.getElementById('offerSection').style.display = 'block';
-  }, 10 * 1000); // tempo botão do pitch
-    }
 	
 	
 
