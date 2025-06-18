@@ -494,7 +494,7 @@ function startWebinar() {
     videoContainer.style.display = "block";
     chatContainer.style.display = "block";
 
-    // calcula há quantos segundos a live já está rodando
+    // instante "oficial" de início do webinar (hoje às configHour:configMinute)
     const now = new Date();
     const webinarStart = new Date(
         now.getFullYear(),
@@ -504,6 +504,8 @@ function startWebinar() {
         configMinute,
         0
     );
+
+    // calcula há quantos segundos a live já está rodando
     const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
 
     // sincroniza o vídeo
@@ -518,7 +520,7 @@ function startWebinar() {
         }
     });
 
-    // dispara a checagem de mensagens programadas
+    // dispara a checagem de mensagens programadas a cada segundo
     setInterval(checkProgrammedMessages, 1000);
 
     // contador de “pessoas assistindo”
@@ -530,11 +532,20 @@ function startWebinar() {
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
-    // ⏱️ agenda a exibição da oferta 1240s (20m40s) depois do início
-    setTimeout(() => {
+    // ⏱️ Agendamento da oferta: 1240 s (20 min 40 s) após webinarStart
+    const offerDelayMs = (webinarStart.getTime() + 1240 * 1000) - now.getTime();
+
+    if (offerDelayMs > 0) {
+        // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
+        setTimeout(() => {
+            document.getElementById('offerSection').style.display = 'block';
+        }, offerDelayMs);
+    } else {
+        // se já passou do ponto de 1240 s, exibe imediatamente
         document.getElementById('offerSection').style.display = 'block';
-    }, 1240 * 1000);
+    }
 }
+
 
 
 
