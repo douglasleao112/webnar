@@ -437,7 +437,7 @@ img, a {
 <script>
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 4;       
-    const configMinute = 3;    
+    const configMinute = 20;    
     const durationMinutes = 29;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -479,56 +479,61 @@ img, a {
         return nextDate.toLocaleString('pt-BR');
     }
 
- function startWebinar() {
-    // ✅ Zera o chat
+function startWebinar() {
+    // limpa o chat e zera mensagens programadas
     messages.innerHTML = "";
     shownProgrammedMessages.clear();
 
-    // mostra vídeo e chat
+    // exibe vídeo e chat
     videoContainer.style.display = "block";
     chatContainer.style.display = "block";
 
-    // calcula há quantos segundos a live já está rodando
-    const now = new Date();
-    const webinarStart = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        configHour,
-        configMinute,
-        0
-    );
-    const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
+    // calcula timestamps
+    const now = Date.now();
+    const today = new Date();
+    const webinarStartTime = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+      configHour,
+      configMinute,
+      0
+    ).getTime();
+    const elapsedSeconds = Math.floor((now - webinarStartTime) / 1000);
 
-    // sincroniza o vídeo
-    if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
-        video.currentTime = secondsSinceStart;
+    // sincroniza o vídeo com o tempo decorrido
+    if (elapsedSeconds >= 0 && elapsedSeconds <= videoDuration) {
+      video.currentTime = elapsedSeconds;
     }
 
-    // já marca como "enviadas" as mensagens que deveriam ter aparecido antes
+    // marca mensagens programadas já “passadas”
     programmedMessages.forEach(msg => {
-        if (msg.time < secondsSinceStart) {
-            shownProgrammedMessages.add(msg.time);
-        }
+      if (msg.time < elapsedSeconds) {
+        shownProgrammedMessages.add(msg.time);
+      }
     });
 
-    // dispara a checagem de mensagens programadas
+    // dispara checagem de mensagens a cada segundo
     setInterval(checkProgrammedMessages, 1000);
 
-    // contador de “pessoas assistindo”
-    const viewerElement = document.getElementById('viewerCounter');
-    function updateViewerCount() {
-        const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
-        viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
-    }
+    // dispara contador de espectadores
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
-    // ⏱️ agenda a exibição da oferta 1240s (20m40s) depois do início
-    setTimeout(() => {
-        document.getElementById('offerSection').style.display = 'block';
-    }, 1240 * 1000);
-}
+    // ===== Agendamento da oferta especial =====
+    const OFFER_TIME = 30; // PTICH em segundos após o início oficial
+    const offerSection = document.getElementById('offerSection');
+
+    if (elapsedSeconds >= OFFER_TIME) {
+      // se já passou do momento, mostra imediatamente
+      offerSection.style.display = 'block';
+    } else {
+      // se ainda não, agenda para o instante correto
+      setTimeout(() => {
+        offerSection.style.display = 'block';
+      }, (OFFER_TIME - elapsedSeconds) * 1000);
+    }
+  }
 
 	
 	
