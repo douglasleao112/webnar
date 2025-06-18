@@ -369,17 +369,14 @@ img, a {
 </div>
 
 
-
-
-
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 22px; color: #555;">
     Normalmente custa: <span style="text-decoration: line-through; color: red;">R$ 500</span>
   </div>
    <div style="font-size: 20px; color: #000;">
-    Somente agora: <span style="color: #28a745; font-weight: bold;">R$ 27,90 Pagamento Único </span>
-  </div>
+    Apenas: <span style="color: #28a745; font-weight: bold;">R$ 27,90</span>
+  </div><br>
     
   <a href="https://sun.eduzz.com/6W48VYYN0Z" style="
      display: block;
@@ -533,7 +530,7 @@ function startWebinar() {
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
-    // ⏱️ Agendamento da oferta: 1240 s (20 min 40 s) após webinarStart
+    // ⏱️ PITCH BOTÃO OFERTA
     const offerDelayMs = (webinarStart.getTime() + 10 * 1000) - now.getTime();
 
     if (offerDelayMs > 0) {
