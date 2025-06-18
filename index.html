@@ -10,7 +10,7 @@
         }
         body {
             font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            background: #ffffff;
             margin: 0;
             padding: 20px;
         }
@@ -199,14 +199,22 @@
             color: red;             /* ✅ Mantém o número em destaque */
             font-size: 12px;
             }
+            
 #waitingMessage {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* mantêm largura e estilo anteriores */
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  /* remova margens verticais que conflitem */
+  margin: 0;
 }
 
 #waitingMessage h2 {
@@ -262,12 +270,12 @@
     <div id="countdown"></div>
 </div>
 
+<div id="eventClosedMessage" style="display:none; text-align:center; padding:40px; font-family: Arial, sans-serif;">
+    <h2>Evento Encerrado.</h2>
+</div>
 
 
 <div id="videoContainer">
-
-
-
 
     <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline poster="https://static.wixstatic.com/media/7f5efc_959fc9416ee3458fafb3435f37b5d83e~mv2.gif">
@@ -295,9 +303,9 @@
 </div>
 
 <script>
-    const configDay = 3;        
-    const configHour = 2;       
-    const configMinute = 13;    
+    const configDay = 0;        
+    const configHour = 19;       
+    const configMinute = 00;    
     const durationMinutes = 29;  
 
     const video = document.getElementById('customVideo');
@@ -440,9 +448,10 @@ function updateViewerCount() {
 
 window.onload = function() {
     const now = new Date();
-    const webinarStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+    const lastWebinar = getLastWebinarDate();
+    const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));  // +22 horas depois do fim
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));
 
     if (now < webinarStart) {
         showCountdown();
@@ -456,12 +465,11 @@ window.onload = function() {
 };
 
 
-
 function showCountdown() {
     const waitingDiv = document.getElementById('waitingMessage');
     waitingDiv.style.display = "block";
 
-    const targetDate = getNextSessionDateObject();
+    const targetDate = getNextWebinarDate();
 
     function updateCountdown() {
         const now = new Date();
@@ -489,21 +497,69 @@ function showCountdown() {
 
 function getNextSessionDateObject() {
     const now = new Date();
-    let daysUntilNext = (configDay - now.getDay() + 7) % 7;
-    if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
-        daysUntilNext = 7;
+    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+
+    if (now >= targetDate) {
+        // Se já passou o horário de hoje, calcula para a próxima semana
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0) daysUntilNext = 7;  // Garante que seja a próxima semana
+        targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    } else {
+        // Se ainda não chegou o horário de hoje, mas é o mesmo dia
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0 && now < targetDate) {
+            // Continua com o horário de hoje
+        } else {
+            targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+        }
     }
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+
+    return targetDate;
 }
 
 
 function showEventClosed() {
-    document.body.innerHTML = `
-    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; font-family: Arial, sans-serif;">
-        <h2>Evento Encerrado.</h2>
-    </div>
-`;
+    // Esconde os outros blocos
+    document.getElementById('nameFormWrapper').style.display = "none";
+    document.getElementById('waitingMessage').style.display = "none";
+    document.getElementById('videoContainer').style.display = "none";
+    document.getElementById('chatContainer').style.display = "none";
+
+    // Mostra a mensagem de encerrado
+    document.getElementById('eventClosedMessage').style.display = "block";
 }
+
+
+
+function getNextWebinarDate() {
+    const now = new Date();
+    let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+
+    // Se hoje for domingo e já passou do horário, joga para o domingo da próxima semana
+    if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+        daysUntilNext = 7;
+    }
+
+    const nextWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    return nextWebinar;
+}
+
+
+
+function getLastWebinarDate() {
+    const now = new Date();
+    let daysSinceLast = (now.getDay() - configDay + 7) % 7;
+
+    // Se hoje for domingo mas ainda não chegou o horário, pega o domingo anterior
+    if (daysSinceLast === 0 && now.getHours() < configHour) {
+        daysSinceLast = 7;
+    }
+
+    const lastWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceLast, configHour, configMinute, 0);
+    return lastWebinar;
+}
+
+
 
 </script>
 
