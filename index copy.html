@@ -40,35 +40,21 @@
             cursor: pointer;
             z-index: 3;
         }
-/* botão centralizado e com imagem de play */
-#playButton {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  transform: translate(-50%, -50%) scale(1);
-  background: url('https://i.imgur.com/cqJEtmF.png') center/contain no-repeat;
-  border: none;
-  cursor: pointer;
-  z-index: 4;
-
-  /* animação de pulso */
-  animation: pulse 1.5s infinite ease-in-out;
-}
-
-/* keyframes para “pulsar” */
-@keyframes pulse {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
+        #playButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0);
+            color: white;
+            font-size: 24px;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 4;
+        }
         /* Chat Layout */
         #chatContainer {
             background: #fff;
@@ -371,12 +357,12 @@ img, a {
 <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
 
     <div class="player-wrapper">
-        <video id="customVideo" preload="metadata" playsinline>
+        <video id="customVideo" preload="metadata" playsinline poster="https://static.wixstatic.com/media/7f5efc_103c9c11239a479793677c2a613ec50c~mv2.gif">
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
         </video>
         <div id="videoClickOverlay"></div>
-        <button id="playButton"></button>
+        <button id="playButton">▶</button>
     </div>
 
     
