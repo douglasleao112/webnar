@@ -491,23 +491,27 @@ function showCountdown() {
     const targetDate = getNextWebinarDate();
 
     function updateCountdown() {
-        const now = new Date();
+        const now  = new Date();
         const diff = targetDate - now;
 
         if (diff <= 0) {
-            location.reload();  // Quando chega o horário, recarrega a página
+            location.reload();
             return;
         }
 
         const totalSeconds = Math.floor(diff / 1000);
-        const days = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const days    = Math.floor(totalSeconds / 86400);
+        const hours   = Math.floor((totalSeconds % 86400) / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
 
         document.getElementById('countdown').innerHTML =
-    `<div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>`;
-
+          `<div>
+             <strong>${days}</strong> dias 
+             <strong>${hours}</strong> horas 
+             <strong>${minutes}</strong> minutos 
+             <strong>${seconds}</strong> segundos
+           </div>`;
     }
 
     updateCountdown();
