@@ -441,10 +441,18 @@ img, a {
     </div>
 </div>
 
+
+
+
+
+
+
+
+
 <script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 17;         // HORA 
-    const configMinute = 6;      // MINUTO
+    const configMinute = 29;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -743,7 +751,6 @@ function getLastWebinarDate() {
 
 
 
-</script>
 
 
 
@@ -755,22 +762,27 @@ function getLastWebinarDate() {
 
 
 
-<script>
-  // ————————————————————————
-  // ● 1️⃣ Gera ou recupera um ID fixo para este navegador
+
+
+
+
+
+
+
+
+
+  // 1️⃣ Gera ou recupera um ID fixo para este navegador
   let browserId = localStorage.getItem('webinarBrowserId');
   if (!browserId) {
     browserId = crypto.randomUUID();
     localStorage.setItem('webinarBrowserId', browserId);
   }
 
-  // ● 2️⃣ Se houver nome salvo, coloca em window.userName
-  const storedName = localStorage.getItem('webinarUserName');
-  if (storedName) {
-    window.userName = storedName;
-  }
+  // 2️⃣ Se houve nome salvo, coloca em window.userName
+  const saved = localStorage.getItem('webinarUserName');
+  if (saved) window.userName = saved;
 
-  // ● 3️⃣ Conta tempo ativo na aba
+  // 3️⃣ Conta tempo ativo na aba
   let activeTime = 0, lastResume = Date.now();
   const onResume = () => lastResume = Date.now();
   const onPause  = () => activeTime += Date.now() - lastResume;
@@ -779,35 +791,31 @@ function getLastWebinarDate() {
   );
   onResume();
 
-  // ● 4️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
+  // 4️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
   const WEB_APP_URL =
     'https://script.google.com/macros/s/AKfycbwi6P7EutyjPLIlhjprWsLiIbpBWPy9yMmaafFPkcWA1YwhktMvNN2l--S_2SASbyqlnA/exec';
 
-  // ● 5️⃣ Função para salvar o nome e persistir no localStorage
+  // 5️⃣ Substitua a sua função saveUserName POR ESTA ÚNICA COPIA
   function saveUserName() {
-    const nameInput = document.getElementById('userNameInput');
-    const name = nameInput.value.trim();
-    if (!name) {
-      return alert("Por favor, digite seu nome.");
-    }
+    const name = document.getElementById('userNameInput').value.trim();
+    if (!name) return alert("Por favor, digite seu nome.");
     window.userName = name;
     localStorage.setItem('webinarUserName', name);
     document.getElementById('nameFormWrapper').style.display = 'none';
-    if (isWebinarTime()) {
-      startWebinar();
-    } else {
-      nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-    }
+    // chama a sua lógica normal de startWebinar() ou showCountdown()
+    if (isWebinarTime()) startWebinar();
+    else nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
   }
 
-  // ● 6️⃣ Antes de sair/recarregar, dispara o tracker
+  // 6️⃣ Antes de sair/recarregar, dispara o tracker UMA ÚNICA VEZ
   window.addEventListener('beforeunload', () => {
-    if (!document.hidden) onPause();  // fecha contagem
+    if (!document.hidden) onPause();
     const params = new URLSearchParams({
       browserId,
       userName: window.userName || '',
       activeTimeMs: activeTime
     });
+    // beacon evita preflight e não bloqueia o unload
     if (navigator.sendBeacon) {
       navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
     } else {
