@@ -755,18 +755,22 @@ function getLastWebinarDate() {
 
 
 
-
-
-
 <script>
-  // 1️⃣ Gera ou recupera ID fixo
+  // ————————————————————————
+  // ● 1️⃣ Gera ou recupera um ID fixo para este navegador
   let browserId = localStorage.getItem('webinarBrowserId');
   if (!browserId) {
     browserId = crypto.randomUUID();
     localStorage.setItem('webinarBrowserId', browserId);
   }
 
-  // 2️⃣ Conta tempo ativo na aba
+  // ● 2️⃣ Se houver nome salvo, coloca em window.userName
+  const storedName = localStorage.getItem('webinarUserName');
+  if (storedName) {
+    window.userName = storedName;
+  }
+
+  // ● 3️⃣ Conta tempo ativo na aba
   let activeTime = 0, lastResume = Date.now();
   const onResume = () => lastResume = Date.now();
   const onPause  = () => activeTime += Date.now() - lastResume;
@@ -775,19 +779,35 @@ function getLastWebinarDate() {
   );
   onResume();
 
-  // 3️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
-  const WEB_APP_URL = 
-    'https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec';
+  // ● 4️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
+  const WEB_APP_URL =
+    'https://script.google.com/macros/s/AKfycbwi6P7EutyjPLIlhjprWsLiIbpBWPy9yMmaafFPkcWA1YwhktMvNN2l--S_2SASbyqlnA/exec';
 
-  // 4️⃣ Antes de sair da página, dispara um GET simples (não dá CORS)
+  // ● 5️⃣ Função para salvar o nome e persistir no localStorage
+  function saveUserName() {
+    const nameInput = document.getElementById('userNameInput');
+    const name = nameInput.value.trim();
+    if (!name) {
+      return alert("Por favor, digite seu nome.");
+    }
+    window.userName = name;
+    localStorage.setItem('webinarUserName', name);
+    document.getElementById('nameFormWrapper').style.display = 'none';
+    if (isWebinarTime()) {
+      startWebinar();
+    } else {
+      nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+    }
+  }
+
+  // ● 6️⃣ Antes de sair/recarregar, dispara o tracker
   window.addEventListener('beforeunload', () => {
-    if (!document.hidden) onPause();
+    if (!document.hidden) onPause();  // fecha contagem
     const params = new URLSearchParams({
       browserId,
       userName: window.userName || '',
       activeTimeMs: activeTime
     });
-    // preferencialmente usa beacon, senão fetch GET
     if (navigator.sendBeacon) {
       navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
     } else {
