@@ -743,40 +743,27 @@ function getLastWebinarDate() {
 
 
 <script>
-  // 1️⃣ Gera um ID fixo para o navegador
-  let browserId = localStorage.getItem('webinarBrowserId');
-  if (!browserId) {
-    browserId = crypto.randomUUID();
-    localStorage.setItem('webinarBrowserId', browserId);
-  }
-
-  // 2️⃣ Monitora visibilidade para contar tempo ativo
-  let activeTime = 0, lastResume = Date.now();
-  const onResume = () => lastResume = Date.now();
-  const onPause  = () => activeTime += Date.now() - lastResume;
-  document.addEventListener('visibilitychange', () =>
-    document.hidden ? onPause() : onResume()
-  );
-  onResume();
-
-  // 3️⃣ Endpoint do seu Apps Script (deploy “Anyone, even anonymous”)
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec';
-
-  // 4️⃣ Quando o usuário sai ou recarrega a página
-  window.addEventListener('beforeunload', () => {
-    if (!document.hidden) onPause();
-    const payload = {
-      browserId,
-      userName: window.userName || '',  // usa aquele global que você definiu
-      activeTimeMs: activeTime
-    };
-	console.log('→ enviando beacon:', payload);
-    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-    navigator.sendBeacon(SHEET_URL, blob);
-	 console.log('sendBeacon retornou:', ok);
+function enviarTracker() {
+  const params = new URLSearchParams({
+    browserId:    localStorage.getItem('webinarBrowserId'),
+    userName:     window.userName || '',
+    activeTimeMs: activeTime
   });
-</script>
+  // sem headers extras, puro GET
+  fetch(`https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec?${params}`, {
+    method: 'GET'
+  })
+  .then(res => res.text())
+  .then(txt => console.log('Resposta tracker:', txt))
+  .catch(err => console.error('Erro tracker:', err));
+}
 
+// em vez de sendBeacon, chame isso
+window.addEventListener('beforeunload', () => {
+  onPause();       // finalize contagem de tempo
+  enviarTracker(); // dispara o GET
+});
+</script>
 
 
 
