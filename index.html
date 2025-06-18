@@ -113,7 +113,7 @@
             object-fit: contain;
         }
 #chatContainer h3 {
-    font-size: 13px;      /* ✅ Tamanho menor */
+    font-size: 13px;      
     font-weight: bold;
     color: #333;
 	margin-top: 4px;
@@ -121,7 +121,7 @@
 }
 
 
-        /* Formulário de Nome */
+  
         #nameForm {
             display: none;
             max-width: 400px;
@@ -178,7 +178,7 @@
             text-decoration: underline;
         }
 
-        /* Mobile Fixes */
+  
         @media (max-width: 500px) {
             body {
                 padding: 10px;
@@ -196,13 +196,13 @@
         }
 		
             #viewerCounter {
-            font-size: 12px;       /* ✅ Diminui o tamanho */
-            color: #555;            /* ✅ Deixa mais discreto */
+            font-size: 13px;       
+            color: #555;           
             margin-top: 8px;
             }
             #viewerCounter strong {
-            color: red;             /* ✅ Mantém o número em destaque */
-            font-size: 12px;
+            color: red;          
+            font-size: 13px;
             }
             
 #waitingMessage {
@@ -237,8 +237,8 @@
 #waitingMessage #countdown {
   font-size: 16px;
   color: #333;
-  margin: 0 0 20px;    /* igual ao margin-bottom do <p> */
-  font-family: inherit; /* herda a mesma família do contêiner */
+  margin: 0 0 20px;   
+  font-family: inherit; 
 }
 
 #countdown {
@@ -256,7 +256,7 @@
 }
 
 
-/* → evita seleção de texto e arrasto de imagens/links */
+
 html, body {
   -webkit-user-select: none !important;
      -moz-user-select: none !important;
@@ -269,10 +269,10 @@ img, a {
 }
 
 #eventClosedMessage {
-  height: 100vh;               /* ocupa toda a altura da viewport */
-  display: flex;               /* ativa o flexbox */
-  align-items: center;         /* centraliza verticalmente */
-  justify-content: center;     /* centraliza horizontalmente */
+  height: 100vh;             
+  display: flex;              
+  align-items: center;         
+  justify-content: center;   
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
@@ -297,7 +297,7 @@ img, a {
 }
 
 #offerSection button {
-  background-color: #ff7d00; /* laranja vibrante */
+  background-color: #ff7d00; 
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -352,6 +352,71 @@ img, a {
 
 
 <div id="videoContainer">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+
+<!-- VÍDEO COM PLAY EM QUALQUER LUGAR -->
+<div style="position: relative; width: 100%; max-width: 480px; margin: auto; font-family: Arial, sans-serif;">
+  <video id="customVideo"
+
+         style="width: 100%; display: block;"
+         preload="metadata"
+         playsinline
+         poster="https://static.wixstatic.com/media/7f5efc_103c9c11239a479793677c2a613ec50c~mv2.gif">
+    <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
+    Su navegador no soporta video.
+  </video>
+
+  <!-- Camada clicável -->
+  <div id="videoClickOverlay" style="
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    cursor: pointer;
+    z-index: 3;
+  "></div>
+
+  <!-- Botão play -->
+  <button id="playButton" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 4;
+  ">
+    ▶
+  </button>
+</div>
+
+
+
+
+
+
+
+    
 
  <!-- ✅ Contador de pessoas assistindo logo abaixo do vídeo -->
 <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
