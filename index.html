@@ -482,56 +482,55 @@ img, a {
 
 
 
-  // Declare globalmente para usar em startWebinar()
-  let webinarBeginTimestamp = null;
-  let viewerInterval = null;
+  
+    
 
-  function startWebinar() {
-    // 1) marca o instante exato de início
-    webinarBeginTimestamp = Date.now();
 
-    // 2) limpa o chat
-    messages.innerHTML = "";
-    shownProgrammedMessages.clear();
+      function startWebinar() {
+        // ✅ Zera o chat
+        messages.innerHTML = "";
+        shownProgrammedMessages.clear();
 
-    // 3) mostra vídeo e chat
-    videoContainer.style.display = "block";
-    chatContainer.style.display = "block";
+        videoContainer.style.display = "block";
+        chatContainer.style.display = "block";
 
-    // 4) sincroniza o vídeo ao tempo decorrido
-    const elapsedSeconds = Math.floor((Date.now() - webinarBeginTimestamp) / 1000);
-    if (elapsedSeconds >= 0 && elapsedSeconds <= videoDuration) {
-      video.currentTime = elapsedSeconds;
-    }
+        const now = new Date();
+        const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+        const secondsSinceStart = Math.floor((now - startTime) / 1000);
 
-    // 5) agenda a exibição dos comentários programados (a cada 1 s)
-    setInterval(() => {
-      const sec = Math.floor((Date.now() - webinarBeginTimestamp) / 1000);
-      programmedMessages.forEach(msg => {
-        if (sec >= msg.time && !shownProgrammedMessages.has(msg.time)) {
-          addMessage(msg.name, msg.text);
-          shownProgrammedMessages.add(msg.time);
+        if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+            video.currentTime = secondsSinceStart;
         }
-      });
-    }, 1000);
 
-    // 6) inicia e agenda o contador de espectadores
-    updateViewerCount();
-    viewerInterval = setInterval(updateViewerCount, 15000);
+        // ✅ Marcar mensagens anteriores como já enviadas
+        programmedMessages.forEach(msg => {
+            if (msg.time < secondsSinceStart) {
+                shownProgrammedMessages.add(msg.time);
+            }
+        });
 
-    // 7) agenda a oferta especial 1240 s após o início real
-    const OFFER_DELAY = 1240; // 20 min 40 s em segundos
-    const offerSection = document.getElementById("offerSection");
-    if (elapsedSeconds >= OFFER_DELAY) {
-      // já passou do tempo → mostra na hora
-      offerSection.style.display = "block";
-    } else {
-      // agenda para daqui a (OFFER_DELAY - elapsedSeconds) segundos
-      setTimeout(() => {
-        offerSection.style.display = "block";
-      }, (OFFER_DELAY - elapsedSeconds) * 1000);
+        setInterval(checkProgrammedMessages, 1000);
+
+       const viewerElement = document.getElementById('viewerCounter');
+
+function updateViewerCount() {
+    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
+   viewerElement.innerHTML = <strong>${random}</strong> pessoas assistindo agora.;
+}
+
+        updateViewerCount();
+        viewerInterval = setInterval(updateViewerCount, 15000);
+
+          setTimeout(() => {
+    document.getElementById('offerSection').style.display = 'block';
+  }, 10 * 1000); // tempo botão do pitch
     }
-  }
+
+
+
+
+
+
 
 
     function checkProgrammedMessages() {
