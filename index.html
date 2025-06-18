@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Webinar Ao Vivo</title>
     <style>
         *, *::before, *::after {
@@ -24,6 +24,11 @@
             position: relative;
             width: 100%;
         }
+ 
+#nameForm input,
+#chatInputArea input {
+  font-size: 16px;
+}
         #customVideo {
             width: 100%;
             display: block;
@@ -578,9 +583,31 @@ function getLastWebinarDate() {
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
+  
 
+// Bloqueia pinça (touchmove com 2 dedos)
+document.addEventListener('touchmove', function(e) {
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
 
+// Bloqueia duplo-toque rápido
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+// Bloqueia gestos específicos no iOS
+document.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
+});
 </script>
+
 
 </body>
 </html>
