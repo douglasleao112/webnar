@@ -3,30 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-  <title>Redirecionamento para Grupo WhatsApp</title>
+  <title>Falta Pouco</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       background: #fff;
-      padding: 20px;
       color: #333;
+      padding: 0 10px;
     }
 
     .container {
-      max-width: 500px;
-      margin: 0 auto;
+      max-width: 480px;
+      margin: 40px auto;
       padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
 
     h1 {
       font-size: 24px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     p {
-      margin-bottom: 16px;
       font-size: 16px;
+      margin-bottom: 14px;
     }
 
     .highlight {
@@ -48,6 +50,26 @@
     @keyframes zoom {
       from { transform: scale(1); }
       to { transform: scale(1.1); }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 20px auto;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+      }
     }
   </style>
   <script>
