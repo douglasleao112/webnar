@@ -443,8 +443,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 16;         // HORA 
-    const configMinute = 14;      // MINUTO
+    const configHour = 17;         // HORA 
+    const configMinute = 6;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -457,7 +457,7 @@ img, a {
     const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
 
-    const programmedMessages = [
+    const programmedMessages = [   //COMENTARIOS
         { time: 10, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
         { time: 15, name: "Carlos", text: "Conteúdo incrível!" },
         { time: 20, name: "Ana", text: "Valeu pela explicação!" }
@@ -614,10 +614,13 @@ function startWebinar() {
     playButton.addEventListener('click', iniciarVideo);
     overlay.addEventListener('click', iniciarVideo);
 
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-
+    
+   // document.addEventListener('contextmenu', function(e) {
+  //      e.preventDefault();
+  //  });
+ 
+  
+  
 window.onload = function() {
     const now = new Date();
     const lastWebinar = getLastWebinarDate();
@@ -732,111 +735,48 @@ function getLastWebinarDate() {
 }
 
 
-  // Função simples para transformar URLs em <a> clicáveis
-  function linkify(text) {
-    return text
-      // https:// ou http://
-      .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
-      // www. algo
-      .replace(/\b(www\.[^\s]+)/g, '<a href="http://$1" target="_blank" rel="noopener">$1</a>');
-  }
-
-  function addMessage(user, text) {
-    const div = document.createElement('div');
-    div.className = 'chat-message';
-    // aplicamos a linkify no text
-    const safeText = linkify(text);
-    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-  }
-  
-
-// Bloqueia pinça (touchmove com 2 dedos)
-document.addEventListener('touchmove', function(e) {
-  if (e.touches && e.touches.length > 1) {
-    e.preventDefault();
-  }
-}, { passive: false });
-
-// Bloqueia duplo-toque rápido
-let lastTouchEnd = 0;
-document.addEventListener('touchend', function(e) {
-  const now = Date.now();
-  if (now - lastTouchEnd <= 300) {
-    e.preventDefault();
-  }
-  lastTouchEnd = now;
-}, false);
-
-// Bloqueia gestos específicos no iOS
-document.addEventListener('gesturestart', function(e) {
-  e.preventDefault();
-});
 
 
 
-// Bloqueia o menu de contexto (clique direito)
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-// Impede copiar/recortar/selecionar texto
-['copy','cut','selectstart','dragstart'].forEach(evt =>
-  document.addEventListener(evt, e => e.preventDefault())
-);
-
-// Bloqueia atalho Ctrl+C, Ctrl+U (ver fonte), Ctrl+S, Ctrl+P e F12
-document.addEventListener('keydown', e => {
-  const forbidden =
-    // combinações de Ctrl + C, U, S, P, A
-    (e.ctrlKey &&
-      ['c','u','s','p','a'].includes(e.key.toLowerCase()))
-    // F12
-    || e.key === 'F12';
-  if (forbidden) e.preventDefault();
-});
 </script>
 
 
 
-
 <script>
-    // 1️⃣ Gera ou recupera um ID fixo para este navegador
-    let browserId = localStorage.getItem('webinarBrowserId');
-    if (!browserId) {
-      browserId = crypto.randomUUID();
-      localStorage.setItem('webinarBrowserId', browserId);
-    }
+  // 1️⃣ Gera um ID fixo para o navegador
+  let browserId = localStorage.getItem('webinarBrowserId');
+  if (!browserId) {
+    browserId = crypto.randomUUID();
+    localStorage.setItem('webinarBrowserId', browserId);
+  }
 
-    // 2️⃣ Variáveis para medir tempo ativo
-    let activeTime    = 0;
-    let lastResume    = Date.now();
-    function onResume() { lastResume = Date.now(); }
-    function onPause()  { activeTime += Date.now() - lastResume; }
+  // 2️⃣ Monitora visibilidade para contar tempo ativo
+  let activeTime = 0, lastResume = Date.now();
+  const onResume = () => lastResume = Date.now();
+  const onPause  = () => activeTime += Date.now() - lastResume;
+  document.addEventListener('visibilitychange', () =>
+    document.hidden ? onPause() : onResume()
+  );
+  onResume();
 
-    // 3️⃣ Monitora quando o usuário muda de aba/janela
-    document.addEventListener('visibilitychange', () => {
-      document.hidden ? onPause() : onResume();
-    });
-    onResume();  // inicia a contagem ao carregar a página
+  // 3️⃣ Endpoint do seu Apps Script (deploy “Anyone, even anonymous”)
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbygrIMiZ9iqqQrtm4EzSIcztyOui7MmKkwbGRFcCLmhd4mcuBDOWfIM1buC9TtOhQv22g/exec';
 
-    // 4️⃣ Define o endpoint do seu Apps Script
-    const SHEET_URL = 
-      'https://script.google.com/macros/s/AKfycbwEitkm5b_nynbfWybrA6kK4uXMN2TD-51750NOSJfGIgLEqshZkWn24-zNrgPEXLfZwQ/exec';
+  // 4️⃣ Quando o usuário sai ou recarrega a página
+  window.addEventListener('beforeunload', () => {
+    if (!document.hidden) onPause();
+    const payload = {
+      browserId,
+      userName: window.userName || '',  // usa aquele global que você definiu
+      activeTimeMs: activeTime
+    };
+	console.log('→ enviando beacon:', payload);
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    navigator.sendBeacon(SHEET_URL, blob);
+	 console.log('sendBeacon retornou:', ok);
+  });
+</script>
 
-    // 5️⃣ Quando o usuário sai ou recarrega, envie os dados
-    window.addEventListener('beforeunload', () => {
-      if (!document.hidden) onPause();
-      const payload = {
-        browserId,
-        userName: window.userName || '',
-        activeTimeMs: activeTime
-      };
-      const blob = new Blob([JSON.stringify(payload)], {
-        type: 'application/json'
-      });
-      navigator.sendBeacon(SHEET_URL, blob);
-    });
-  </script>
 
 
 
