@@ -412,21 +412,24 @@ function updateViewerCount() {
         video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
     }
 
-    function saveUserName() {
-        const nameInput = document.getElementById('userNameInput');
-        const name = nameInput.value.trim();
-        if (name.length > 0) {
-            userName = name;
-            nameForm.style.display = "none";
-            if (isWebinarTime()) {
-                startWebinar();
-            } else {
-                nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-            }
+  function saveUserName() {
+    const nameInput = document.getElementById('userNameInput');
+    const name = nameInput.value.trim();
+    const nameFormWrapper = document.getElementById('nameFormWrapper');
+
+    if (name.length > 0) {
+        userName = name;
+        nameFormWrapper.style.display = "none";  // ✅ Esconde o wrapper inteiro
+
+        if (isWebinarTime()) {
+            startWebinar();
         } else {
-            alert("Por favor, digite seu nome.");
+            nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
         }
+    } else {
+        alert("Por favor, digite seu nome.");
     }
+}
 
     playButton.addEventListener('click', iniciarVideo);
     overlay.addEventListener('click', iniciarVideo);
