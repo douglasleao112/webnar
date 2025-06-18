@@ -53,22 +53,20 @@
   cursor: pointer;
   z-index: 4;
 
-  /* animação de pulso */
-  animation: pulse 1.5s infinite ease-in-out;
+   /* 2) Animação de “zoom in/out” */
+  animation: zoom 1.5s infinite alternate;
 }
 
-/* keyframes para “pulsar” */
-@keyframes pulse {
-  0% {
+/* 3) Keyframes que fazem o zoom ir (scale 1 → 1.2) e voltar */
+@keyframes zoom {
+  from {
     transform: translate(-50%, -50%) scale(1);
   }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
+  to {
+    transform: translate(-50%, -50%) scale(1.2);
   }
 }
+
         /* Chat Layout */
         #chatContainer {
             background: #fff;
