@@ -442,11 +442,11 @@ img, a {
     </div>
 </div>
 
-<script> // PROGRAMAR O VIDEO
+<script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 5;        // hora
-    const configMinute = 25;       // minuto
-    const durationMinutes = 29;    // duração do video
+    const configHour = 5;         // HORA 
+    const configMinute = 44;      // MINUTO
+    const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
     const playButton = document.getElementById('playButton');
@@ -625,32 +625,21 @@ function startWebinar() {
     });
 
 window.onload = function() {
-  // 1) Se estiver em modo DEBUG, inicia direto
-  if (DEBUG_MODE) {
-    console.log('🛠️ DEBUG_MODE ativo: forçando startWebinar()');
-    startWebinar();
-    return;  // sai daqui, ignora o resto
-  }
+    const now = new Date();
+    const lastWebinar = getLastWebinarDate();
+    const webinarStart = lastWebinar;
+    const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));
 
-  // 2) Lógica normal de horário / encerramento
-  const now = new Date();
-  const lastWebinar     = getLastWebinarDate();
-  const webinarStart    = lastWebinar;
-  const webinarEnd      = new Date(webinarStart.getTime() + durationMinutes * 60000);
-  const encerramentoEnd = new Date(webinarEnd.getTime() + 22 * 60 * 60 * 1000);
-
-  if (now < webinarStart) {
-    showCountdown();
-  }
-  else if (now >= webinarStart && now <= webinarEnd) {
-    nameForm.style.display = "block";
-  }
-  else if (now > webinarEnd && now <= encerramentoEnd) {
-    showEventClosed();
-  }
-  else {
-    showCountdown();
-  }
+    if (now < webinarStart) {
+        showCountdown();
+    } else if (now >= webinarStart && now <= webinarEnd) {
+        nameForm.style.display = "block";
+    } else if (now > webinarEnd && now <= encerramentoEnd) {
+        showEventClosed();
+    } else {
+        showCountdown();
+    }
 };
 
 
@@ -815,6 +804,7 @@ document.addEventListener('keydown', e => {
 
 
 
+
 <script>
     // 1️⃣ Gera ou recupera um ID fixo para este navegador
     let browserId = localStorage.getItem('webinarBrowserId');
@@ -837,7 +827,7 @@ document.addEventListener('keydown', e => {
 
     // 4️⃣ Define o endpoint do seu Apps Script
     const SHEET_URL = 
-      'https://script.google.com/macros/s/AKfycbyk-577GW8yo6SLe_ONK9R6j1yNN024l8WpbhnrwNGh0jwf4mo6nlJ6qaXXyZ8Vcf7DRA/exec';
+      'https://script.google.com/macros/s/AKfycbwEitkm5b_nynbfWybrA6kK4uXMN2TD-51750NOSJfGIgLEqshZkWn24-zNrgPEXLfZwQ/exec';
 
     // 5️⃣ Quando o usuário sai ou recarrega, envie os dados
     window.addEventListener('beforeunload', () => {
@@ -853,20 +843,6 @@ document.addEventListener('keydown', e => {
       navigator.sendBeacon(SHEET_URL, blob);
     });
   </script>
-
-
-
-
-
-<script>
-// → DEBUG MODE: enquanto true, abre o player sempre
-const DEBUG_MODE = true;
-
-
-
-
-</script>
-
 
 
 
