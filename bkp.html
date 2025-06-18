@@ -629,7 +629,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));   //22h após o final evento encerrado
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (1 * 60 * 60 * 1000));   //22h após o final evento encerrado
 
     if (now < webinarStart) {
         showCountdown();
@@ -637,7 +637,7 @@ window.onload = function() {
         nameForm.style.display = "block";
     } 
     
-    else if (now > webinarEnd && now <= encerramentoEnd) {
+else if (now > webinarEnd && now <= encerramentoEnd) {
     showEventClosed();
 }
     
@@ -794,7 +794,16 @@ document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener(evt, e => e.preventDefault())
 );
 
-
+// Bloqueia atalho Ctrl+C, Ctrl+U (ver fonte), Ctrl+S, Ctrl+P e F12
+document.addEventListener('keydown', e => {
+  const forbidden =
+    // combinações de Ctrl + C, U, S, P, A
+    (e.ctrlKey &&
+      ['c','u','s','p','a'].includes(e.key.toLowerCase()))
+    // F12
+    || e.key === 'F12';
+  if (forbidden) e.preventDefault();
+});
 </script>
 
 
@@ -837,6 +846,23 @@ document.addEventListener('contextmenu', e => e.preventDefault());
       navigator.sendBeacon(SHEET_URL, blob);
     });
   </script>
+
+
+
+
+
+<script>
+  // só para teste: força o startWebinar() após 1s
+  setTimeout(() => {
+    if (typeof startWebinar === 'function') {
+      console.log('🔧 Test-mode: entrando no webinar para debug...');
+      startWebinar();
+    }
+  }, 1000);
+</script>
+
+
+
 
 </body>
 </html>
