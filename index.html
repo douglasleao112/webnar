@@ -234,6 +234,13 @@
     margin-bottom: 20px;
 }
 
+#waitingMessage #countdown {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 20px;    /* igual ao margin-bottom do <p> */
+  font-family: inherit; /* herda a mesma família do contêiner */
+}
+
 #countdown {
     font-size: 18px;
     font-weight: bold;
@@ -286,7 +293,7 @@ img, a {
 <div id="waitingMessage" style="display:none;">
     <h2>Quase lá!</h2>
     <p>Aguarde! Nosso evento começa em breve!</p>
-    <div id="countdown"></div>
+    <p id="countdown"></p>
 </div>
 
 <div id="eventClosedMessage" style="display:none; text-align:center; padding:40px; font-family: Arial, sans-serif;">
@@ -491,27 +498,23 @@ function showCountdown() {
     const targetDate = getNextWebinarDate();
 
     function updateCountdown() {
-        const now  = new Date();
+        const now = new Date();
         const diff = targetDate - now;
 
         if (diff <= 0) {
-            location.reload();
+            location.reload();  // Quando chega o horário, recarrega a página
             return;
         }
 
         const totalSeconds = Math.floor(diff / 1000);
-        const days    = Math.floor(totalSeconds / 86400);
-        const hours   = Math.floor((totalSeconds % 86400) / 3600);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
 
-        document.getElementById('countdown').innerHTML =
-          `<div>
-             <strong>${days}</strong> dias 
-             <strong>${hours}</strong> horas 
-             <strong>${minutes}</strong> minutos 
-             <strong>${seconds}</strong> segundos
-           </div>`;
+         document.getElementById('countdown').textContent =
+    `${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos`;
+
     }
 
     updateCountdown();
