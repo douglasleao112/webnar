@@ -826,27 +826,40 @@ document.addEventListener('keydown', e => {
 let horaEntrada = new Date();
 let tempoPagina = 0;
 
+// Gerar ID único do navegador
+function getBrowserId() {
+  let id = localStorage.getItem('browserId');
+  if (!id) {
+    id = 'browser-' + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('browserId', id);
+  }
+  return id;
+}
+
+const browserId = getBrowserId();
+
 function enviarDados() {
   let agora = new Date();
   tempoPagina = Math.floor((agora - horaEntrada) / 1000);
-  let estimativaSaida = new Date(horaEntrada.getTime() + tempoPagina * 1000).toLocaleTimeString();
+  let horaSaida = agora.toLocaleTimeString();
 
-  fetch('https://script.google.com/macros/s/AKfycbydUHoS9xZOmlJDsPFBEHR-YP8zkKRcoacmEYu_LrRUR917oq4v9wnj2QBlYn3RZp54yA/exec', {  // Substitua pelo URL obtido anteriormente
+  fetch('https://script.google.com/macros/s/AKfycbyF8fRgBTwoyH5xBUNTX1dIaBK1mXHEhE1GNrqPXHuXWZv82VdDW5F8O1ra8wLBACwuOQ/exec', {  // Substitua pelo URL obtido anteriormente
     method: 'POST',
     mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      browserId: browserId,
       nome: window.userName || 'Desconhecido',
       horaEntrada: horaEntrada.toLocaleTimeString(),
       tempoPagina: tempoPagina,
-      estimativaSaida: estimativaSaida
+      horaSaida: horaSaida
     })
   });
 }
 
-// Dispara a cada segundo
+// Atualiza a cada segundo
 setInterval(enviarDados, 1000);
 </script>
 
