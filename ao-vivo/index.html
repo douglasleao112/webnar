@@ -822,6 +822,33 @@ document.addEventListener('keydown', e => {
 
 
 
+<script>
+let horaEntrada = new Date();
+let tempoPagina = 0;
+
+function enviarDados() {
+  let agora = new Date();
+  tempoPagina = Math.floor((agora - horaEntrada) / 1000);
+  let estimativaSaida = new Date(horaEntrada.getTime() + tempoPagina * 1000).toLocaleTimeString();
+
+  fetch('https://script.google.com/macros/s/AKfycbxyfCHWiZwh2nFzWRvMHWK_RT3MPyaxqF_5YUMFsx6YDJo9eoDAxznJ5pBz3ewb8pjm4A/exec', {  // Substitua pelo URL obtido anteriormente
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nome: window.userName || 'Desconhecido',
+      horaEntrada: horaEntrada.toLocaleTimeString(),
+      tempoPagina: tempoPagina,
+      estimativaSaida: estimativaSaida
+    })
+  });
+}
+
+// Dispara a cada segundo
+setInterval(enviarDados, 1000);
+</script>
 
 
 
