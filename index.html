@@ -485,6 +485,7 @@ img, a {
   
     
 
+
 function startWebinar() {
     // ✅ Zera o chat
     messages.innerHTML = "";
@@ -533,7 +534,7 @@ function startWebinar() {
     viewerInterval = setInterval(updateViewerCount, 15000);
 
     // ⏱️ Agendamento da oferta: 1240 s (20 min 40 s) após webinarStart
-    const offerDelayMs = (webinarStart.getTime() + 1240 * 1000) - now.getTime();
+    const offerDelayMs = (webinarStart.getTime() + 10 * 1000) - now.getTime();
 
     if (offerDelayMs > 0) {
         // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
@@ -545,6 +546,7 @@ function startWebinar() {
         document.getElementById('offerSection').style.display = 'block';
     }
 }
+
 
 
 
