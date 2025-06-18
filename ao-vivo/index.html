@@ -451,8 +451,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 18;         // HORA 
-    const configMinute = 5;      // MINUTO
+    const configHour = 19;         // HORA 
+    const configMinute = 25;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -846,10 +846,10 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000); // segundos simples
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
   const horaSaida = agora.toLocaleTimeString();
 
-  fetch('https://script.google.com/macros/s/AKfycbzhvOYIyGVbOoooHOFxkX7QHIK10MOT5iOGztWON3s8Yw5IfsbYLb_U0fawKbRC935n6A/exec', {  // Substitua pelo URL correto do Apps Script
+  fetch('https://script.google.com/macros/s/AKfycbzhvOYIyGVbOoooHOFxkX7QHIK10MOT5iOGztWON3s8Yw5IfsbYLb_U0fawKbRC935n6A/exec', {
     method: 'POST',
     mode: 'no-cors',
     headers: {
@@ -860,12 +860,12 @@ function enviarDados() {
       nome: window.userName || 'Desconhecido',
       horaEntrada: horaEntrada.toLocaleTimeString(),
       tempoPagina: tempoPagina,
-      horaSaida: horaSaida
+      horaSaida: horaSaida,
+      paginaOrigem: 'ao-vivo'
     })
   });
 }
 
-// Dispara a cada segundo
 setInterval(enviarDados, 1000);
 </script>
 

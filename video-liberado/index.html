@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Webinar Reprise</title>
+    <title>Webinar Ao Vivo</title>
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -171,7 +171,7 @@
         }
         #nameForm button {
             width: 100%;
-            background-color: #28a745;
+            background-color: #22c55e;
             color: white;
             padding: 12px;
             border: none;
@@ -330,30 +330,6 @@ img, a {
 }
 
 
-
-
-
-    /* 2) Desabilitar visualmente o chat */
-    #userMessage[disabled] {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    #sendButton[disabled] {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-
-        /* 3) Header da reprise */
-    #replayHeader {
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      margin: 20px 0;
-      display: none;  /* será mostrado via JS */
-    }
-
-    
     </style>
 </head>
 <body>
@@ -392,15 +368,6 @@ img, a {
 <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
 
     <div class="player-wrapper">
-
-
-         <video id="customVideo" controls preload="metadata" width="100%"
-           src="https://seu-servidor.com/gravacao.mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-
-
-
         <video id="customVideo" preload="metadata" playsinline>
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
@@ -474,10 +441,18 @@ img, a {
     </div>
 </div>
 
+
+
+
+
+
+
+
+
 <script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 16;         // HORA 
-    const configMinute = 7;      // MINUTO
+    const configHour = 19;         // HORA 
+    const configMinute = 25;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -490,7 +465,7 @@ img, a {
     const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
 
-    const programmedMessages = [
+    const programmedMessages = [   //COMENTARIOS
         { time: 10, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
         { time: 15, name: "Carlos", text: "Conteúdo incrível!" },
         { time: 20, name: "Ana", text: "Valeu pela explicação!" }
@@ -573,8 +548,10 @@ function startWebinar() {
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
-    // ⏱️ PITCH BOTÃO OFERTA
-    const offerDelayMs = (webinarStart.getTime() + 10 * 1000) - now.getTime();
+
+    
+
+    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA
 
     if (offerDelayMs > 0) {
         // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
@@ -588,14 +565,7 @@ function startWebinar() {
 }
 
 
-
-
-
-
-
-
-
-    function checkProgrammedMessages() {
+   function checkProgrammedMessages() {
         const currentTime = video.currentTime;
         programmedMessages.forEach(msg => {
             if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
@@ -630,38 +600,48 @@ function startWebinar() {
         video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
     }
 
-  function saveUserName() {
-    const nameInput = document.getElementById('userNameInput');
-    const name = nameInput.value.trim();
-    const nameFormWrapper = document.getElementById('nameFormWrapper');
+function saveUserName() {
+  const nameInput = document.getElementById('userNameInput');
+  const name = nameInput.value.trim();
+  const nameFormWrapper = document.getElementById('nameFormWrapper');
 
-    if (name.length > 0) {
-        userName = name;
-        nameFormWrapper.style.display = "none";  // ✅ Esconde o wrapper inteiro
+  if (!name) {
+    return alert("Por favor, digite seu nome.");
+  }
 
-        if (isWebinarTime()) {
-            startWebinar();
-        } else {
-            nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-        }
-    } else {
-        alert("Por favor, digite seu nome.");
-    }
+  // 1️⃣ guarda globalmente pro tracker ler depois
+  window.userName = name;
+
+  // 2️⃣ opcional: persiste entre recargas
+  localStorage.setItem('webinarUserName', name);
+
+  // 3️⃣ esconde o formulário e segue com a lógica
+  nameFormWrapper.style.display = "none";
+
+  if (isWebinarTime()) {
+    startWebinar();
+  } else {
+    nextSession.innerHTML =
+      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+  }
 }
 
     playButton.addEventListener('click', iniciarVideo);
     overlay.addEventListener('click', iniciarVideo);
 
+    
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
-
+ 
+  
+  
 window.onload = function() {
     const now = new Date();
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));   // TEMPO AO FINAL DA LIVE QUE FICA COMO ENCERRADO
 
     if (now < webinarStart) {
         showCountdown();
@@ -770,6 +750,10 @@ function getLastWebinarDate() {
 }
 
 
+
+
+
+
   // Função simples para transformar URLs em <a> clicáveis
   function linkify(text) {
     return text
@@ -832,49 +816,61 @@ document.addEventListener('keydown', e => {
     || e.key === 'F12';
   if (forbidden) e.preventDefault();
 });
+
 </script>
 
 
 
 
+
+
+
+
+
+
+
 <script>
-    // 1️⃣ Gera ou recupera um ID fixo para este navegador
-    let browserId = localStorage.getItem('webinarBrowserId');
-    if (!browserId) {
-      browserId = crypto.randomUUID();
-      localStorage.setItem('webinarBrowserId', browserId);
-    }
+const horaEntrada = new Date();
 
-    // 2️⃣ Variáveis para medir tempo ativo
-    let activeTime    = 0;
-    let lastResume    = Date.now();
-    function onResume() { lastResume = Date.now(); }
-    function onPause()  { activeTime += Date.now() - lastResume; }
+function getBrowserId() {
+  let id = localStorage.getItem('browserId');
+  if (!id) {
+    id = 'browser-' + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('browserId', id);
+  }
+  return id;
+}
 
-    // 3️⃣ Monitora quando o usuário muda de aba/janela
-    document.addEventListener('visibilitychange', () => {
-      document.hidden ? onPause() : onResume();
-    });
-    onResume();  // inicia a contagem ao carregar a página
+const browserId = getBrowserId();
 
-    // 4️⃣ Define o endpoint do seu Apps Script
-    const SHEET_URL = 
-      'https://script.google.com/macros/s/AKfycbwEitkm5b_nynbfWybrA6kK4uXMN2TD-51750NOSJfGIgLEqshZkWn24-zNrgPEXLfZwQ/exec';
+function enviarDados() {
+  const agora = new Date();
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
+  const horaSaida = agora.toLocaleTimeString();
 
-    // 5️⃣ Quando o usuário sai ou recarrega, envie os dados
-    window.addEventListener('beforeunload', () => {
-      if (!document.hidden) onPause();
-      const payload = {
-        browserId,
-        userName: window.userName || '',
-        activeTimeMs: activeTime
-      };
-      const blob = new Blob([JSON.stringify(payload)], {
-        type: 'application/json'
-      });
-      navigator.sendBeacon(SHEET_URL, blob);
-    });
-  </script>
+  fetch('https://script.google.com/macros/s/AKfycbzhvOYIyGVbOoooHOFxkX7QHIK10MOT5iOGztWON3s8Yw5IfsbYLb_U0fawKbRC935n6A/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      browserId: browserId,
+      nome: window.userName || 'Desconhecido',
+      horaEntrada: horaEntrada.toLocaleTimeString(),
+      tempoPagina: tempoPagina,
+      horaSaida: horaSaida,
+      paginaOrigem: 'video-liberado'  
+    })
+  });
+}
+
+setInterval(enviarDados, 1000);
+</script>
+
+
+
+
 
 
 
