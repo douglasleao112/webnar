@@ -118,6 +118,10 @@
     <h1>Venda Para Mais de 3% da Lista, no Automático</h1>
     <p class="subtitle">(com tráfego frio, em menos de 30 dias)</p>
 
+
+    <p id="nextEvent" style="font-size:14px; color:#555; margin-bottom:24px;"></p>
+
+
     <!-- contador -->
     <div class="countdown">
       <div><div id="days"    class="value">0</div>dias</div>
@@ -131,6 +135,7 @@
 
     <!-- lista de benefícios -->
     <ul class="features">
+        <h2>O que você vai ver:</h2>
       <li>Como criar receita constante e não depender de lançamentos para pagar as contas</li>
       <li>O mecanismo por trás dos funis de webinários que convertem mais que lançamentos clássicos</li>
       <li>O passo a passo dos webinários automatizados que vendem para mais de 3% da lista</li>
@@ -158,20 +163,17 @@
 
   <script>
   /*************************************************************************
-   * CONFIGURAÇÃO:
-   * - Se quiser usar uma data fixa, preencha EVENT_DATETIME (ISO, ex: '2025-06-23T19:00:00')
-   * - Senão deixe EVENT_DATETIME = '' e ele usará DEFAULT_WEEKDAY/DEFAULT_HOUR/DEFAULT_MINUTE
+   * CONFIGURAÇÃO
+   * Se quiser usar uma data fixa, preencha EVENT_DATETIME (ISO, ex:
+   *   '2025-06-23T19:00:00').
+   * Se deixar em branco, usará DEFAULT_WEEKDAY/DEFAULT_HOUR/DEFAULT_MINUTE.
    *************************************************************************/
-  const EVENT_DATETIME = '';      // ex: '2025-06-23T19:00:00'
-  const DEFAULT_WEEKDAY = 1;      // 0=domingo,1=segunda,…6=sábado
-  const DEFAULT_HOUR    = 19;     // hora do evento
-  const DEFAULT_MINUTE  = 0;      // minuto do evento
+  const EVENT_DATETIME = '';    // ex: '2025-06-23T19:00:00'
+  const DEFAULT_WEEKDAY = 1;    // 0=domingo,1=segunda,…6=sábado
+  const DEFAULT_HOUR    = 19;   // hora do evento
+  const DEFAULT_MINUTE  = 0;    // minuto do evento
 
-  /**
-   * Retorna um objeto Date:
-   *  • se EVENT_DATETIME não for vazio, usa essa data exata;
-   *  • senão, calcula o próximo DEFAULT_WEEKDAY às DEFAULT_HOUR:DEFAULT_MINUTE.
-   */
+  // Retorna o objeto Date do próximo evento
   function getEventDateTime() {
     if (EVENT_DATETIME) {
       return new Date(EVENT_DATETIME);
@@ -179,7 +181,6 @@
     const now = new Date();
     // quantos dias até o DEFAULT_WEEKDAY
     let daysUntil = (DEFAULT_WEEKDAY - now.getDay() + 7) % 7;
-    // cria a data candidata
     const candidate = new Date(
       now.getFullYear(),
       now.getMonth(),
@@ -188,22 +189,31 @@
       DEFAULT_MINUTE,
       0
     );
-    // se hoje já for o mesmo dia mas o horário já passou, agenda pra próxima semana
+    // se hoje for o mesmo dia e horário já passou, agenda pra próxima semana
     if (daysUntil === 0 && now >= candidate) {
       candidate.setDate(candidate.getDate() + 7);
     }
     return candidate;
   }
 
-  // Data alvo do seu evento
-  const targetDate = getEventDateTime();
+  // Prepara o Date alvo e nomes de dias
+  const targetDate  = getEventDateTime();
+  const WEEKDAYS    = ['Domingo','Segunda-feira','Terça-feira',
+                       'Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
 
-  // Formata número com 2 dígitos
-  function pad(n) {
-    return String(n).padStart(2, '0');
+  // formata número em 2 dígitos
+  function pad(n) { return String(n).padStart(2,'0'); }
+
+  // atualiza o texto da próxima data/evento
+  function writeNextEventText() {
+    const dayName = WEEKDAYS[targetDate.getDay()];
+    const hh      = pad(targetDate.getHours());
+    const mm      = pad(targetDate.getMinutes());
+    document.getElementById('nextEvent').textContent =
+      `${dayName}, às ${hh}:${mm}h`;
   }
 
-  // Atualiza o contador na página (IDs: days, hours, minutes, seconds)
+  // Atualiza o contador numérico
   function updateCountdown() {
     const now  = new Date();
     let   diff = targetDate - now;
@@ -214,21 +224,22 @@
     const minutes = Math.floor((diff % 3600000) / 60000);
     const seconds = Math.floor((diff % 60000) / 1000);
 
-    document.getElementById('days').textContent    = days;
-    document.getElementById('hours').textContent   = pad(hours);
+    document.getElementById('days'   ).textContent = days;
+    document.getElementById('hours'  ).textContent = pad(hours);
     document.getElementById('minutes').textContent = pad(minutes);
     document.getElementById('seconds').textContent = pad(seconds);
   }
 
-  // Inicia o timer
+  // Dispara o contador e a escrita da data
   function startCountdown() {
+    writeNextEventText();
     updateCountdown();
     setInterval(updateCountdown, 1000);
   }
 
+  // Quando a página terminar de carregar
   window.addEventListener('load', startCountdown);
 </script>
-
 
 </body>
 </html>
