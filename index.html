@@ -303,9 +303,10 @@
 </div>
 
 <script>
+let webinarStartTimestamp = null;
     const configDay = 3;        
-    const configHour = 2;       
-    const configMinute = 55;    
+    const configHour = 3;       
+    const configMinute = 10;    
     const durationMinutes = 29;  
 
     const video = document.getElementById('customVideo');
@@ -319,7 +320,7 @@
     const videoDuration = durationMinutes * 60;
 
     const programmedMessages = [
-        { time: 10, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+        { time: 20, name: "Juliana", text: "👍  mudou minha vida! www.google.com.br" },
         { time: 600, name: "Carlos", text: "Conteúdo incrível!" },
         { time: 1200, name: "Ana", text: "Valeu pela explicação!" }
     ];
@@ -347,41 +348,56 @@
         return nextDate.toLocaleString('pt-BR');
     }
 
-    function startWebinar() {
-        // ✅ Zera o chat
-        messages.innerHTML = "";
-        shownProgrammedMessages.clear();
+  function startWebinar() {
+  // limpa chat
+  messages.innerHTML = "";
+  shownProgrammedMessages.clear();
 
-        videoContainer.style.display = "block";
-        chatContainer.style.display = "block";
+  // mostra containers
+  videoContainer.style.display = "block";
+  chatContainer.style.display = "block";
 
-        const now = new Date();
-        const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
-        const secondsSinceStart = Math.floor((now - startTime) / 1000);
+  // calcula quantos segundos já se passaram desde o início oficial
+  const now = new Date();
+  const startTime = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    configHour,
+    configMinute,
+    0
+  );
+  webinarStartTimestamp = startTime.getTime();
 
-        if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
-            video.currentTime = secondsSinceStart;
-        }
+  // sincroniza o vídeo (se quiser)
+  const elapsedSinceStart = Math.floor((Date.now() - webinarStartTimestamp) / 1000);
+  if (elapsedSinceStart >= 0 && elapsedSinceStart <= videoDuration) {
+    video.currentTime = elapsedSinceStart;
+  }
 
-        // ✅ Marcar mensagens anteriores como já enviadas
-        programmedMessages.forEach(msg => {
-            if (msg.time < secondsSinceStart) {
-                shownProgrammedMessages.add(msg.time);
-            }
-        });
+  // ** Agendamento de comentários pelo relógio, não pelo video.currentTime **
+  setInterval(() => {
+    const elapsed = Math.floor((Date.now() - webinarStartTimestamp) / 1000);
+    programmedMessages.forEach(msg => {
+      if (elapsed >= msg.time && !shownProgrammedMessages.has(msg.time)) {
+        addMessage(msg.name, msg.text);
+        shownProgrammedMessages.add(msg.time);
+      }
+    });
+  }, 1000);
 
-        setInterval(checkProgrammedMessages, 1000);
-
-       const viewerElement = document.getElementById('viewerCounter');
-
-function updateViewerCount() {
-    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
-   viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
+  // contador de “pessoas assistindo”
+  updateViewerCount();
+  viewerInterval = setInterval(updateViewerCount, 15000);
 }
 
-        updateViewerCount();
-        viewerInterval = setInterval(updateViewerCount, 15000);
-    }
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
@@ -559,6 +575,25 @@ function getLastWebinarDate() {
     return lastWebinar;
 }
 
+
+  // Função simples para transformar URLs em <a> clicáveis
+  function linkify(text) {
+    return text
+      // https:// ou http://
+      .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+      // www. algo
+      .replace(/\b(www\.[^\s]+)/g, '<a href="http://$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function addMessage(user, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    // aplicamos a linkify no text
+    const safeText = linkify(text);
+    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
 
 
 </script>
