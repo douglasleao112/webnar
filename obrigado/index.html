@@ -2,25 +2,25 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Falta Pouco</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
       background: #fff;
       color: #333;
-      padding: 0 10px;
+      margin: 0;
+      padding: 0;
     }
- .container {
+
+    .container {
       max-width: 480px;
-      margin: 40px auto;
-      padding: 0 16px;
+      margin: 0 auto;
+      padding: 20px 16px;
       text-align: center;
     }
 
-
-    h1 {
+    h1, h2 {
       font-size: 24px;
       margin-bottom: 16px;
     }
@@ -28,23 +28,26 @@
     p {
       font-size: 16px;
       margin-bottom: 14px;
+      text-align: center;
     }
 
     .highlight {
       font-weight: bold;
     }
 
- /* botão pulsante */
     .btn {
       display: inline-block;
       background-color: #22c55e;
       color: #fff;
       text-decoration: none;
       font-weight: bold;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border-radius: 6px;
-      margin: 16px 0;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 100%;
       animation: zoom 1.5s infinite alternate ease-in-out;
+      box-sizing: border-box;
     }
 
     @keyframes zoom {
@@ -53,12 +56,7 @@
     }
 
     @media (max-width: 480px) {
-      .container {
-        margin: 20px auto;
-        padding: 15px;
-      }
-
-      h1 {
+      h1, h2 {
         font-size: 20px;
       }
 
@@ -66,32 +64,14 @@
         font-size: 15px;
       }
 
+      .container {
+        padding: 16px 12px;
+      }
+
       .btn {
-        width: 100%;
         padding: 12px;
       }
     }
-
-        /* lista de itens */
-    .features {
-      text-align: left;
-      margin: 24px 0;
-    }
-    .features li {
-      margin-bottom: 12px;
-      list-style: none;
-      padding-left: 24px;
-      position: relative;
-    }
-    .features li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: #77a116;
-    }
-
-   
-
   </style>
   <script>
     setTimeout(function() {
@@ -100,19 +80,13 @@
   </script>
 </head>
 <body>
-
   <div class="container">
-    <!-- lista de benefícios -->
-    <ul class="features">
-       <center> <h2>Quase lá!</h2><br></center>
-      <p>Já reservamos um lugar pra você no evento, mas <span class="highlight">falta um passo</span> pra você participar:</p>
-      <p>Em alguns instantes, você deve ser redirecionado para o nosso <span class="highlight">grupo de WhatsApp</span></p>
-       <p><span class="highlight">(é lá que vamos enviar todas as informações e o link do evento)</span></p>
-     
-    </ul><br>
- <!-- botão CTA -->
-    <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE"  style="padding: 18px 56px;">Entrar no grupo do WhatsApp</a>
- </div>
+    <h2>Quase lá!</h2>
+    <p>Já reservamos um lugar pra você no evento, mas <span class="highlight">falta um passo</span> pra você participar:</p>
+    <p>Em alguns instantes, você deve ser redirecionado para o nosso <span class="highlight">grupo de WhatsApp</span></p>
+    <p><span class="highlight">(é lá que vamos enviar todas as informações e o link do evento)</span></p>
 
+    <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE">Entrar no grupo do WhatsApp</a>
+  </div>
 </body>
 </html>
