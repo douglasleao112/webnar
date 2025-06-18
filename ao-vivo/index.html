@@ -826,10 +826,11 @@ document.addEventListener('keydown', e => {
 
 
 
+
+
 <script>
 let horaEntrada = new Date();
 
-// Gerar ID único do navegador
 function getBrowserId() {
   let id = localStorage.getItem('browserId');
   if (!id) {
@@ -843,10 +844,10 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
-  const horaSaida = new Date(horaEntrada.getTime() + tempoPagina * 1000).toLocaleTimeString();
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000); // Agora em segundos puros
+  const horaSaida = agora.toLocaleTimeString();
 
-  fetch('https://script.google.com/macros/s/AKfycbyF8fRgBTwoyH5xBUNTX1dIaBK1mXHEhE1GNrqPXHuXWZv82VdDW5F8O1ra8wLBACwuOQ/exec', {  // Atualize aqui com o URL real
+  fetch('https://script.google.com/macros/s/AKfycbyF8fRgBTwoyH5xBUNTX1dIaBK1mXHEhE1GNrqPXHuXWZv82VdDW5F8O1ra8wLBACwuOQ/exec', {  // Atualize com URL correta
     method: 'POST',
     mode: 'no-cors',
     headers: {
@@ -862,9 +863,10 @@ function enviarDados() {
   });
 }
 
-// dispara a cada segundo
+// Executa a cada segundo
 setInterval(enviarDados, 1000);
 </script>
+
 
 
 
