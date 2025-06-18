@@ -592,23 +592,30 @@ function startWebinar() {
         video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
     }
 
-  function saveUserName() {
-    const nameInput = document.getElementById('userNameInput');
-    const name = nameInput.value.trim();
-    const nameFormWrapper = document.getElementById('nameFormWrapper');
+function saveUserName() {
+  const nameInput = document.getElementById('userNameInput');
+  const name = nameInput.value.trim();
+  const nameFormWrapper = document.getElementById('nameFormWrapper');
 
-    if (name.length > 0) {
-        userName = name;
-        nameFormWrapper.style.display = "none";  // ✅ Esconde o wrapper inteiro
+  if (!name) {
+    return alert("Por favor, digite seu nome.");
+  }
 
-        if (isWebinarTime()) {
-            startWebinar();
-        } else {
-            nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-        }
-    } else {
-        alert("Por favor, digite seu nome.");
-    }
+  // 1️⃣ guarda globalmente pro tracker ler depois
+  window.userName = name;
+
+  // 2️⃣ opcional: persiste entre recargas
+  localStorage.setItem('webinarUserName', name);
+
+  // 3️⃣ esconde o formulário e segue com a lógica
+  nameFormWrapper.style.display = "none";
+
+  if (isWebinarTime()) {
+    startWebinar();
+  } else {
+    nextSession.innerHTML =
+      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+  }
 }
 
     playButton.addEventListener('click', iniciarVideo);
@@ -751,16 +758,15 @@ function getLastWebinarDate() {
 
 
 
-
 <script>
-  // 1) Gera ou recupera ID fixo
+  // 1️⃣ Gera ou recupera ID fixo
   let browserId = localStorage.getItem('webinarBrowserId');
   if (!browserId) {
     browserId = crypto.randomUUID();
     localStorage.setItem('webinarBrowserId', browserId);
   }
 
-  // 2) Mede tempo ativo na aba
+  // 2️⃣ Conta tempo ativo na aba
   let activeTime = 0, lastResume = Date.now();
   const onResume = () => lastResume = Date.now();
   const onPause  = () => activeTime += Date.now() - lastResume;
@@ -769,27 +775,27 @@ function getLastWebinarDate() {
   );
   onResume();
 
-  // 3) URL do seu Web App (deploy “Anyone, even anonymous”)
+  // 3️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
   const WEB_APP_URL = 
     'https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec';
 
-  // 4) Antes de sair da página, envia um GET simples (sem CORS issues)
+  // 4️⃣ Antes de sair da página, dispara um GET simples (não dá CORS)
   window.addEventListener('beforeunload', () => {
-    if (!document.hidden) onPause();  // atualiza activeTime
+    if (!document.hidden) onPause();
     const params = new URLSearchParams({
       browserId,
-      userName: window.userName || '', // garanta que, no seu saveUserName(), você faça: window.userName = name;
+      userName: window.userName || '',
       activeTimeMs: activeTime
     });
-    // sendBeacon funciona mesmo no beforeunload
+    // preferencialmente usa beacon, senão fetch GET
     if (navigator.sendBeacon) {
       navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
     } else {
-      // fallback
       fetch(`${WEB_APP_URL}?${params}`, { method: 'GET' });
     }
   });
 </script>
+
 
 
 
