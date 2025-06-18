@@ -135,7 +135,7 @@
 
     <!-- lista de benefícios -->
     <ul class="features">
-        <h2>O que você vai ver:</h2>
+        <h2>O que você vai ver:</h2><br>
       <li>Como criar receita constante e não depender de lançamentos para pagar as contas</li>
       <li>O mecanismo por trás dos funis de webinários que convertem mais que lançamentos clássicos</li>
       <li>O passo a passo dos webinários automatizados que vendem para mais de 3% da lista</li>
@@ -169,9 +169,9 @@
    * Se deixar em branco, usará DEFAULT_WEEKDAY/DEFAULT_HOUR/DEFAULT_MINUTE.
    *************************************************************************/
   const EVENT_DATETIME = '';    // ex: '2025-06-23T19:00:00'
-  const DEFAULT_WEEKDAY = 5;    // 0=domingo,1=segunda,…6=sábado
+  const DEFAULT_WEEKDAY = 0;    // 0=domingo,1=segunda,…6=sábado
   const DEFAULT_HOUR    = 19;   // hora do evento
-  const DEFAULT_MINUTE  = 30;    // minuto do evento
+  const DEFAULT_MINUTE  = 0;    // minuto do evento
 
   // Retorna o objeto Date do próximo evento
   function getEventDateTime() {
