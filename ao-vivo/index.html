@@ -828,8 +828,10 @@ document.addEventListener('keydown', e => {
 
 
 
+
+
 <script>
-let horaEntrada = new Date();
+const horaEntrada = new Date();
 
 function getBrowserId() {
   let id = localStorage.getItem('browserId');
@@ -844,10 +846,10 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000); // Agora em segundos puros
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000); // segundos simples
   const horaSaida = agora.toLocaleTimeString();
 
-  fetch('https://script.google.com/macros/s/AKfycbzR3fLyt_Ni0GWsawNxhh0lgWaLhDfJRGdM5Nrdc1X43B3xD6bP39w13-n2pixJJX565Q/exec', {  // Atualize com URL correta
+  fetch('https://script.google.com/macros/s/AKfycbzhvOYIyGVbOoooHOFxkX7QHIK10MOT5iOGztWON3s8Yw5IfsbYLb_U0fawKbRC935n6A/exec', {  // Substitua pelo URL correto do Apps Script
     method: 'POST',
     mode: 'no-cors',
     headers: {
@@ -863,10 +865,9 @@ function enviarDados() {
   });
 }
 
-// Executa a cada segundo
+// Dispara a cada segundo
 setInterval(enviarDados, 1000);
 </script>
-
 
 
 
