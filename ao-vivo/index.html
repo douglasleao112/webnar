@@ -736,33 +736,53 @@ function getLastWebinarDate() {
 
 
 
-
-
 </script>
 
 
 
-<script>
-function enviarTracker() {
-  const params = new URLSearchParams({
-    browserId:    localStorage.getItem('webinarBrowserId'),
-    userName:     window.userName || '',
-    activeTimeMs: activeTime
-  });
-  // sem headers extras, puro GET
-  fetch(`https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec?${params}`, {
-    method: 'GET'
-  })
-  .then(res => res.text())
-  .then(txt => console.log('Resposta tracker:', txt))
-  .catch(err => console.error('Erro tracker:', err));
-}
 
-// em vez de sendBeacon, chame isso
-window.addEventListener('beforeunload', () => {
-  onPause();       // finalize contagem de tempo
-  enviarTracker(); // dispara o GET
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  // 1️⃣ Monte o query string
+  function enviarTracker(browserId, userName, activeTimeMs) {
+    const base = 'https://script.google.com/macros/s/AKfycbwvarfLhjn1_AFXSGbXCKZbLesozYxwc8rUQ6x2Ac8efWIPff4PqLJR5SXHu7NYpnIC2Q/exec';
+    const qs   = new URLSearchParams({
+      browserId:    browserId,
+      userName:     userName,
+      activeTimeMs: activeTimeMs
+    }).toString();
+
+    // 2️⃣ Dispare um GET (não dispara preflight)
+    fetch(`${base}?${qs}`, {
+      method: 'GET'
+    })
+    .then(res => res.text())
+    .then(txt => console.log('Tracker respondeu:', txt))
+    .catch(err => console.error('Erro no tracker:', err));
+  }
+
+  // Exemplo de uso:
+  window.addEventListener('beforeunload', () => {
+    // finalize sua lógica de contagem de tempo antes
+    const browserId    = localStorage.getItem('webinarBrowserId');
+    const userName     = window.userName || '';
+    const activeTimeMs = /* sua variável de tempo ativo em ms */;
+    enviarTracker(browserId, userName, activeTimeMs);
+  });
 </script>
 
 
