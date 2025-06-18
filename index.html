@@ -476,7 +476,8 @@ function showCountdown() {
         const seconds = totalSeconds % 60;
 
         document.getElementById('countdown').innerHTML =
-            <div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>;
+    `<div>${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos</div>`;
+
     }
 
     updateCountdown();
