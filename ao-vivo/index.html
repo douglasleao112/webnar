@@ -817,71 +817,11 @@ document.addEventListener('keydown', e => {
   if (forbidden) e.preventDefault();
 });
 
-
-
-
-
 </script>
 
 
 
 
-
-
-
-
-  <script>
-  let browserId = localStorage.getItem('webinarBrowserId');
-  if (!browserId) {
-    browserId = crypto.randomUUID();
-    localStorage.setItem('webinarBrowserId', browserId);
-  }
-
-  // 2️⃣ Se houve nome salvo, coloca em window.userName
-  const saved = localStorage.getItem('webinarUserName');
-  if (saved) window.userName = saved;
-
-  // 3️⃣ Conta tempo ativo na aba
-  let activeTime = 0, lastResume = Date.now();
-  const onResume = () => lastResume = Date.now();
-  const onPause  = () => activeTime += Date.now() - lastResume;
-  document.addEventListener('visibilitychange', () =>
-    document.hidden ? onPause() : onResume()
-  );
-  onResume();
-
-  // 4️⃣ URL do seu Web App (deploy “Anyone, even anonymous”)
-  const WEB_APP_URL =
-    'https://script.google.com/macros/s/AKfycbwi6P7EutyjPLIlhjprWsLiIbpBWPy9yMmaafFPkcWA1YwhktMvNN2l--S_2SASbyqlnA/exec';
-
-  // 5️⃣ Substitua a sua função saveUserName POR ESTA ÚNICA COPIA
-  function saveUserName() {
-    const name = document.getElementById('userNameInput').value.trim();
-    if (!name) return alert("Por favor, digite seu nome.");
-    window.userName = name;
-    localStorage.setItem('webinarUserName', name);
-    document.getElementById('nameFormWrapper').style.display = 'none';
-    // chama a sua lógica normal de startWebinar() ou showCountdown()
-    if (isWebinarTime()) startWebinar();
-    else nextSession.innerHTML = `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-  }
-
-  // 6️⃣ Antes de sair/recarregar, dispara o tracker UMA ÚNICA VEZ
-  window.addEventListener('beforeunload', () => {
-    if (!document.hidden) onPause();
-    const params = new URLSearchParams({
-      browserId,
-      userName: window.userName || '',
-      activeTimeMs: activeTime
-    });
-    // beacon evita preflight e não bloqueia o unload
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(`${WEB_APP_URL}?${params}`);
-    } else {
-      fetch(`${WEB_APP_URL}?${params}`, { method: 'GET' });
-    }
-  });
-</script>
 
 
 
