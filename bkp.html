@@ -635,9 +635,15 @@ window.onload = function() {
         showCountdown();
     } else if (now >= webinarStart && now <= webinarEnd) {
         nameForm.style.display = "block";
-    } else if (now > webinarEnd && now <= encerramentoEnd) {
-        startWebinar();    //  aberto: startWebinar();       trancado: showEventClosed();
-    } else {
+    } 
+    
+    else if (now > webinarEnd && now <= encerramentoEnd) {
+    // durante os testes, em vez de "Evento Encerrado"…
+    startWebinar();        // mostra o player
+    // showEventClosed();  // ← comente essa linha
+}
+    
+    else {
         showCountdown();
     }
 };
