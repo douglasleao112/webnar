@@ -40,21 +40,33 @@
             cursor: pointer;
             z-index: 3;
         }
-        #playButton {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0);
-            color: white;
-            font-size: 24px;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            z-index: 4;
-        }
+/* botão centralizado e com imagem de play */
+#playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%) scale(1);
+  background: url('https://i.imgur.com/yCRoZxT.png') center/contain no-repeat;
+  border: none;
+  cursor: pointer;
+  z-index: 4;
+
+   /* 2) Animação de “zoom in/out” */
+  animation: zoom 1.5s infinite alternate;
+}
+
+/* 3) Keyframes que fazem o zoom ir (scale 1 → 1.2) e voltar */
+@keyframes zoom {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
         /* Chat Layout */
         #chatContainer {
             background: #fff;
@@ -357,12 +369,12 @@ img, a {
 <div id="viewerCounter" style="text-align: center; margin-top: 10px;"></div>
 
     <div class="player-wrapper">
-        <video id="customVideo" preload="metadata" playsinline poster="https://static.wixstatic.com/media/7f5efc_103c9c11239a479793677c2a613ec50c~mv2.gif">
+        <video id="customVideo" preload="metadata" playsinline>
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
         </video>
         <div id="videoClickOverlay"></div>
-        <button id="playButton">▶</button>
+        <button id="playButton"></button>
     </div>
 
     
@@ -791,6 +803,45 @@ document.addEventListener('keydown', e => {
 </script>
 
 
+
+<script>
+    // 1️⃣ Gera ou recupera um ID fixo para este navegador
+    let browserId = localStorage.getItem('webinarBrowserId');
+    if (!browserId) {
+      browserId = crypto.randomUUID();
+      localStorage.setItem('webinarBrowserId', browserId);
+    }
+
+    // 2️⃣ Variáveis para medir tempo ativo
+    let activeTime    = 0;
+    let lastResume    = Date.now();
+    function onResume() { lastResume = Date.now(); }
+    function onPause()  { activeTime += Date.now() - lastResume; }
+
+    // 3️⃣ Monitora quando o usuário muda de aba/janela
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? onPause() : onResume();
+    });
+    onResume();  // inicia a contagem ao carregar a página
+
+    // 4️⃣ Define o endpoint do seu Apps Script
+    const SHEET_URL = 
+      'https://script.google.com/macros/s/AKfycbyk-577GW8yo6SLe_ONK9R6j1yNN024l8WpbhnrwNGh0jwf4mo6nlJ6qaXXyZ8Vcf7DRA/exec';
+
+    // 5️⃣ Quando o usuário sai ou recarrega, envie os dados
+    window.addEventListener('beforeunload', () => {
+      if (!document.hidden) onPause();
+      const payload = {
+        browserId,
+        userName: window.userName || '',
+        activeTimeMs: activeTime
+      };
+      const blob = new Blob([JSON.stringify(payload)], {
+        type: 'application/json'
+      });
+      navigator.sendBeacon(SHEET_URL, blob);
+    });
+  </script>
 
 </body>
 </html>
