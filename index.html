@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webinar Ao Vivo</title>
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
@@ -67,7 +64,7 @@
             padding: 8px 12px;
             border-radius: 8px;
             margin-bottom: 8px;
-            font-size: 12px;
+            font-size: 14px;
             color: #333;
         }
         .chat-message strong {
@@ -75,24 +72,23 @@
             display: block;
             margin-bottom: 4px;
         }
-        #chatInputArea {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            padding: 6px 10px;
-            box-sizing: border-box;
-            width: 100%;
-        }
-        #userMessage {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 6px 10px;
-            font-size: 14px;
-            box-sizing: border-box;
-            min-width: 0;
-        }
+  #chatInputArea {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+#userMessage {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
         #sendButton {
             background: none;
             border: none;
@@ -107,14 +103,6 @@
             height: 60%;
             object-fit: contain;
         }
-#chatContainer h3 {
-    font-size: 13px;      /* ✅ Tamanho menor */
-    font-weight: bold;
-    color: #333;
-	margin-top: 4px;
-    margin-bottom: 10px;
-}
-
 
         /* Formulário de Nome */
         #nameForm {
@@ -134,7 +122,7 @@
         }
         #nameForm h3 {
             color: #000;
-            font-size: 14px;
+            font-size: 18px;
             margin-bottom: 10px;
             font-weight: bold;
         }
@@ -173,34 +161,16 @@
             text-decoration: underline;
         }
 
-        /* Mobile Fixes */
-        @media (max-width: 500px) {
+        /* Mobile fix extra */
+        @media (max-width: 480px) {
             body {
                 padding: 10px;
             }
-            #chatContainer, #nameForm, #videoContainer {
-                margin: 10px auto;
-                padding-left: 10px;
-                padding-right: 10px;
-                box-sizing: border-box;
-                width: 100%;
-            }
-            #chatInputArea {
-                flex-wrap: wrap;
+            #nameForm {
+                padding: 15px;
             }
         }
 		
-            #viewerCounter {
-            font-size: 12px;       /* ✅ Diminui o tamanho */
-            color: #555;            /* ✅ Deixa mais discreto */
-            margin-top: 8px;
-            }
-            #viewerCounter strong {
-            color: red;             /* ✅ Mantém o número em destaque */
-            font-size: 12px;
-            }
-
-
     </style>
 </head>
 <body>
@@ -252,7 +222,7 @@
 
 <script>
     const configDay = 3;        
-    const configHour = 2;       
+    const configHour = 1;       
     const configMinute = 57;    
     const durationMinutes = 29;  
 
@@ -323,15 +293,13 @@
        const viewerElement = document.getElementById('viewerCounter');
 
 function updateViewerCount() {
-    const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
+    const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;
     viewerElement.innerHTML = <strong>${random}</strong> pessoas assistindo agora.;
 }
 
         updateViewerCount();
-        viewerInterval = setInterval(updateViewerCount, 15000);
+        viewerInterval = setInterval(updateViewerCount, 5000);
     }
-	
-	
 
     function checkProgrammedMessages() {
         const currentTime = video.currentTime;
@@ -391,13 +359,9 @@ function updateViewerCount() {
         e.preventDefault();
     });
 
-   window.onload = function() {
-    if (isWebinarTime()) {
+    window.onload = function() {
         nameForm.style.display = "block";
-    } else {
-        nextSession.innerHTML = <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
-    }
-};
+    };
 </script>
 
 </body>
