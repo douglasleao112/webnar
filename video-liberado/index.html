@@ -408,10 +408,10 @@ img, a {
 
  <!-- Headline e subhealine -->
 <div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
-  <h1 style="font-size: 20px; color: #d62828; margin-bottom: 8px;">Vídeo liberado por tempo limitado</h1>
-  <h2 style="font-size: 16px; color: #333;">
-    Esse vídeo sairá do ar HOJE, <span id="diaSemana"></span> às 23:59
-  </h2>
+  <h1 style="font-size: 18px; color: #d62828; margin-bottom: 8px;">Vídeo liberado por tempo limitado</h1>
+  <p style="font-size: 13px; color: #333;">
+    Esse vídeo sairá do ar HOJE,<b> <span id="diaSemana"></span> às 23:59</b>
+  </p>
 </div>
 
 
@@ -608,7 +608,7 @@ function startWebinar() {
     
 
 
-    
+
 
     const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();
     if (offerDelayMs > 0) {
