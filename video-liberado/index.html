@@ -406,8 +406,13 @@ img, a {
 
 <div id="videoContainer">    
 
- <!-- ✅ Contador de pessoas assistindo logo abaixo do vídeo -->
-<div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;"></div>
+ <!-- Headline e subhealine -->
+<div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
+  <h1 style="font-size: 20px; color: #d62828; margin-bottom: 8px;">Vídeo liberado por tempo limitado</h1>
+  <h2 style="font-size: 16px; color: #333;">
+    Esse vídeo sairá do ar HOJE, <span id="diaSemana"></span> às 23:59
+  </h2>
+</div>
 
 
     <div class="player-wrapper">
@@ -929,7 +934,10 @@ function iniciarMonitoramentoDeMensagens() {
     }, 1000);
 }
 
-
+const diasSemana = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+  const hoje = new Date();
+  document.getElementById("diaSemana").textContent = diasSemana[hoje.getDay()];
+  
 
 </script>
 
