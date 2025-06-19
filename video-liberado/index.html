@@ -638,18 +638,17 @@ function saveUserName() {
   
 window.onload = function() {
     const now = new Date();
-
-    // Pega a próxima data programada
     const nextWebinar = getNextWebinarDate();
     const startTime = nextWebinar.getTime();
-    const endTime = startTime + (24 * 60 * 60 * 1000); // Disponível por 24 horas
+    const endTime = startTime + (24 * 60 * 60 * 1000);
 
     if (now.getTime() < startTime) {
         showCountdown();
     } else if (now.getTime() >= startTime && now.getTime() <= endTime) {
-        startWebinar();  // Liberar o vídeo durante as 24h
+        startWebinar();
     } else {
-        showEventClosed();
+        // Redireciona para /ao-vivo/ se estiver fora da janela de 24h
+        window.location.href = "/ao-vivo/";
     }
 };
 
