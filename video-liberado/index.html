@@ -451,8 +451,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 21;         // HORA 
-    const configMinute = 37;      // MINUTO
+    const configHour = 18;         // HORA 
+    const configMinute = 0;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -638,20 +638,17 @@ function saveUserName() {
   
 window.onload = function() {
     const now = new Date();
-    const nextWebinar = getNextWebinarDate();
-    const startTime = nextWebinar.getTime();
-    const endTime = startTime + (24 * 60 * 60 * 1000);
+    const lastWebinar = getLastWebinarDate();
+    const startTime = lastWebinar.getTime();
+    const endTime = startTime + (24 * 60 * 60 * 1000);  // Disponível por 24h após o último evento
 
-    if (now.getTime() < startTime) {
-        showCountdown();
-    } else if (now.getTime() >= startTime && now.getTime() <= endTime) {
+    if (now.getTime() >= startTime && now.getTime() <= endTime) {
         startWebinar();
     } else {
         // Redireciona para /ao-vivo/ se estiver fora da janela de 24h
         window.location.href = "/ao-vivo/";
     }
 };
-
 
 function showCountdown() {
     const waitingDiv = document.getElementById('waitingMessage');
