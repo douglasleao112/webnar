@@ -635,14 +635,21 @@ function saveUserName() {
     });
  
   
-  
 window.onload = function() {
     const now = new Date();
-    const lastWebinar = getLastWebinarDate();
-    const startTime = lastWebinar.getTime();
-    const endTime = startTime + (24 * 60 * 60 * 1000);  // Disponível por 24 horas a partir do último evento
+    const day = now.getDay();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const currentTime = now.getTime();
 
-    if (now.getTime() >= startTime && now.getTime() <= endTime) {
+    // Calcula o início da janela: Quarta-feira 18h desta semana
+    const startDate = new Date(now);
+    startDate.setDate(now.getDate() - ((now.getDay() - 3 + 7) % 7));  // Garante que pegue a última quarta
+    startDate.setHours(18, 0, 0, 0);
+
+    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // 24h depois
+
+    if (currentTime >= startDate.getTime() && currentTime <= endDate.getTime()) {
         startWebinar();
     } else {
         window.location.href = "/ao-vivo/";
