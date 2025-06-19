@@ -213,7 +213,7 @@
             margin-top: 8px;
             }
             #viewerCounter strong {
-            color: red;          
+            color: rgb(16, 16, 16);           
             font-size: 13px;
             }
             
@@ -598,11 +598,14 @@ function startWebinar() {
         }
     });
 
-    const viewerElement = document.getElementById('viewerCounter');
-    function updateViewerCount() {
-        const random = Math.floor(Math.random() * (680 - 547 + 1)) + 547;
-        viewerElement.innerHTML = `<strong>${random}</strong> pessoas assistindo agora.`;
-    }
+const viewerElement = document.getElementById('viewerCounter');
+function updateViewerCount() {
+    const random = Math.floor(Math.random() * (680 - 547 + 1)) + 547;
+    viewerElement.innerHTML = `
+        <img src="https://i.imgur.com/JpYEl54.png" alt="Avatar" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 6px;">
+        <strong>${random}</strong> pessoas assistindo agora.
+    `;
+}
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
