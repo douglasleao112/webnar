@@ -12,94 +12,161 @@
       margin: 0;
       padding: 0;
     }
-
     .container {
       max-width: 480px;
       margin: 0 auto;
       padding: 20px 16px;
       text-align: center;
     }
-
-    h1, h2 {
+    h2 {
       font-size: 24px;
       margin-bottom: 16px;
     }
-
     p {
       font-size: 16px;
       margin-bottom: 14px;
       text-align: center;
     }
-
     .highlight {
       font-weight: bold;
     }
-
-    .btn {
-      display: inline-block;
-      background-color: #22c55e;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 14px 28px;
-      border-radius: 6px;
-      margin-top: 20px;
-      width: 100%;
-      max-width: 100%;
-      animation: zoom 1.5s infinite alternate ease-in-out;
-      box-sizing: border-box;
+    .promo {
+      margin: 20px 0;
     }
+    .promo img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 8px;
+    }
+    .promo p {
+      font-size: 16px;
+      margin: 0;
+    }
+.btn {
+  display: inline-block;
+  background-color: #22c55e;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 14px 28px;
+  border-radius: 6px;
+  margin-top: 20px;
+  /* ajusta aqui a largura máxima */
+  max-width: 280px;    /* por exemplo */
+  width: 100%;         
+  box-sizing: border-box;
+}
 
+/* botão secundário (cinza claro) */
+.btn-secondary {
+  background-color: #f2f2f2;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+/* estilo para o texto embaixo do segundo botão */
+.small-text {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+  line-height: 1.4;
+}
 
     @media (max-width: 480px) {
-      h1, h2 {
+      h2 {
         font-size: 20px;
       }
-
-      p {
+      p, .promo p {
         font-size: 15px;
       }
-
       .container {
         padding: 16px 12px;
       }
-
       .btn {
         padding: 12px;
       }
     }
 
-      /* Barra de progresso no topo */
-  #loadingBarContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background-color: #e0e0e0;
-    z-index: 9999;
-  }
 
-  #loadingBar {
-    height: 100%;
-    width: 0%;
-    background-color: #22c55e;
-    transition: width 30s linear;  /* ⬅️ Tempo da animação ajustado para 30 segundos */
-  }
-
+    
+    #loadingBarContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background-color: #e0e0e0;
+      z-index: 9999;
+    }
+    #loadingBar {
+      height: 100%;
+      width: 0%;
+      background-color: #22c55e;
+      transition: width 30s linear;
+    }
   </style>
   <script>
+    // redireciona após 30s
     setTimeout(function() {
       window.location.href = "https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE";
     }, 30000);
+    
+    window.addEventListener('load', function() {
+      // anima barra de loading
+      const bar = document.getElementById('loadingBar');
+      setTimeout(() => bar.style.width = '100%', 50);
+
+      // lógica dinâmica de promo
+      const promos = {
+        1: { // segunda
+          img: 'https://static.wixstatic.com/media/7f5efc_25ef2677b62c406e92bd6ab8733f05a8~mv2.jpg',
+          text: '[DOMINGO 19H] Vamos derreter toda a gordura 🔥'
+        },
+        2: { // terça
+          img: 'https://static.wixstatic.com/media/7f5efc_25ef2677b62c406e92bd6ab8733f05a8~mv2.jpg',
+          text: '[DOMINGO 19H] Vamos derreter toda a gordura 🔥'
+        },
+        3: { // quarta
+          img: 'https://static.wixstatic.com/media/7f5efc_25ef2677b62c406e92bd6ab8733f05a8~mv2.jpg',
+          text: '[DOMINGO 19H] Vamos derreter toda a gordura 🔥'
+        },
+        4: { // quinta
+          img: 'https://static.wixstatic.com/media/7f5efc_916c156145ba49d2a8843a4d0e1d34d0~mv2.jpg',
+          text: '[FALTAM 3 DIAS] Vamos derreter toda a gordura 🔥'
+        },
+        5: { // sexta
+          img: 'https://static.wixstatic.com/media/7f5efc_870b7385b35a448099a309c57111a20f~mv2.jpg',
+          text: '[FALTAM 2 DIAS] Vamos derreter toda a gordura 🔥'
+        },
+        6: { // sábado
+          img: 'https://static.wixstatic.com/media/7f5efc_0a7bc2f241e642a9bc6b3c19c2722a94~mv2.jpg',
+          text: '[FALTA 1 DIA] Vamos derreter toda a gordura 🔥'
+        },
+        0: { // domingo
+          img: 'https://static.wixstatic.com/media/7f5efc_e64f9e4d2454458b8e2cd45bde7e555c~mv2.jpg',
+          text: '[HOJE 19] Vamos derreter toda a gordura 🔥'
+        }
+      };
+      const today = new Date().getDay();
+      const promo = promos[today];
+      const promoContainer = document.getElementById('dynamicPromo');
+      if (promo) {
+        promoContainer.innerHTML = `
+          <div class="promo">
+            <img src="${promo.img}" alt="Promoção">
+            <p>${promo.text}</p>
+          </div>
+        `;
+      }
+    });
   </script>
 </head>
 <body>
-
-    <div id="loadingBarContainer">
-  <div id="loadingBar"></div>
-</div>
-
+  <div id="loadingBarContainer">
+    <div id="loadingBar"></div>
+  </div>
 
   <div class="container">
     <h2>Quase lá!</h2>
@@ -107,18 +174,56 @@
     <p>Em alguns instantes, você deve ser redirecionado para o nosso <span class="highlight">grupo de WhatsApp</span></p>
     <p><span class="highlight">(é lá que vamos enviar todas as informações e o link do evento)</span></p>
 
-    <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE">Entrar no grupo do WhatsApp</a>
+    <!-- Aqui será inserida a imagem e o texto conforme o dia -->
+    <div id="dynamicPromo"></div>
+  <!-- botão verde -->
+     <a class="btn" href="https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE">
+    Entrar no grupo
+  </a>
+
+    <!-- botão cinza-claro -->
+  <a href="#" class="btn btn-secondary" id="copyLinkBtn">
+    Copiar o link do grupo
+  </a>
+  
+  <!-- texto explicativo abaixo do botão cinza -->
+  <p class="small-text">
+    Caso esteja com problemas para entrar no grupo,<br>
+    abra o WhatsApp e cole o link em uma conversa.<br>
+    Então clique no link para abrir direto no grupo.
+  </p>
+
   </div>
 
+
+
   <script>
-  window.addEventListener('load', function() {
-    const bar = document.getElementById('loadingBar');
-    
-    // Faz a barra crescer até o final no tempo determinado
-    setTimeout(function() {
-      bar.style.width = '100%';
-    }, 50);
-  });
+  document
+    .getElementById('copyLinkBtn')
+    .addEventListener('click', function(e) {
+      e.preventDefault();
+      const groupLink = 'https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE';
+
+      // tenta usar a API moderna
+      navigator.clipboard.writeText(groupLink)
+        .then(() => {
+          const btn = e.currentTarget;
+          const originalText = btn.innerText;
+          btn.innerText = 'Copiado!';
+          // volta ao texto original depois de 2s
+          setTimeout(() => btn.innerText = originalText, 2000);
+        })
+        .catch(() => {
+          // fallback simples
+          const tmp = document.createElement('textarea');
+          tmp.value = groupLink;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand('copy');
+          document.body.removeChild(tmp);
+          alert('Link copiado!');
+        });
+    });
 </script>
 
 
