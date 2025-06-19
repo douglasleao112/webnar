@@ -34,14 +34,16 @@
       margin: 20px 0;
     }
     .promo img {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       display: block;
       margin: 0 auto 8px;
     }
     .promo p {
-      font-size: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      white-space: pre-wrap;
       margin: 0;
     }
 .btn {
@@ -54,7 +56,7 @@
   border-radius: 6px;
   margin-top: 20px;
   /* ajusta aqui a largura máxima */
-  max-width: 280px;    /* por exemplo */
+  max-width: 320px;  
   width: 100%;         
   box-sizing: border-box;
 }
@@ -68,7 +70,7 @@
 
 /* estilo para o texto embaixo do segundo botão */
 .small-text {
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
   margin-top: 8px;
   line-height: 1.4;
@@ -122,31 +124,31 @@
       const promos = {
         1: { // segunda
           img: 'https://static.wixstatic.com/media/7f5efc_25ef2677b62c406e92bd6ab8733f05a8~mv2.jpg',
-          text: '[DOMINGO 19H] Vamos derreter toda a gordura 🔥'
+          text: '[DOMINGO 19H] Vamos derreter \n toda a gordura 🔥'
         },
         2: { // terça
           img: 'https://static.wixstatic.com/media/7f5efc_25ef2677b62c406e92bd6ab8733f05a8~mv2.jpg',
-          text: '[DOMINGO 19H] Vamos derreter toda a gordura 🔥'
+          text: '[DOMINGO 19H] Vamos derreter \n toda a gordura 🔥'
         },
         3: { // quarta
           img: 'https://static.wixstatic.com/media/7f5efc_25ef2677b62c406e92bd6ab8733f05a8~mv2.jpg',
-          text: '[DOMINGO 19H] Vamos derreter toda a gordura 🔥'
+          text: '[DOMINGO 19H] Vamos derreter \n toda a gordura 🔥'
         },
         4: { // quinta
           img: 'https://static.wixstatic.com/media/7f5efc_916c156145ba49d2a8843a4d0e1d34d0~mv2.jpg',
-          text: '[FALTAM 3 DIAS] Vamos derreter toda a gordura 🔥'
+          text: '[FALTAM 3 DIAS] Vamos derreter \n toda a gordura 🔥'
         },
         5: { // sexta
           img: 'https://static.wixstatic.com/media/7f5efc_870b7385b35a448099a309c57111a20f~mv2.jpg',
-          text: '[FALTAM 2 DIAS] Vamos derreter toda a gordura 🔥'
+          text: '[FALTAM 2 DIAS] Vamos derreter \n toda a gordura 🔥'
         },
         6: { // sábado
           img: 'https://static.wixstatic.com/media/7f5efc_0a7bc2f241e642a9bc6b3c19c2722a94~mv2.jpg',
-          text: '[FALTA 1 DIA] Vamos derreter toda a gordura 🔥'
+          text: '[FALTA 1 DIA] Vamos derreter \n toda a gordura 🔥'
         },
         0: { // domingo
           img: 'https://static.wixstatic.com/media/7f5efc_e64f9e4d2454458b8e2cd45bde7e555c~mv2.jpg',
-          text: '[HOJE 19] Vamos derreter toda a gordura 🔥'
+          text: '[HOJE 19H] Vamos derreter \n toda a gordura 🔥'
         }
       };
       const today = new Date().getDay();
@@ -185,7 +187,7 @@
   <a href="#" class="btn btn-secondary" id="copyLinkBtn">
     Copiar o link do grupo
   </a>
-  
+
   <!-- texto explicativo abaixo do botão cinza -->
   <p class="small-text">
     Caso esteja com problemas para entrar no grupo,<br>
