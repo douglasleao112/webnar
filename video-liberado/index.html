@@ -451,8 +451,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE
     const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 20;         // HORA 
-    const configMinute = 13;      // MINUTO
+    const configHour = 21;         // HORA 
+    const configMinute = 37;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -641,17 +641,17 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (22 * 60 * 60 * 1000));   // TEMPO AO FINAL DA LIVE QUE FICA COMO ENCERRADO
+    const encerramentoEnd = new Date(webinarStart.getTime() + (24 * 60 * 60 * 1000));   // Disponível por 24h após o início
 
-    if (now < webinarStart) {
-        showCountdown();
-    } else if (now >= webinarStart && now <= webinarEnd) {
-        nameForm.style.display = "block";
-    } else if (now > webinarEnd && now <= encerramentoEnd) {
-        showEventClosed();
-    } else {
-        showCountdown();
-    }
+
+   if (now < webinarStart) {
+    showCountdown();
+} else if (now >= webinarStart && now <= encerramentoEnd) {
+    startWebinar();  // Libera o vídeo durante as 24h
+} else {
+    showEventClosed();
+}
+
 };
 
 
