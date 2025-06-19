@@ -640,15 +640,15 @@ window.onload = function() {
     const now = new Date();
     const lastWebinar = getLastWebinarDate();
     const startTime = lastWebinar.getTime();
-    const endTime = startTime + (24 * 60 * 60 * 1000);  // Disponível por 24h após o último evento
+    const endTime = startTime + (24 * 60 * 60 * 1000);  // Disponível por 24 horas a partir do último evento
 
     if (now.getTime() >= startTime && now.getTime() <= endTime) {
         startWebinar();
     } else {
-        // Redireciona para /ao-vivo/ se estiver fora da janela de 24h
         window.location.href = "/ao-vivo/";
     }
 };
+
 
 function showCountdown() {
     const waitingDiv = document.getElementById('waitingMessage');
@@ -737,19 +737,26 @@ function getNextWebinarDate() {
 }
 
 
+
 function getLastWebinarDate() {
     const now = new Date();
-    let daysSinceLast = (now.getDay() - configDay + 7) % 7;
+    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
 
-    // Se hoje for domingo mas ainda não chegou o horário, pega o domingo anterior
-    if (daysSinceLast === 0 && now.getHours() < configHour) {
-        daysSinceLast = 7;
+    if (now.getDay() !== configDay || now < targetDate) {
+        // Se hoje não for o dia do evento, ou se ainda não chegou a hora de hoje
+        const daysSinceLast = (now.getDay() - configDay + 7) % 7 || 7;
+        targetDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - daysSinceLast,
+            configHour,
+            configMinute,
+            0
+        );
     }
 
-    const lastWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceLast, configHour, configMinute, 0);
-    return lastWebinar;
+    return targetDate;
 }
-
 
 
 
