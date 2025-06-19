@@ -450,9 +450,9 @@ img, a {
 
 
 <script>  //PROGRAMAR LIVE
-    const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 18;         // HORA 
-    const configMinute = 0;      // MINUTO
+    const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 20;         // HORA 
+    const configMinute = 13;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -466,9 +466,9 @@ img, a {
     const videoDuration = durationMinutes * 60;
 
     const programmedMessages = [   //COMENTARIOS
-        { time: 10, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
-        { time: 15, name: "Carlos", text: "Conteúdo incrível!" },
-        { time: 20, name: "Ana", text: "Valeu pela explicação!" }
+        { time: 40, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+        { time: 45, name: "Carlos", text: "Conteúdo incrível!" },
+        { time: 50, name: "Ana", text: "Valeu pela explicação!" }
     ];
 
     let shownProgrammedMessages = new Set();
@@ -635,6 +635,7 @@ function saveUserName() {
     });
  
   
+  
 window.onload = function() {
     const now = new Date();
     const day = now.getDay();
@@ -727,43 +728,30 @@ function getNextWebinarDate() {
     const now = new Date();
     let daysUntilNext = (configDay - now.getDay() + 7) % 7;
 
+    // Se hoje for domingo e já passou do horário, joga para o domingo da próxima semana
     if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
         daysUntilNext = 7;
     }
 
-    const targetDate = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() + daysUntilNext,
-        configHour,
-        configMinute,
-        0
-    );
-
-    return targetDate;
+    const nextWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    return nextWebinar;
 }
 
 
 
 function getLastWebinarDate() {
     const now = new Date();
-    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+    let daysSinceLast = (now.getDay() - configDay + 7) % 7;
 
-    if (now.getDay() !== configDay || now < targetDate) {
-        // Se hoje não for o dia do evento, ou se ainda não chegou a hora de hoje
-        const daysSinceLast = (now.getDay() - configDay + 7) % 7 || 7;
-        targetDate = new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate() - daysSinceLast,
-            configHour,
-            configMinute,
-            0
-        );
+    // Se hoje for domingo mas ainda não chegou o horário, pega o domingo anterior
+    if (daysSinceLast === 0 && now.getHours() < configHour) {
+        daysSinceLast = 7;
     }
 
-    return targetDate;
+    const lastWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceLast, configHour, configMinute, 0);
+    return lastWebinar;
 }
+
 
 
 
@@ -844,6 +832,7 @@ document.addEventListener('keydown', e => {
 
 
 
+
 <script>
 const horaEntrada = new Date();
 
@@ -875,7 +864,7 @@ function enviarDados() {
       horaEntrada: horaEntrada.toLocaleTimeString(),
       tempoPagina: tempoPagina,
       horaSaida: horaSaida,
-      paginaOrigem: 'video-liberado'  
+      paginaOrigem: 'video-liberado'
     })
   });
 }
