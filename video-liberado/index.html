@@ -329,7 +329,49 @@ img, a {
   font-size: 12px;
 }
 
+#chatInputArea {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0; /* Cinza claro */
+    border-radius: 20px;
+    padding: 10px 15px;
+    opacity: 0.7;
+    width: 100%;
+    cursor: not-allowed;
+    position: relative;
+}
 
+#userMessage {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #555; /* Cinza escuro para o texto */
+    font-size: 14px;
+    cursor: not-allowed;
+}
+
+#userMessage::placeholder {
+    color: #555; /* Placeholder em cinza escuro */
+}
+
+#sendButton {
+    background-color: transparent;
+    border: none;
+    cursor: not-allowed;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+#sendButton img {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+}
     </style>
 </head>
 <body>
@@ -430,15 +472,15 @@ img, a {
 
 
 <div id="chatContainer">
-    <h3>Chat</h3>
+    <h3>Chat - Transmissão Domingo 19h</h3>
     <div id="messages"></div>
 
-    <div id="chatInputArea">
-        <input type="text" id="userMessage" placeholder="Escreva sua mensagem...">
-        <button id="sendButton" onclick="sendMessage()">
-    <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
-</button>
-    </div>
+  <div id="chatInputArea">
+    <input type="text" id="userMessage" placeholder="Chat indisponível no Replay" disabled>
+    <button id="sendButton" disabled>
+        <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
+    </button>
+</div>
 </div>
 
 
@@ -450,9 +492,9 @@ img, a {
 
 
 <script>  //PROGRAMAR LIVE
-    const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 20;         // HORA 
-    const configMinute = 13;      // MINUTO
+    const configDay = 3;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 10;         // HORA 
+    const configMinute = 0;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -465,16 +507,44 @@ img, a {
     const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
 
-    const programmedMessages = [   //COMENTARIOS
-        { time: 40, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
-        { time: 45, name: "Carlos", text: "Conteúdo incrível!" },
-        { time: 50, name: "Ana", text: "Valeu pela explicação!" }
-    ];
+
+
+
+ const programmedMessages = [  //COMENTARIOS
+    { time: 30, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 40, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 50, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 60, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 70, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 80, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 90, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 100, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 110, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 120, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 130, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 140, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 150, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 160, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 170, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 180, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 190, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 200, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 210, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 220, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 230, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 240, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 250, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 260, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+	{ time: 270, name: "Carlos", text: "Conteúdo incrível!" },
+    { time: 280, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
+    { time: 290, name: "Ana", text: "Valeu pela explicação!" }
+];
 
     let shownProgrammedMessages = new Set();
     let videoJaIniciado = false;
-    let viewerInterval;
+	let viewerInterval;
     let userName = "";
+	let monitoramentoAtivo = false;
 
     function isWebinarTime() {
         const now = new Date();
@@ -499,18 +569,13 @@ img, a {
 
   
     
-
-
 function startWebinar() {
-    // ✅ Zera o chat
     messages.innerHTML = "";
     shownProgrammedMessages.clear();
 
-    // mostra vídeo e chat
     videoContainer.style.display = "block";
     chatContainer.style.display = "block";
 
-    // instante "oficial" de início do webinar (hoje às configHour:configMinute)
     const now = new Date();
     const webinarStart = new Date(
         now.getFullYear(),
@@ -521,25 +586,18 @@ function startWebinar() {
         0
     );
 
-    // calcula há quantos segundos a live já está rodando
     const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
 
-    // sincroniza o vídeo
     if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
         video.currentTime = secondsSinceStart;
     }
 
-    // já marca como "enviadas" as mensagens que deveriam ter aparecido antes
     programmedMessages.forEach(msg => {
         if (msg.time < secondsSinceStart) {
-            shownProgrammedMessages.add(msg.time);
+            shownProgrammedMessages.add(msg.time + '-' + msg.name);
         }
     });
 
-    // dispara a checagem de mensagens programadas a cada segundo
-    setInterval(checkProgrammedMessages, 1000);
-
-    // contador de “pessoas assistindo”
     const viewerElement = document.getElementById('viewerCounter');
     function updateViewerCount() {
         const random = Math.floor(Math.random() * (180 - 147 + 1)) + 147;
@@ -548,40 +606,24 @@ function startWebinar() {
     updateViewerCount();
     viewerInterval = setInterval(updateViewerCount, 15000);
 
-
-    
-
-    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA
-
+    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();
     if (offerDelayMs > 0) {
-        // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
         setTimeout(() => {
             document.getElementById('offerSection').style.display = 'block';
         }, offerDelayMs);
     } else {
-        // se já passou do ponto de 1240 s, exibe imediatamente
         document.getElementById('offerSection').style.display = 'block';
     }
+	
+overlay.style.display = 'block';
+playButton.style.display = 'block';
+   
 }
 
 
-   function checkProgrammedMessages() {
-        const currentTime = video.currentTime;
-        programmedMessages.forEach(msg => {
-            if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
-                addMessage(msg.name, msg.text);
-                shownProgrammedMessages.add(msg.time);
-            }
-        });
-    }
 
-    function addMessage(user, text) {
-        const div = document.createElement('div');
-        div.className = 'chat-message';
-        div.innerHTML = `<strong>${user}:</strong> ${text}`;
-        messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
-    }
+
+
 
     function sendMessage() {
         const input = document.getElementById('userMessage');
@@ -592,13 +634,29 @@ function startWebinar() {
         }
     }
 
-    function iniciarVideo() {
-        if (videoJaIniciado) return;
-        videoJaIniciado = true;
-        playButton.style.display = 'none';
-        overlay.style.display = 'none';
-        video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
-    }
+
+function iniciarVideo() {
+    if (videoJaIniciado) return;
+    videoJaIniciado = true;
+
+    playButton.style.display = 'none';
+    overlay.style.display = 'none';
+
+    video.play().then(() => {
+        // ✅ Inicia a checagem do tempo de vídeo só depois que o vídeo começou a rodar
+        setInterval(() => {
+            const currentTime = Math.floor(video.currentTime);
+
+            programmedMessages.forEach(msg => {
+                if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
+                    addMessage(msg.name, msg.text);
+                    shownProgrammedMessages.add(msg.time);
+                }
+            });
+        }, 1000);
+    }).catch(err => console.warn("Erro ao iniciar vídeo:", err));
+}
+
 
 function saveUserName() {
   const nameInput = document.getElementById('userNameInput');
@@ -609,21 +667,14 @@ function saveUserName() {
     return alert("Por favor, digite seu nome.");
   }
 
-  // 1️⃣ guarda globalmente pro tracker ler depois
   window.userName = name;
-
-  // 2️⃣ opcional: persiste entre recargas
   localStorage.setItem('webinarUserName', name);
 
-  // 3️⃣ esconde o formulário e segue com a lógica
   nameFormWrapper.style.display = "none";
 
-  if (isWebinarTime()) {
-    startWebinar();
-  } else {
-    nextSession.innerHTML =
-      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-  }
+  // ✅ Sempre iniciar o webinar logo após o cadastro do nome
+  startWebinar();
+ 
 }
 
     playButton.addEventListener('click', iniciarVideo);
@@ -639,22 +690,25 @@ function saveUserName() {
 window.onload = function() {
     const now = new Date();
     const day = now.getDay();
-    const hour = now.getHours();
-    const minute = now.getMinutes();
-    const currentTime = now.getTime();
 
-    // Calcula o início da janela: Quarta-feira 18h desta semana
+    // Configuração: dia e hora da live
+    const liveDay = configDay; 
+    const liveHour = configHour;
+    const liveMinute = configMinute;
+
     const startDate = new Date(now);
-    startDate.setDate(now.getDate() - ((now.getDay() - 3 + 7) % 7));  // Garante que pegue a última quarta
-    startDate.setHours(18, 0, 0, 0);
+    const daysSinceLive = (day - liveDay + 7) % 7;
+    startDate.setDate(now.getDate() - daysSinceLive);
+    startDate.setHours(liveHour, liveMinute, 0, 0);
 
-    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // 24h depois
+    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
 
-    if (currentTime >= startDate.getTime() && currentTime <= endDate.getTime()) {
-        startWebinar();
-    } else {
-        window.location.href = "/ao-vivo/";
-    }
+    if (now >= startDate && now <= endDate) {
+    document.getElementById('nameFormWrapper').style.display = "flex";
+    document.getElementById('nameForm').style.display = "block";  // ✅ Exibe o formulário também
+} else {
+    window.location.href = "https://webnar-start.netlify.app/ao-vivo/";
+}
 };
 
 
@@ -766,16 +820,17 @@ function getLastWebinarDate() {
       .replace(/\b(www\.[^\s]+)/g, '<a href="http://$1" target="_blank" rel="noopener">$1</a>');
   }
 
-  function addMessage(user, text) {
-    const div = document.createElement('div');
-    div.className = 'chat-message';
-    // aplicamos a linkify no text
-    const safeText = linkify(text);
-    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-  }
-  
+
+function addMessage(user, text) {
+  const div = document.createElement('div');
+  div.className = 'chat-message';
+  const safeText = linkify(text);
+  div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+
 
 // Bloqueia pinça (touchmove com 2 dedos)
 document.addEventListener('touchmove', function(e) {
@@ -819,6 +874,58 @@ document.addEventListener('keydown', e => {
     || e.key === 'F12';
   if (forbidden) e.preventDefault();
 });
+
+
+
+// Salva o tempo do vídeo a cada 5 segundos
+setInterval(() => {
+    if (!video.paused && !video.ended) {
+        localStorage.setItem('webinarVideoTime', video.currentTime);
+    }
+}, 5000);
+
+
+
+
+
+// Ao carregar a página, recupera o tempo salvo
+window.addEventListener('load', () => {
+    const savedTime = parseFloat(localStorage.getItem('webinarVideoTime'));
+    if (!isNaN(savedTime) && savedTime > 0 && savedTime < video.duration) {
+        video.currentTime = savedTime;
+
+        programmedMessages.forEach(msg => {
+            if (msg.time < savedTime) {
+                shownProgrammedMessages.add(msg.time + '-' + msg.name);
+            }
+        });
+    }
+
+   
+});
+
+
+
+
+
+
+function iniciarMonitoramentoDeMensagens() {
+    if (monitoramentoAtivo) return;  // Evita criar múltiplos intervals
+    monitoramentoAtivo = true;
+
+    setInterval(() => {
+        const currentTime = Math.floor(video.currentTime);
+        programmedMessages.forEach(msg => {
+            const key = msg.time + '-' + msg.name;
+            if (currentTime >= msg.time && !shownProgrammedMessages.has(key)) {
+                addMessage(msg.name, msg.text);
+                shownProgrammedMessages.add(key);
+            }
+        });
+    }, 1000);
+}
+
+
 
 </script>
 
