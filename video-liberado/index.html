@@ -638,20 +638,19 @@ function saveUserName() {
   
 window.onload = function() {
     const now = new Date();
-    const lastWebinar = getLastWebinarDate();
-    const webinarStart = lastWebinar;
-    const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarStart.getTime() + (24 * 60 * 60 * 1000));   // Disponível por 24h após o início
 
+    // Pega a próxima data programada
+    const nextWebinar = getNextWebinarDate();
+    const startTime = nextWebinar.getTime();
+    const endTime = startTime + (24 * 60 * 60 * 1000); // Disponível por 24 horas
 
-   if (now < webinarStart) {
-    showCountdown();
-} else if (now >= webinarStart && now <= encerramentoEnd) {
-    startWebinar();  // Libera o vídeo durante as 24h
-} else {
-    showEventClosed();
-}
-
+    if (now.getTime() < startTime) {
+        showCountdown();
+    } else if (now.getTime() >= startTime && now.getTime() <= endTime) {
+        startWebinar();  // Liberar o vídeo durante as 24h
+    } else {
+        showEventClosed();
+    }
 };
 
 
@@ -725,15 +724,21 @@ function getNextWebinarDate() {
     const now = new Date();
     let daysUntilNext = (configDay - now.getDay() + 7) % 7;
 
-    // Se hoje for domingo e já passou do horário, joga para o domingo da próxima semana
     if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
         daysUntilNext = 7;
     }
 
-    const nextWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
-    return nextWebinar;
-}
+    const targetDate = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + daysUntilNext,
+        configHour,
+        configMinute,
+        0
+    );
 
+    return targetDate;
+}
 
 
 function getLastWebinarDate() {
