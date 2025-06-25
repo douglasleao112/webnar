@@ -340,7 +340,11 @@ img, a {
     <img class="logo" src="https://static.wixstatic.com/media/7f5efc_5c6a0eddee8742e18e264e69702e837e~mv2.png" alt="Método VSE">
     <h3>Como Criar um Funil de Webinários Automatizados de Alta Conversão</h3>
     <p>Por favor, entre no webinar utilizando o mesmo nome que você informou na inscrição.</p><br/>
-    <input type="text" id="userNameInput" placeholder="Seu nome...">
+<input type="text" id="userNameInput" placeholder="Seu nome..."
+  style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;">
+
+<input type="text" id="userEmailInput" placeholder="Seu e-mail..."
+  style="width: 100%; padding: 10px; margin: 8px 0 16px 0; box-sizing: border-box;">
     <button onclick="saveUserName()">ENTRAR</button>
     <a href="https://www.dougleao.com.br/cadastrar-aovivo" class="link">Ou, clique aqui para se inscrever neste webinário agora.</a>
 </div>
@@ -461,7 +465,7 @@ img, a {
 <script>  //PROGRAMAR LIVE
     const configDay = 2;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 21;         // HORA 
-    const configMinute = 29;      // MINUTO
+    const configMinute = 54;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -559,8 +563,8 @@ function startWebinar() {
     viewerElement.innerHTML = `
       <img src="https://static.thenounproject.com/png/4154905-200.png"
            alt="👥"
-           style="width:12px;height:12px;vertical-align:text-bottom;margin-right:3px;">
-      <strong>${random}</strong> pessoas assistindo agora
+           style="width:12px;height:12px;vertical-align:text-bottom;margin-right:0px;">
+      ${random} pessoas assistindo agora
     `;
   }
 
@@ -626,18 +630,26 @@ function startWebinar() {
 function saveUserName() {
   const nameInput = document.getElementById('userNameInput');
   const name = nameInput.value.trim();
+const emailInput = document.getElementById('userEmailInput');
+const email = emailInput.value.trim();
   const nameFormWrapper = document.getElementById('nameFormWrapper');
 
   if (!name) {
     return alert("Por favor, digite seu nome.");
   }
+  if (!email) {
+  return alert("Por favor, digite seu e-mail.");
+}
 
   // 1️⃣ guarda globalmente pro tracker ler depois
   window.userName = name;
+  window.userEmail = email;
   userName = name;
+  
 
   // 2️⃣ opcional: persiste entre recargas
   localStorage.setItem('webinarUserName', name);
+  localStorage.setItem('webinarUserEmail', email);
 
   // 3️⃣ esconde o formulário e segue com a lógica
   nameFormWrapper.style.display = "none";
@@ -873,20 +885,21 @@ function enviarDados() {
   const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
   const horaSaida = agora.toLocaleTimeString();
 
-  fetch('https://script.google.com/macros/s/AKfycbxrh4xI2cukcEB0fhDo_jLqKG494JV-Oa4vTLUEo4BDvxTxqosUwDWPj7z1HVmJ7sy8/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbync4tLb9ySTxjgC4RyjnOpdPiK-5Z3iXwg6qSdike-W4Cg7wJWyTHUJHEcSWKFKuFHXg/exec', {
     method: 'POST',
     mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      browserId: browserId,
-      nome: window.userName || 'Desconhecido',
-      horaEntrada: horaEntrada.toLocaleTimeString(),
-      tempoPagina: tempoPagina,
-      horaSaida: horaSaida,
-      paginaOrigem: 'ao-vivo'
-    })
+   body: JSON.stringify({
+  browserId: browserId,
+  nome: window.userName || 'Desconhecido',
+  email: window.userEmail || 'sem-email',
+  horaEntrada: horaEntrada.toLocaleTimeString(),
+  tempoPagina: tempoPagina,
+  horaSaida: horaSaida,
+  paginaOrigem: 'ao-vivo'
+})
   });
 }
 
