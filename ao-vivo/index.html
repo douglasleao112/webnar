@@ -362,12 +362,12 @@ img, a {
 </div>
 
 
+
+
+
 <div id="videoContainer">    
 
- <!-- ✅ Contador de pessoas assistindo logo abaixo do vídeo -->
-<div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;"></div>
-
-
+ 
     <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline>
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
@@ -548,19 +548,28 @@ function startWebinar() {
     // dispara a checagem de mensagens programadas a cada segundo
     setInterval(checkProgrammedMessages, 1000);
 
+
+
+
     // contador de “pessoas assistindo”
-const viewerElement = document.getElementById('viewerCounter');
-function updateViewerCount() {
+  const viewerElement = document.getElementById('viewerCounter');
+
+  function updateViewerCount() {
     const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;
     viewerElement.innerHTML = `
-        <img src="https://static.thenounproject.com/png/4154905-200.png" alt="Avatar" style="width: 14px; height: 14px; vertical-align: text-bottom; margin-right: 1px;">
-        <strong>${random}</strong> pessoas assistindo agora.
+      <img src="https://static.thenounproject.com/png/4154905-200.png"
+           alt="👥"
+           style="width:12px;height:12px;vertical-align:text-bottom;margin-right:3px;">
+      <strong>${random}</strong> pessoas assistindo agora
     `;
-}
+  }
+
+  updateViewerCount(); // executa logo que a página abre
+  setInterval(updateViewerCount, 30000); // atualiza a cada 30 segundos
 
 
-    updateViewerCount();
-    viewerInterval = setInterval(updateViewerCount, 30000);
+
+
 
 
     
