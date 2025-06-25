@@ -432,16 +432,14 @@ img, a {
 
 <div id="chatContainer">
     <h3>Chat ao vivo</h3>
-
-    
-    <div id="viewerCounter"
+<div id="viewerCounter"
      style="font-size:11px;color:#666;display:flex;align-items:center;gap:3px;margin:0 0 6px 0;">
   <img src="https://static.thenounproject.com/png/4154905-200.png"
        alt="👥"
        style="width:12px;height:12px;vertical-align:text-bottom;">
-  <strong>0</strong> pessoas assistindo agora
+  0 pessoas assistindo agora
 </div>
-
+    
     <div id="messages"></div>
 
     <div id="chatInputArea">
@@ -555,8 +553,8 @@ const viewerElement = document.getElementById('viewerCounter');
 function updateViewerCount() {
     const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;
     viewerElement.innerHTML = `
-       
-        
+        <img src="https://static.thenounproject.com/png/4154905-200.png" alt="Avatar" style="width: 14px; height: 14px; vertical-align: text-bottom; margin-right: 1px;">
+        <strong>${random}</strong> pessoas assistindo agora.
     `;
 }
 
