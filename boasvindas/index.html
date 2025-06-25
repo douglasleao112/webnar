@@ -149,7 +149,7 @@
     </div>
 
     <!-- botão CTA -->
-    <a class="btn" href="https://www.dougleao.com.br/webnar-start"  style="padding: 18px 56px;">INSCREVA-SE AGORA</a>
+    <a class="btn" href="#"  style="padding: 18px 56px;">INSCREVA-SE AGORA</a>
 
     <!-- lista de benefícios -->
     <ul class="features">
@@ -172,7 +172,7 @@
       <p>Fui o responsável pela criação de muitas outras operações de webinários automatizados que faturam múltiplos 7 dígitos ao ano.</p>
       <p>E agora, você tem a chance de ver como você também pode ter uma operação de webinários – vendendo pra você o tempo todo.</p>
       <p>Toque no botão abaixo, se inscreva e entre no nosso grupo do WhatsApp. É lá que você vai receber todas as informações e o link para o evento:</p>
-      <center><a class="btn" href="https://www.dougleao.com.br/webnar-start"  style="padding: 18px 56px;">INSCREVA-SE AGORA</a></center>
+      <center><a class="btn" href="#"  style="padding: 18px 56px;">INSCREVA-SE AGORA</a></center>
     </div>
 
 
@@ -257,6 +257,27 @@
 
   // Quando a página terminar de carregar
   window.addEventListener('load', startCountdown);
+
+
+
+    // Mapeamento dos links por dia da semana (0 = domingo, 6 = sábado)
+  const linksPorDia = {
+    0: 'https://www.dougleao.com.br/webnar-start-dom',
+    1: 'https://www.dougleao.com.br/webnar-start-seg',
+    2: 'https://www.dougleao.com.br/webnar-start-ter',
+    3: 'https://www.dougleao.com.br/webnar-start-qua',
+    4: 'https://www.dougleao.com.br/webnar-start-qui',
+    5: 'https://www.dougleao.com.br/webnar-start-sex',
+    6: 'https://www.dougleao.com.br/webnar-start-sab'
+  };
+
+  // Atualiza todos os botões com a nova URL do dia
+  const diaHoje = new Date().getDay();
+  const linkAtual = linksPorDia[diaHoje];
+
+  document.querySelectorAll('a.btn').forEach(botao => {
+    botao.setAttribute('href', linkAtual);
+  });
 </script>
 
 </body>
