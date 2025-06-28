@@ -12,19 +12,29 @@
   margin: 0;
   padding: 0;
 }
-        body {
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        #videoContainer {
-    display: none;
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    max-width: 100vw;
-    position: relative;
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+body > *:not(#videoContainer) {
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+#videoContainer {
+  display: block;
+  position: relative;
+  margin: 0 auto;              /* centraliza no desktop */
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
 }
         #chatContainer, #nameForm {
             display: none;
@@ -33,11 +43,11 @@
             width: 100%;
         }
 .player-wrapper {
-    width: 100vw;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
 }
  
 #nameForm input,
@@ -45,10 +55,12 @@
   font-size: 16px;
 }
 #customVideo {
-    width: 100vw;
-    height: auto;
-    display: block;
-    margin: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  max-width: 100vw;
 }
         #videoClickOverlay {
             position: absolute;
@@ -212,13 +224,18 @@
             body {
                 padding: 10px;
             }
-            #chatContainer, #nameForm, #videoContainer {
+            #chatContainer, #nameForm {
                 margin: 10px auto;
                 padding-left: 10px;
                 padding-right: 10px;
                 box-sizing: border-box;
                 width: 100%;
             }
+            #videoContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+}
             #chatInputArea {
                 flex-wrap: wrap;
             }
