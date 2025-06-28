@@ -84,12 +84,15 @@
       padding-left: 24px;
       position: relative;
     }
-    .features li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: #77a116;
-    }
+.features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #77a116;
+  font-size: 14px; /* aumenta o ícone */
+  line-height: 1;
+  top: 2px; /* alinha verticalmente com o texto */
+}
 
     /* foto circular */
     .photo-wrapper {
