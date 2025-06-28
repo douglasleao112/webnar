@@ -341,7 +341,6 @@ img, a {
     <h3>Como Criar um Funil de Webinários Automatizados de Alta Conversão</h3>
     <p>Por favor, entre no webinar utilizando o mesmo nome e e-mail que você informou na inscrição.</p><br/>
 <input type="text" id="userNameInput" placeholder="Seu nome..."
-  autocomplete="name"
   style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;">
 
 <input type="text" id="userEmailInput" placeholder="Seu e-mail..."
@@ -561,12 +560,12 @@ function startWebinar() {
 
   function updateViewerCount() {
     const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;
-    viewerElement.innerHTML = `
+    viewerElement.innerHTML = 
       <img src="https://static.thenounproject.com/png/4154905-200.png"
            alt="👥"
            style="width:12px;height:12px;vertical-align:text-bottom;margin-right:0px;">
       ${random} ao vivo
-    `;
+    ;
   }
 
   updateViewerCount(); // executa logo que a página abre
@@ -606,7 +605,7 @@ function startWebinar() {
     function addMessage(user, text) {
         const div = document.createElement('div');
         div.className = 'chat-message';
-        div.innerHTML = `<strong>${user}:</strong> ${text}`;
+        div.innerHTML = <strong>${user}:</strong> ${text};
         messages.appendChild(div);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -659,7 +658,7 @@ const email = emailInput.value.trim();
     startWebinar();
   } else {
     nextSession.innerHTML =
-      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
+      <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
   }
 }
 
@@ -714,7 +713,7 @@ function showCountdown() {
         const seconds = totalSeconds % 60;
 
          document.getElementById('countdown').textContent =
-    `${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos`;
+    ${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos;
 
     }
 
@@ -805,7 +804,7 @@ function getLastWebinarDate() {
     div.className = 'chat-message';
     // aplicamos a linkify no text
     const safeText = linkify(text);
-    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+    div.innerHTML = <strong>${user}:</strong> ${safeText};
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
