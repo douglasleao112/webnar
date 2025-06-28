@@ -14,17 +14,31 @@
             margin: 0;
             padding: 0px;
         }
-        #videoContainer, #chatContainer, #nameForm {
-            display: none;
-            margin: 20px auto;
-            max-width: 480px;
-            width: 100%;
-        }
-        .player-wrapper {
-            position: relative;
-            width: 100%;
-        }
-        #mainContent {
+/* VIDEO 100% SEM BORDAS */
+#videoContainer {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+.player-wrapper {
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+#customVideo {
+  width: 100vw;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* RESTANTE DA PÁGINA COM PADDING */
+#mainContent {
   padding: 20px;
 }
  
