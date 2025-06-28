@@ -16,8 +16,7 @@
         }
         #videoContainer, #chatContainer, #nameForm {
             display: none;
-            margin: 20px auto;
-
+            margin: 0px auto;
             width: 100%;
         }
         .player-wrapper {
@@ -191,21 +190,18 @@
         }
 
   
-        @media (max-width: 500px) {
-            body {
-                padding: 10px;
-            }
-            #chatContainer, #nameForm, #videoContainer {
-                margin: 10px auto;
-                padding-left: 10px;
-                padding-right: 10px;
-                box-sizing: border-box;
-                width: 100%;
-            }
-            #chatInputArea {
-                flex-wrap: wrap;
-            }
-        }
+@media (max-width: 500px) {
+  body {
+    padding: 0; /* ✅ zera padding */
+  }
+  #chatContainer, #nameForm {
+    margin: 10px auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
 		
             #viewerCounter {
             font-size: 13px;       
@@ -333,6 +329,7 @@ img, a {
 #videoContainer {
   position: relative;
   width: 100vw;
+  height: auto;
   margin: 0;
   padding: 0;
   top: 0;
@@ -350,6 +347,8 @@ img, a {
   width: 100vw;
   height: auto;
   display: block;
+  margin: 0;
+  padding: 0;
 }
 
 
