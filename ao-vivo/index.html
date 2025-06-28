@@ -14,17 +14,6 @@
             margin: 0;
             padding: 20px;
         }
-        /* Remover padding do body quando o vídeo estiver visível */
-body.video-active {
-    padding: 0;
-}
-
-/* Vídeo sem margem e largura total quando ativo */
-#videoContainer.fullwidth {
-    margin: 0;
-    max-width: none;
-    width: 100%;
-}
         #videoContainer, #chatContainer, #nameForm {
             display: none;
             margin: 20px auto;
@@ -206,17 +195,6 @@ body.video-active {
             body {
                 padding: 10px;
             }
-            /* Remover padding em mobile quando vídeo ativo */
-            body.video-active {
-            padding: 0;
-        }
-
-          /* Chat sem margin lateral em mobile quando vídeo ativo */
-          #chatContainer.video-active {
-          margin: 10px auto;
-         padding-left: 10px;
-         padding-right: 10px;
-        }
             #chatContainer, #nameForm, #videoContainer {
                 margin: 10px auto;
                 padding-left: 10px;
@@ -356,8 +334,6 @@ img, a {
 </head>
 <body>
 
-
-  
 
 <div id="nameFormWrapper">
 <div id="nameForm">
@@ -539,12 +515,7 @@ img, a {
 
 
 function startWebinar() {
-    // Adiciona classes para vídeo fullwidth
-document.body.classList.add('video-active');
-videoContainer.classList.add('fullwidth');
-chatContainer.classList.add('video-active');
-
-// ✅ Zera o chat
+    // ✅ Zera o chat
     messages.innerHTML = "";
     shownProgrammedMessages.clear();
 
