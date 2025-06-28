@@ -12,27 +12,39 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
         }
-        #videoContainer, #chatContainer, #nameForm {
+        #videoContainer {
+    display: none;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    max-width: 100vw;
+    position: relative;
+}
+        #chatContainer, #nameForm {
             display: none;
             margin: 20px auto;
             max-width: 480px;
             width: 100%;
         }
-        .player-wrapper {
-            position: relative;
-            width: 100%;
-        }
+   .player-wrapper {
+    width: 100vw;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
  
 #nameForm input,
 #chatInputArea input {
   font-size: 16px;
 }
         #customVideo {
-            width: 100%;
-            display: block;
-        }
+      width: 100vw;
+    height: auto;
+    display: block;
+}
         #videoClickOverlay {
             position: absolute;
             top: 0; left: 0;
@@ -462,7 +474,7 @@ img, a {
 <script>  //PROGRAMAR LIVE
     const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 3;         // HORA 
-    const configMinute = 27;      // MINUTO
+    const configMinute = 51;      // MINUTO
     const durationMinutes = 60;    // duração do video
 
     const video = document.getElementById('customVideo');
