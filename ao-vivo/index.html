@@ -12,21 +12,9 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 0px;
+            padding: 20px;
         }
-        #bordasmain {
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-            margin: 0;
-            padding: 10px;
-        }
-        #videoContainer {
-            display: none;
-            margin: 0px auto;
-   
-            width: 100%;
-        }
-        #chatContainer, #nameForm {
+        #videoContainer, #chatContainer, #nameForm {
             display: none;
             margin: 20px auto;
             max-width: 480px;
@@ -207,14 +195,7 @@
             body {
                 padding: 10px;
             }
-             #videoContainer {
-                margin: 0px auto;
-                padding-left: 0px;
-                padding-right: 0px;
-                box-sizing: border-box;
-                width: 100%;
-            }
-            #chatContainer, #nameForm {
+            #chatContainer, #nameForm, #videoContainer {
                 margin: 10px auto;
                 padding-left: 10px;
                 padding-right: 10px;
@@ -354,8 +335,6 @@ img, a {
 <body>
 
 
-<div id="bordasmain">
-
 <div id="nameFormWrapper">
 <div id="nameForm">
     <img class="logo" src="https://img.icons8.com/?size=192&id=9Dv8Wi1vh0yp&format=png">
@@ -387,7 +366,7 @@ img, a {
   <h2>Evento Encerrado.</h2>
 </div>
 
-</div>
+
 
 
 
@@ -403,8 +382,6 @@ img, a {
   </div>
 
 
-
-<div id="bordasmain">
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 20px; color: #555;">
@@ -931,7 +908,6 @@ setInterval(enviarDados, 1000);
 
 
 
-</div>
 
 </body>
 </html>
