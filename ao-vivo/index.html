@@ -463,9 +463,9 @@ img, a {
 
 
 <script>  //PROGRAMAR LIVE
-    const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 2;         // HORA 
-    const configMinute = 27;      // MINUTO
+    const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 19;         // HORA 
+    const configMinute = 0;      // MINUTO
     const durationMinutes = 60;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -560,12 +560,12 @@ function startWebinar() {
 
   function updateViewerCount() {
     const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;
-    viewerElement.innerHTML = 
+    viewerElement.innerHTML = `
       <img src="https://static.thenounproject.com/png/4154905-200.png"
            alt="👥"
            style="width:12px;height:12px;vertical-align:text-bottom;margin-right:0px;">
       ${random} ao vivo
-    ;
+    `;
   }
 
   updateViewerCount(); // executa logo que a página abre
@@ -605,7 +605,7 @@ function startWebinar() {
     function addMessage(user, text) {
         const div = document.createElement('div');
         div.className = 'chat-message';
-        div.innerHTML = <strong>${user}:</strong> ${text};
+        div.innerHTML = `<strong>${user}:</strong> ${text}`;
         messages.appendChild(div);
         messages.scrollTop = messages.scrollHeight;
     }
@@ -658,7 +658,7 @@ const email = emailInput.value.trim();
     startWebinar();
   } else {
     nextSession.innerHTML =
-      <p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>;
+      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
   }
 }
 
@@ -713,7 +713,7 @@ function showCountdown() {
         const seconds = totalSeconds % 60;
 
          document.getElementById('countdown').textContent =
-    ${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos;
+    `${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos`;
 
     }
 
@@ -804,7 +804,7 @@ function getLastWebinarDate() {
     div.className = 'chat-message';
     // aplicamos a linkify no text
     const safeText = linkify(text);
-    div.innerHTML = <strong>${user}:</strong> ${safeText};
+    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
