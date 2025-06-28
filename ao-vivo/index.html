@@ -12,36 +12,27 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 0px;
+            padding: 20px;
         }
-        .pageContent {
-  padding: 20px;
-}
-#videoContainer {
-    display: none;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-.player-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-}
+        #videoContainer, #chatContainer, #nameForm {
+            display: none;
+            margin: 20px auto;
+            max-width: 480px;
+            width: 100%;
+        }
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+        }
  
 #nameForm input,
 #chatInputArea input {
   font-size: 16px;
 }
-#customVideo {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0;
-    padding: 0;
-}
+        #customVideo {
+            width: 100%;
+            display: block;
+        }
         #videoClickOverlay {
             position: absolute;
             top: 0; left: 0;
@@ -204,7 +195,7 @@
             body {
                 padding: 10px;
             }
-            #chatContainer, #nameForm {
+            #chatContainer, #nameForm, #videoContainer {
                 margin: 10px auto;
                 padding-left: 10px;
                 padding-right: 10px;
@@ -379,7 +370,9 @@ img, a {
 
 
 <div id="videoContainer">    
-  <div class="player-wrapper">
+
+ 
+    <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline>
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
@@ -387,10 +380,11 @@ img, a {
         <div id="videoClickOverlay"></div>
         <button id="playButton"></button>
     </div>
-  </div>
+
+    
+</div>
 
 
-<div class="pageContent">
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 22px; color: #555;">
@@ -470,8 +464,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE
     const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 3;         // HORA 
-    const configMinute = 2;      // MINUTO
+    const configHour = 2;         // HORA 
+    const configMinute = 27;      // MINUTO
     const durationMinutes = 60;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -917,6 +911,6 @@ setInterval(enviarDados, 1000);
 
 
 
-</div>
+
 </body>
 </html>
