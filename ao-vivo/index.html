@@ -12,8 +12,11 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
         }
+        .pageContent {
+  padding: 20px;
+}
 #videoContainer {
     display: none;
     width: 100%;
@@ -376,9 +379,7 @@ img, a {
 
 
 <div id="videoContainer">    
-
- 
-    <div class="player-wrapper">
+  <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline>
             <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
@@ -386,11 +387,10 @@ img, a {
         <div id="videoClickOverlay"></div>
         <button id="playButton"></button>
     </div>
+  </div>
 
-    
-</div>
-
-
+  
+<div class="pageContent">
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 22px; color: #555;">
@@ -460,7 +460,7 @@ img, a {
     </div>
 </div>
 
-
+</div>
 
 
 
