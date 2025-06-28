@@ -17,25 +17,44 @@
         #mainContent {
   padding: 20px;
 }
-        #videoContainer, #chatContainer, #nameForm {
+
+/* VIDEO 100% SEM BORDAS */
+#videoContainer {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+.player-wrapper {
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+#customVideo {
+  width: 100vw;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+
+        #chatContainer, #nameForm {
             display: none;
             margin: 20px auto;
             max-width: 480px;
             width: 100%;
         }
-        .player-wrapper {
-            position: relative;
-            width: 100%;
-        }
+
  
 #nameForm input,
 #chatInputArea input {
   font-size: 16px;
 }
-        #customVideo {
-            width: 100%;
-            display: block;
-        }
+
         #videoClickOverlay {
             position: absolute;
             top: 0; left: 0;
@@ -382,6 +401,9 @@ img, a {
         <button id="playButton"></button>
     </div>
 </div>
+
+
+
 
 <div id="mainContent">
 <!-- Oferta especial, inicialmente escondida -->
