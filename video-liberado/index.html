@@ -193,14 +193,33 @@
   
         @media (max-width: 500px) {
             body {
-                padding: 10px;
+                padding: 0 !important; 
             }
-            #chatContainer, #nameForm, #videoContainer {
+			  .mainContent {
+             padding-left: 12px;
+             padding-right: 12px;
+            }
+            #chatContainer {
                 margin: 10px auto;
                 padding-left: 10px;
                 padding-right: 10px;
                 box-sizing: border-box;
                 width: 100%;
+            }
+		   #nameForm {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+			#videoContainer {
+                margin: 0 !important;
+                padding: 0 !important;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100% !important; 
             }
             #chatInputArea {
                 flex-wrap: wrap;
@@ -410,7 +429,6 @@ img, a {
 
 
 <div id="videoContainer">    
-
  <!-- Headline e subhealine -->
 <div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
   <h1 style="font-size: 18px; color: #d62828; margin-bottom: 8px;">Vídeo liberado por tempo limitado</h1>
@@ -428,18 +446,19 @@ img, a {
         <div id="videoClickOverlay"></div>
         <button id="playButton"></button>
     </div>
-
-    
-</div>
+    </div>
 
 
+
+
+<div class="mainContent">
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 22px; color: #555;">
-    Normalmente custa: <span style="text-decoration: line-through; color: red;">R$ 500</span>
+    De <span style="text-decoration: line-through; color: red;">R$ 3.432</span>
   </div>
    <div style="font-size: 20px; color: #000;">
-    Apenas: <span style="color: #28a745; font-weight: bold;">R$ 27,90</span>
+    Apenas: <span style="color: #28a745; font-weight: bold;">R$ 47,90</span>
   </div><br>
     
   <a href="https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" style="
@@ -456,7 +475,7 @@ img, a {
     animation: pulse 1.5s infinite;
     transition: transform 0.2s ease;">
 
-    Saiba Mais
+    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🔥
  </a>
   <!-- TEXTO ABAIXO BOTAO -->
   <div style="margin-top: 10px; font-size: 14px; color: #333;">
@@ -494,6 +513,7 @@ img, a {
 </div>
 </div>
 
+</div>
 
 
 
@@ -503,10 +523,10 @@ img, a {
 
 
 <script>  //PROGRAMAR LIVE
-    const configDay = 2;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 21;         // HORA 
-    const configMinute = 59;      // MINUTO
-    const durationMinutes = 60;    // duração do video
+    const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 19;         // HORA 
+    const configMinute = 40;      // MINUTO
+    const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
     const playButton = document.getElementById('playButton');
