@@ -12,17 +12,21 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
         }
         #videoContainer, #chatContainer, #nameForm {
             display: none;
-            margin: 0px auto;
+            margin: 20px auto;
+            max-width: 480px;
             width: 100%;
         }
         .player-wrapper {
             position: relative;
             width: 100%;
         }
+        #mainContent {
+  padding: 20px;
+}
  
 #nameForm input,
 #chatInputArea input {
@@ -190,18 +194,21 @@
         }
 
   
-@media (max-width: 500px) {
-  body {
-    padding: 0; /* ✅ zera padding */
-  }
-  #chatContainer, #nameForm {
-    margin: 10px auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-sizing: border-box;
-    width: 100%;
-  }
-}
+        @media (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            #chatContainer, #nameForm, #videoContainer {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+            #chatInputArea {
+                flex-wrap: wrap;
+            }
+        }
 		
             #viewerCounter {
             font-size: 13px;       
@@ -326,31 +333,6 @@ img, a {
 }
 
 
-#videoContainer {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-.player-wrapper {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-#customVideo {
-  width: 100vw;
-  height: auto;
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-
     </style>
 </head>
 <body>
@@ -388,23 +370,24 @@ img, a {
 
 
 
-  <!-- VÍDEO SEM BORDAS -->
-  <div id="videoContainer">
-    <div class="player-wrapper">
-      <video id="customVideo" preload="metadata" playsinline>
-        <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
-      </video>
-      <div id="videoClickOverlay"></div>
-      <button id="playButton"></button>
-    </div>
-  </div>
+
 
 <div id="videoContainer">    
 
  
+    <div class="player-wrapper">
+        <video id="customVideo" preload="metadata" playsinline>
+            <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div id="videoClickOverlay"></div>
+        <button id="playButton"></button>
+    </div>
 
+    
+</div>
 
-
+<div id="mainContent">
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 22px; color: #555;">
@@ -471,9 +454,9 @@ img, a {
         <button id="sendButton" onclick="sendMessage()">
     <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
 </button>
-    </div>
 </div>
-
+</div>
+</div>
 
 
 
