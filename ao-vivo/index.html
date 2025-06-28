@@ -14,16 +14,21 @@
             margin: 0;
             padding: 20px;
         }
-        #videoContainer, #chatContainer, #nameForm {
-            display: none;
-            margin: 20px auto;
-            max-width: 480px;
-            width: 100%;
-        }
-        .player-wrapper {
-            position: relative;
-            width: 100%;
-        }
+#videoContainer {
+    display: none;
+    margin: 0;
+    padding: 0;
+    width: 100vw;         /* largura total da tela */
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.player-wrapper {
+    width: 100vw;         /* largura total da tela */
+    margin: 0;
+    padding: 0;
+}
  
 #nameForm input,
 #chatInputArea input {
