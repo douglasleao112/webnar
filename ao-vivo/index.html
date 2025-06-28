@@ -193,15 +193,32 @@
   
         @media (max-width: 500px) {
             body {
-                padding: 10px;
+                padding: 0px;
             }
-            #chatContainer, #nameForm, #videoContainer {
+			  .mainContent {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+            #chatContainer {
                 margin: 10px auto;
                 padding-left: 10px;
                 padding-right: 10px;
                 box-sizing: border-box;
                 width: 100%;
             }
+			#nameForm{
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+        #videoContainer {
+            margin: 0 !important; /* Altere esta linha para 0 !important */
+            padding: 0 !important; /* Altere esta linha para 0 !important */
+            box-sizing: border-box;
+            width: 100% !important; /* Adicione esta linha */
+        }
             #chatInputArea {
                 flex-wrap: wrap;
             }
@@ -382,6 +399,9 @@ img, a {
   </div>
 
 
+
+
+<div class="mainContent">
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 20px; color: #555;">
@@ -405,7 +425,7 @@ img, a {
     animation: pulse 1.5s infinite;
     transition: transform 0.2s ease;">
 
-    QUERO RESETAR MEU CORPO 🔥
+    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🔥
  </a>
   <!-- TEXTO ABAIXO BOTAO -->
   <div style="margin-top: 10px; font-size: 14px; color: #333;">
@@ -451,7 +471,7 @@ img, a {
     </div>
 </div>
 
-
+  </div>
 
 
 
@@ -461,8 +481,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE
     const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 16;         // HORA 
-    const configMinute = 24;      // MINUTO
+    const configHour = 19;         // HORA 
+    const configMinute = 38;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
