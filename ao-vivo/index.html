@@ -12,35 +12,32 @@
             font-family: Arial, sans-serif;
             background: #ffffff;
             margin: 0;
-            padding: 0px;
+            padding: 20px;
         }
-/* VIDEO 100% SEM BORDAS */
-#videoContainer {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-.player-wrapper {
-  width: 100vw;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-#customVideo {
-  width: 100vw;
-  height: auto;
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-/* RESTANTE DA PÁGINA COM PADDING */
-#mainContent {
-  padding: 20px;
-}
+        
+        /* ALTERAÇÃO 1: Remover padding do body quando o vídeo estiver visível */
+        body.video-active {
+            padding: 0;
+        }
+        
+        #videoContainer, #chatContainer, #nameForm {
+            display: none;
+            margin: 20px auto;
+            max-width: 480px;
+            width: 100%;
+        }
+        
+        /* ALTERAÇÃO 2: Vídeo sem margem e largura total quando ativo */
+        #videoContainer.fullwidth {
+            margin: 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+        }
  
 #nameForm input,
 #chatInputArea input {
@@ -70,7 +67,7 @@
   cursor: pointer;
   z-index: 4;
 
-   /* 2) Animação de “zoom in/out” */
+   /* 2) Animação de "zoom in/out" */
   animation: zoom 1.5s infinite alternate;
 }
 
@@ -212,6 +209,12 @@
             body {
                 padding: 10px;
             }
+            
+            /* ALTERAÇÃO 3: Remover padding em mobile quando vídeo ativo */
+            body.video-active {
+                padding: 0;
+            }
+            
             #chatContainer, #nameForm, #videoContainer {
                 margin: 10px auto;
                 padding-left: 10px;
@@ -219,6 +222,14 @@
                 box-sizing: border-box;
                 width: 100%;
             }
+            
+            /* ALTERAÇÃO 4: Chat sem margin lateral em mobile quando vídeo ativo */
+            #chatContainer.video-active {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            
             #chatInputArea {
                 flex-wrap: wrap;
             }
@@ -401,7 +412,7 @@ img, a {
     
 </div>
 
-<div id="mainContent">
+
 <!-- Oferta especial, inicialmente escondida -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
   <div style="font-size: 22px; color: #555;">
@@ -468,9 +479,9 @@ img, a {
         <button id="sendButton" onclick="sendMessage()">
     <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
 </button>
+    </div>
 </div>
-</div>
-</div>
+
 
 
 
@@ -532,6 +543,11 @@ img, a {
 
 
 function startWebinar() {
+    // ✅ ALTERAÇÃO PRINCIPAL: Adiciona classes para vídeo fullwidth
+    document.body.classList.add('video-active');
+    videoContainer.classList.add('fullwidth');
+    chatContainer.classList.add('video-active');
+    
     // ✅ Zera o chat
     messages.innerHTML = "";
     shownProgrammedMessages.clear();
@@ -572,7 +588,7 @@ function startWebinar() {
 
 
 
-    // contador de “pessoas assistindo”
+    // contador de "pessoas assistindo"
   const viewerElement = document.getElementById('viewerCounter');
 
   function updateViewerCount() {
@@ -860,74 +876,4 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 );
 
 // Bloqueia atalho Ctrl+C, Ctrl+U (ver fonte), Ctrl+S, Ctrl+P e F12
-document.addEventListener('keydown', e => {
-  const forbidden =
-    // combinações de Ctrl + C, U, S, P, A
-    (e.ctrlKey &&
-      ['c','u','s','p','a'].includes(e.key.toLowerCase()))
-    // F12
-    || e.key === 'F12';
-  if (forbidden) e.preventDefault();
-});
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-const horaEntrada = new Date();
-
-function getBrowserId() {
-  let id = localStorage.getItem('browserId');
-  if (!id) {
-    id = 'browser-' + Math.random().toString(36).substring(2, 15);
-    localStorage.setItem('browserId', id);
-  }
-  return id;
-}
-
-const browserId = getBrowserId();
-
-function enviarDados() {
-  const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
-  const horaSaida = agora.toLocaleTimeString();
-
-  fetch('https://script.google.com/macros/s/AKfycbxQt1JLVTstW8xgKMmMhPg4T_BzaIfZTP6oUkP21AGrU1WUmL117mQtOFgdpcHr8jd_ow/exec', {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-   body: JSON.stringify({
-  browserId: browserId,
-  nome: window.userName || 'Desconhecido',
-  email: window.userEmail || 'sem-email',
-  horaEntrada: horaEntrada.toLocaleTimeString(),
-  tempoPagina: tempoPagina,
-  horaSaida: horaSaida,
-  paginaOrigem: 'ao-vivo'
-})
-  });
-}
-
-setInterval(enviarDados, 1000);
-</script>
-
-
-
-
-
-
-
-</body>
-</html>
+document.addEventListener('keydown
