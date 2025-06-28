@@ -8,47 +8,35 @@
         *, *::before, *::after {
             box-sizing: border-box;
         }
-        body {
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-            margin: 0;
-            padding: 20px;
-        }
-        #videoContainer, #chatContainer, #nameForm {
-            display: none;
-            margin: 20px auto;
-            max-width: 480px;
-            width: 100%;
-        }
+   body {
+    margin: 0;
+    padding: 0;
+  }
 
-        #videoContainer {
-  display: none;
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  max-width: 100vw;
-}
+  #videoContainer {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
 
-.player-wrapper {
-  position: relative;
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0;
-}
+  .player-wrapper {
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
 
-#customVideo {
-  width: 100vw;
-  height: auto;
-  display: block;
-}
-
-
-.player-wrapper {
-  position: relative;
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0;
-}
+  #customVideo {
+    width: 100vw;
+    height: auto;
+    display: block;
+  }
  
 #nameForm input,
 #chatInputArea input {
