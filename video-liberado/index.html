@@ -475,7 +475,7 @@ img, a {
     animation: pulse 1.5s infinite;
     transition: transform 0.2s ease;">
 
-    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🔥
+    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🥑
  </a>
   <!-- TEXTO ABAIXO BOTAO -->
   <div style="margin-top: 10px; font-size: 14px; color: #333;">
@@ -522,10 +522,10 @@ img, a {
 
 
 
-<script>  //PROGRAMAR LIVE
-    const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 19;         // HORA 
-    const configMinute = 40;      // MINUTO
+<script>  //PROGRAMAR LIVE IMPORTANTE!
+    const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 9;         // HORA 
+    const configMinute = 0;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -541,7 +541,7 @@ img, a {
 
 
 
- const programmedMessages = [  //COMENTARIOS
+ const programmedMessages = [  //COMENTARIOS IMPORTANTE!
     { time: 30, name: "Carlos", text: "Conteúdo incrível!" },
     { time: 40, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
 	{ time: 50, name: "Carlos", text: "Conteúdo incrível!" },
@@ -573,6 +573,7 @@ img, a {
 
     let shownProgrammedMessages = new Set();
     let videoJaIniciado = false;
+	let tempoJaDefinido = false;
 	let viewerInterval;
     let userName = "";
 	let monitoramentoAtivo = false;
@@ -619,9 +620,9 @@ function startWebinar() {
 
     const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
 
-    if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
-        video.currentTime = secondsSinceStart;
-    }
+if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+  video.currentTime = secondsSinceStart;
+}
 
     programmedMessages.forEach(msg => {
         if (msg.time < secondsSinceStart) {
@@ -635,7 +636,7 @@ function startWebinar() {
 
 
 
-    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();
+    const offerDelayMs = (webinarStart.getTime() + 30 * 60 * 1000) - now.getTime(); // IMPORTANTE! PITCH DO BOTÃO  30min = 30 * 60 * 1000
     if (offerDelayMs > 0) {
         setTimeout(() => {
             document.getElementById('offerSection').style.display = 'block';
@@ -737,7 +738,7 @@ window.onload = function() {
     startDate.setDate(now.getDate() - daysSinceLive);
     startDate.setHours(liveHour, liveMinute, 0, 0);
 
-    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
+    const endDate = new Date(startDate.getTime() + 15 * 60 * 60 * 1000);  // IMPORTANTE! tempo que o video fica disponível
 
     if (now >= startDate && now <= endDate) {
     document.getElementById('nameFormWrapper').style.display = "flex";
@@ -923,22 +924,50 @@ setInterval(() => {
 
 
 
+// VERIFICA E CARREGA O TEMPO SALVO DA PAGINA
+video.addEventListener('loadedmetadata', () => {
+  const savedTime = parseFloat(localStorage.getItem('webinarVideoTime'));
+  const expirado = expirouLimiteDeTempo();
 
-// Ao carregar a página, recupera o tempo salvo
-window.addEventListener('load', () => {
-    const savedTime = parseFloat(localStorage.getItem('webinarVideoTime'));
-    if (!isNaN(savedTime) && savedTime > 0 && savedTime < video.duration) {
-        video.currentTime = savedTime;
+  if (!isNaN(savedTime) && savedTime > 0 && savedTime < video.duration && !expirado) {
+    // Se tem tempo salvo e ainda é válido (não expirou)
+    video.currentTime = savedTime;
+    tempoJaDefinido = true;
 
-        programmedMessages.forEach(msg => {
-            if (msg.time < savedTime) {
-                shownProgrammedMessages.add(msg.time + '-' + msg.name);
-            }
-        });
-    }
-
-   
+    programmedMessages.forEach(msg => {
+      if (msg.time < savedTime) {
+        shownProgrammedMessages.add(msg.time + '-' + msg.name);
+      }
+    });
+  } else {
+    // Se expirou ou não tem tempo salvo
+    video.currentTime = 0;
+    tempoJaDefinido = true;
+    localStorage.removeItem('webinarVideoTime');
+    localStorage.setItem('webinarFirstVisit', Date.now());
+  }
 });
+
+
+
+
+
+
+
+// Define o tempo máximo para relembrar (em milissegundos)
+const LIMITE_MEMORIA = 60 * 60 * 1000; // IMPORTANTE! TEMPO QUE RESETA O LOCAL STORAGE 1* 60* 60 * 1000 = 1HORA
+
+// Salva o tempo da primeira visita
+if (!localStorage.getItem('webinarFirstVisit')) {
+  localStorage.setItem('webinarFirstVisit', Date.now());
+}
+
+// Função para verificar se o tempo expirou
+function expirouLimiteDeTempo() {
+  const firstVisit = parseInt(localStorage.getItem('webinarFirstVisit'), 10);
+  const agora = Date.now();
+  return isNaN(firstVisit) || (agora - firstVisit > LIMITE_MEMORIA);
+}
 
 
 
@@ -961,6 +990,8 @@ function iniciarMonitoramentoDeMensagens() {
     }, 1000);
 }
 
+
+// DATA DO TOPO DA PAGINA IMPORTANTE!
 const diasSemana = ["DOMINGO", "2ª FEIRA", "3ª FEIRA", "4ª FEIRA", "5ª FEIRA", "6ª FEIRA", "SÁBADO"];
   const hoje = new Date();
   document.getElementById("diaSemana").textContent = diasSemana[hoje.getDay()];
@@ -995,7 +1026,7 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);   // IMPORTANTE! APPSCRIPT GOOGLE
   const horaSaida = agora.toLocaleTimeString();
 
   fetch('https://script.google.com/macros/s/AKfycbxQt1JLVTstW8xgKMmMhPg4T_BzaIfZTP6oUkP21AGrU1WUmL117mQtOFgdpcHr8jd_ow/exec', {

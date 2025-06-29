@@ -375,12 +375,12 @@ img, a {
 
 <div id="waitingMessage" style="display:none;">
     <h2>Quase lá!</h2>
-    <p>Aguarde! Nosso evento começa em breve!</p>
+    <p>Aguarde! Nossa transmissão <b>ao vivo</b> começa em breve!</p>
     <p id="countdown"></p>
 </div>
 
 <div id="eventClosedMessage" style="display:none;">
-  <h2>Evento Encerrado.</h2>
+  <h2>Transmissão AO VIVO encerrada.</h2>
 </div>
 
 
@@ -425,7 +425,7 @@ img, a {
     animation: pulse 1.5s infinite;
     transition: transform 0.2s ease;">
 
-    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🔥
+    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🥑
  </a>
   <!-- TEXTO ABAIXO BOTAO -->
   <div style="margin-top: 10px; font-size: 14px; color: #333;">
@@ -479,10 +479,10 @@ img, a {
 
 
 
-<script>  //PROGRAMAR LIVE
-    const configDay = 6;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+<script>  //PROGRAMAR LIVE      IMPORTANTE!
+    const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 19;         // HORA 
-    const configMinute = 38;      // MINUTO
+    const configMinute = 5;      // MINUTO
     const durationMinutes = 24;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -495,7 +495,7 @@ img, a {
     const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
 
-    const programmedMessages = [   //COMENTARIOS
+    const programmedMessages = [   //COMENTARIOS     IMPORTANTE!
         { time: 40, name: "Juliana", text: "Isso mudou minha vida! www.google.com.br" },
         { time: 45, name: "Carlos", text: "Conteúdo incrível!" },
         { time: 50, name: "Ana", text: "Valeu pela explicação!" }
@@ -595,7 +595,7 @@ function startWebinar() {
 
     
 
-    const offerDelayMs = (webinarStart.getTime() + 60 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA
+    const offerDelayMs = (webinarStart.getTime() + 30 * 60 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA IMPORTANTE!
 
     if (offerDelayMs > 0) {
         // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
@@ -694,7 +694,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (12 * 60 * 60 * 1000));   // TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (12 * 60 * 60 * 1000));   // IMPORTANTE!  TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
 
     if (now < webinarStart) {
         showCountdown();
@@ -899,7 +899,7 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);  // IMPORTANTE!  SCRIPT GOOGL
   const horaSaida = agora.toLocaleTimeString();
 
   fetch('https://script.google.com/macros/s/AKfycbxQt1JLVTstW8xgKMmMhPg4T_BzaIfZTP6oUkP21AGrU1WUmL117mQtOFgdpcHr8jd_ow/exec', {
