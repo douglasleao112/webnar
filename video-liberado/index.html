@@ -662,14 +662,17 @@ if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDura
 
 
 
-    const offerDelayMs = (webinarStart.getTime() + 30 * 60 * 1000) - now.getTime(); // IMPORTANTE! PITCH DO BOTÃO  30min = 30 * 60 * 1000
-    if (offerDelayMs > 0) {
-        setTimeout(() => {
-            document.getElementById('offerSection').style.display = 'block';
-        }, offerDelayMs);
-    } else {
-        document.getElementById('offerSection').style.display = 'block';
-    }
+const tempoParaMostrarBotao = 30 * 60;  // TEMPO PITCH DO BOTÃO IMPORTANTE!
+let botaoJaApareceu = false;
+
+video.addEventListener('timeupdate', () => {
+  if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
+    document.getElementById('offerSection').style.display = 'block';
+    botaoJaApareceu = true;
+  }
+});
+
+
 	
 overlay.style.display = 'block';
 playButton.style.display = 'block';
