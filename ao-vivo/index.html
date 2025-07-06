@@ -415,7 +415,7 @@ img, a {
 <div id="videoContainer"> 
    <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline>
-            <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
+            <source src="https://video.wixstatic.com/video/7f5efc_aff10ce5cbed47569a681ca28800084c/720p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
         </video>
         <div id="videoClickOverlay"></div>
@@ -506,8 +506,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE      IMPORTANTE!
     const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 4;         // HORA 
-    const configMinute = 12;      // MINUTO
+    const configHour = 8;         // HORA 
+    const configMinute = 20;      // MINUTO
     const durationMinutes = 154;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -524,7 +524,7 @@ img, a {
         { time: 30, name: "Juliana", text: "Oba, começou.. esperei a semana toda" },
         { time: 60, name: "Mercia", text: "Pode chamar quem não esta no grupo?" },
         { time: 87, name: "Mercia", text: "Ta bom, pode deixar, vou avisar" },
-        { time: 87, name: "Renira", text: "Boa noite! Como vai?" },
+        { time: 89, name: "Renira", text: "Boa noite! Como vai?" },
         { time: 93, name: "Pricila", text: "Boa noite" },
         { time: 95, name: "Meire", text: "Noite, vai ficar gravada?" },
         { time: 100, name: "Marcia", text: "kkkkk não tem mais volta" },
@@ -577,7 +577,7 @@ img, a {
         { time: 650, name: "Pietra", text: "👍👍👍" },
         { time: 650, name: "Isa", text: "Boraaa" },
         { time: 651, name: "Rafaela", text: "To junto" },
-        { time: 660, name: "Deboar", text: "Já fiz dieta da Lua, só passei fome" },
+        { time: 660, name: "Debora", text: "Já fiz dieta da Lua, só passei fome" },
         { time: 659, name: "Dani", text: "Eu já não acredito mais" },
         { time: 661, name: "Fabia", text: "Já tentei de tudo" },
         { time: 729, name: "Zilda", text: "Quero até ver essa do abacate" },
@@ -610,7 +610,7 @@ img, a {
         { time: 1407, name: "Iara", text: "Deeeus me livre de balança" },
         { time: 1407, name: "Sara", text: "Nem lembro quando usei um biquini" },
         { time: 1408, name: "Isa", text: "Eu não gosto de praia" },
-        { time: 1410, name: "Rafaela", text: "Balnança não gosto não" },
+        { time: 1410, name: "Rafaela", text: "Balança não gosto não" },
         { time: 1411, name: "Dani", text: "Como você sabe tanto sobre o que estou passando" },
         { time: 1442, name: "Meire", text: "Nossa... só luz apagada" },
         { time: 1442, name: "Nubia", text: "Espelho não mente mesmo😔" },
@@ -698,7 +698,7 @@ img, a {
         { time: 2735, name: "Lara", text: "Minhas pernas são finas e minha barriga enorme" },
         { time: 2738, name: "Josy", text: "também sou assim" },
         { time: 2740, name: "Isa", text: "Como faz para perder essa barriga?" },
-        { time: 2745, name: "Iracela", text: "Eu sou assim" },
+        { time: 2745, name: "Iracelma", text: "Eu sou assim" },
         { time: 2748, name: "Cida", text: "falsa magra que ele falou?" },
         { time: 2869, name: "Josy", text: "também sou assim" },
         { time: 2870, name: "Isa", text: "eu sou assim" },
@@ -1223,7 +1223,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (12 * 60 * 60 * 1000));   // IMPORTANTE!  TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (11 * 60 * 60 * 1000) + (27 * 60 * 1000));   // IMPORTANTE!  TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
 
     if (now < webinarStart) {
         showCountdown();
