@@ -506,8 +506,8 @@ img, a {
 
 <script>  //PROGRAMAR LIVE      IMPORTANTE!
     const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 8;         // HORA 
-    const configMinute = 20;      // MINUTO
+    const configHour = 10;         // HORA 
+    const configMinute = 24;      // MINUTO
     const durationMinutes = 154;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -1122,7 +1122,7 @@ function startWebinar() {
   setInterval(updateViewerCount, 30000); // atualiza a cada 30 segundos  
 
 
-    const offerDelayMs = (webinarStart.getTime() + 2 * 3600 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA IMPORTANTE!
+    const offerDelayMs = (webinarStart.getTime() + (2 * 3600 + 1 * 60) * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA IMPORTANTE!
 
     if (offerDelayMs > 0) {
         // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
