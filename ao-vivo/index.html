@@ -297,18 +297,14 @@ img, a {
 }
 
 #eventClosedMessage {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh;     /* melhor usar min-height para mobile scroll */
+  height: 100vh;             
+  display: flex;              
+  align-items: center;         
+  justify-content: center;   
   text-align: center;
-  background: #fff;
-  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 
