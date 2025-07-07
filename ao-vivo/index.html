@@ -1223,14 +1223,15 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (11 * 60 * 60 * 1000) + (27 * 60 * 1000));   // IMPORTANTE!  TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000) + (27 * 60 * 1000)); // TEMPO QUE FICA COMO EVENTO ENECERRADO    IMPORTANTE!
 
     if (now < webinarStart) {
         showCountdown();
     } else if (now >= webinarStart && now <= webinarEnd) {
         nameForm.style.display = "block";
     } else if (now > webinarEnd && now <= encerramentoEnd) {
-        showEventClosed();
+        // Aqui faz o REDIRECIONAMENTO em vez de mostrar evento encerrado
+        window.location.href = "/video-liberado";
     } else {
         showCountdown();
     }
