@@ -1525,10 +1525,18 @@ const diasSemana = ["DOMINGO", "2ª FEIRA", "3ª FEIRA", "4ª FEIRA", "5ª FEIRA
 
 
 
-
 <script>
-const horaEntrada = new Date();
+/* --- 1. Função para pegar ou salvar a primeira hora de entrada (no formato ISO) --- */
+function getOrSetHoraEntrada() {
+  let horaEntrada = localStorage.getItem('webinarHoraEntrada');
+  if (!horaEntrada) {
+    horaEntrada = new Date().toISOString(); // Salva no padrão ISO (ex: 2025-07-07T18:10:00.000Z)
+    localStorage.setItem('webinarHoraEntrada', horaEntrada);
+  }
+  return horaEntrada;
+}
 
+/* --- 2. Função para pegar ou criar um browserId persistente --- */
 function getBrowserId() {
   let id = localStorage.getItem('browserId');
   if (!id) {
@@ -1538,12 +1546,22 @@ function getBrowserId() {
   return id;
 }
 
+/* --- 3. Inicializações --- */
 const browserId = getBrowserId();
+const horaEntrada = getOrSetHoraEntrada();
+let tempoAcumulado = parseInt(localStorage.getItem('webinarTempoTotal')) || 0;
+let timestampSessaoInicio = Date.now();
 
-function enviarDados() {
-  const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);   // IMPORTANTE! APPSCRIPT GOOGLE
-  const horaSaida = agora.toLocaleTimeString();
+/* --- 4. Atualiza o tempo total (soma acumulado + atual) --- */
+function atualizarTempoTotal() {
+  const agora = Date.now();
+  return tempoAcumulado + Math.floor((agora - timestampSessaoInicio) / 1000);
+}
+
+/* --- 5. Envia os dados para o Apps Script --- */
+function enviarDados(final = false) {
+  const tempoTotal = atualizarTempoTotal();
+  const horaSaida = new Date().toISOString();
 
   fetch('https://script.google.com/macros/s/AKfycbxQt1JLVTstW8xgKMmMhPg4T_BzaIfZTP6oUkP21AGrU1WUmL117mQtOFgdpcHr8jd_ow/exec', {
     method: 'POST',
@@ -1552,18 +1570,26 @@ function enviarDados() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-  browserId: browserId,
-  nome: window.userName || 'Desconhecido',
-  email: window.userEmail || 'sem-email',
-  horaEntrada: horaEntrada.toLocaleTimeString(),
-  tempoPagina: tempoPagina,
-  horaSaida: horaSaida,
-  paginaOrigem: 'video-liberado'
-})
+      browserId: browserId,
+      nome: window.userName || 'Desconhecido',
+      email: window.userEmail || 'sem-email',
+      horaEntrada: horaEntrada,           // Fixa!
+      tempoPagina: tempoTotal,            // Acumulado
+      horaSaida: horaSaida,               // Agora
+      paginaOrigem: 'video-liberado'
+    })
   });
 }
 
-setInterval(enviarDados, 1000);
+/* --- 6. Intervalo de envio periódico (ex: a cada 10 segundos, ajustável) --- */
+setInterval(enviarDados, 1000); // Recomendo 10 segundos, nunca 1s para não sobrecarregar o Google Apps Script
+
+/* --- 7. Ao sair da página, salva tempo total e envia os dados finais --- */
+window.addEventListener('beforeunload', function() {
+  tempoAcumulado += Math.floor((Date.now() - timestampSessaoInicio) / 1000);
+  localStorage.setItem('webinarTempoTotal', tempoAcumulado);
+  enviarDados(true);
+});
 </script>
 
 
