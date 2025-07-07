@@ -406,6 +406,14 @@ img, a {
 
 <div id="eventClosedMessage" style="display:none;">
   <h2>Transmissão AO VIVO encerrada.</h2>
+
+
+<script>
+  setTimeout(function(){
+    window.location.href = "/video-liberado";
+  }, 500); 
+</script>
+
 </div>
 
 
@@ -1216,28 +1224,25 @@ const email = emailInput.value.trim();
         e.preventDefault();
     });
  
-  
-  
+
+
 window.onload = function() {
     const now = new Date();
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000)); // 30h após o fim
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000) + (27 * 60 * 1000));   // IMPORTANTE!  TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
 
     if (now < webinarStart) {
         showCountdown();
     } else if (now >= webinarStart && now <= webinarEnd) {
         nameForm.style.display = "block";
     } else if (now > webinarEnd && now <= encerramentoEnd) {
-        // Aqui mostra "evento encerrado"
-        showEventoEncerrado(); // troque para sua função que mostra o encerrado
+        showEventClosed();
     } else {
-        // Após 30h do fim do webinar, redireciona
-        window.location.href = "https://webnar-start.netlify.app/video-liberado/";
+        showCountdown();
     }
 };
-
 
 
 function showCountdown() {
