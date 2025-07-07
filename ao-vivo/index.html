@@ -406,11 +406,9 @@ img, a {
 
 <div id="eventClosedMessage" style="display:none;">
   <h2>Transmissão AO VIVO encerrada.</h2>
-<script>
-  setTimeout(function(){
-    window.location.href = "/video-liberado";
-  }, 1); 
-</script>
+
+<a href="/video-liberado class="link">Ou clique aqui para conferir se a gravação esta disponível.</a>
+
 </div>
 
 
@@ -1228,7 +1226,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000) + (27 * 60 * 1000));   // IMPORTANTE!  TEMPO AO FINAL DA LIVE QUE FICA COMO EVENTO ENCERRADO
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000) + (27 * 60 * 1000));   // IMPORTANTE!  "Transmissão AO VIVO encerrada > redireciona para video gravado"
 
     if (now < webinarStart) {
         showCountdown();
