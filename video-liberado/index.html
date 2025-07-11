@@ -124,13 +124,13 @@
             height: 60%;
             object-fit: contain;
         }
-        #chatContainer h3 {
-            font-size: 13px;      
-            font-weight: bold;
-            color: #333;
-            margin-top: 4px;
-            margin-bottom: 10px;
-        }
+#chatContainer h3 {
+    font-size: 13px;      
+    font-weight: bold;
+    color: #333;
+	margin-top: 4px;
+    margin-bottom: 10px;
+}
 
 
   
@@ -193,12 +193,12 @@
   
         @media (max-width: 500px) {
             body {
-                padding: 0px;
+                padding: 0 !important; 
             }
 			  .mainContent {
-            padding-left: 12px;
-            padding-right: 12px;
-           }
+             padding-left: 12px;
+             padding-right: 12px;
+            }
             #chatContainer {
                 margin: 10px auto;
                 padding-left: 10px;
@@ -206,19 +206,21 @@
                 box-sizing: border-box;
                 width: 100%;
             }
-			#nameForm{
+		   #nameForm {
                 margin: 10px auto;
                 padding-left: 10px;
                 padding-right: 10px;
                 box-sizing: border-box;
                 width: 100%;
             }
-          #videoContainer {
-            margin: 0 !important; /* Altere esta linha para 0 !important */
-            padding: 0 !important; /* Altere esta linha para 0 !important */
-            box-sizing: border-box;
-            width: 100% !important; /* Adicione esta linha */
-        }
+			#videoContainer {
+                margin: 0 !important;
+                padding: 0 !important;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100% !important; 
+            }
             #chatInputArea {
                 flex-wrap: wrap;
             }
@@ -230,26 +232,26 @@
             margin-top: 30px;
             }
             #viewerCounter strong {
-            color: rgb(16, 16, 16);          
+            color: rgb(16, 16, 16);           
             font-size: 13px;
             }
             
-            #waitingMessage {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-                          transform: translate(-50%, -50%);
-              /* mantêm largura e estilo anteriores */
-              max-width: 400px;
-              width: 100%;
-                          padding: 20px;
-              background: #fff;
-              text-align: center;
-              border-radius: 10px;
-              box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-              /* remova margens verticais que conflitem */
-              margin: 0;
-            }
+#waitingMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* mantêm largura e estilo anteriores */
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  /* remova margens verticais que conflitem */
+  margin: 0;
+}
 
 #waitingMessage h2 {
     color: #000;
@@ -297,7 +299,7 @@ img, a {
 }
 
 #eventClosedMessage {
-  height: 100vh;  
+  height: 100vh;             
   display: flex;              
   align-items: center;         
   justify-content: center;   
@@ -346,31 +348,50 @@ img, a {
   font-size: 12px;
 }
 
-
-@media (max-width: 600px) {
-  .live-badge img {
-    height: 15px;
-  }
-}
-.live-badge {
-  position: absolute;
-  top: 6px;     
-  left: 6px; 
-  z-index: 10;
-  pointer-events: none;   
-  pointer-events: none;
-}
-.live-badge img {
-  height: 14px;
-  width: auto;
-  display: block;
-  /* sombra opcional para destacar */
-  filter: drop-shadow(0 2px 6px #2225);
+#chatInputArea {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0; /* Cinza claro */
+    border-radius: 20px;
+    padding: 10px 15px;
+    opacity: 0.7;
+    width: 100%;
+    cursor: not-allowed;
+    position: relative;
 }
 
+#userMessage {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #555; /* Cinza escuro para o texto */
+    font-size: 14px;
+    cursor: not-allowed;
+}
 
+#userMessage::placeholder {
+    color: #555; /* Placeholder em cinza escuro */
+}
+
+#sendButton {
+    background-color: transparent;
+    border: none;
+    cursor: not-allowed;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+#sendButton img {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+}
     </style>
-
 
 
 <!-- Meta Pixel Code -->
@@ -385,13 +406,15 @@ img, a {
   s.parentNode.insertBefore(t,s)}(window, document,'script');
 
   fbq('init', '1290378376428374');
-  fbq('track', 'Contact');
+  fbq('track', 'ViewContent');
 </script>
 <noscript>
   <img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1290378376428374&ev=Contact&noscript=1"/>
+  src="https://www.facebook.com/tr?id=1290378376428374&ev=ViewContent&noscript=1"/>
 </noscript>
 <!-- End Meta Pixel Code -->
+
+
 
 
 
@@ -401,14 +424,12 @@ img, a {
 
 <div id="nameFormWrapper">
 <div id="nameForm">
-    <img class="logo" src="https://i.imgur.com/aDzR9ce.png">
-    <h3 style="font-size: 20px;">Descubra como Eliminar 12kg em 6 Semanas com a Fórmula do Abacate</h3>
+    <img class="logo" src="https://i.imgur.com/aDzR9ce.png" style="width: 120px; margin-bottom: 4px;">
+   <h3 style="font-size: 20px;">Descubra como Eliminar 12kg em 6 Semanas com a Fórmula do Abacate</h3>
     <p>Por favor, entre com o mesmo <b>Nome</b> e <b>WhatsApp</b> que você informou na inscrição.</p><br/>
 <input type="text" id="userNameInput" placeholder="Nome"
   autocomplete="name"
   style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;">
-
-
 
 <input 
   type="text" 
@@ -419,11 +440,8 @@ img, a {
   style="width: 100%; padding: 10px; margin: 8px 0 16px 0; box-sizing: border-box;">
 
 
-
-  
-  
     <button onclick="saveUserName()">ENTRAR</button>
-    <a href="https://www.dougleao.com.br/cadastrar-aovivo" class="link">Ou, clique aqui para se inscrever agora.</a>
+    <a href="https://www.dougleao.com.br/cadastrar-videoliberado" class="link">Ou, clique aqui para se inscrever neste webinário agora.</a>
 </div>
 </div>
 
@@ -434,36 +452,34 @@ img, a {
 
 <div id="waitingMessage" style="display:none;">
     <h2>Quase lá!</h2>
-    <p>Aguarde! Nossa transmissão <b>ao vivo</b> começa em breve!</p>
+    <p>Aguarde! Nosso evento começa em breve!</p>
     <p id="countdown"></p>
 </div>
 
-
-
-<div id="eventClosedMessage" style="margin-top: 35vh; text-align: center; display:none;">
-  <h2>Transmissão AO VIVO encerrada.</h2>
-  <a href="/video-liberado" class="link">Clique aqui para conferir se a gravação está disponível.</a>
+<div id="eventClosedMessage" style="display:none;">
+  <h2>Evento Encerrado.</h2>
 </div>
 
 
+<div id="videoContainer">    
+ <!-- Headline e subhealine -->
+<div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
+  <h1 style="font-size: 18px; color: #d62828; margin-bottom: 8px;">Vídeo liberado por tempo limitado</h1>
+  <p style="font-size: 13px; color: #333;">
+    Esse vídeo sairá do ar HOJE,<b> <span id="diaSemana"></span> às 23:59</b>
+  </p>
+</div>
 
 
-
-
-<div id="videoContainer"> 
-  <div class="player-wrapper">
-    <div class="live-badge">
-      <img src="https://imagepng.org/wp-content/uploads/2020/04/ao-vivo-4.png" />
+    <div class="player-wrapper">
+        <video id="customVideo" preload="metadata" playsinline>   <!-- VIDEO MP4  IMPORTANTE! -->
+            <source src="https://video.wixstatic.com/video/7f5efc_14a2b74d816240649e5b036b6cc059ed/480p/mp4/file.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div id="videoClickOverlay"></div>
+        <button id="playButton"></button>
     </div>
-    <video id="customVideo" preload="metadata" playsinline> <!-- Video MP4 IMPORTANTE! -->
-      <source src="https://video.wixstatic.com/video/7f5efc_14a2b74d816240649e5b036b6cc059ed/480p/mp4/file.mp4" type="video/mp4">
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-    <div id="videoClickOverlay"></div>
-    <button id="playButton"></button>
-  </div>
-</div>
-
+    </div>
 
 
 
@@ -512,9 +528,7 @@ img, a {
       <div style="font-size:12px; color:#28894e;">⭐Melhor custo-benefício!⭐</div>
     </div>
   </div>
- 
-</div>
-
+ </div>
 
 	
 <style>
@@ -535,26 +549,18 @@ img, a {
 
 
 <div id="chatContainer">
-    <h3>Chat</h3>
-<div id="viewerCounter"
-     style="font-size:11px;color:#666;display:flex;align-items:center;gap:3px;margin:0 0 6px 0;">
-  <img src="https://static.thenounproject.com/png/4154905-200.png"
-       alt="👥"
-       style="width:12px;height:12px;vertical-align:text-bottom;">
-  0 pessoas assistindo agora
-</div>
-    
+    <h3>Chat Transmitido Domingo</h3>
     <div id="messages"></div>
 
-    <div id="chatInputArea">
-        <input type="text" id="userMessage" placeholder="Escreva sua mensagem...">
-        <button id="sendButton" onclick="sendMessage()">
-    <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
-</button>
-    </div>
+  <div id="chatInputArea">
+    <input type="text" id="userMessage" placeholder="Chat indisponível no Replay" disabled>
+    <button id="sendButton" disabled>
+        <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
+    </button>
+</div>
 </div>
 
-  </div>
+</div>
 
 
 
@@ -562,7 +568,8 @@ img, a {
 
 
 
-<script>  //PROGRAMAR LIVE      IMPORTANTE!
+
+<script>  //PROGRAMAR LIVE IMPORTANTE!
     const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 9;         // HORA 
     const configMinute = 0;      // MINUTO
@@ -578,7 +585,10 @@ img, a {
     const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
 
-    const programmedMessages = [   //COMENTARIOS (valores e segundos)     IMPORTANTE!
+
+
+
+ const programmedMessages = [   //COMENTARIOS (valores e segundos)     IMPORTANTE!
         { time: 30, name: "Juliana", text: "Oba, começou.. esperei a semana toda" },
         { time: 60, name: "Mercia", text: "Pode chamar quem não está no grupo?" },
         { time: 87, name: "Mercia", text: "Ta bom, pode deixar, vou avisar" },
@@ -587,7 +597,7 @@ img, a {
         { time: 95, name: "Meire", text: "Tarde, vai ficar gravada?" },
         { time: 100, name: "Marcia", text: "kkkkk não tem mais volta" },
         { time: 105, name: "Fatima", text: "Espero que você possa me ajudar, não aguento mais esse peso." },
-        { time: 120, name: "Silva", text: "Vai começar" },e
+        { time: 120, name: "Silva", text: "Vai começar" },
         { time: 121, name: "Ana", text: "Ta online será?" },
         { time: 134, name: "Lays", text: "Domingo abençoado para nós 🙌" },
         { time: 144, name: "Zenilda", text: "Estou fazendo mas parei de emagrecer" },
@@ -624,7 +634,7 @@ img, a {
         { time: 516, name: "Isa", text: "Tudo ok, pode começar" },
         { time: 570, name: "Iracelma", text: "Combinado" },
         { time: 576, name: "Iara", text: "Eu topo!!!" },
-        { time: 577, name: "Manu", text: "Já não sei mais o que fazer"😔 },
+        { time: 577, name: "Manu", text: "Já não sei mais o que fazer😔" },
 		{ time: 578, name: "Pietra", text: "Conte comigo!" },
 		{ time: 625, name: "Pietra", text: "35" },
         { time: 626, name: "Isa", text: "41" },
@@ -690,25 +700,25 @@ img, a {
         { time: 1359, name: "Lara", text: "Virginia" },
 		{ time: 1359, name: "Manu", text: "Virginia" },
         { time: 1407, name: "Iara", text: "Deeeus me livre de balança" },
-        { time: 1407, name: "Sara", text: "Nem lembro quando usei um biquini" },
-        { time: 1408, name: "Isa", text: "Eu não gosto de praia" },
+        { time: 1408, name: "Sara", text: "Nem lembro quando usei um biquini" },
+        { time: 1409, name: "Isa", text: "Eu não gosto de praia" },
         { time: 1410, name: "Rafaela", text: "Balança não gosto não" },
         { time: 1411, name: "Dani", text: "Estou tendo dificuldade demais, perciso de ajuda" },
         { time: 1442, name: "Meire", text: "Nossa... só luz apagada no banho" },
-        { time: 1442, name: "Nubia", text: "Espelho não mente mesmo😔" },
-        { time: 1443, name: "Kesia", text: "Eu até podia ficar sem sair tem hora..." },
+        { time: 1443, name: "Nubia", text: "Espelho não mente mesmo😔" },
+        { time: 1444, name: "Kesia", text: "Eu até podia ficar sem sair tem hora..." },
         { time: 1445, name: "Odete", text: "Não gosto de foto não, sempre saiu ruim as fotos" },
         { time: 1536, name: "Renira", text: "combinado" },
         { time: 1538, name: "Zenia", text: "ok👍👍👍" },
         { time: 1539, name: "Fatima", text: "VAAMO JUNTO!" },
         { time: 1581, name: "Carla", text: "Pode contar tudo, agora queremos saber" },
-        { time: 1581, name: "Maisa", text: "Queremos saber"😁😁😁 },
-        { time: 1582, name: "Katia", text: "Estou gostando de ver, parabéns pelo conteúdo. " },
-        { time: 1582, name: "Flores", text: "Hoje vai ser bom a aula!!" },
-        { time: 1614, name: "Fabia", text: "Sim verdade" },
-        { time: 1615, name: "Neli", text: "sem força de tudo" },
-        { time: 1615, name: "Katiane", text: "Verdade" },
-        { time: 1617, name: "Meire", text: "Isso é veradade, eu ja fiz kkkk" },
+        { time: 1582, name: "Maisa", text: "Queremos saber😁😁😁" },
+        { time: 1583, name: "Katia", text: "Estou gostando de ver, parabéns pelo conteúdo. " },
+        { time: 1584, name: "Flores", text: "Hoje vai ser bom a aula!!" },
+        { time: 1615, name: "Fabia", text: "Sim verdade" },
+        { time: 1616, name: "Neli", text: "sem força de tudo" },
+        { time: 1617, name: "Katiane", text: "Verdade" },
+        { time: 1618, name: "Meire", text: "Isso é veradade, eu ja fiz kkkk" },
 		{ time: 1655, name: "Juliana", text: "Eu faço jejum e quando chega de noite eu sempre sinto muita fome, e acabo pedindo um Ifood" },
 		{ time: 1643, name: "Odete", text: "Eu acredito sim, faz total sentido" },
 		{ time: 1643, name: "Nubia", text: "já ouvi falar de tudo!!" },
@@ -989,7 +999,7 @@ img, a {
 		{ time: 5654, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
         { time: 5724, name: "Layz", text: "Eu consegui entrar!!!! 😃😃" },
         { time: 5729, name: "Kesia", text: "Obrigada Douglas" },
-        { time: 5733, name: "Zilda", text: "Sensacional" },S
+        { time: 5733, name: "Zilda", text: "Sensacional" },
         { time: 5700, name: "Lay", text: "É verdade" },
         { time: 5704, name: "Angelica", text: "Sim, faz sentido" },
         { time: 5853, name: "Lara", text: "Eu consegui adquirir com o desconto de R$ 100,00!!!" },
@@ -1074,13 +1084,19 @@ img, a {
 		{ time: 6924, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" }
 	
         
+        
 		
     ];
 
+
+
+
     let shownProgrammedMessages = new Set();
     let videoJaIniciado = false;
-    let viewerInterval;
+	let tempoJaDefinido = false;
+	let viewerInterval;
     let userName = "";
+	let monitoramentoAtivo = false;
 
     function isWebinarTime() {
         const now = new Date();
@@ -1105,18 +1121,13 @@ img, a {
 
   
     
-
-
 function startWebinar() {
-    // ✅ Zera o chat
     messages.innerHTML = "";
     shownProgrammedMessages.clear();
 
-    // mostra vídeo e chat
     videoContainer.style.display = "block";
     chatContainer.style.display = "block";
 
-    // instante "oficial" de início do webinar (hoje às configHour:configMinute)
     const now = new Date();
     const webinarStart = new Date(
         now.getFullYear(),
@@ -1127,79 +1138,45 @@ function startWebinar() {
         0
     );
 
-    // calcula há quantos segundos a live já está rodando
     const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
 
-    // sincroniza o vídeo
-    if (secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
-        video.currentTime = secondsSinceStart;
-    }
+if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+  video.currentTime = secondsSinceStart;
+}
 
-    // já marca como "enviadas" as mensagens que deveriam ter aparecido antes
     programmedMessages.forEach(msg => {
         if (msg.time < secondsSinceStart) {
-            shownProgrammedMessages.add(msg.time);
+            shownProgrammedMessages.add(msg.time + '-' + msg.name);
         }
     });
 
-    // dispara a checagem de mensagens programadas a cada segundo
-    setInterval(checkProgrammedMessages, 1000);
+
+    
 
 
 
 
-    // contador de “pessoas assistindo”
-  const viewerElement = document.getElementById('viewerCounter');
+const tempoParaMostrarBotao = 5181;  // BOTÃO DO PITCH (em segundos) IMPORTANTE!
+let botaoJaApareceu = false;
 
-  function updateViewerCount() {
-    const random = Math.floor(Math.random() * (1180 - 1147 + 1)) + 1147;    //Pessoas assistindo ao vivo IMPORTANTE!
-    viewerElement.innerHTML = `
-      <img src="https://static.thenounproject.com/png/4154905-200.png"
-           alt="👥"
-           style="width:12px;height:12px;vertical-align:text-bottom;margin-right:0px;">
-      ${random} ao vivo
-    `;
+video.addEventListener('timeupdate', () => {
+  if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
+    document.getElementById('offerSection').style.display = 'block';
+    botaoJaApareceu = true;
   }
-
-  updateViewerCount(); // executa logo que a página abre
-  setInterval(updateViewerCount, 10000); // atualiza a cada 10 segundos  
+});
 
 
-
-
-    const offerDelayMs = (webinarStart.getTime() + 5181 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
-
-    if (offerDelayMs > 0) {
-        // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
-        setTimeout(() => {
-            document.getElementById('offerSection').style.display = 'block';
-        }, offerDelayMs);
-    } else {
-        // se já passou do ponto de 1240 s, exibe imediatamente
-        document.getElementById('offerSection').style.display = 'block';
-    }
-
-
+	
+overlay.style.display = 'block';
+playButton.style.display = 'block';
+   
 }
 
 
-   function checkProgrammedMessages() {
-        const currentTime = video.currentTime;
-        programmedMessages.forEach(msg => {
-            if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
-                addMessage(msg.name, msg.text);
-                shownProgrammedMessages.add(msg.time);
-            }
-        });
-    }
 
-    function addMessage(user, text) {
-        const div = document.createElement('div');
-        div.className = 'chat-message';
-        div.innerHTML = `<strong>${user}:</strong> ${text}`;
-        messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
-    }
+
+
 
     function sendMessage() {
         const input = document.getElementById('userMessage');
@@ -1210,56 +1187,67 @@ function startWebinar() {
         }
     }
 
-    function iniciarVideo() {
-        if (videoJaIniciado) return;
-        videoJaIniciado = true;
-        playButton.style.display = 'none';
-        overlay.style.display = 'none';
-        video.play().catch(err => console.warn("Erro ao iniciar vídeo:", err));
-    }
+
+function iniciarVideo() {
+    if (videoJaIniciado) return;
+    videoJaIniciado = true;
+
+    playButton.style.display = 'none';
+    overlay.style.display = 'none';
+
+    video.play().then(() => {
+        // Inicia a checagem do tempo de vídeo só depois que o vídeo começou a rodar
+        setInterval(() => {
+            const currentTime = Math.floor(video.currentTime);
+
+            programmedMessages.forEach(msg => {
+                if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
+                    addMessage(msg.name, msg.text);
+                    shownProgrammedMessages.add(msg.time);
+                }
+            });
+        }, 1000);
+    }).catch(err => console.warn("Erro ao iniciar vídeo:", err));
+}
+
 
 function saveUserName() {
   const nameInput = document.getElementById('userNameInput');
   const name = nameInput.value.trim();
-  const whatsappInput = document.getElementById('userWhatsappInput');
-  const whatsappRaw = whatsappInput.value.trim();
-  const whatsapp = whatsappRaw.replace(/\D/g, ''); // Apenas números!
+const whatsappInput = document.getElementById('userWhatsappInput');
+const whatsappRaw = whatsappInput.value.trim();
+const whatsapp = whatsappRaw.replace(/\D/g, ''); // Apenas números!
   const nameFormWrapper = document.getElementById('nameFormWrapper');
 
   if (!name) {
-    return alert("Por favor, digite seu Nome.");
+    return alert("Por favor, digite seu nome.");
   }
-  if (!whatsapp) {
+   if (!whatsapp) {
     return alert("Por favor, digite seu WhatsApp.");
-  }
+ }
   if (whatsapp.length !== 11) {
     alert("O número do WhatsApp deve ter 11 dígitos (DDD + número). Exemplo: (11) 99999-9999");
     whatsappInput.focus();
     return;
   }
 
-  // 1️⃣ guarda globalmente pro tracker ler depois
+
   window.userName = name;
   window.userWhatsapp  = whatsapp;
   userName = name;
 
-  // 2️⃣ opcional: persiste entre recargas
   localStorage.setItem('webinarUserName', name);
   localStorage.setItem('webinarUserWhatsapp', whatsapp);
 
-  // 3️⃣ esconde o formulário e segue com a lógica
   nameFormWrapper.style.display = "none";
 
-  if (isWebinarTime()) {
-    startWebinar();
-  } else {
-    nextSession.innerHTML =
-      `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
-  }
+  // Sempre iniciar o webinar logo após o cadastro do nome
+  startWebinar();
+ 
 }
 
 
-// logica do campo de coleta whatsapp
+
 function formatarWhatsapp(input) {
   let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, máx 11
   if (valor.length > 2) {
@@ -1272,6 +1260,8 @@ function formatarWhatsapp(input) {
 }
 
 
+
+
     playButton.addEventListener('click', iniciarVideo);
     overlay.addEventListener('click', iniciarVideo);
 
@@ -1280,24 +1270,30 @@ function formatarWhatsapp(input) {
         e.preventDefault();
     });
  
-
-
+  
+  
 window.onload = function() {
     const now = new Date();
-    const lastWebinar = getLastWebinarDate();
-    const webinarStart = lastWebinar;
-    const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (15 * 60 * 60 * 1000));   // IMPORTANTE!  tempo que o replay fica disponivel 15h até final do dia (começando 9h)
+    const day = now.getDay();
 
-    if (now < webinarStart) {
-        showCountdown();
-    } else if (now >= webinarStart && now <= webinarEnd) {
-        nameForm.style.display = "block";
-    } else if (now > webinarEnd && now <= encerramentoEnd) {
-        showEventClosed();
-    } else {
-        showCountdown();
-    }
+    // Configuração: dia e hora da live
+    const liveDay = configDay; 
+    const liveHour = configHour;
+    const liveMinute = configMinute;
+
+    const startDate = new Date(now);
+    const daysSinceLive = (day - liveDay + 7) % 7;
+    startDate.setDate(now.getDate() - daysSinceLive);
+    startDate.setHours(liveHour, liveMinute, 0, 0);
+
+    const endDate = new Date(startDate.getTime() + 15 * 60 * 60 * 1000);  // IMPORTANTE! tempo que o video fica disponível
+
+    if (now >= startDate && now <= endDate) {
+    document.getElementById('nameFormWrapper').style.display = "flex";
+    document.getElementById('nameForm').style.display = "block";  // Exibe o formulário também
+} else {
+    window.location.href = "https://webnar-start.netlify.app/ao-vivo/";
+}
 };
 
 
@@ -1409,16 +1405,17 @@ function getLastWebinarDate() {
       .replace(/\b(www\.[^\s]+)/g, '<a href="http://$1" target="_blank" rel="noopener">$1</a>');
   }
 
-  function addMessage(user, text) {
-    const div = document.createElement('div');
-    div.className = 'chat-message';
-    // aplicamos a linkify no text
-    const safeText = linkify(text);
-    div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-  }
-  
+
+function addMessage(user, text) {
+  const div = document.createElement('div');
+  div.className = 'chat-message';
+  const safeText = linkify(text);
+  div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+
 
 // Bloqueia pinça (touchmove com 2 dedos)
 document.addEventListener('touchmove', function(e) {
@@ -1463,6 +1460,91 @@ document.addEventListener('keydown', e => {
   if (forbidden) e.preventDefault();
 });
 
+
+
+// Salva o tempo do vídeo a cada 5 segundos
+setInterval(() => {
+    if (!video.paused && !video.ended) {
+        localStorage.setItem('webinarVideoTime', video.currentTime);
+    }
+}, 5000);
+
+
+
+
+// VERIFICA E CARREGA O TEMPO SALVO DA PAGINA
+video.addEventListener('loadedmetadata', () => {
+  const savedTime = parseFloat(localStorage.getItem('webinarVideoTime'));
+  const expirado = expirouLimiteDeTempo();
+
+  if (!isNaN(savedTime) && savedTime > 0 && savedTime < video.duration && !expirado) {
+    // Se tem tempo salvo e ainda é válido (não expirou)
+    video.currentTime = savedTime;
+    tempoJaDefinido = true;
+
+    programmedMessages.forEach(msg => {
+      if (msg.time < savedTime) {
+        shownProgrammedMessages.add(msg.time + '-' + msg.name);
+      }
+    });
+  } else {
+    // Se expirou ou não tem tempo salvo
+    video.currentTime = 0;
+    tempoJaDefinido = true;
+    localStorage.removeItem('webinarVideoTime');
+    localStorage.setItem('webinarFirstVisit', Date.now());
+  }
+});
+
+
+
+
+
+
+
+// Define o tempo máximo para relembrar (em milissegundos)
+const LIMITE_MEMORIA = 3 * 60 * 60 * 1000; // IMPORTANTE! TEMPO QUE RESETA O LOCAL STORAGE 1 * 60 * 60 * 1000 = 1HORA
+
+// Salva o tempo da primeira visita
+if (!localStorage.getItem('webinarFirstVisit')) {
+  localStorage.setItem('webinarFirstVisit', Date.now());
+}
+
+// Função para verificar se o tempo expirou
+function expirouLimiteDeTempo() {
+  const firstVisit = parseInt(localStorage.getItem('webinarFirstVisit'), 10);
+  const agora = Date.now();
+  return isNaN(firstVisit) || (agora - firstVisit > LIMITE_MEMORIA);
+}
+
+
+
+
+
+
+function iniciarMonitoramentoDeMensagens() {
+    if (monitoramentoAtivo) return;  // Evita criar múltiplos intervals
+    monitoramentoAtivo = true;
+
+    setInterval(() => {
+        const currentTime = Math.floor(video.currentTime);
+        programmedMessages.forEach(msg => {
+            const key = msg.time + '-' + msg.name;
+            if (currentTime >= msg.time && !shownProgrammedMessages.has(key)) {
+                addMessage(msg.name, msg.text);
+                shownProgrammedMessages.add(key);
+            }
+        });
+    }, 1000);
+}
+
+
+// DATA DO TOPO DA PAGINA IMPORTANTE!
+const diasSemana = ["DOMINGO", "2ª FEIRA", "3ª FEIRA", "4ª FEIRA", "5ª FEIRA", "6ª FEIRA", "SÁBADO"];
+  const hoje = new Date();
+  document.getElementById("diaSemana").textContent = diasSemana[hoje.getDay()];
+   
+
 </script>
 
 
@@ -1492,7 +1574,7 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);  // IMPORTANTE!  SCRIPT GOOGLE
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);   // IMPORTANTE! APPSCRIPT GOOGLE
   const horaSaida = agora.toLocaleTimeString();
 
   fetch('https://script.google.com/macros/s/AKfycbytASNNRUT8Bk6WLwSGt54ostCW-HYJxwXkr-ETiJ3sCu3xa3aIWxwA7OrcaFwjVXbxPQ/exec', {
@@ -1501,14 +1583,14 @@ function enviarDados() {
     headers: {
       'Content-Type': 'application/json'
     },
-   body: JSON.stringify({
+    body: JSON.stringify({
   browserId: browserId,
   nome: window.userName || 'Desconhecido',
   whatsapp: window.userWhatsapp || 'sem-whatsapp',
   horaEntrada: horaEntrada.toLocaleTimeString(),
   tempoPagina: tempoPagina,
   horaSaida: horaSaida,
-  paginaOrigem: 'ao-vivo'
+  paginaOrigem: 'video-liberado'
 })
   });
 }
