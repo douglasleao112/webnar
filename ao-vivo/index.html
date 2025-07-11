@@ -415,9 +415,9 @@ img, a {
   id="userWhatsappInput"
   maxlength="15"
   placeholder="(11) 99999-9999"
-  oninput="formatarWhatsapp(this)"
+  oninput="limparDDI(this)"
+  autocomplete="tel"
   style="width: 100%; padding: 10px; margin: 8px 0 16px 0; box-sizing: border-box;">
-
 
 
   
@@ -1270,6 +1270,28 @@ function formatarWhatsapp(input) {
   }
   input.value = valor;
 }
+
+
+function limparDDI(input) {
+  let valor = input.value.trim();
+  // Remove tudo que não for número
+  valor = valor.replace(/\D/g, '');
+
+  // Se começar com 55 (DDI Brasil) e tiver 13 dígitos ou mais, remove o DDI
+  if (valor.length >= 13 && valor.startsWith('55')) {
+    valor = valor.substring(2);
+  }
+
+  // Continua a formatação normal
+  if (valor.length > 2) {
+    valor = '(' + valor.slice(0,2) + ') ' + valor.slice(2);
+  }
+  if (valor.length > 9) {
+    valor = valor.slice(0, 10) + '-' + valor.slice(10);
+  }
+  input.value = valor;
+}
+
 
 
     playButton.addEventListener('click', iniciarVideo);
