@@ -124,13 +124,13 @@
             height: 60%;
             object-fit: contain;
         }
-#chatContainer h3 {
-    font-size: 13px;      
-    font-weight: bold;
-    color: #333;
-	margin-top: 4px;
-    margin-bottom: 10px;
-}
+        #chatContainer h3 {
+            font-size: 13px;      
+            font-weight: bold;
+            color: #333;
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
 
 
   
@@ -196,9 +196,9 @@
                 padding: 0px;
             }
 			  .mainContent {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
+            padding-left: 12px;
+            padding-right: 12px;
+           }
             #chatContainer {
                 margin: 10px auto;
                 padding-left: 10px;
@@ -213,7 +213,7 @@
                 box-sizing: border-box;
                 width: 100%;
             }
-        #videoContainer {
+          #videoContainer {
             margin: 0 !important; /* Altere esta linha para 0 !important */
             padding: 0 !important; /* Altere esta linha para 0 !important */
             box-sizing: border-box;
@@ -234,22 +234,22 @@
             font-size: 13px;
             }
             
-#waitingMessage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* mantêm largura e estilo anteriores */
-  max-width: 400px;
-  width: 100%;
-  padding: 20px;
-  background: #fff;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  /* remova margens verticais que conflitem */
-  margin: 0;
-}
+            #waitingMessage {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+                          transform: translate(-50%, -50%);
+              /* mantêm largura e estilo anteriores */
+              max-width: 400px;
+              width: 100%;
+                          padding: 20px;
+              background: #fff;
+              text-align: center;
+              border-radius: 10px;
+              box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+              /* remova margens verticais que conflitem */
+              margin: 0;
+            }
 
 #waitingMessage h2 {
     color: #000;
@@ -347,6 +347,28 @@ img, a {
 }
 
 
+@media (max-width: 600px) {
+  .live-badge img {
+    height: 15px;
+  }
+}
+.live-badge {
+  position: absolute;
+  top: 6px;     
+  left: 6px; 
+  z-index: 10;
+  pointer-events: none;   
+  pointer-events: none;
+}
+.live-badge img {
+  height: 14px;
+  width: auto;
+  display: block;
+  /* sombra opcional para destacar */
+  filter: drop-shadow(0 2px 6px #2225);
+}
+
+
     </style>
 
 
@@ -429,15 +451,19 @@ img, a {
 
 
 <div id="videoContainer"> 
-   <div class="player-wrapper">
-        <video id="customVideo" preload="metadata" playsinline>
-            <source src="https://video.wixstatic.com/video/7f5efc_aff10ce5cbed47569a681ca28800084c/720p/mp4/file.mp4" type="video/mp4">
-            Seu navegador não suporta vídeo HTML5.
-        </video>
-        <div id="videoClickOverlay"></div>
-        <button id="playButton"></button>
+  <div class="player-wrapper">
+    <div class="live-badge">
+      <img src="https://imagepng.org/wp-content/uploads/2020/04/ao-vivo-4.png" />
     </div>
+    <video id="customVideo" preload="metadata" playsinline> <!-- Video MP4 IMPORTANTE! -->
+      <source src="https://video.wixstatic.com/video/7f5efc_14a2b74d816240649e5b036b6cc059ed/480p/mp4/file.mp4" type="video/mp4">
+      Seu navegador não suporta vídeo HTML5.
+    </video>
+    <div id="videoClickOverlay"></div>
+    <button id="playButton"></button>
   </div>
+</div>
+
 
 
 
@@ -445,34 +471,50 @@ img, a {
 <div class="mainContent">
 <!-- Oferta especial, inicialmente escondida   IMPORTANTE! -->
 <div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
-  <div style="font-size: 20px; color: #555;">
-    De <span style="text-decoration: line-through; color: red;">R$ 2.391</span>
+  <div style="margin-top: 120x; font-size: 12px; color: #333;">
+    <b>ATENÇÃO:</b> Oferta válida somente durante o evento.<br>
   </div>
-<div style="font-size: 26px; color: #000;">
-  <span style="font-size: 18px;">Apenas 12x</span> <span style="color: #28a745; font-weight: bold;">R$ 47,90</span>
-</div><br>
-    
-  <a href="https://sun.eduzz.com/E9OOGE2Q9B?cupom=OFF100" style="
-     display: block;
-    width: 100%;
-    background: #ff6e11;
-    color: #fff;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 22px 0;
-    border-radius: 18px;
-    text-decoration: none;
-    box-shadow: 0 0 12px rgba(226, 140, 10, 0.6);
-    animation: pulse 1.5s infinite;
-    transition: transform 0.2s ease;">
-
-    QUERO RESETAR MEU CORPO<br> COM ESSA FÓRMULA 🥑
- </a>
-  <!-- TEXTO ABAIXO BOTAO   IMPORTANTE! -->
-  <div style="margin-top: 10px; font-size: 14px; color: #333;">
-    <b>APROVEITE AGORA 80% DE DESCONTO</b>
+  <div class="oferta-dupla" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+    <!-- Plano 3 meses -->
+    <div class="plano-oferta" style="flex: 1 1 180px; background: #fffbe7; border-radius: 16px; padding: 22px 12px 16px 12px; box-shadow: 0 4px 24px rgba(255,126,0,0.10); margin:8px;">
+      <div style="font-size:16px; color:#ff7d00; font-weight:600; margin-bottom:7px;">Tratamento 3 Meses</div>
+      <div style="font-size:13px; color:#333; margin-bottom:7px;">
+        De <span style="text-decoration:line-through;color:#c44;">R$ 897</span>
+      </div>
+      <div style="font-size: 23px; color: #28a745; font-weight: bold;">
+        12x R$ 59,70
+      </div>
+      <div style="font-size:13px; color:#333; margin-bottom:13px;">
+        ou R$ 597 à vista
+      </div>
+      <a href="https://sun.eduzz.com/E9OOGE2Q9B"
+         style="display:block; background:#ff7d00; color:#fff; font-weight: bold; font-size: 18px; padding:14px 0; border-radius:12px; text-decoration:none; margin:0 auto 10px; transition: background .2s; box-shadow: 0 0 8px #ff7d0033; animation: pulse 1.5s infinite;">
+        QUERO 3 MESES
+      </a>
+      <div style="font-size:12px; color:#7c6d4f;">Aproveite 30% de desconto agora mesmo!</div>
+    </div>
+    <!-- Plano 12 meses -->
+    <div class="plano-oferta" style="flex: 1 1 180px; background: #f2fff4; border-radius: 16px; padding: 22px 12px 16px 12px; box-shadow: 0 4px 24px rgba(40,167,69,0.07); margin:8px;">
+      <div style="font-size:16px; color:#2c9c5e; font-weight:600; margin-bottom:7px;">Tratamento 12 Meses</div>
+      <div style="font-size:13px; color:#333; margin-bottom:7px;">
+        De <span style="text-decoration:line-through;color:#c44;">R$ 3.588</span>
+      </div>
+      <div style="font-size: 23px; color: #28a745; font-weight: bold;">
+        12x R$ 109,70
+      </div>
+      <div style="font-size:13px; color:#333; margin-bottom:13px;">
+        ou R$ 1.097 à vista
+      </div>
+      <a href="https://sun.eduzz.com/39YDN81D9O?cupom=OFF100"
+         style="display:block; background:#28a745; color:#fff; font-weight: bold; font-size: 18px; padding:14px 0; border-radius:12px; text-decoration:none; margin:0 auto 10px; transition: background .2s; box-shadow: 0 0 8px #28a74522; animation: pulse 1.5s infinite;">
+        QUERO 12 MESES COM DESCONTO
+      </a>
+      <div style="font-size:12px; color:#28894e;">⭐Melhor custo-benefício!⭐</div>
+    </div>
   </div>
+ 
 </div>
+
 
 	
 <style>
@@ -524,7 +566,7 @@ img, a {
     const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 16;         // HORA 
     const configMinute = 0;      // MINUTO
-    const durationMinutes = 154;    // duração do video
+    const durationMinutes = 116;    // duração do video
 
     const video = document.getElementById('customVideo');
     const playButton = document.getElementById('playButton');
@@ -540,16 +582,16 @@ img, a {
         { time: 30, name: "Juliana", text: "Oba, começou.. esperei a semana toda" },
         { time: 60, name: "Mercia", text: "Pode chamar quem não está no grupo?" },
         { time: 87, name: "Mercia", text: "Ta bom, pode deixar, vou avisar" },
-        { time: 89, name: "Renira", text: "Boa noite! Como vai?" },
-        { time: 93, name: "Priscila", text: "Boa noite" },
-        { time: 95, name: "Meire", text: "Noite, vai ficar gravada?" },
+        { time: 89, name: "Renira", text: "Boa tarde! Como vai?" },
+        { time: 93, name: "Priscila", text: "Boa tarde" },
+        { time: 95, name: "Meire", text: "Tarde, vai ficar gravada?" },
         { time: 100, name: "Marcia", text: "kkkkk não tem mais volta" },
         { time: 105, name: "Fatima", text: "Espero que você possa me ajudar, não aguento mais esse peso." },
-        { time: 120, name: "Silva", text: "Vai começar" },
+        { time: 120, name: "Silva", text: "Vai começar" },e
         { time: 121, name: "Ana", text: "Ta online será?" },
         { time: 134, name: "Lays", text: "Domingo abençoado para nós 🙌" },
         { time: 144, name: "Zenilda", text: "Estou fazendo mas parei de emagrecer" },
-        { time: 146, name: "flaviane", text: "Jejum e low carb já fiz, só passei fome demais" },
+        { time: 146, name: "Flaviane", text: "Jejum e low carb já fiz, só passei fome demais" },
         { time: 150, name: "Caleane", text: "kkkkk Deus me livre de dieta" },
         { time: 150, name: "Iara", text: "Vai falar do Mounjaro" },
         { time: 151, name: "Mercia", text: "Começou agora?" },
@@ -561,493 +603,478 @@ img, a {
         { time: 170, name: "Pri", text: "Meu metabolismo é lento acho que é minha tireóide" },
         { time: 190, name: "Jucelia", text: "Começou agora????" },
         { time: 240, name: "Zenilda", text: "Eu topo" },
-        { time: 241, name: "flaviane", text: "Vamos que vamos!!!😃😃😃" },
+        { time: 241, name: "Flaviane", text: "Vamos que vamos!!!😃😃😃" },
         { time: 241, name: "Nubia", text: "Aguardei a semana inteira" },
         { time: 243, name: "Debora", text: "Tamo junto" },
-        { time: 247, name: "Julia", text: "Vai ficar gravada?" },
-        { time: 270, name: "Katiane", text: "Eu vi esse comentario dela!" },
-        { time: 290, name: "Iara", text: "kkkkkkkk" },
+        { time: 247, name: "Julia", text: "Ta ao vivo??" },
+        { time: 270, name: "Katiane", text: "Já cai em mentira mais!" },
+        { time: 290, name: "Iara", text: "eu vi esse comentário dela" },
         { time: 306, name: "Sara", text: "Realmente eu já não sei mais o que funciona..." },
         { time: 307, name: "Isa", text: "Cada um fala uma coisa" },
-        { time: 346, name: "Rafaela", text: "Eu vi kkkk" },
+        { time: 346, name: "Rafaela", text: "só mentira kkkk" },
         { time: 350, name: "Dani", text: "verdade... tudo falso" },
         { time: 351, name: "Juventite", text: "Eu estou comendo só ovo, funciona?" },
         { time: 420, name: "Luciana", text: "Eu estou pra desistir, vamos ver o que você vai mostrar..." },
-        { time: 468, name: "Marcela", text: "Estou tomando mounjaru e só estou passando mal até agora, uma dor terrivel de estomago😓😓" },
+        { time: 468, name: "Marcela", text: "Estou tomando mounjaru e só estou passando mal, uma dor terrivel de estomago😓😓" },
         { time: 490, name: "Juliana", text: "Estou contigo, já desmarquei tudo que tinha hoje" },
         { time: 490, name: "Mercia", text: "Vamos até o fim!!!" },
-        { time: 505, name: "🤖SUPORTE", text: "Audio e Imagem: OK!👍👍👍" },
+        { time: 505, name: "Flaviane", text: "Tudo ok👍👍👍" },
         { time: 510, name: "Angelina", text: "Tudo certo, vamos lá!!!!" },
         { time: 515, name: "Katianne", text: "Quero descobrir hoje aonde estou errando" },
         { time: 516, name: "Isa", text: "Tudo ok, pode começar" },
         { time: 570, name: "Iracelma", text: "Combinado" },
         { time: 576, name: "Iara", text: "Eu topo!!!" },
-        { time: 577, name: "Manu", text: "Começa logo...." },
-        { time: 578, name: "Pietra", text: "Conte comigo!" },
-        { time: 616, name: "Isa", text: "Boa kkkkkkk" },
-        { time: 618, name: "Rafaela", text: "KKKKKK" },
-        { time: 646, name: "Isa", text: "Conte Comigo" },
-        { time: 647, name: "Iracelma", text: "Vamos juntos" },
-        { time: 647, name: "Iara", text: "Conte comigo👍" },
-        { time: 648, name: "Manu", text: "Tamo junto" },
-        { time: 650, name: "Pietra", text: "👍👍👍" },
-        { time: 650, name: "Isa", text: "Boraaa" },
-        { time: 651, name: "Rafaela", text: "To junto" },
-        { time: 660, name: "Debora", text: "Já fiz dieta da Lua, só passei fome" },
+        { time: 577, name: "Manu", text: "Já não sei mais o que fazer"😔 },
+		{ time: 578, name: "Pietra", text: "Conte comigo!" },
+		{ time: 625, name: "Pietra", text: "35" },
+        { time: 626, name: "Isa", text: "41" },
+        { time: 626, name: "Rafaela", text: "57" },
+        { time: 628, name: "Isa", text: "42" },
+        { time: 630, name: "Iracelma", text: "60" },
+        { time: 631, name: "Iara", text: "57👍" },
+        { time: 632, name: "Manu", text: "63" },
+		{ time: 660, name: "Debora", text: "Já fiz dieta da Lua, só passei fome" },
         { time: 659, name: "Dani", text: "Eu já não acredito mais" },
         { time: 661, name: "Fabia", text: "Já tentei de tudo" },
+		{ time: 703, name: "Isa", text: "Conte Comigo" },
+        { time: 704, name: "Iracelma", text: "Vamos juntos" },
+        { time: 705, name: "Iara", text: "Conte comigo👍" },
+        { time: 705, name: "Manu", text: "Tamo junto" },
+        { time: 710, name: "Pietra", text: "👍👍👍" },
+        { time: 712, name: "Isa", text: "Boraaa" },
+        { time: 715, name: "Rafaela", text: "To junto" },
         { time: 729, name: "Zilda", text: "Quero até ver essa do abacate" },
         { time: 730, name: "Fabia", text: "Como eu emagreço comendo abacate?" },
-        { time: 929, name: "Iara", text: "Começou... Agora pode contar tudo..." },
-        { time: 932, name: "Katiane", text: "Realmente, só querer lucrar, eu gasto com remédio todo mês mais de 500 reais" },
-        { time: 1002, name: "Meire", text: "Eu me liberto" },
-        { time: 1032, name: "Jucelia", text: "Eu já não como arroz tem tanto tempo, e eu amo arroz😔" },
-        { time: 1039, name: "Nubia", text: "Pão também é bom em..." },
-        { time: 1073, name: "Regina", text: "Não acredito, até chocolate" },
-        { time: 1074, name: "Odete", text: "Chocolate,açucar???" },
-        { time: 1075, name: "Laura", text: "Não é possivel" },
-        { time: 1080, name: "Manu", text: "Não acredito que consigo emagrecer comendo tudo isso..." },
-        { time: 1160, name: "Manu", text: "Bahia" },
-        { time: 1161, name: "Angelina", text: "Sergipe" },
-        { time: 1161, name: "Katianne", text: "Goiás" },
-        { time: 1162, name: "Lara", text: "São Paulo" },
-        { time: 1162, name: "simone", text: "Marília" },
-        { time: 1163, name: "Neli", text: "Eu sigo 👍👍👍" },
-        { time: 1165, name: "Flaviane", text: "RJ" },
-        { time: 1165, name: "Pietra", text: "Santa Catarina" },
-        { time: 1167, name: "Jurema", text: "SP" },
-        { time: 1168, name: "Zenilda", text: "Rondônia" },
-        { time: 1169, name: "Lay", text: "Maceió" },
-        { time: 1170, name: "Angelica", text: "ES" },
-        { time: 1170, name: "Silvana", text: "Mato Grosso" },
+		{ time: 798, name: "Meire", text: "Eu me liberto" },
+        { time: 803, name: "Jucelia", text: "Eu já não como arroz tem tanto tempo, e eu amo arroz😔" },
+        { time: 807, name: "Nubia", text: "Pão também é bom em..." },
+        { time: 810, name: "Regina", text: "Não acredito, até chocolate" },
+        { time: 832, name: "Odete", text: "Chocolate,açucar???" },
+        { time: 840, name: "Laura", text: "Não é possivel" },
+        { time: 850, name: "Manu", text: "Não acredito que consigo emagrecer comendo tudo isso..." },
+		{ time: 929, name: "Iara", text: "Começou... Agora pode contar tudo..." },
+        { time: 932, name: "Layz", text: "Pode contar comigo" },
+        { time: 930, name: "Nubia", text: "Vamos juntas" },
+        { time: 934, name: "Carla", text: "Tamo junto" },
+        { time: 935, name: "Odete", text: "Vamos lá" },
+        { time: 940, name: "Maisa", text: "Não é possivel, quero saber" },
+        { time: 650, name: "Samanta", text: "Vamos juntas!" },
+       	{ time: 964, name: "🤖SUPORTE", text: "De onde você estão falando???" },
+		{ time: 970, name: "Manu", text: "Bahia" },
+        { time: 972, name: "Angelina", text: "Sergipe" },
+        { time: 973, name: "Katianne", text: "Goiás" },
+        { time: 974, name: "Lara", text: "São Paulo" },
+        { time: 974, name: "simone", text: "Marília" },
+        { time: 977, name: "Neli", text: "Eu sigo 👍👍👍" },
+        { time: 979, name: "Flaviane", text: "RJ" },
+        { time: 982, name: "Pietra", text: "Santa Catarina" },
+        { time: 983, name: "Jurema", text: "SP" },
+        { time: 983, name: "Zenilda", text: "Rondônia" },
+        { time: 990, name: "Lay", text: "Maceió" },
+        { time: 999, name: "Angelica", text: "ES" },
+        { time: 1000, name: "Silvana", text: "Mato Grosso" },
+		{ time: 1029, name: "Kesia", text: "Quero saber do abacate" },
+        { time: 1030, name: "Zilda", text: "Interessante que saber, pode contar tudo" },
+        { time: 1035, name: "Jucelina", text: "O abacate, quero até ver" },
+		{ time: 1137, name: "Meire", text: "Pesado isso" },
+        { time: 1138, name: "Dani", text: "Como você sabe tanto sobre o que estou passando" },
+        { time: 1138, name: "Iara", text: "Deeeus me livre de balança" },
+		{ time: 1175, name: "Nubia", text: "Vamos juntas" },
+        { time: 1180, name: "Carla", text: "Tamo junto" },
+        { time: 1186, name: "Odete", text: "Vamos lá" },
         { time: 1197, name: "Meire", text: "Tudo que já como..." },
-        { time: 1260, name: "Dani", text: "Nossa, eu engordo muito facil" },
-        { time: 1323, name: "🤖SUPORTE", text: "🥑🥑🥑🥑🥑🥑" },
+		{ time: 1290, name: "Dani", text: "Nossa, eu engordo muito facil" },
+		{ time: 1351, name: "Dani", text: "Virginia" },
+        { time: 1354, name: "simone", text: "Graianne e Virginia" },
+        { time: 1357, name: "Jane", text: "Virginia, Maira Cardi, Gracine" },
+        { time: 1359, name: "Lara", text: "Virginia" },
+		{ time: 1359, name: "Manu", text: "Virginia" },
         { time: 1407, name: "Iara", text: "Deeeus me livre de balança" },
         { time: 1407, name: "Sara", text: "Nem lembro quando usei um biquini" },
         { time: 1408, name: "Isa", text: "Eu não gosto de praia" },
         { time: 1410, name: "Rafaela", text: "Balança não gosto não" },
-        { time: 1411, name: "Dani", text: "Como você sabe tanto sobre o que estou passando" },
-        { time: 1442, name: "Meire", text: "Nossa... só luz apagada" },
+        { time: 1411, name: "Dani", text: "Estou tendo dificuldade demais, perciso de ajuda" },
+        { time: 1442, name: "Meire", text: "Nossa... só luz apagada no banho" },
         { time: 1442, name: "Nubia", text: "Espelho não mente mesmo😔" },
         { time: 1443, name: "Kesia", text: "Eu até podia ficar sem sair tem hora..." },
-        { time: 1445, name: "Zilda", text: "Não gosto de foto não, sempre saiu ruim as fotos" },
-        { time: 1469, name: "Jucelina", text: "Conte Comigo" },
-        { time: 1470, name: "Iracelma", text: "Vamos juntos" },
-        { time: 1471, name: "Iara", text: "Conte comigo👍" },
-        { time: 1471, name: "Manu", text: "Tamo junto" },
-        { time: 1535, name: "Layz", text: "conte comigo" },
+        { time: 1445, name: "Odete", text: "Não gosto de foto não, sempre saiu ruim as fotos" },
         { time: 1536, name: "Renira", text: "combinado" },
         { time: 1538, name: "Zenia", text: "ok👍👍👍" },
         { time: 1539, name: "Fatima", text: "VAAMO JUNTO!" },
-        { time: 1581, name: "Carla", text: "KKKKKKK" },
-        { time: 1581, name: "Maisa", text: "RSRSRS GOSTEI" },
-        { time: 1582, name: "Katia", text: "😁😁😁😁😁" },
-        { time: 1582, name: "Flores", text: "kkkk" },
+        { time: 1581, name: "Carla", text: "Pode contar tudo, agora queremos saber" },
+        { time: 1581, name: "Maisa", text: "Queremos saber"😁😁😁 },
+        { time: 1582, name: "Katia", text: "Estou gostando de ver, parabéns pelo conteúdo. " },
+        { time: 1582, name: "Flores", text: "Hoje vai ser bom a aula!!" },
         { time: 1614, name: "Fabia", text: "Sim verdade" },
         { time: 1615, name: "Neli", text: "sem força de tudo" },
         { time: 1615, name: "Katiane", text: "Verdade" },
-        { time: 1617, name: "Meire", text: "sem energia" },
-        { time: 1672, name: "Isa", text: "Já usei Ozempic" },
+        { time: 1617, name: "Meire", text: "Isso é veradade, eu ja fiz kkkk" },
+		{ time: 1655, name: "Juliana", text: "Eu faço jejum e quando chega de noite eu sempre sinto muita fome, e acabo pedindo um Ifood" },
+		{ time: 1643, name: "Odete", text: "Eu acredito sim, faz total sentido" },
+		{ time: 1643, name: "Nubia", text: "já ouvi falar de tudo!!" },
+		{ time: 1643, name: "Jane", text: "Chega ser dificil de acreditar, mas faz sentido" },
+		{ time: 1643, name: "Maria Clara", text: "Eu tentei tomar mounjaro e acabei vendo que era bem caro😔" },
+		{ time: 1672, name: "Isa", text: "Já usei Ozempic, e só dava conta de comer cois liqudia " },
         { time: 1673, name: "Dani", text: "eu conheço, mas n tenho dinheiro para usar" },
         { time: 1673, name: "Rafaela", text: "Estou usando moujaro" },
-        { time: 1754, name: "Samanta", text: "um sonho llkkkkk" },
-        { time: 1861, name: "Fabia", text: "Odeio academia" },
-        { time: 1884, name: "Pri", text: "Depois vou seguir" },
-        { time: 1885, name: "Kasia", text: "Já sigo👍👍" },
-        { time: 1975, name: "Zilda", text: "Seca você Maíra Cardi" },
-        { time: 1976, name: "Jucelina", text: "Já fiz vários grupos de 30 dias" },
-        { time: 1977, name: "Iracelma", text: "Já acabei um semana passada" },
-        { time: 1978, name: "Iara", text: "Seca bucho com Alan Nutri" },
-        { time: 1978, name: "Manu", text: "Seca Você" },
-        { time: 1980, name: "Layz", text: "Seca Mais" },
-        { time: 1981, name: "Dani", text: "Projeto 30 dias do Bertolucci" },
-        { time: 1994, name: "Fabia", text: "Eu fiz e engordei tudo de novo" },
-        { time: 1995, name: "Neli", text: "A Maíra eu já fiz" },
-        { time: 2062, name: "Debora", text: "Faz sentido muito...😔" },
-        { time: 2069, name: "Layz", text: "verdade" },
-        { time: 2113, name: "Kesia", text: "Isso é verdade" },
-        { time: 2114, name: "Zilda", text: "falta educação" },
-        { time: 2114, name: "Jucelina", text: "Japão não tem gordo" },
-        { time: 2116, name: "Iracelma", text: "Já tentei tudo isso que você falou kkkkk to gorda ainda" },
-        { time: 2151, name: "Simone", text: "Páleo" },
-        { time: 2154, name: "Ana Paula", text: "dieta da USP" },
-        { time: 2155, name: "Kesia", text: "mediterranea" },
-        { time: 2150, name: "Laura", text: "dieta do Ovo" },
-        { time: 2160, name: "Iara", text: "dieta detox" },
-        { time: 2170, name: "Maria Clara", text: "Eu tentei tomar mounjaro e acabei vendo que era bem caro😔" },
-        { time: 2170, name: "Layz", text: "Ja tomei ozempic" },
-        { time: 2171, name: "Renira", text: "Já tomei Manipulado" },
-        { time: 2171, name: "Zenia", text: "Ozempic" },
-        { time: 2171, name: "Zenia", text: "Wegovy" },
-        { time: 2192, name: "Juliana", text: "Eu faço jejum e quando chega de noite eu sempre sinto muita fome, e acabo pedindo um Ifood" },
-        { time: 2236, name: "Manu", text: "Eu já" },
-        { time: 2237, name: "Zenilda", text: "Não gosto de comer a noite... sempre passo mal tenho refluxo" },
-        { time: 2289, name: "Carla", text: "KKKKKKK" },
-        { time: 2289, name: "Maisa", text: "RSRSRS GOSTEI" },
-        { time: 2171, name: "Zenia", text: "Eu não comia verdura e legumes" },
-        { time: 2172, name: "Fabia", text: "Comigo foi assim também" },
-        { time: 2389, name: "Layz", text: "Eu lembro" },
-        { time: 2390, name: "Renira", text: "Pitchula  kkk" },
-        { time: 2391, name: "Dani", text: "Caçulinha kkkkk Eu lembro" },
-        { time: 2403, name: "Deb", text: "Minha infância foi assim" },
-        { time: 2404, name: "Eliana", text: "😔😔😔" },
-        { time: 2538, name: "Kesia", text: "eu tenho dor nas costas" },
-        { time: 2539, name: "Marcia", text: "hipertensão" },
-        { time: 2540, name: "Idiara", text: "tenho tireóide" },
-        { time: 2543, name: "Dani", text: "pré-diabetes" },
-        { time: 2546, name: "Rubia", text: "tenho pressão alta" },
-        { time: 2548, name: "Angela", text: "diabetes" },
-        { time: 2554, name: "Elaine", text: "tenho dor nas costas" },
-        { time: 2630, name: "Elaine", text: "que sem educação..." },
-        { time: 2636, name: "Angélica", text: "😔😔😔" },
-        { time: 2640, name: "Eunira", text: "É real isso gente???" },
-        { time: 2657, name: "Layz", text: "Que triste" },
-        { time: 2657, name: "Kesia", text: "Cruzz" },
-        { time: 2660, name: "Zilda", text: "falta educação" },
-        { time: 2663, name: "Jucelina", text: "coitado do menino" },
-        { time: 2671, name: "Fabia", text: "parou de comer" },
-        { time: 2677, name: "Meire", text: "regime seca bom mesmo em..." },
-        { time: 2725, name: "Cassia", text: "Eu sou assim" },
-        { time: 2730, name: "Natalia", text: "tenho gordura só na barriga é terrível gente😔😔" },
-        { time: 2731, name: "Iara", text: "Não sei o que e?😁" },
-        { time: 2735, name: "Lara", text: "Minhas pernas são finas e minha barriga enorme" },
-        { time: 2738, name: "Josy", text: "também sou assim" },
-        { time: 2740, name: "Isa", text: "Como faz para perder essa barriga?" },
-        { time: 2745, name: "Iracelma", text: "Eu sou assim" },
-        { time: 2748, name: "Cida", text: "falsa magra que ele falou?" },
-        { time: 2869, name: "Josy", text: "também sou assim" },
-        { time: 2870, name: "Isa", text: "eu sou assim" },
-        { time: 2871, name: "Layz", text: "Verdade kkkk" },
-        { time: 2876, name: "Kesia", text: "Parecendo uma criança comprando no mercado" },
-        { time: 2880, name: "Zilda", text: "Só porcaria" },
-        { time: 2885, name: "Jucelina", text: "Nada de comida de verdade no carrinho kkkkk" },
-        { time: 2895, name: "Lara", text: "Acertôo miseravi kkkk" },
-        { time: 2899, name: "Julia", text: "kkk Verdade" },
-        { time: 2963, name: "Carla", text: "😖😖😖😖" },
-        { time: 2970, name: "Lud", text: "Tenso" },
-        { time: 3029, name: "Cida", text: "Sim já ouvi" },
-        { time: 3030, name: "Renira", text: "Acredito muito nisso viu!" },
-        { time: 3035, name: "Dani", text: "Vivemos por aqui que acreditamos" },
-        { time: 3036, name: "Deb", text: "O meu bloqueio tem intimidade com o meu propósito" },
-        { time: 3045, name: "Lays", text: "também sou assim" },
-        { time: 3171, name: "Fabia", text: "Eu acredito muito nisso" },
-        { time: 3180, name: "Layz", text: "Que história legal, parabéns Douglas" },
-        { time: 3209, name: "Zilda", text: "Eu confio" },
-        { time: 3214, name: "Cassia", text: "Vamos firme" },
-        { time: 3214, name: "Elaine", text: "Estou contigo" },
-        { time: 3219, name: "Lara", text: "Claro! Vamos embora!!!" },
-        { time: 3222, name: "Josy", text: "Eu confio!" },
-        { time: 3339, name: "Carla", text: "Eu já fiz varios" },
-        { time: 3341, name: "Maisa", text: "Estou sempre fazendo, e nunca emagreço" },
-        { time: 3345, name: "Lud", text: "Nunca dá certo pra mim" },
-        { time: 3348, name: "Katia", text: "Desafio 21 dias" },
-        { time: 3350, name: "Flores", text: "kkkk" },
-        { time: 3355, name: "Meire", text: "Sim verdade" },
-        { time: 3356, name: "Elidiene", text: "Você mais magra" },
-        { time: 3357, name: "Neli", text: "Sempre engordo tudo de novo" },
-        { time: 3360, name: "Katiane", text: "Seca bucho" },
-        { time: 3360, name: "Regina", text: "Da certo nada" },
-        { time: 3357, name: "Nubia", text: "Só ilusão👍👍" },
-        { time: 3360, name: "Irani", text: "Perdi 3kg e ganhei 6 depois" },
-        { time: 3350, name: "Renira", text: "sim" },
-        { time: 3359, name: "Dani", text: "Verdade viu" },
-        { time: 3422, name: "Mariana", text: "kkkk" },
-        { time: 3427, name: "Nayara", text: "Sim verdade" },
-        { time: 3430, name: "Eliana", text: "35" },
-        { time: 3433, name: "Cassia", text: "40 anos" },
-        { time: 3437, name: "Sara", text: "57" },
-        { time: 3440, name: "Rubia", text: "61 invernos" },
-        { time: 3443, name: "Josy", text: "42" },
-        { time: 3445, name: "Carla", text: "47 anos" },
-        { time: 3448, name: "Maisa", text: "39" },
-        { time: 3450, name: "Joelma", text: "60" },
-        { time: 3451, name: "Katia", text: "45👍" },
-        { time: 3451, name: "Flores", text: "42" },
-        { time: 3455, name: "Meire", text: "eu 57" },
-        { time: 3458, name: "Elidiene", text: "39" },
-        { time: 3506, name: "Zilda", text: "perder peso" },
-        { time: 3510, name: "Jucelina", text: "Calorias" },
-        { time: 3511, name: "Fatima", text: "Pilar 1: Calorias" },
-        { time: 3515, name: "Iara", text: "Calorias" },
-        { time: 3520, name: "Manu", text: "Kcal" },
-        { time: 3521, name: "Mercia", text: "Calorias" },
-        { time: 3526, name: "Dani", text: "Pilar 1 calorias" },
-        { time: 3540, name: "Fabia", text: "Calorias" },
-        { time: 3570, name: "Neli", text: "Eu conheço quase todas kkkkk" },
-        { time: 3575, name: "Debora", text: "Ja tomei Saxenda, aplica todo dia né. passei mal demaaais credo" },
-        { time: 3580, name: "Layz", text: "Ozempic👍" },
-        { time: 3600, name: "Kesia", text: "Cabeça de ozempic então é isso??" },
-        { time: 3605, name: "Isa", text: "Conheço" },
-        { time: 3607, name: "Katiane", text: "sim, conheço" },
-        { time: 3610, name: "Iracelma", text: "Jojo foi bariatrica" },
-        { time: 3615, name: "Simone", text: "Ta com cara de doente" },
-        { time: 3619, name: "Ana Paula", text: "Coitada acabou com o corpo, tava melhor antes parece" },
-        { time: 3625, name: "Joelma", text: "Ela não ta bem!" },
-        { time: 3641, name: "Fabia", text: "Essa é a cabeça ozempic!!" },
-        { time: 3645, name: "Angelina", text: "Ta desnutrida ela" },
-        { time: 3646, name: "Katianne", text: "Muito doente parece" },
-        { time: 3650, name: "Lara", text: "Da um prato de comida pra ela gente" },
-        { time: 3660, name: "simone", text: "Maira o nome dela?" },
-        { time: 3665, name: "Neli", text: "Isso não ta legal😖😖" },
-        { time: 3690, name: "Iara", text: "Meu intestino é péssimo, se eu tomar um trem desse eu morro" },
-        { time: 3691, name: "Mercia", text: "Já fiquei uma semana sem ir, meu máximo..." },
-        { time: 3695, name: "Ana", text: "Isso me deixa muito nervosa, sempre acabo tomando lactopurga" },
-        { time: 3696, name: "Iara", text: "Vou todo dia, funciona super bem o meu intestino" },
-        { time: 3700, name: "Nubia", text: "O meu só fica ruim, quando eu passo raiva" },
-        { time: 3701, name: "Kesia", text: "O meu sempre travado" },
-        { time: 3702, name: "Zilda", text: "Só com laxante pra funcionar" },
-        { time: 3781, name: "Nubia", text: "bem isso mesmo..." },
-        { time: 3785, name: "Kesia", text: "Entre a cruz e a espada!" },
-        { time: 3799, name: "Layz", text: "Eu me sinto assim" },
-        { time: 3800, name: "Renira", text: "Eu estou perdida😖" },
-        { time: 3805, name: "Zenia", text: "Você podia ajudar a gente" },
-        { time: 3808, name: "Zenia", text: "Fico desmotivada com tudo isso😭😭" },
-        { time: 3941, name: "Katianne", text: "Nossa é muita gente né" },
-        { time: 3959, name: "Marcia", text: "veneno de rato kkkk" },
-        { time: 3960, name: "Lucia", text: "kkkk" },
-        { time: 4055, name: "Josy", text: "É até dificil de acreditar" },
-        { time: 4060, name: "Fabia", text: "Comendo só porcaria, impossível" },
-        { time: 4062, name: "Layz", text: "Eu queria uma dieta assim, só com Mc" },
-        { time: 4065, name: "Lud", text: "Eu amooo bolacha, kkkk meu paladar é muit infantil" },
-        { time: 4070, name: "Cassia", text: "Legal esse estudo, depois me envia ele quero ler" },
-        { time: 4167, name: "Idiara", text: "boaaa kkkk" },
-        { time: 4170, name: "Dani", text: "Verdade faz sentido" },
-        { time: 4173, name: "Rubia", text: "kkkk gostei🤣🤣🤣" },
-        { time: 4215, name: "Paula", text: "Macros" },
-        { time: 4218, name: "Kesia", text: "Marcos" },
-        { time: 4220, name: "Laura", text: "Pilar 2: Macros" },
-        { time: 4226, name: "Iara", text: "Pilar dos Macros" },
-        { time: 4235, name: "Nubia", text: "Macros👍👍" },
-        { time: 4305, name: "simone", text: "Legal, não sabia diso" },
-        { time: 4310, name: "Fabia", text: "Gostei, tem como repetir?" },
-        { time: 4325, name: "Meire", text: "Fabia, Proteina e Carboidrato 4kcal, e gordura 9kcal" },
-        { time: 4347, name: "Flores", text: "Percebo isso mesmo" },
-        { time: 4350, name: "Meire", text: "E quero fazer o RESET!!!" },
-        { time: 4355, name: "Meire", text: "RESET vai nos contar como é" },
-        { time: 4340, name: "Caleane", text: "Não faço nem ideia" },
-        { time: 4343, name: "Iara", text: "O terceiro pilar é o exercício" },
-        { time: 4345, name: "Mercia", text: "não sei" },
-        { time: 4347, name: "Ana", text: "Primeiro Calorias, Segundo Macro, terceiro não sei" },
-        { time: 4347, name: "Iara", text: "Não sei mesmo" },
-        { time: 4350, name: "Nubia", text: "Cardio" },
-        { time: 4351, name: "Kesia", text: "Exercício??👍👍" },
-        { time: 4355, name: "Zilda", text: "Não faço ideia" },
-        { time: 4570, name: "Layane", text: "Por isso eu percebo meu corpo mole sem energia" },
-        { time: 4611, name: "Jucelia", text: "Gastar pouco ai não emagrece ue..." },
-        { time: 4650, name: "Zenilda", text: "Que horror gente, é sério isso?" },
-        { time: 4655, name: "flaviane", text: "Conheço o cortisol" },
-        { time: 4659, name: "Debora", text: "Conheço" },
-        { time: 4719, name: "Debora", text: "😭😭" },
-        { time: 4760, name: "Renira", text: "Eficiente" },
-        { time: 4765, name: "Pricila", text: "Eficiencia" },
-        { time: 4769, name: "Meire", text: "Eficiente" },
-        { time: 4770, name: "Marcia", text: "Só tem guerreira aqui hoje! Vamos lá meninas..." },
-        { time: 4785, name: "Fatima", text: "Qual o nome dos hormônios?" },
-        { time: 4796, name: "Silva", text: "Grelina e Liptina, Fatima" },
-        { time: 4848, name: "Ana", text: "kkkkk" },
-        { time: 4850, name: "Lays", text: "ahahha" },
-        { time: 4875, name: "Zenilda", text: "kkk verdade" },
-        { time: 4922, name: "flaviane", text: "😔😔😔😔😔" },
-        { time: 4924, name: "Caleane", text: "pesado" },
-        { time: 4940, name: "Iara", text: "Perfeito" },
-        { time: 4944, name: "Mercia", text: "compreendi" },
-        { time: 4946, name: "Iracelma", text: "Bora que quero mais, estou adorando..." },
-        { time: 4950, name: "Iara", text: "Show, vamos firme" },
-        { time: 4950, name: "Manu", text: "Triptofano" },
-        { time: 4951, name: "Luci", text: "Como escreve?" },
-        { time: 4955, name: "Dani", text: "Triptofano" },
-        { time: 4960, name: "Fabia", text: "Abacate é gordo mesmo" },
-        { time: 4970, name: "Ana Clara", text: "É só eu comer abacate então?" },
-        { time: 5069, name: "Debora", text: "boom em, eu sinto isso quando como chocolate🤣" },
-        { time: 5122, name: "Layz", text: "Quitosana" },
-        { time: 5160, name: "Iracelma", text: "Eu, esse é bom" },
-        { time: 5162, name: "Iara", text: "Nunca vi" },
-        { time: 5168, name: "Manu", text: "Conheço" },
-        { time: 5172, name: "Layz", text: "Psyllium" },
-        { time: 5254, name: "Renira", text: "Eu gosto de Cafeína, é otimo" },
-        { time: 5380, name: "Zenia", text: "Quem não pode tomar café, não pode usar a fórmula" },
-        { time: 5387, name: "Fatima", text: "Eu adoro café, cedo pela manhã" },
-        { time: 5390, name: "Lucia", text: "Adorei a combinação, parabéns Douglas" },
-        { time: 5519, name: "Josy", text: "Parabéns pelo estudo, muito legal" },
-        { time: 5525, name: "Fabia", text: "Adorei, gostei demais." },
-        { time: 5545, name: "Juliana", text: "A dieta dos pontos leva em consideração as Calorias né" },
-        { time: 5551, name: "Lud", text: "Eu já tinha ouvido falar sobre controlar as calorias e macros, mas não sei como fazer" },
-        { time: 5555, name: "Cassia", text: "Eu nunca ouvi falar, primeira vez, achei que era só cortar carboidrato..." },
-        { time: 5570, name: "Luciana", text: "O que são macros, pode repetir novamente?" },
-        { time: 5579, name: "Angela", text: "Como eu sei as calorias dos alimentos?" },
-        { time: 5721, name: "Rubia", text: "Realmente, faz todo sentido" },
-        { time: 5798, name: "Paula", text: "Que legal, parabéns Douglas" },
-        { time: 5799, name: "Kesia", text: "Muito legal" },
-        { time: 5800, name: "Laura", text: "Parabéns" },
-        { time: 5804, name: "Iara", text: "Vamos lá!!!!!" },
-        { time: 5808, name: "Nubia", text: "Eu quero!" },      
-        { time: 5820, name: "Manu", text: "Estamos preparadas" },
-        { time: 5825, name: "Pri", text: "Eu quero muito, estou precisando pra ontem" },
-        { time: 5827, name: "Angelina", text: "Vamos láaa👍👍👍" },
-        { time: 5840, name: "Katianne", text: "Eu quero" },
-        { time: 5845, name: "Lara", text: "Obaaa chegou!!" },
-        { time: 5943, name: "simone", text: "reset" },
-        { time: 5948, name: "Neli", text: "reset 👍👍👍" },
-        { time: 5955, name: "Flaviane", text: "Reset" },
-        { time: 5956, name: "Pietra", text: "Resete" },
-        { time: 5958, name: "Iracelma", text: "Reset" },
-        { time: 5960, name: "Iara", text: "Reset!!!" },
-        { time: 5961, name: "Manu", text: "Reset" },
-        { time: 5965, name: "Pietra", text: "reset" },
-        { time: 5969, name: "Isa", text: "Reset" },
-        { time: 5840, name: "Rafaela", text: "adorei já quero" },
-        { time: 5845, name: "Isa", text: "Eu quero" },
-        { time: 5848, name: "Iracelma", text: "vamos começar" },
-        { time: 5850, name: "Iara", text: "Conte comigo👍" },
-        { time: 5851, name: "Manu", text: "Tamo junto" },
-        { time: 6124, name: "🤖SUPORTE", text: "👍👍👍" },
-        { time: 6149, name: "Natanna", text: "To aqui, firme forte!" },
-        { time: 6157, name: "Maria", text: "Obrigado por tudo Douglas, estou adorando os resultados!!!" },
-        { time: 6160, name: "Ana Paula", text: "To junto" },
-        { time: 6169, name: "Ana Paula", text: "De nada" },
-        { time: 6171, name: "Maria", text: "Sim, é ótimo todo suporte que você dá!" },
-        { time: 6173, name: "Natanna", text: "Esse atendimento humanizado, mais de perto... isso me da muita confiança" },
-        { time: 6179, name: "Ana Paula", text: "Melhor investimento que já fiz, obrigada Douglas" },
-        { time: 6251, name: "Iara", text: "Eu preciso disso!" },
-        { time: 6257, name: "Katiane", text: "Perfeito!!!" },
-        { time: 6260, name: "Meire", text: "Eu quero Douglas, como faz?" },
-        { time: 6284, name: "Jucelia", text: "kkkkk" },
-        { time: 6289, name: "Nubia", text: "Enfezada!" },
-        { time: 6314, name: "Regina", text: "kkkkkkkk" },
-        { time: 6366, name: "Odete", text: "Faz sentido!" },
-        { time: 6403, name: "Rafaela", text: "adorei já quero" },
-        { time: 6410, name: "Isa", text: "Eu quero" },
-        { time: 6412, name: "Iracelma", text: "vamos começar" },
-        { time: 6528, name: "Laura", text: "Aprendi muita coisa nova" },
-        { time: 6530, name: "Manu", text: "Conhecimento é libertador mesmo" },
-        { time: 6531, name: "Katia", text: "Parabéns Douglas, por entregar tanto...." },
-        { time: 6537, name: "Angelina", text: "Eu só conhecia as dietas kkkk mas não sabia por que dava errado" },
-        { time: 6540, name: "Katianne", text: "Olha... ninguem nunca me ensinou isso😔😔" },
-        { time: 6550, name: "Lara", text: "Ai que sonho" },
-        { time: 6557, name: "Nubia", text: "Eu quero um resultado deste!!" },
-        { time: 6749, name: "Kesia", text: "Que lindas" },
-        { time: 6755, name: "Zilda", text: "Adorei, quero começar também" },
-        { time: 6820, name: "Pri", text: "Parabéns para vocês que conseguiram, ficaram muito bonitas" },
-        { time: 6830, name: "Jucelia", text: "A próxima será eu!!!😃😃" },
-        { time: 6923, name: "Zenilda", text: "Realmente não tem como ter desculpa" },
-        { time: 6930, name: "flaviane", text: "Que lindaaa" },
-        { time: 6936, name: "Nubia", text: "Meu sonho uma barriga dessa" },
-        { time: 6885, name: "Debora", text: "Isso acontece mto viu" },
-        { time: 6923, name: "Julia", text: "Vou tomar cedo e de tarde para ter mais resultado kkkkk" },
-        { time: 7023, name: "Flores", text: "Vamos lá!" },
-        { time: 7050, name: "Luciana", text: "reeducação alimentar" },
-        { time: 7184, name: "Sara", text: "Realmente eu já tentei muita coisa." },
-        { time: 7185, name: "Isa", text: "nooossa o que já gastei não ta escrito" },
-        { time: 7190, name: "Rafaela", text: "Verdade, faz sentido" },
-        { time: 7192, name: "Dani", text: "Fiz tratamento com ozempic gastei quase 10mil e não ficou da forma como eu queria." },
-        { time: 7229, name: "Isa", text: "Nosssa Muito barato" },
-        { time: 7230, name: "Josy", text: "Eu quero!!!" },
-        { time: 7233, name: "Juventite", text: "Quero, como faz para comprar?" },
-        { time: 7236, name: "Juliana", text: "Eu também quero" },
-        { time: 7239, name: "Mercia", text: "Nossa muito barato mesmo" },
-        { time: 7240, name: "Fabia", text: "Separa o meu Douglas👍👍👍" },
-        { time: 7245, name: "Angelina", text: "Posso pegar contigo amanha no consultório??" },
-        { time: 7260, name: "Katianne", text: "Quero começar hj, pode??😃😃" },
-        { time: 7278, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 7279, name: "Angela", text: "Tudo ok, vamos começar" },
-        { time: 7280, name: "Iracelma", text: "Combinado" },
-        { time: 7284, name: "Iara", text: "Eu topo!!!" },
-        { time: 7285, name: "Manu", text: "Quero começar logo...." },
-        { time: 7374, name: "Pietra", text: "Adorei os bônus" },
-        { time: 7378, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 7480, name: "Isa", text: "Olha só em, gostei" },
-        { time: 7420, name: "Rafaela", text: "KKKKKK" },
-        { time: 7425, name: "Isa", text: "Caminhada é bom, eu gosto" },
-        { time: 7426, name: "Iracelma", text: "Pode treinar em casa, oba!!!" },
-        { time: 7503, name: "Iara", text: "Já garanti o meu!!! ihuullll" },
-        { time: 7506, name: "Odete", text: "Acabei de entrar!" },
-        { time: 7510, name: "Laura", text: "Não é possível" },
-        { time: 7530, name: "Manu", text: "Entrei, e agora Douglas???" },
-        { time: 7574, name: "Manu", text: "E topo, vou entrar agora!!!" },
-        { time: 7578, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 7697, name: "Angelina", text: "Adorei, já recebi a mensagem da sua equipe no meu zap" },
-        { time: 7736, name: "🤖SUPORTE", text: "Já temos 13 pessoas que garantiram!" },
-        { time: 7741, name: "🤖SUPORTE", text: "Restam 20 vagas para bater os 33 acessos!" },
-        { time: 7749, name: "Lara", text: "Eu consegui adquirir com o desconto de R$ 100,00!!!" },
-        { time: 7752, name: "Josi", text: "E se eu quiser comprar o pote depois?" },
-        { time: 7801, name: "Thais Santos", text: "Já garanti o meu!!! ihuullll" },
-        { time: 7805, name: "Maria Inês", text: "Acabei de entrar!" },
-        { time: 7810, name: "Fernanda", text: "Eu também 👍👍👍" },
-        { time: 7830, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 7939, name: "Flaviane", text: "Viver assim é terrivel" },
-        { time: 7942, name: "Pietra", text: "😔😔😔" },
-        { time: 8018, name: "Jurema", text: "Realmente, não tenho mais tempo para ficar perdendo..." },
-        { time: 8108, name: "Zenilda", text: "Já ouvi" },
-        { time: 8110, name: "Lay", text: "É verdade" },
-        { time: 8115, name: "Angelica", text: "Sim, faz sentido" },
-        { time: 8153, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 8188, name: "Silvana", text: "Pesado!!!!" },
-        { time: 8190, name: "Meire", text: "VIXXXXX😔" },
-        { time: 8226, name: "Dani", text: "Salão não é só isso não kkkkkk" },
-        { time: 8287, name: "Mariana", text: "Ou ganha ou ganha!" },
-        { time: 8299, name: "Nayara", text: "Já acabouuu!??" },
-        { time: 8373, name: "Eliana", text: "Adorei" },
-        { time: 8374, name: "Raquel", text: "Após o pagamento o que devo fazer?" },
-        { time: 8380, name: "Deb", text: "Eu já faço acompanhamento com um nutri, posso comprar os potes?" },
-        { time: 8390, name: "Marcia", text: "Consegue segurar até quinta?" },
-        { time: 8405, name: "Juliana", text: "Como é a forma de pagamento?" },
-        { time: 8438, name: "Jane", text: "Em quanto tempo eu vou receber o suplemento?" },
-        { time: 8444, name: "Carla", text: "Meu marido pode tomar também?" },
-        { time: 8460, name: "Maisa", text: "Posso comprar para minha amiga também?" },
-        { time: 8491, name: "Rosa", text: "Moro no interior, como eu faço?" },
-        { time: 8500, name: "Natalia", text: "Posso parcelar quantas vezes no boleto?" },
-        { time: 8524, name: "Marcia", text: "Tem alguma contraindicação???" },
-        { time: 8535, name: "Meire", text: "Posso dar para meu filho?" },
-        { time: 8558, name: "Rosana", text: "Tomo remédio para pressão, posso tomar o Triptoplus?" },
-        { time: 8580, name: "Silvia Carlos", text: "Você falou que eu ia perder 12kg e eu já perdi 16, o que eu faço agora?" },
-        { time: 8613, name: "🤖SUPORTE", text: "Restam apenas 12 vagas disponíveis!" },
-        { time: 8615, name: "Daiane", text: "Você é médico?" },
-        { time: 8625, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 8626, name: "Samanta", text: "E se eu não conseguir seguir?" },
-        { time: 8672, name: "Luciana", text: "A garantia é real mesmo??" },
-        { time: 8700, name: "Mariana", text: "Como eu vou receber os acessos?" },
-        { time: 8748, name: "Mercia", text: "Tá vou te chamar no privado para tirar algumas dúvidas..." },
-        { time: 8758, name: "Manu", text: "Muito obrigada, foi sensacional" },
-        { time: 8760, name: "Layz", text: "Gostei muito, adorei" },
-        { time: 8761, name: "Dani", text: "Parabéns Douglas, belíssimo trabalho" },
-        { time: 8780, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 8778, name: "Fabia", text: "Até!!!" },
-        { time: 8779, name: "Neli", text: "Boa noite" },
-        { time: 8780, name: "Debora", text: "Boa noite!!" },
-        { time: 8780, name: "Layz", text: "Eu consegui entrar!!!! 😃😃" },
-        { time: 8785, name: "Kesia", text: "Obrigada Douglas" },
-        { time: 8786, name: "Zilda", text: "Sensacional" },
-        { time: 8788, name: "Jucelina", text: "Vai até que dia mesmo?" },
-        { time: 8788, name: "Iracelma", text: "Alguém sabe dizer se meu marido pode tomar?" },
-        { time: 8790, name: "Simone", text: "Adorei demais!!! Foi show" },
-        { time: 8793, name: "Ana Paula", text: "Como faço para adquirir???" },
-        { time: 8796, name: "Kesia", text: "Acabei de adquirir, obrigada Douglas e a equipe. Boa noite" },
-        { time: 8810, name: "Laura", text: "Alguém aqui conseguiu abrir a página? Aqui não abriu" },
-        { time: 8815, name: "Iara", text: "Alguem aqui comprou?? A página não esta abrindo mais..." },
-        { time: 8820, name: "Maria Clara", text: "Será que a equipe vai enviar novamente o link ou esgotou?" },
-        { time: 8829, name: "Layz", text: "Ja tomei ozempic" },
-        { time: 8830, name: "Renira", text: "Já tomei Manipulado" },
-        { time: 8840, name: "Zenia", text: "Ozempic" },
-        { time: 8845, name: "Zenia", text: "Wegovy" },
-        { time: 8794, name: "🤖SUPORTE", text: "Ainda restam algunas vagas!!" },
-        { time: 8795, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 8840, name: "Katia", text: "Parabéns Douglas, por entregar tanto...." },
-        { time: 8855, name: "Angelina", text: "Eu só conhecia as dietas kkkk mas não sabia porque dava errado" },
-        { time: 8860, name: "Katianne", text: "Olha... ninguem nunca me ensino isso😔😔" },
-        { time: 8880, name: "Lara", text: "Ai que sonho" },
-        { time: 8890, name: "Nubia", text: "Eu quero um resultado deste!!" },
-        { time: 8900, name: "Kesia", text: "Que linda" },
-        { time: 8905, name: "Zilda", text: "Adorei, quero começar também" },
-        { time: 8906, name: "🤖SUPORTE", text: "RESET Metabólico: https://sun.eduzz.com/E9OOGE2Q9B?cupom=ABACATE" },
-        { time: 8955, name: "Pri", text: "Parabéns para vocês que conseguiram, ficaram muito bonitas" },
-        { time: 9002, name: "Jucelia", text: "A próxima será eu!!!😃😃" },
-        { time: 9030, name: "Zenilda", text: "Realmente não tem como ter desculpa" },
-        { time: 9067, name: "Zilda", text: "Quem ai conseguiu comprar? Não esta abrindo aqui pra mim" },
-        { time: 9158, name: "Pri", text: "Parabéns para vocês, lindas" },
-        { time: 9179, name: "Jucelia", text: "Boa noite, obrigado meninas" },
-        { time: 8795, name: "🤖SUPORTE", text: "Encerrando transmissão em 30 segundos!" }
-
+        { time: 1754, name: "Samanta", text: "um sonho kkkkk" },
+        { time: 1745, name: "Kasia", text: "Eu tenho uma história assim👍👍" },
+		{ time: 1861, name: "Fabia", text: "Odeio academia, tem como emagrecer sem?" },
+        { time: 1884, name: "Pri", text: "Ele já falou do abacate??" },
+		{ time: 1839, name: "Jucelina", text: "Eu tenho colesterol e pre diabetes" },
+        { time: 1840, name: "Iracelma", text: "Eu tenho tireóide" },
+        { time: 1841, name: "Iara", text: "Eu tenho colesterol" },
+        { time: 1844, name: "Sara", text: "Tenho problema de colesterol e diabete" },
+        { time: 1850, name: "Joelma", text: "Tenho diabete" },
+        { time: 1950, name: "Zilda", text: "Passou fome" },
+        { time: 1955, name: "Jucelina", text: "Coitado da criança" },
+        { time: 1957, name: "Iracelma", text: "Eu ja fiz regime demais, nunca deu certo, sempre engordei" },
+        { time: 1960, name: "Iara", text: "História complicada emm" },
+		{ time: 2010, name: "Manu", text: "Eu sou assim" },
+        { time: 2011, name: "Layz", text: "Falso magra? Acho que sou assim, tem pochete" },
+        { time: 2016, name: "Dani", text: "Eu sei, exatamente" },
+        { time: 2020, name: "Fabia", text: "Dificuldade de perder essa pochete" },
+        { time: 2021, name: "Neli", text: "Eu sou assim" },
+		{ time: 2080, name: "Debora", text: "Faz sentido muito...😔" },
+        { time: 2082, name: "Layz", text: "verdade" },
+        { time: 2105, name: "Kesia", text: "Isso é verdade" },
+        { time: 2110, name: "Zilda", text: "Eu sinto isso" },
+	    { time: 2130, name: "Renira", text: "Acredito muito nisso viu!" },
+        { time: 2135, name: "Dani", text: "Vivemos por aqui que acreditamos" },
+        { time: 2137, name: "Lays", text: "também sou assim" },
+        { time: 2140, name: "Fabia", text: "Eu acredito muito nisso" },
+        { time: 2141, name: "Layz", text: "Que história legal, parabéns Douglas" },
+        { time: 2147, name: "Zilda", text: "Eu confio" },
+		{ time: 2197, name: "Deb", text: "O meu bloqueio tem intimidade com o meu propósito" },
+		{ time: 2199, name: "Sara", text: "já sim, faz sentido" },
+		{ time: 2290, name: "Cassia", text: "Vamos firme" },
+        { time: 2291, name: "Elaine", text: "Estou contigo" },
+        { time: 2295, name: "Lara", text: "Claro! Vamos embora!!!" },
+        { time: 2300, name: "Josy", text: "Eu confio!" },
+        { time: 2305, name: "Carla", text: "Eu já fiz varios" },
+	    { time: 2333, name: "Jucelina", text: "Já quero" },
+		{ time: 2386, name: "Maisa", text: "Estou sempre fazendo, e nunca emagreço" },
+        { time: 2391, name: "Lud", text: "Nunca dá certo pra mim" },
+        { time: 2392, name: "Katia", text: "Desafio 21 dias" },
+        { time: 2393, name: "Flores", text: "kkkk" },
+        { time: 2397, name: "Meire", text: "Sim verdade" },
+        { time: 2399, name: "Elidiene", text: "Você mais magra" },
+        { time: 2400, name: "Neli", text: "Sempre engordo tudo de novo" },
+        { time: 2400, name: "Katiane", text: "Seca bucho" },
+        { time: 2402, name: "Regina", text: "Da certo nada" },
+        { time: 2405, name: "Nubia", text: "Só ilusão👍👍" },
+        { time: 2406, name: "Irani", text: "Perdi 3kg e ganhei 6 depois" },
+        { time: 2410, name: "Renira", text: "sim" },
+        { time: 2410, name: "Dani", text: "Verdade viu" },
+        { time: 2411, name: "Mariana", text: "kkkk" },
+        { time: 2412, name: "Nayara", text: "Sim verdade" },
+        { time: 2490, name: "Zilda", text: "perder peso pelas calorias" },
+        { time: 2496, name: "Jucelina", text: "Calorias" },
+        { time: 2497, name: "Fatima", text: "Pilar 1: Calorias" },
+        { time: 2500, name: "Iara", text: "Calorias" },
+        { time: 2501, name: "Manu", text: "Kcal" },
+        { time: 2501, name: "Mercia", text: "Calorias" },
+        { time: 2505, name: "Dani", text: "Pilar 1 calorias" },
+        { time: 2506, name: "Fabia", text: "Calorias" },
+		{ time: 2522, name: "Iracelma", text: "Já tentei tudo isso que você falou kkkkk to gorda ainda" },
+		{ time: 2532, name: "Manu", text: "Passo sempre por isso" },
+		{ time: 2578, name: "Layz", text: "Ja tomei ozempic" },
+        { time: 2580, name: "Renira", text: "Já tomei Manipulado" },
+        { time: 2585, name: "Zenia", text: "Ozempic" },
+        { time: 2588, name: "Zenia", text: "Wegovy" },
+		{ time: 2600, name: "Kesia", text: "Controlar a fome" },
+        { time: 2601, name: "Laura", text: "Pilar 2: Fome" },
+        { time: 2604, name: "Iara", text: "Pilar da Fome" },
+        { time: 2607, name: "Nubia", text: "Fome👍👍" },
+		{ time: 2610, name: "Caleane", text: "Não faço nem ideia" },
+        { time: 2611, name: "Iara", text: "O terceiro pilar é o exercício" },
+        { time: 2616, name: "Mercia", text: "não sei" },
+        { time: 2617, name: "Ana", text: "Primeiro Calorias, Segundo Macro, terceiro não sei" },
+        { time: 2620, name: "Iara", text: "Não sei mesmo" },
+        { time: 2622, name: "Nubia", text: "Cardio" },
+        { time: 2623, name: "Kesia", text: "Exercício??👍👍" },
+        { time: 2623, name: "Zilda", text: "Não faço ideia" },
+        { time: 2650, name: "Neli", text: "Eu conheço Maiara o nome dela" },
+        { time: 2651, name: "Debora", text: "Ja tomei Saxenda, aplica todo dia né. passei mal demaaais credo" },
+        { time: 2656, name: "Layz", text: "Ozempic👍" },
+        { time: 2658, name: "Kesia", text: "Maira o nome dela?" },
+        { time: 2660, name: "Isa", text: "Conheço" },
+	    { time: 2670, name: "Fabia", text: "Essa é a cabeça ozempic!!" },
+        { time: 2671, name: "Angelina", text: "Ta desnutrida ela" },
+        { time: 2675, name: "Katianne", text: "Muito doente parece" },
+        { time: 2679, name: "Lara", text: "Da um prato de comida pra ela gente" },
+        { time: 2680, name: "simone", text: "Cabeça de ozempic então é isso??" },
+        { time: 2692, name: "Katiane", text: "Doente, não ta legal" },
+        { time: 2700, name: "Iracelma", text: "Jojo foi bariatrica" },
+        { time: 2701, name: "Simone", text: "Ta com cara de doente" },
+        { time: 2705, name: "Ana Paula", text: "Coitada acabou com o corpo, tava melhor antes parece" },
+        { time: 2715, name: "Joelma", text: "Ela não ta bem!" },
+        { time: 2720, name: "Neli", text: "Que horror😖😖" },
+        { time: 2721, name: "Iara", text: "Meu intestino é péssimo, se eu tomar um trem desse eu morro" },
+        { time: 2730, name: "Mercia", text: "Já fiquei uma semana sem ir, meu máximo..." },
+        { time: 2731, name: "Ana", text: "Isso me deixa muito nervosa, sempre acabo tomando lactopurga" },
+        { time: 2826, name: "Idiara", text: "boaaa kkkk" },
+        { time: 2830, name: "Dani", text: "Verdade faz sentido" },
+        { time: 2832, name: "Rubia", text: "kkkk gostei🤣🤣🤣" },
+        { time: 2835, name: "Julia", text: "kkk Verdade" },
+        { time: 2836, name: "Carla", text: "😖😖😖😖" },
+        { time: 2840, name: "Lud", text: "Tenso" },
+        { time: 2841, name: "Cida", text: "Sim já ouvi" },
+        { time: 3004, name: "Iara", text: "Vou todo dia, funciona super bem o meu intestino" },
+        { time: 3010, name: "Nubia", text: "O meu só fica ruim, quando eu passo raiva" },
+        { time: 3011, name: "Kesia", text: "O meu metabolismo sempre travado" },
+        { time: 3016, name: "Zilda", text: "Grande parte ganha peso novamente né" },
+        { time: 3020, name: "Nubia", text: "bem isso mesmo..." },
+        { time: 3068, name: "Josy", text: "também sou assim" },
+        { time: 3070, name: "Isa", text: "eu sou assim" },
+        { time: 3075, name: "Layz", text: "Verdade kkkk" },
+	    { time: 3080, name: "Zilda", text: "Só porcaria" },
+        { time: 3085, name: "Kesia", text: "Parecendo uma criança comprando no mercado" },
+        { time: 3090, name: "Jucelina", text: "Nada de comida de verdade só ifood kkkkk" },
+        { time: 3091, name: "Lara", text: "Acertôo miseravi kkkk" },
+        { time: 3136, name: "Kesia", text: "Entre a cruz e a espada!" },
+        { time: 3140, name: "Layz", text: "Eu me sinto assim" },
+        { time: 3141, name: "Renira", text: "Eu estou perdida😖" },
+        { time: 3142, name: "Zenia", text: "Você podia ajudar a gente" },
+        { time: 3147, name: "Zenia", text: "Fico desmotivada com tudo isso😭😭" },
+        { time: 3150, name: "Katianne", text: "Nossa compulsão é dificil" },
+	    { time: 3223, name: "Iara", text: "O terceiro pilar é os Macros" },
+        { time: 3224, name: "Mercia", text: "Marcos" },
+        { time: 3230, name: "Ana", text: "Primeiro Calorias, Segundo Fome, terceiro Macros" },
+        { time: 3268, name: "Marcia", text: "Eu tenho dificudlade de emagrecer " },
+        { time: 3270, name: "Lucia", text: "Não consigo perder nenhuma grama" },
+        { time: 3272, name: "Josy", text: "É até dificil de acreditar" },
+        { time: 3277, name: "Fabia", text: "Comendo só porcaria, impossível" },
+        { time: 3280, name: "Layz", text: "Eu queria uma dieta assim" },
+        { time: 3306, name: "Iara", text: "Os Macros" },
+        { time: 3310, name: "Mercia", text: "Marcos" },
+        { time: 3371, name: "Flores", text: "Percebo isso mesmo" },
+        { time: 3375, name: "Meire", text: "E quero fazer o acopanhamento com você!!!" },
+        { time: 3380, name: "Meire", text: "Vai nos contar como é a fórmula do abacate" },
+        { time: 3413, name: "Layane", text: "Por isso eu percebo meu corpo mole sem energia" },
+        { time: 3416, name: "Jucelia", text: "Gastar pouco ai não emagrece ue..." },
+        { time: 3420, name: "Zenilda", text: "Que horror gente, é sério isso?" },
+        { time: 3421, name: "flaviane", text: "Conheço o cortisol" },
+        { time: 3425, name: "Debora", text: "Conheço" },
+		{ time: 3438, name: "Fabia", text: "Gostei, tem como repetir?" },
+		{ time: 3440, name: "Meire", text: "Fabia, Proteina e Carboidrato 4kcal, e gordura 9kcal" },
+  	    { time: 3515, name: "Iracelma", text: "Carbo fome e calorias" },
+	    { time: 3518, name: "Josy", text: "Macros, Fome e Calorias" },
+        { time: 3519, name: "Isa", text: "Calorias e Macros, Fome" },
+		{ time: 3520, name: "simone", text: "Legal, não sabia diso" },
+	    { time: 3601, name: "Luciana", text: "O que são macros, pode repetir novamente?" },
+        { time: 3605, name: "Angela", text: "Como eu sei as calorias dos alimentos?" },
+        { time: 3610, name: "Rubia", text: "Realmente, faz todo sentido" },
+        { time: 3615, name: "Paula", text: "Que legal, parabéns Douglas" },
+        { time: 3620, name: "Kesia", text: "Muito legal" },
+        { time: 3622, name: "Laura", text: "Parabéns" },
+     	{ time: 3635, name: "Ana Clara", text: "É só eu comer abacate então?" },
+        { time: 3640, name: "Iracelma", text: "Bora que quero mais, estou adorando..." },
+        { time: 3641, name: "Iara", text: "Show, vamos firme" },
+        { time: 3661, name: "Manu", text: "Triptofano" },
+        { time: 3662, name: "Luci", text: "Como escreve?" },
+        { time: 3666, name: "Dani", text: "Triptofano" },
+        { time: 3668, name: "Fabia", text: "Abacate é gostoso mesmo" },
+		{ time: 3715, name: "Debora", text: "boom em, eu sinto isso quando como chocolate🤣" },
+        { time: 3746, name: "Layz", text: "Quitosana" },
+        { time: 3750, name: "Iracelma", text: "Eu, esse é bom" },
+        { time: 3751, name: "Iara", text: "Nunca vi" },
+        { time: 3760, name: "Manu", text: "Conheço" },
+		{ time: 3788, name: "Layz", text: "Psyllium" },
+		{ time: 3790, name: "Mercia", text: "compreendi" },
+        { time: 3795, name: "Marcia", text: "Só tem guerreira aqui hoje! Vamos lá meninas..." },
+	    { time: 3832, name: "Ana", text: "kkkkk" },
+        { time: 3840, name: "Lays", text: "Enfezada" },
+        { time: 3841, name: "Zenilda", text: "kkk verdade viu" },
+        { time: 3845, name: "flaviane", text: "😔😔😔😔😔" },
+        { time: 3861, name: "Odete", text: "Faz sentido!" },
+        { time: 3866, name: "Rafaela", text: "adorei já quero" },
+	    { time: 3877, name: "Renira", text: "Eu gosto de Cafeína, é otimo" },
+        { time: 3880, name: "Zenia", text: "Quem não pode tomar café, não pode usar a fórmula" },
+        { time: 3881, name: "Fatima", text: "Eu adoro café, cedo pela manhã" },
+        { time: 3886, name: "Lucia", text: "Adorei a combinação, parabéns Douglas" },
+        { time: 3890, name: "Josy", text: "Parabéns pelo estudo, muito legal" },
+        { time: 3899, name: "Fabia", text: "Adorei, gostei demais." },
+		{ time: 3994, name: "Iara", text: "Eu preciso disso!" },
+        { time: 3995, name: "Katiane", text: "Perfeito!!!" },
+        { time: 3999, name: "Meire", text: "Eu quero Douglas, como faz?" },
+	    { time: 4040, name: "Caleane", text: "pesado" },
+        { time: 4050, name: "Iara", text: "Perfeito" },
+		{ time: 4060, name: "Debora", text: "😭😭" },
+        { time: 4151, name: "Renira", text: "Faz sentido" },
+        { time: 4155, name: "Pricila", text: "Sim verdade" },
+        { time: 4160, name: "Meire", text: "Sim, concordo" },
+        { time: 4197, name: "Lud", text: "Eu já tinha ouvido falar sobre controlar as calorias e macros, mas não sei como fazer" },
+        { time: 4200, name: "Cassia", text: "Eu nunca ouvi falar, primeira vez, achei que era só cortar carboidrato..." },
+		{ time: 4290, name: "Iara", text: "Vamos lá!!!!!" },
+        { time: 4295, name: "Nubia", text: "Eu quero!" },      
+        { time: 4299, name: "Manu", text: "Estamos preparadas" },
+        { time: 4300, name: "Pri", text: "Eu quero muito, estou precisando pra ontem" },
+	    { time: 4305, name: "Angelina", text: "Vamos láaa👍👍👍" },
+        { time: 4305, name: "Katianne", text: "Eu quero" },
+        { time: 4306, name: "Lara", text: "Obaaa chegou!!" },
+        { time: 4308, name: "simone", text: "reset" },
+        { time: 4310, name: "Neli", text: "reset 👍👍👍" },
+	    { time: 4335, name: "Iracelma", text: "vamos começar" },
+        { time: 4340, name: "Iara", text: "Conte comigo👍" },
+        { time: 4341, name: "Manu", text: "Tamo junto" },
+        { time: 4350, name: "🤖SUPORTE", text: "👍👍👍" },
+		{ time: 4453, name: "Isa", text: "Reset" },
+        { time: 4455, name: "Rafaela", text: "adorei já quero" },
+        { time: 4459, name: "Isa", text: "Eu quero" },
+		{ time: 4598, name: "Isa", text: "Eu quero" },
+        { time: 4600, name: "Iracelma", text: "vamos começar" },
+		{ time: 4622, name: "Katianne", text: "Olha... ninguem nunca me ensinou isso😔😔" },
+        { time: 4625, name: "Lara", text: "Ai que sonho" },
+		{ time: 4654, name: "Maria", text: "Sim, é ótimo todo suporte que você dá!" },
+        { time: 4659, name: "Natanna", text: "Esse atendimento humanizado, mais de perto... isso me da muita confiança" },
+        { time: 4700, name: "Ana Paula", text: "Melhor investimento que já fiz, obrigada Douglas" },
+		{ time: 4719, name: "Nathalia", text: "To aqui, firme forte!" },
+		{ time: 4773, name: "Maria", text: "Obrigado por tudo Douglas, estou adorando os resultados!!!" },
+        { time: 4809, name: "Laura", text: "Aprendi muita coisa nova" },
+        { time: 4814, name: "Manu", text: "Conhecimento é libertador mesmo" },
+        { time: 4819, name: "Katia", text: "Parabéns Douglas, por entregar tanto...." },
+        { time: 4820, name: "Angelina", text: "Eu só conhecia as dietas kkkk mas não sabia por que dava errado" },
+        { time: 4822, name: "Nubia", text: "Eu quero um resultado deste!!" },
+        { time: 4825, name: "Kesia", text: "Que lindas" },
+        { time: 4830, name: "Zilda", text: "Adorei, quero começar também" },
+        { time: 4831, name: "Pri", text: "Parabéns para vocês que conseguiram, ficaram muito bonitas" },
+        { time: 4840, name: "Jucelia", text: "A próxima será eu!!!😃😃" },
+        { time: 4845, name: "Zenilda", text: "Realmente não tem como ter desculpa" },
+        { time: 4846, name: "flaviane", text: "Que lindaaa" },
+        { time: 4895, name: "Nubia", text: "Meu sonho uma barriga dessa" },
+        { time: 4899, name: "Ana Paula", text: "To junto" },
+        { time: 4931, name: "Julia", text: "Vou tomar cedo e de tarde para ter mais resultado kkkkk" },
+        { time: 4934, name: "Flores", text: "Vamos lá!" },
+        { time: 4935, name: "Luciana", text: "Eu quero fazer o RESET" },
+        { time: 4940, name: "Sara", text: "Realmente eu já tentei muita coisa." },
+        { time: 4941, name: "Isa", text: "nooossa o que já gastei não ta escrito" },
+        { time: 5170, name: "Rafaela", text: "Verdade, faz sentido" },
+        { time: 5173, name: "Dani", text: "Fiz tratamento com ozempic gastei quase 10mil e não ficou da forma como eu queria." },
+        { time: 5177, name: "Isa", text: "Nosssa Muito barato" },
+        { time: 5180, name: "Josy", text: "Eu quero!!!" },
+        { time: 5182, name: "Juventite", text: "Quero, como faz para comprar?" },
+        { time: 5183, name: "Juliana", text: "Eu também quero" },
+        { time: 5188, name: "Mercia", text: "Nossa muito barato mesmo" },
+        { time: 5198, name: "Fabia", text: "Separa o meu Douglas👍👍👍" },
+        { time: 5199, name: "Angelina", text: "Posso pegar contigo amanha no consultório??" },
+        { time: 5200, name: "Katianne", text: "Quero começar hj, pode??😃😃" },
+        { time: 5203, name: "Angela", text: "Tudo ok, vamos começar" },
+        { time: 5205, name: "Iracelma", text: "Combinado" },
+        { time: 5244, name: "Iara", text: "Eu topo!!!" },
+        { time: 5246, name: "Manu", text: "Quero começar logo...." },
+        { time: 5250, name: "Iracelma", text: "Pode treinar em casa, oba!!!" },
+        { time: 5251, name: "Iara", text: "Já garanti o meu!!! ihuullll" },
+        { time: 5256, name: "Odete", text: "Acabei de entrar!" },
+        { time: 5260, name: "Laura", text: "Não é possível" },
+        { time: 5289, name: "Lara", text: "Eu consegui adquirir com o desconto de R$ 100,00!!!" },
+        { time: 5317, name: "Josi", text: "E se eu quiser comprar o pote depois?" },
+        { time: 5378, name: "Manu", text: "Entrei, e agora Douglas???" },
+        { time: 5380, name: "Marcia", text: "E topo, vou entrar agora!!!" },
+        { time: 5418, name: "Pietra", text: "Adorei os bônus" },
+        { time: 5425, name: "Isa", text: "Olha só em, gostei" },
+        { time: 5430, name: "Rafaela", text: "KKKKKK" },
+		{ time: 5435, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+        { time: 5476, name: "Angelina", text: "Adorei, já recebi a mensagem da sua equipe no meu zap" },
+        { time: 5480, name: "Isa", text: "Caminhada é bom, eu gosto" },
+        { time: 5511, name: "Thais Santos", text: "Já garanti o meu!!! ihuullll" },
+        { time: 5516, name: "Maria Inês", text: "Acabei de entrar!" },
+        { time: 5520, name: "Fernanda", text: "Eu também 👍👍👍" },
+        { time: 5539, name: "Mariana", text: "Ou ganha ou ganha!" },
+        { time: 5540, name: "Nayara", text: "Já acabouuu!??" },
+        { time: 5546, name: "Eliana", text: "Adorei" },
+        { time: 5583, name: "Silvana", text: "Pesado!!!!" },
+        { time: 5630, name: "Deb", text: "Eu já faço acompanhamento com um nutri, posso comprar os potes?" },
+		{ time: 5652, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+		{ time: 5654, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+        { time: 5724, name: "Layz", text: "Eu consegui entrar!!!! 😃😃" },
+        { time: 5729, name: "Kesia", text: "Obrigada Douglas" },
+        { time: 5733, name: "Zilda", text: "Sensacional" },S
+        { time: 5700, name: "Lay", text: "É verdade" },
+        { time: 5704, name: "Angelica", text: "Sim, faz sentido" },
+        { time: 5853, name: "Lara", text: "Eu consegui adquirir com o desconto de R$ 100,00!!!" },
+        { time: 5855, name: "Josi", text: "E eu entrei agora pouco, e agora??" },
+        { time: 5859, name: "Manu", text: "Entrei, e agora Douglas???" },
+        { time: 5870, name: "Dayane", text: "E topo, vou entrar agora!!!" },
+		{ time: 5883, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+		{ time: 5886, name: "Iracelma", text: "Alguém sabe dizer se meu marido pode tomar?" },
+		{ time: 5889, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+		{ time: 5940, name: "Raquel", text: "Após o pagamento o que devo fazer?" },
+        { time: 5950, name: "Juliana", text: "Como é a forma de pagamento?" },
+        { time: 5980, name: "Marcia", text: "Consegue segurar até quinta?" },
+		{ time: 5985, name: "Jucelina", text: "Vai até que dia mesmo?" },
+		{ time: 5990, name: "Carla", text: "Meu marido pode tomar também?" },
+        { time: 5995, name: "Jane", text: "Em quanto tempo eu vou receber o suplemento?" },
+        { time: 6076, name: "Meire", text: "VIXXXXX😔" },
+		{ time: 6080, name: "Meire", text: "Posso dar para meu filho?" },
+        { time: 6090, name: "Lay", text: "É verdade" },
+		{ time: 6095, name: "Rosa", text: "Moro no interior, como eu faço?" },
+        { time: 6100, name: "Natalia", text: "Posso parcelar quantas vezes no boleto?" },
+		{ time: 6150, name: "Rosana", text: "Tomo remédio para pressão, posso tomar o Triptoplus?" },
+	    { time: 6170, name: "Silvia Carlos", text: "Você falou que eu ia perder 12kg e eu já perdi 16, o que eu faço agora?" },
+        { time: 6218, name: "🤖SUPORTE", text: "Já temos 17 pessoas que garantiram!" },
+        { time: 6218, name: "🤖SUPORTE", text: "Restam 13 vagas para bater os 30 acessos!" },
+		{ time: 6230, name: "Daiane", text: "Você é médico?" },
+		{ time: 6240, name: "Marcia", text: "Tem alguma contraindicação???" },
+        { time: 7830, name: "🤖SUPORTE", text: "Instagrm  @doug.leao" },
+        { time: 6300, name: "Maisa", text: "Posso comprar para minha amiga também?" },
+        { time: 6314, name: "Samanta", text: "E se eu não conseguir seguir?" },
+        { time: 6354, name: "Iracelma", text: "O melhor plano é o que eu consigo seguir!!!" },
+		{ time: 6356, name: "Simone", text: "É o que eu consigo seguir" },
+		{ time: 6357, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+        { time: 6365, name: "Simone", text: "Adorei demais!!!" },
+		{ time: 5366, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+	    { time: 5376, name: "Angelica", text: "Sim, faz sentido" },
+		{ time: 6365, name: "Luciana", text: "A garantia é real mesmo??" },
+		{ time: 6400, name: "Jurema", text: "Realmente, não tenho mais tempo para ficar perdendo..." },
+        { time: 6405, name: "Zenilda", text: "Já ouvi" },
+		{ time: 6408, name: "Simone", text: "Adorei demais!!! Foi show" },
+		{ time: 6409, name: "Mariana", text: "Como eu vou receber os acessos?" },
+		{ time: 6447, name: "Kesia", text: "Acabei de adquirir, obrigada Douglas e a equipe. Boa noite" },
+        { time: 6450, name: "Laura", text: "Alguém aqui conseguiu abrir a página? Aqui não abriu" },
+        { time: 6456, name: "Iara", text: "Alguem aqui comprou?? A página não esta abrindo mais..." },
+		{ time: 6476, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+        { time: 6476, name: "Simone", text: "Parabéns!!!" },
+		{ time: 6477, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+        { time: 6487, name: "🤖SUPORTE", text: "Restam apenas 12 vagas disponíveis!" },
+        { time: 6400, name: "Mercia", text: "Tá vou te chamar no privado para tirar algumas dúvidas..." },
+        { time: 6410, name: "Manu", text: "Muito obrigada, foi sensacional" },
+        { time: 6420, name: "Layz", text: "Gostei muito, adorei" },
+        { time: 6422, name: "Dani", text: "Parabéns Douglas, belíssimo trabalho" },
+        { time: 6430, name: "🤖SUPORTE", text: "RESET Metabólico: 12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+        { time: 6435, name: "Fabia", text: "Até!!!" },
+        { time: 6460, name: "Neli", text: "Já entrei, vou começar amanhã" },
+        { time: 6464, name: "Debora", text: "Boa meninas!!" },
+        { time: 6589, name: "Ana Paula", text: "Ainda tem o deconto??" },
+        { time: 6599, name: "Maria Clara", text: "Será que a equipe vai enviar novamente o link ou esgotou?" },
+        { time: 6600, name: "Layz", text: "Ja tomei ozempic" },
+        { time: 6605, name: "Renira", text: "Já tomei Manipulado" },
+        { time: 6630, name: "Zenia", text: "Ozempic" },
+        { time: 6631, name: "Zenia", text: "Wegovy, e nunca tive resultado" },
+        { time: 6640, name: "🤖SUPORTE", text: "Ainda restam algunas vagas!!" },
+		{ time: 6665, name: "Katianne", text: "Olha... ninguem nunca me ensino isso😔😔" },
+        { time: 6675, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+		{ time: 6676, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+        { time: 6680, name: "Katia", text: "Parabéns Douglas, por entregar tanto...." },
+        { time: 6690, name: "Angelina", text: "Eu só conhecia as dietas kkkk mas não sabia porque dava errado" },
+        { time: 6694, name: "Lara", text: "Ai que sonho" },
+        { time: 6700, name: "Nubia", text: "Eu quero um resultado deste!!" },
+        { time: 6710, name: "Kesia", text: "Que linda" },
+        { time: 6720, name: "Zilda", text: "Adorei, quero começar também" },
+        { time: 6734, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+        { time: 6740, name: "Pri", text: "Parabéns para vocês que conseguiram, ficaram muito bonitas" },
+		{ time: 6742, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" },
+        { time: 6762, name: "Jucelia", text: "A próxima será eu!!!😃😃" },
+        { time: 6769, name: "Zenilda", text: "Realmente não tem como ter desculpa" },
+        { time: 6770, name: "Zilda", text: "Quem ai conseguiu comprar? Não esta abrindo aqui pra mim" },
+        { time: 6840, name: "Pri", text: "Parabéns para vocês, lindas" },
+        { time: 6850, name: "Jucelia", text: "Boa noite, obrigado meninas" },
+		{ time: 6915, name: "🤖SUPORTE", text: "Encerrando transmissão em 15 segundos!" },
+		{ time: 6923, name: "🤖SUPORTE", text: "3 MESES: https://sun.eduzz.com/E9OOGE2Q9B" },
+		{ time: 6924, name: "🤖SUPORTE", text: "12 MESES: https://sun.eduzz.com/39YDN81D9O?cupom=OFF100" }
+	
+        
+		
     ];
 
     let shownProgrammedMessages = new Set();
@@ -1135,10 +1162,12 @@ function startWebinar() {
   }
 
   updateViewerCount(); // executa logo que a página abre
-  setInterval(updateViewerCount, 30000); // atualiza a cada 30 segundos  
+  setInterval(updateViewerCount, 10000); // atualiza a cada 10 segundos  
 
 
-    const offerDelayMs = (webinarStart.getTime() + 7276 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO OFERTA IMPORTANTE!
+
+
+    const offerDelayMs = (webinarStart.getTime() + 5181 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
 
     if (offerDelayMs > 0) {
         // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
@@ -1230,7 +1259,7 @@ function saveUserName() {
 }
 
 
-
+// logica do campo de coleta whatsapp
 function formatarWhatsapp(input) {
   let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, máx 11
   if (valor.length > 2) {
@@ -1258,7 +1287,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000) + (30 * 60 * 1000));   // IMPORTANTE!  "Transmissão AO VIVO encerrada > redireciona para video gravado"
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000));   // IMPORTANTE!  30h precisa cobrir o tempo do replay "Transmissão AO VIVO encerrada"
 
     if (now < webinarStart) {
         showCountdown();
@@ -1463,7 +1492,7 @@ const browserId = getBrowserId();
 
 function enviarDados() {
   const agora = new Date();
-  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);  // IMPORTANTE!  SCRIPT GOOGL
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);  // IMPORTANTE!  SCRIPT GOOGLE
   const horaSaida = agora.toLocaleTimeString();
 
   fetch('https://script.google.com/macros/s/AKfycbytASNNRUT8Bk6WLwSGt54ostCW-HYJxwXkr-ETiJ3sCu3xa3aIWxwA7OrcaFwjVXbxPQ/exec', {
