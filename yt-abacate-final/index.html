@@ -1099,56 +1099,6 @@ document.getElementById("sendBtn").addEventListener("click", () => {
 
 
 
-
-
-
-
-
-<!-- MODAL POPUP -->
-<div id="modalPopup" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.65); align-items:center; justify-content:center;">
-  <div style="background:white; border-radius:10px; padding:28px 18px; max-width:340px; width:100%; margin:auto; box-shadow:0 8px 32px rgba(0,0,0,0.25); text-align:center;">
-    <h3 style="font-size:18px; margin-bottom:16px;">Para terminar de assistir<br>preencha seus dados</h3>
-    <form id="formColeta">
-      <input type="text" id="nomeInput" placeholder="Seu nome" style="width:95%;margin-bottom:10px;padding:8px 10px;font-size:15px;border-radius:6px;border:1px solid #ccc;"><br>
-      <input type="tel" id="whatsappInput" placeholder="WhatsApp (apenas números)" style="width:95%;margin-bottom:16px;padding:8px 10px;font-size:15px;border-radius:6px;border:1px solid #ccc;"><br>
-      <button type="submit" style="background:#28a745;color:white;font-size:16px;font-weight:bold;border:none;padding:10px 0;width:100%;border-radius:7px;cursor:pointer;">Continuar</button>
-    </form>
-  </div>
-</div>
-
-
-
-
-<script>
-// 1. Abrir popup quando vídeo acabar
-video.addEventListener('ended', function() {
-  document.getElementById('modalPopup').style.display = 'flex';
-});
-
-// 2. Captura do formulário e redirecionamento
-document.getElementById('formColeta').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  // Obtenha os dados
-  var nome = document.getElementById('nomeInput').value.trim();
-  var whats = document.getElementById('whatsappInput').value.trim();
-
-  // Validação simples
-  if (!nome || !whats.match(/^\d{9,}$/)) {
-    alert('Preencha um nome válido e o WhatsApp com pelo menos 9 números.');
-    return;
-  }
-
-  // Aqui você pode enviar via AJAX para sua API se quiser (opcional)
-  // fetch('SUA_API', { ... })
-
-  // Redireciona para a página desejada (troque pela URL final!)
-  window.location.href = 'https://sun.eduzz.com/6W48VYYN0Z';
-});
-</script>
-
-
-
 	
 </body>
 </html>
