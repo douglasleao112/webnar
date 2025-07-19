@@ -1105,7 +1105,7 @@ document.getElementById("sendBtn").addEventListener("click", () => {
 
 
 <!-- MODAL POPUP ATENÇÃO URGENTE -->
-<div id="modalPopup" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.82); align-items:center; justify-content:center;">
+<div id="modalPopup" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.82); align-items:center; justify-content:center; font-family: Arial, sans-serif;">
   <div style="background:white; border-radius:16px; padding:32px 18px 28px 18px; max-width:340px; width:90%; margin:auto; box-shadow:0 8px 32px rgba(0,0,0,0.25); text-align:center;">
     <div style="font-size:20px; color:#e02b2b; font-weight:bold; margin-bottom:18px;">
       ATENÇÃO:
@@ -1115,14 +1115,23 @@ document.getElementById("sendBtn").addEventListener("click", () => {
       <br><br>
       <span style="color:#e02b2b; font-weight:500">Clique abaixo para solicitar a continuação:</span>
     </div>
-    <a id="btnWhatsApp" href="https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo." target="_blank"
-      style="display:inline-block; background:#25d366; color:white; font-size:17px; font-weight:600; padding:16px 0; width:100%; border:none; border-radius:8px; text-decoration:none; box-shadow:0 2px 12px rgba(37,211,102,0.08); margin-bottom:2px; transition:background .2s;">
-      👉 Solicitar Continuação via WhatsApp
+    <a id="btnWhatsApp"
+      href="https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo."
+      target="_blank"
+      style="display:inline-block; background:#4fbd38; color:white; font-size:17px; font-weight:600; padding:16px 0; width:100%; border:none; border-radius:8px; text-decoration:none; margin-bottom:2px; transition:background .2s, transform .2s; animation:pulseZoom 1.1s infinite;">
+      👉 Solicitar Continuação
     </a>
-  </div>
+    </div>
 </div>
 
 
+<style>
+@keyframes pulseZoom {
+  0% { transform: scale(1);}
+  50% { transform: scale(1.08);}
+  100% { transform: scale(1);}
+}
+</style>
 
 
 <script>
@@ -1130,11 +1139,9 @@ document.getElementById("sendBtn").addEventListener("click", () => {
 video.addEventListener('ended', function() {
   document.getElementById('modalPopup').style.display = 'flex';
 
-  // Timer de 15s para redirecionar se não clicar
   let redirecionado = false;
   const destino = "https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo.";
 
-  // Se clicar no botão, não faz o redirect automático
   document.getElementById('btnWhatsApp').addEventListener('click', function() {
     redirecionado = true;
   });
@@ -1143,9 +1150,10 @@ video.addEventListener('ended', function() {
     if (!redirecionado) {
       window.location.href = destino;
     }
-  }, 15000); // 15000ms = 15 segundos
+  }, 15000);
 });
 </script>
+
 
 
 
