@@ -236,6 +236,26 @@
   ">
     
   </button>
+  
+  
+  
+  <!-- Barra de progresso customizada -->
+<div id="barraTempo"
+  style="
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 8px;
+    width: 0;
+    background: rgba(255,0,0,0.75);
+    border-radius: 0px;
+    z-index: 10;
+    transition: width 0.1s linear;
+    pointer-events: none;
+  "></div>
+  
+  
+  
 </div>
 
 
@@ -479,6 +499,31 @@
  const video = document.getElementById('customVideo');
   const playButton = document.getElementById('playButton');
   const overlay = document.getElementById('videoClickOverlay');
+
+
+
+
+const barraTempo = document.getElementById('barraTempo');
+
+// Atualiza a barra de progresso, mas só até 50% do vídeo
+function atualizarBarraTempo() {
+  if (!video.duration) return;
+  // Calcula o percentual de progresso, mas multiplica por 0.5 para limitar a metade
+  const progresso = (video.currentTime / video.duration) * 0.5 * 100;
+  barraTempo.style.width = progresso + '%';
+}
+
+video.addEventListener('timeupdate', atualizarBarraTempo);
+
+// Garante que reseta ao reiniciar
+video.addEventListener('ended', () => {
+  barraTempo.style.width = '50%';
+});
+video.addEventListener('seeked', atualizarBarraTempo);
+video.addEventListener('play', atualizarBarraTempo);
+video.addEventListener('loadedmetadata', atualizarBarraTempo);
+
+
 
 
 
