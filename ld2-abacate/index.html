@@ -888,7 +888,12 @@ video.addEventListener('ended', function() {
 
 
 
+
+
+
+
 <script>
+// Gera/recupera ID único do navegador
 function getBrowserId() {
   let id = localStorage.getItem('browserId');
   if (!id) {
@@ -900,52 +905,30 @@ function getBrowserId() {
 
 const browserId = getBrowserId();
 
-// Hora e data de entrada fixas!
+// Hora/data de entrada fixas (1º acesso do dia)
 let horaEntrada = localStorage.getItem('horaEntrada-lead1');
 let dataEntrada = localStorage.getItem('dataEntrada-lead1');
 const agora = new Date();
+const dataHoje = agora.toLocaleDateString('pt-BR');
 
-if (!horaEntrada || !dataEntrada || dataEntrada !== agora.toLocaleDateString('pt-BR')) {
+if (!horaEntrada || !dataEntrada || dataEntrada !== dataHoje) {
   horaEntrada = agora.toTimeString().substr(0,8); // HH:MM:SS
-  dataEntrada = agora.toLocaleDateString('pt-BR');
+  dataEntrada = dataHoje;
   localStorage.setItem('horaEntrada-lead1', horaEntrada);
   localStorage.setItem('dataEntrada-lead1', dataEntrada);
 }
 
-function enviarDados() {
-  const agora = new Date();
-  const horaSaida = agora.toTimeString().substr(0,8); // sempre atualiza
-  const tempoEmSegundos = calculaSegundos(horaEntrada, horaSaida);
-  const tempoFormatado = segundosParaHHMMSS(tempoEmSegundos);
-
-  fetch('https://script.google.com/macros/s/AKfycbyKYr6vh_oEjpD0DyMfXCfxNYB6lGNBSuMdOfzpoOAfaDdVj9CeuejhaHIEk_jsQ3e2/exec', {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      browserId: browserId,
-      horaEntrada: horaEntrada,
-      horaSaida: horaSaida,
-      tempoFormatado: tempoFormatado, // 00:00:00
-      tempoSegundos: tempoEmSegundos,
-      data: dataEntrada,
-      paginaOrigem: 'lead2'
-    })
-  });
-}
-
 // Calcula diferença em segundos entre HH:MM:SS
 function calculaSegundos(h1, h2) {
-  const [a,b,c] = h1.split(':').map(Number);
-  const [x,y,z] = h2.split(':').map(Number);
-  const t1 = a*3600 + b*60 + c;
-  const t2 = x*3600 + y*60 + z;
-  // Se virou o dia, trata
-  if (t2 < t1) return 86400 + t2 - t1;
+  const [a, b, c] = h1.split(':').map(Number);
+  const [x, y, z] = h2.split(':').map(Number);
+  let t1 = a*3600 + b*60 + c;
+  let t2 = x*3600 + y*60 + z;
+  if (t2 < t1) t2 += 86400; // virou o dia
   return t2 - t1;
 }
 
-// Formata para 00:00:00
+// Formata segundos para 00:00:00
 function segundosParaHHMMSS(s) {
   const h = String(Math.floor(s/3600)).padStart(2, '0');
   const m = String(Math.floor((s%3600)/60)).padStart(2, '0');
@@ -953,11 +936,34 @@ function segundosParaHHMMSS(s) {
   return `${h}:${m}:${sec}`;
 }
 
-// Envia ao entrar e depois a cada 1 segundo
+// Envia dados para planilha
+function enviarDados() {
+  const agora = new Date();
+  const horaSaida = agora.toTimeString().substr(0,8);
+  const tempoEmSegundos = calculaSegundos(horaEntrada, horaSaida);
+  const tempoFormatado = segundosParaHHMMSS(tempoEmSegundos);
+
+  fetch('https://script.google.com/macros/s/AKfycbzFXJmPoME3MuYV2ma_nJOP_if6Xwpa2qB0KC9FBJZ19PfxBh4OfLhHfyM_FJD5dNqM/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      browserId: browserId,
+      horaEntrada: horaEntrada,        // fixo
+      horaSaida: horaSaida,            // atualiza
+      tempoFormatado: tempoFormatado,  // 00:00:00
+      tempoSegundos: tempoEmSegundos,
+      data: dataEntrada,
+      paginaOrigem: 'lead2'
+    })
+  });
+}
+
+// Envia ao entrar e a cada 1 segundo
 enviarDados();
 setInterval(enviarDados, 1000);
-</script>
 
+</script>
 
 
 
