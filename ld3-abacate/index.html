@@ -1,0 +1,946 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Saúde e Bem-Estar</title>
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/15869/15869303.png" sizes="32x32">
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+      .container {
+      max-width: 480px;
+      margin: 8px auto 0 auto;
+      padding: 0 9px;
+      font-family: Arial, sans-serif;
+    }
+	
+	
+
+ 
+    .canal {
+      max-width: auto;
+      padding: 16px;
+	   border-top: 1px solid #e0e0e0; 
+    
+    }
+
+    .contador {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .info-canal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    }
+
+    .info-usuario {
+      display: flex;
+      align-items: center;
+	   flex: 1; 
+    }
+
+    .info-usuario img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      margin-right: 12px;
+      object-fit: cover;
+    }
+
+    .info-usuario div {
+      line-height: 1.2;
+    }
+
+    .btn-inscrever {
+      padding: 8px 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-inscrever.ativo {
+      background-color: red;
+    }
+
+ .botoes-reacao-wrapper {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  display: inline-flex;
+  padding: 6px 10px;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+    .reacao {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reacao img {
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+.like-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: 12px;
+}
+
+.like-count {
+  font-size: 12px;
+  color: #444;
+}
+
+.barra-lateral {
+  width: 1px;
+  height: 18px;
+  background-color: #ccc;
+  position: absolute;
+  right: 0;
+}
+
+    .reacao.activo img {
+      opacity: 1;
+    }
+ 
+ 
+	
+  </style>
+
+
+	<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1265697105146618'); // seu ID do pixel
+  fbq('track', 'PageView');
+</script>
+
+
+
+
+
+
+</head>
+<body>
+	
+<!-- BARRA SUPERIOR -->
+<div style="
+  width: 100vw;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  font-family: Impact, sans-serif;
+  border-bottom: 0px solid #ccc;
+  box-sizing: border-box;
+  margin: 0;
+">
+
+
+<!-- BARRA TOPO -->
+<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0px 0; box-sizing: border-box;">
+
+  <!-- ÍCONE MENU + LOGO -->
+  <div style="font-size: 27px; cursor: pointer; color: #2a2a2a; display: flex; align-items: center;">
+    <span style="margin-right: 14px; vertical-align: middle;">&#9776;</span>
+    <img src="https://static.wikia.nocookie.net/logopedia/images/4/40/Bem_Estar_logo_2015.png" 
+         style="width: 60px; vertical-align: middle;">
+  </div>
+
+ 
+
+  <!-- ÍCONES À DIREITA -->
+  <div style="display: flex; gap: 10px; margin-left: auto;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcbsTsrYitGjgtV3IZNpJZBOkfZ9DzpwoIRg&s" style="width: 24px; height: 24px; cursor: pointer;">
+    <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" style="width: 24px; height: 24px; cursor: pointer; border-radius: 50%;">
+  </div>
+
+</div>
+
+</div>
+
+ 
+
+
+ <div class="container">
+ 
+
+<!-- VÍDEO COM PLAY EM QUALQUER LUGAR -->
+<div style="position: relative; width: 100%; max-width: 480px; margin: auto; font-family: Arial, sans-serif;">
+  <video id="customVideo"
+
+         style="width: 100%; display: block;"
+         preload="metadata"
+         playsinline
+         poster="https://static.wixstatic.com/media/7f5efc_103c9c11239a479793677c2a613ec50c~mv2.gif">
+    <source src="https://video.wixstatic.com/video/7f5efc_bc97fc173379465c90d1300917d74000/1080p/mp4/file.mp4" type="video/mp4">
+    Su navegador no soporta video.
+  </video>
+
+  <!-- Camada clicável -->
+  <div id="videoClickOverlay" style="
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    cursor: pointer;
+    z-index: 3;
+  "></div>
+
+  <!-- Botão play -->
+  <button id="playButton" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 4;
+  ">
+    
+  </button>
+</div>
+
+
+
+
+
+
+
+<!-- TÍTULO ABAIXO DO VÍDEO -->
+<div style="
+  max-width: 480px;
+  margin: 0 auto 16px auto;
+  margin-top: 10px;
+  font-family: 'Avenir', Arial, sans-serif;
+  text-align: left;
+  line-height: 1.3;
+">
+  <div style="font-size: 18px;">
+    <span style="font-weight: bold; color: #242424;">
+      URGENTE | Descoberto os segredos ocultos de Adão e Eva e revela mensagem secreta que ninguém esperava!
+    </span>
+	<div class="contador" style="margin-top: 15px;"><span id="viewerCountTop">1473</span> pessoas ao vivo agora <span id="currentHour"></span>h, hoje <span id="todayDate"></span></div>
+   </div>
+</div>
+
+
+
+
+<!-- COMENTÁRIOS -->
+<div class="chat-container">
+  <div class="chat-header">Chat ao vivo</div>
+  <div class="chat-messages" id="chatMessages"></div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Escreva sua mensagem..." />
+    <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" id="sendBtn" />
+  </div>
+</div>
+
+<style>
+.chat-container {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: white;
+  margin: 0 auto;
+}
+
+.chat-header {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  background: #ffffff;
+  color: #222;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-messages {
+  height: 240px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+	
+.message img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+	
+.message-content {
+  background: none;
+  padding: 0;
+}
+
+.message-name {
+  font-weight: bold;
+  color: #365899;
+  font-size: 13px;
+}
+
+.message-text {
+  font-size: 13px;
+  color: #111;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 8px;
+  background: #ffffff;
+  align-items: center;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  outline: none;
+  background: #f0f0f0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+</style>
+
+
+ 
+
+
+<br>
+
+
+
+<!--INFO DO CANAL YOUTUBE -->
+  <div class="canal">
+  
+   <div class="info-canal">
+      <div class="info-usuario">
+        <img src="https://i.scdn.co/image/ab6765630000ba8a22cc32fc45de8bdaae373e21" >
+        <div>
+          <strong>Bem Estar</strong><br>
+          <span style="font-size: 13px; color: gray;">22,5 mi de inscritos</span>
+        </div>
+      </div>
+  <div style="margin-left: auto;">
+      <button id="btnInscrever" class="btn-inscrever">Inscrever-se</button>
+	  </div>
+   </div>
+    
+
+    <div class="botoes-reacao-wrapper">
+      <div class="reacao like-container" id="btnLike">
+  <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" alt="Like">
+  <span class="like-count">4,8 mil</span>
+  <div class="barra-lateral"></div>
+</div>
+
+
+
+      <div class="reacao" id="btnDislike">
+        <img src="https://cdn-icons-png.flaticon.com/512/126/126504.png" alt="Dislike">
+      </div>
+    </div>
+	
+
+	<div class="botoes-reacao-wrapper" style="margin-left: 10px;">
+  <div class="reacao" id="btnCompartilhar" style="gap: 8px;">
+    <img src="https://pngimg.com/d/share_PNG27.png" alt="Compartilhar" style="width: 18px; height: 18px;">
+    <span style="font-size: 12px; color: #555;">Compartilhar</span>
+  </div>
+</div>
+
+
+
+	<div class="botoes-reacao-wrapper" style="margin-left: 10px;">
+    <div class="reacao" id="btnSalvar" style="gap: 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/5662/5662990.png" alt="Compartilhar">
+    <span style="font-size: 12px; color: #555;">Salvar</span>
+  </div>
+</div>
+
+ </div>
+
+
+
+<br><br><br><br><br>
+</div>
+
+
+
+
+
+
+
+<!-- MODAL POPUP ATENÇÃO URGENTE -->
+<div id="modalPopup" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.82); align-items:center; justify-content:center; font-family: Arial, sans-serif;">
+  <div style="background:white; border-radius:16px; padding:32px 18px 28px 18px; max-width:340px; width:90%; margin:auto; box-shadow:0 8px 32px rgba(0,0,0,0.25); text-align:center;">
+    <img src="https://cdn.pixabay.com/animation/2023/04/28/18/34/18-34-10-554_512.gif"
+      alt="alerta"
+      style="width:38px; height:38px; margin-bottom:8px; animation:imgPulse 1.5s infinite;">
+    <div style="font-size:20px; color:#e02b2b; font-weight:bold; margin-bottom:18px;">
+      ATENÇÃO:
+    </div>
+    <div style="font-size:16px; color:#242424; margin-bottom:24px; line-height:1.5;">
+      Estamos sendo <b>perseguidos</b> e este vídeo pode sair do ar em breve!
+      <br>
+    </div>
+<a id="btnWhatsApp"
+  href="https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo."
+  target="_blank"
+  style="display:inline-block; background:#4fbd38; color:white; font-size:17px; font-weight:600; padding:16px 0; width:100%; border:none; border-radius:8px; text-decoration:none; margin-bottom:2px; transition:background .2s, transform .2s; animation:pulseZoom 2.2s infinite;">
+  👉 Solicitar Continuação
+</a>
+ 
+  </div>
+</div>
+
+
+
+<style>
+@keyframes pulseZoom {
+  0% { transform: scale(1);}
+  50% { transform: scale(1.08);}
+  100% { transform: scale(1);}
+}
+@keyframes imgPulse {
+  0% { transform: scale(1);}
+  50% { transform: scale(1.13);}
+  100% { transform: scale(1);}
+}
+</style>
+
+
+
+
+
+
+
+<script>
+ const video = document.getElementById('customVideo');
+  const playButton = document.getElementById('playButton');
+  const overlay = document.getElementById('videoClickOverlay');
+
+
+
+let videoJaIniciado = false;
+let intervalCriado = false;
+
+
+
+function iniciarVideo() {
+  if (videoJaIniciado) return;
+  videoJaIniciado = true;
+
+  // Desativa os eventos de clique para evitar duplicações
+  playButton.removeEventListener('click', iniciarVideo);
+  overlay.removeEventListener('click', iniciarVideo);
+
+  video.play().then(() => {
+    console.log("▶️ Vídeo reproduzido");
+  }).catch((err) => {
+    console.warn("🚫 Falha ao reproduzir o vídeo:", err);
+  });
+
+  playButton.style.display = 'none';
+  overlay.style.display = 'none';
+
+  let eventosDisparados = {
+    lead: false,
+    complete: false,
+    section: false,
+    steps: {}
+  };
+
+  if (!intervalCriado) {
+    intervalCriado = true;
+
+    setInterval(() => {
+      const tempo = Math.floor(video.currentTime);
+      console.log("⏱️ Tempo do vídeo:", tempo);
+   
+    }, 1000);
+  }
+}
+
+playButton.addEventListener('click', iniciarVideo);
+overlay.addEventListener('click', iniciarVideo);
+
+
+	
+  // Atualiza número de pessoas no contador
+  const viewerElement = document.getElementById('viewerCount');
+  function updateViewerCount() {
+  const random = Math.floor(Math.random() * (1180 - 1547 + 1)) + 1147;
+  const el1 = document.getElementById('viewerCount');
+  const el2 = document.getElementById('viewerCountTop');
+  if (el1) el1.textContent = random;
+  if (el2) el2.textContent = random;
+}
+
+updateViewerCount();
+setInterval(updateViewerCount, 5000);
+  
+  
+  
+  
+  // Mostra a data atual
+const dateElement = document.getElementById('todayDate');
+const today = new Date();
+const day = String(today.getDate()).padStart(2, '0');
+const month = String(today.getMonth() + 1).padStart(2, '0');
+dateElement.textContent = `${day}/${month}`;
+
+
+	
+	
+	// Mostra a hora atual
+const hourElement = document.getElementById('currentHour');
+function updateHour() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  hourElement.textContent = `${hours}:${minutes}`;
+}
+updateHour();
+setInterval(updateHour, 60000); // atualiza a cada minuto
+
+
+
+
+
+
+  // UTM HOTMART
+  const hotmartPrefixes = [
+    "https://payment.hotmart.com",
+    "https://pay.hotmart.com",
+    "https://go.hotmart.com"
+  ];
+
+  const urlParams = window.location.search;
+
+  if (urlParams) {
+    document.querySelectorAll("a").forEach(link => {
+      hotmartPrefixes.forEach(prefix => {
+        if (link.href.includes(prefix)) {
+          const separator = link.href.includes("?") ? "&" : "?";
+          link.href += separator + urlParams.substring(1); 
+        }
+      });
+    });
+  }
+
+
+
+
+
+
+ // UTM EDUZZ
+(function() {
+     const utmParamQueryString = new URLSearchParams(window.location.search);
+     if (utmParamQueryString.toString()) {
+          var navLinks = document.querySelectorAll('a');
+          navLinks.forEach(function(item) {
+               if (item.href.indexOf('https://sun.eduzz.com') !== -1) {
+                    if (item.href.indexOf('?') === -1) {
+                         item.href += '?' + utmParamQueryString.toString();
+                    } else {
+                         item.href += '&' + utmParamQueryString.toString();
+                    }
+               }
+          });
+     }
+})();
+
+console.log('%cScript de rastreamento de vendas desenvolvido pela Comunidade NOD - Dericson Calari e Samuel Choairy', 'font-size:20px;color:yellow;');
+
+
+
+
+
+
+// SALVAR E LIKE/UNLINE
+    const btnInscrever = document.getElementById('btnInscrever');
+  const btnLike = document.getElementById('btnLike');
+  const btnDislike = document.getElementById('btnDislike');
+  const btnSalvar = document.getElementById('btnSalvar');
+  const btnCompartilhar = document.getElementById('btnCompartilhar');
+
+  btnInscrever.addEventListener('click', () => {
+    btnInscrever.classList.toggle('ativo');
+  });
+
+  btnLike.addEventListener('click', () => {
+    btnLike.classList.toggle('activo');
+    btnDislike.classList.remove('activo');
+  });
+
+  btnDislike.addEventListener('click', () => {
+    btnDislike.classList.toggle('activo');
+    btnLike.classList.remove('activo');
+  });
+
+  btnSalvar.addEventListener('click', () => {
+    btnSalvar.classList.toggle('activo');
+  });
+
+  btnCompartilhar.addEventListener('click', () => {
+    console.log('Botão Compartilhar clicado (sem ação)');
+  });
+
+
+
+
+
+
+
+
+const messages = [ // COMENTÁRIOS DA LIVE
+  "Gente, eu tô arrepiada com essa revelação 😳",
+  "Essa parte sobre a respiração me tocou demais",
+  "Parece que eu tava esperando por isso há anos",
+  "A energia mudou aqui em casa depois que comecei os áudios",
+  "Vi uma luz forte enquanto ouvia o mantra, é real",
+  "Tem algo sagrado nesse conteúdo",
+  "Meu coração acelerou com a parte do Éden",
+  "Adão e Eva como nunca ouvi antes... surreal!",
+  "Meu filho ouviu comigo e ficou hipnotizado",
+  "Foi como uma memória antiga despertando dentro de mim",
+  "Tô me sentindo mais viva depois desse vídeo",
+  "Nunca vi tanta verdade junta num só lugar",
+  "Me fez lembrar de sonhos que eu nem sabia que lembrava",
+  "É impossível assistir isso e sair igual",
+  "Tô sentindo como se fosse o início de algo maior",
+  "A parte do poder das mãos me emocionou muito",
+  "Comecei a aplicar os gestos e senti a energia fluir!",
+  "Até meu marido ficou curioso e tá assistindo agora",
+  "Esse material precisa ser protegido, é precioso demais",
+  "Tô com lágrimas nos olhos desde os primeiros minutos",
+  "Essa live vale mais do que qualquer curso que já fiz",
+  "Me deu coragem pra mudar minha vida",
+  "Parece que as palavras me limpam por dentro",
+  "Já tô no 3º dia do Portal e meu sono melhorou muito",
+  "Nunca imaginei que textos antigos pudessem ser tão atuais",
+  "Essa é a sabedoria que a gente devia aprender na escola",
+  "Essa vibração que sinto é diferente de tudo",
+  "Foi como se alguém apertasse um botão dentro de mim",
+  "Sinto como se tivesse sido ativada espiritualmente",
+  "Se você tá vendo isso, é porque tá pronta pra mudar",
+  "Quem mais tá chorando com isso aqui?",
+  "Isso faz TODO sentido agora...",
+  "Alguém mais sentiu uma energia diferente agora?",
+  "Meu Deus, chorei com essa parte da queda 😭",
+  "Comecei ontem e já sonhei com símbolos!",
+  "Estou sentindo um chamado muito forte aqui",
+  "É como se eu sempre soubesse disso, mas tinha esquecido",
+  "Essa parte da respiração mudou minha percepção",
+  "Que paz ouvir isso...",
+  "Peguei o material com o bônus 🙌",
+  "Comecei o Portal dos 7 Dias hoje e já me senti mais leve",
+  "Nunca vi nada assim, tô impactada",
+  "A voz do narrador parece que fala direto comigo",
+  "Peguei a oferta com 95% de desconto!",
+  "Isso me lembrou de um sonho que tive quando criança",
+  "Estou tremendo. Isso não é coincidência",
+  "As vestes de luz... MEU DEUS.",
+  "Minha mãe também tá assistindo comigo, estamos chocadas",
+  "O som do mantra me fez chorar sem explicação",
+  "Isso devia estar na Bíblia!",
+  "É hoje que minha vida muda",
+  "Esse conhecimento estava escondido da gente 😡",
+  "Comprei sem pensar duas vezes",
+  "Tô sentindo como se estivesse voltando pra casa",
+  "É como se uma parte minha estivesse despertando",
+  "Estou no segundo dia do ritual. É real demais",
+  "Senti um calor forte no peito com a oração",
+  "As palavras têm mesmo poder, gente",
+  "Gratidão por revelar isso. Você foi corajoso",
+  "Esse conteúdo vai mudar o mundo",
+  "Já mandei pra minha irmã, ela precisa ver isso",
+  "Quem já começou o áudio místico?",
+  "O manual do poder interior é surreal",
+  "Não dá pra voltar ao “normal” depois disso",
+  "Estou em lágrimas. Algo dentro de mim foi ativado",
+  "Essa parte dos anjos me tocou profundamente",
+  "Acabei de adquirir. Tô sentindo que vai virar tudo",
+  "Tô com frio na barriga de tanta verdade",
+  "Parece que esse vídeo me encontrou",
+  "Comecei a respirar diferente depois daquele exercício",
+  "Já quero viver só conectado com essa luz",
+  "Isso precisa chegar em mais pessoas 🙏",
+  "Eu também vi esse número 7 ontem!",
+  "Isso tá me explicando coisas que a religião nunca explicou",
+  "Minha intuição está gritando: pega isso agora!",
+  "Essa live não é por acaso, é um reencontro",
+  "Nunca acreditei em live... até hoje",
+  "Alguém mais tá sentindo como se fosse chamado?",
+  "Isso aqui vale mais que qualquer faculdade",
+   "Essa reprogramação tocou em feridas que eu nem sabia que tinha",
+  "É como se uma parte esquecida de mim tivesse despertado",
+  "Algo em mim despertou de um sono muito antigo",
+  "Senti meu corpo vibrar com o som do áudio",
+  "Já ouvi várias vezes e cada vez sinto algo novo",
+  "Nunca imaginei sentir isso com um conteúdo online",
+  "Cada palavra parece acender algo dentro de mim",
+  "É como se esse material fosse feito pra mim",
+  "Estou arrepiada só de lembrar do que ouvi",
+  "A energia mudou completamente depois que comecei a aplicar",
+  "Minha visão sobre espiritualidade virou de ponta cabeça",
+  "Senti como se voltasse a um lugar que sempre me pertenceu",
+  "Essa sabedoria antiga faz mais sentido do que tudo que já li",
+  "Me emocionei com a conexão entre as palavras e minha alma",
+  "Parece que minha alma foi tocada de verdade",
+  "Esse conhecimento ativa algo que não dá pra explicar",
+  "Finalmente encontrei algo que fala a minha língua espiritual",
+  "Nunca pensei que textos antigos mudariam minha rotina",
+  "Esse é o conteúdo que deveria estar em todo lugar",
+  "Me deu força, clareza e um sentimento de missão",
+  "Cada áudio parece limpar camadas antigas dentro de mim",
+  "Até minha saúde emocional melhorou com os rituais",
+  "Tô vivendo o que parecia impossível há pouco tempo",
+  "Nunca mais quero ficar longe dessa energia",
+  "Agora entendo o que significa conexão com a criação",
+  "Depois desse conteúdo, mudei minha forma de viver",
+  "Não consigo mais pensar como antes",
+  "Isso é espiritualidade real, sem dogmas, sem medo",
+  "Me reconectei comigo mesma de uma forma inexplicável",
+  "Tem algo divino nesses ensinamentos",
+  "Não é só um conteúdo. É uma ativação",
+  "Minha casa ficou mais leve, mais silenciosa por dentro",
+  "Me senti abraçada espiritualmente",
+  "Parece que alguém escreveu isso pra minha alma",
+  "Chorei, sorri e me silenciei. Tudo num só vídeo",
+  "Ouvir isso me devolveu a fé que eu achava perdida",
+  "Entendi o que é prosperidade de verdade agora",
+  "A frequência do áudio me levou a outro estado de consciência",
+  "Minha mente se abriu como nunca antes",
+  "Não tem mais como ignorar: algo mudou em mim",
+  "Essa foi a melhor escolha que fiz esse ano",
+  "Simplesmente... obrigada. De verdade.",
+  "Minha jornada começou aqui. Não tem mais volta",
+  "Esse conteúdo vai muito além do que esperava",
+  "Senti a presença de algo maior enquanto assistia",
+  "Não sou mais a mesma depois disso",
+  "Senti uma verdade que não se explica, só se sente",
+  "É libertador quando a alma reconhece o que é real",
+  "Foi como olhar no espelho da minha essência",
+  "Tô voltando pra casa, espiritualmente falando",
+  "Eu nunca comentei em nada… mas isso me fez escrever"
+];
+
+const nomesMulheres = [ 
+  "Ana Paula Soares", "Juliana Ribeiro", "Camila Oliveira", "Letícia Martins", "Fernanda Costa",
+  "Tatiane Melo", "Mariana Gomes", "Bruna Albuquerque", "Aline Rodrigues", "Vanessa Freitas",
+  "Carla Souza", "Natália Moreira", "Patrícia Lima", "Larissa Duarte", "Renata Silveira",
+  "Simone Carvalho", "Gisele Ferreira", "Érica Nogueira", "Daniela Rocha", "Andreia Pires",
+  "Thaís Almeida", "Roberta Monteiro", "Michele Cardoso", "Bianca Machado", "Viviane Cruz",
+  "Joyce Santana", "Rafaela Santos", "Eliane Moraes", "Débora Andrade", "Jéssica Fonseca"
+];
+
+const nomesHomens = [ 
+  "Lucas Moreira", "Rafael Lima", "João Victor Souza", "Marcos Henrique", "Bruno Ferreira",
+  "Felipe Duarte", "Gustavo Alves", "Leandro Martins", "Daniel Cardoso", "Caio Mendes",
+  "Rodrigo Nogueira", "Thiago Costa", "Matheus Silveira", "Alexandre Rocha", "Diego Ramos",
+  "Vinícius Andrade", "Eduardo Pinto", "Pedro Augusto", "Gabriel Oliveira", "André Faria",
+  "Jorge Luiz", "Robson Batista", "Carlos Eduardo", "Wellington Araújo", "Renato Cunha",
+  "Wallace Moraes", "Igor Santana", "Fábio Barreto", "Jefferson Dias", "Samuel Ribeiro"
+];
+
+function createMessage(name, text) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = "message";
+  messageDiv.innerHTML = `
+    <div class="message-content">
+      <div class="message-name">${name}</div>
+      <div class="message-text">${text}</div>
+    </div>
+  `;
+  return messageDiv;
+}
+
+function addRandomMessage() {
+  const isMulher = Math.random() < 0.5;
+  const nomes = isMulher ? nomesMulheres : nomesHomens;
+  const randomName = nomes[Math.floor(Math.random() * nomes.length)];
+  const randomText = messages[Math.floor(Math.random() * messages.length)];
+
+  const msg = createMessage(randomName, randomText);
+  const chat = document.getElementById("chatMessages");
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+
+// Mensagem aleatória de 5 a 10 segundos
+setInterval(() => {
+  addRandomMessage();
+}, Math.floor(Math.random() * 5000) + 5000);
+
+
+
+// Enviar mensagem do usuário
+document.getElementById("sendBtn").addEventListener("click", () => {
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+  if (text) {
+    const msg = createMessage("Você", text);
+    document.getElementById("chatMessages").appendChild(msg);
+    input.value = "";
+    document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+  }
+});
+
+
+
+
+
+
+ // right click block
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+
+
+
+
+
+
+// Mostra o popup ao terminar o vídeo, e inicia o timer de 15s
+video.addEventListener('ended', function() {
+  document.getElementById('modalPopup').style.display = 'flex';
+
+  let redirecionado = false;
+  const destino = "https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo.";
+
+  document.getElementById('btnWhatsApp').addEventListener('click', function() {
+    redirecionado = true;
+  });
+
+  setTimeout(function() {
+    if (!redirecionado) {
+      window.location.href = destino;
+    }
+  }, 15000);
+});
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+function getBrowserId() {
+  let id = localStorage.getItem('browserId');
+  if (!id) {
+    id = 'browser-' + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('browserId', id);
+  }
+  return id;
+}
+
+const browserId = getBrowserId();
+
+let horaEntrada = localStorage.getItem('horaEntrada-lead1');
+let dataEntrada = localStorage.getItem('dataEntrada-lead1');
+const agora = new Date();
+
+if (!horaEntrada || !dataEntrada || dataEntrada !== agora.toLocaleDateString('pt-BR')) {
+  horaEntrada = agora.toTimeString().substr(0,8);
+  dataEntrada = agora.toLocaleDateString('pt-BR');
+  localStorage.setItem('horaEntrada-lead1', horaEntrada);
+  localStorage.setItem('dataEntrada-lead1', dataEntrada);
+}
+
+function enviarDados() {
+  const agora = new Date();
+  const horaSaida = agora.toTimeString().substr(0,8);
+  fetch('https://script.google.com/macros/s/AKfycbxDrp0VYFxwfsqeL2rv9ePJIXdm1E9lXjfDyuqwQcD44ITOp1ysW43VTnLQh-CI0mey/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      browserId: browserId,
+      horaEntrada: horaEntrada,
+      horaSaida: horaSaida,
+      data: dataEntrada,
+      paginaOrigem: 'lead3'
+    })
+  });
+}
+
+// Envia ao entrar e a cada 1s
+enviarDados();
+setInterval(enviarDados, 1000);
+
+</script>
+
+
+
+
+	
+</body>
+</html>
