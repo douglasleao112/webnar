@@ -142,7 +142,7 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1265697105146618'); // seu ID do pixel
+  fbq('init', '1290378376428374'); // seu ID do pixel
   fbq('track', 'PageView');
 </script>
 
@@ -567,6 +567,36 @@ function iniciarVideo() {
   }
 }
 
+
+
+
+
+
+
+let leadDisparado = false;
+
+function checarLead() {
+  // Dispara o evento somente uma vez e após 5 segundos assistidos
+  if (!leadDisparado && video.currentTime >= 5) {
+    leadDisparado = true;
+    // Aqui você coloca o disparo do evento. Exemplo com Facebook Pixel:
+    if (typeof fbq === "function") {
+      fbq('track', 'Lead');
+      console.log('Evento Lead disparado!');
+    }
+    // Ou qualquer outro evento JS desejado
+  }
+}
+
+video.addEventListener('timeupdate', checarLead);
+
+
+
+
+
+
+
+
 playButton.addEventListener('click', iniciarVideo);
 overlay.addEventListener('click', iniciarVideo);
 
@@ -915,7 +945,7 @@ video.addEventListener('ended', function() {
   document.getElementById('modalPopup').style.display = 'flex';
 
   let redirecionado = false;
-  const destino = "https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo.";
+  const destino = "https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo..";
 
   document.getElementById('btnWhatsApp').addEventListener('click', function() {
     redirecionado = true;
