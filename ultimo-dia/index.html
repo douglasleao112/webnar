@@ -862,7 +862,7 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   const input = document.getElementById("userInput");
   const text = input.value.trim();
   if (text) {
-    const msg = createMessage("Você", "https://cdn-icons-png.flaticon.com/512/9187/9187604.png", text);
+    const msg = createMessage("Você", text);
     document.getElementById("chatMessages").appendChild(msg);
     input.value = "";
     document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
