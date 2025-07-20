@@ -515,7 +515,7 @@
 
 
 const barraTempo = document.getElementById('barraTempo');
-const video = document.getElementById('customVideo');
+
 
 // Atualiza a barra de progresso com a dinâmica especial
 function atualizarBarraTempo() {
@@ -567,10 +567,12 @@ video.addEventListener('ended', () => {
 
     if (typeof fbq === 'function') {
       fbq('track', evento);
+      console.log("🔥 Pixel " + evento + " enviado via fbq");
     }
 
     const img = new Image();
     img.src = "https://www.facebook.com/tr?id=" + pixel + "&ev=" + evento + "&noscript=1";
+    console.log("🖼️ Pixel " + evento + " enviado via imagem");
   }
 
 let videoJaIniciado = false;
@@ -579,6 +581,7 @@ let intervalCriado = false;
 function enviarPixelDireto(evento) {
   if (typeof fbq === 'function') {
     fbq('track', evento);
+    console.log("🔥 Pixel " + evento + " enviado via fbq");
   }
 }
 
