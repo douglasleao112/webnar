@@ -1,0 +1,1100 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>YouTube</title>
+  <!-- FAVICON DO YOUTUBE -->
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" sizes="32x32">
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+      .container {
+      max-width: 480px;
+      margin: 8px auto 0 auto;
+      padding: 0 9px;
+      font-family: Arial, sans-serif;
+    }
+	
+	
+
+ 
+    .canal {
+      max-width: auto;
+      padding: 16px;
+	   border-top: 1px solid #e0e0e0; 
+    
+    }
+
+    .contador {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .info-canal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    }
+
+    .info-usuario {
+      display: flex;
+      align-items: center;
+	   flex: 1; 
+    }
+
+    .info-usuario img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      margin-right: 12px;
+      object-fit: cover;
+    }
+
+    .info-usuario div {
+      line-height: 1.2;
+    }
+
+    .btn-inscrever {
+      padding: 8px 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-inscrever.ativo {
+      background-color: red;
+    }
+
+ .botoes-reacao-wrapper {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  display: inline-flex;
+  padding: 6px 10px;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+    .reacao {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reacao img {
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+.like-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-right: 12px;
+}
+
+.like-count {
+  font-size: 12px;
+  color: #444;
+}
+
+.barra-lateral {
+  width: 1px;
+  height: 18px;
+  background-color: #ccc;
+  position: absolute;
+  right: 0;
+}
+
+    .reacao.activo img {
+      opacity: 1;
+    }
+ 
+ 
+	
+  </style>
+
+
+	<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1290378376428374'); // seu ID do pixel
+  fbq('track', 'PageView');
+</script>
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+ <div class="container">
+
+
+    <!-- TOPO FIXO DENTRO DO CONTAINER -->
+<div style="
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 10px 0;
+  font-family: Impact, sans-serif;
+  border-bottom: 1px solid #f0f0f0;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+">
+  <!-- ÍCONE MENU + LOGO -->
+  <div style="font-size: 27px; cursor: pointer; color: #2a2a2a; display: flex; align-items: center;">
+    <span style="margin-right: 14px; vertical-align: middle;">&#9776;</span>
+    <img src="https://static.wikia.nocookie.net/logopedia/images/4/40/Bem_Estar_logo_2015.png" 
+         style="width: 60px; vertical-align: middle;">
+  </div>
+  <!-- ÍCONES À DIREITA -->
+  <div style="display: flex; gap: 10px; margin-left: auto;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcbsTsrYitGjgtV3IZNpJZBOkfZ9DzpwoIRg&s" style="width: 24px; height: 24px; cursor: pointer;">
+    <img src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" style="width: 24px; height: 24px; cursor: pointer; border-radius: 50%;">
+  </div>
+</div>
+
+
+
+
+ 
+
+<!-- VÍDEO COM PLAY EM QUALQUER LUGAR -->
+<div style="position: relative; width: 100%; max-width: 480px; margin: auto; font-family: Arial, sans-serif;">
+  <video id="customVideo"
+
+         style="width: 100%; display: block;"
+         preload="metadata"
+         playsinline
+         poster="https://static.wixstatic.com/media/7f5efc_103c9c11239a479793677c2a613ec50c~mv2.gif">
+    <source src="https://video.wixstatic.com/video/7f5efc_aec442c75e554b5aaa503378fab6a43f/480p/mp4/file.mp4" type="video/mp4">
+    Su navegador no soporta video.
+  </video>
+
+  <!-- Camada clicável -->
+  <div id="videoClickOverlay" style="
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    cursor: pointer;
+    z-index: 3;
+  "></div>
+
+  <!-- Botão play -->
+  <button id="playButton" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 4;
+  ">
+    ▶
+  </button>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- TUDO QUE IRA APARECER NO PITCH -->
+<div id="pitchButtonContainer" style="display: none; max-width: 480px; margin: 20px auto; text-align: center; font-family: Arial, sans-serif;">
+  
+	 <!-- TEXTO TOPO BOTAO -->
+  <div style="font-family: Arial, sans-serif; text-align: center; line-height: 1.6;">
+  <div style="font-size: 22px; color: #555;">
+    Normalmente custa: <span style="text-decoration: line-through; color: red;">R$ 500</span>
+  </div>
+  <div style="font-size: 20px; color: #000;">
+    Somente agora: <span style="color: #28a745; font-weight: bold;">R$ 27,90 Pagamento Único </span>
+  </div>
+</div><br>
+	
+	
+<a href="https://sun.eduzz.com/6W48VYYN0Z" style="
+     display: block;
+    width: 100%;
+    background: #ff6e11;
+    color: #fff;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 22px 0;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 0 12px rgba(226, 140, 10, 0.6);
+    animation: pulse 1.5s infinite;
+    transition: transform 0.2s ease;
+  ">
+    Acessar os Segredos <br>Ocultos de Adão e Eva
+ </a>
+  <!-- TEXTO ABAIXO BOTAO -->
+  <div style="margin-top: 10px; font-size: 14px; color: #333;">
+    <b>APROVEITE AGORA:</b><br>90% de desconto.
+  </div>
+ <br>
+</div>
+
+	
+<style>
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 181, 10, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+</style>
+
+
+
+	 
+
+
+
+
+
+<!-- TÍTULO ABAIXO DO VÍDEO -->
+<div style="
+  max-width: 480px;
+  margin: 0 auto 16px auto;
+  margin-top: 10px;
+  font-family: 'Avenir', Arial, sans-serif;
+  text-align: left;
+  line-height: 1.3;
+">
+  <div style="font-size: 18px;">
+    <span style="font-weight: bold; color: #242424;">
+      URGENTE | Descoberto os segredos ocultos de Adão e Eva e revela mensagem secreta que ninguém esperava!
+    </span>
+	<div class="contador" style="margin-top: 15px;"><span id="viewerCountTop">1473</span> pessoas ao vivo agora <span id="currentHour"></span>h, hoje <span id="todayDate"></span></div>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- COMENTÁRIOS YOUTUBE -->
+<div class="chat-container">
+  <div class="chat-header">Chat ao vivo</div>
+  <div class="chat-messages" id="chatMessages"></div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Chat..." />
+    <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" id="sendBtn" />
+  </div>
+</div>
+
+<style>
+.chat-container {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: white;
+  margin: 0 auto;
+}
+
+.chat-header {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px;
+  background: #ffffff;
+  color: #222;
+  border-bottom: 1px solid #eee;
+}
+
+.chat-messages {
+  height: 240px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+	
+.message img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+	
+.message-content {
+  background: none;
+  padding: 0;
+}
+
+.message-name {
+  font-weight: bold;
+  color: #365899;
+  font-size: 13px;
+}
+
+.message-text {
+  font-size: 13px;
+  color: #111;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 8px;
+  background: #ffffff;
+  align-items: center;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  outline: none;
+  background: #f0f0f0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+</style>
+
+
+ 
+
+
+<br>
+
+
+
+<!--INFO DO CANAL YOUTUBE -->
+  <div class="canal">
+  
+   <div class="info-canal">
+      <div class="info-usuario">
+        <img src="https://i.scdn.co/image/ab6765630000ba8a22cc32fc45de8bdaae373e21" >
+        <div>
+          <strong>Bem Estar</strong><br>
+          <span style="font-size: 13px; color: gray;">22,5 mi de inscritos</span>
+        </div>
+      </div>
+  <div style="margin-left: auto;">
+      <button id="btnInscrever" class="btn-inscrever">Inscrever-se</button>
+	  </div>
+   </div>
+    
+
+    <div class="botoes-reacao-wrapper">
+      <div class="reacao like-container" id="btnLike">
+  <img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" alt="Like">
+  <span class="like-count">4,8 mil</span>
+  <div class="barra-lateral"></div>
+</div>
+
+
+
+      <div class="reacao" id="btnDislike">
+        <img src="https://cdn-icons-png.flaticon.com/512/126/126504.png" alt="Dislike">
+      </div>
+    </div>
+	
+
+	<div class="botoes-reacao-wrapper" style="margin-left: 10px;">
+  <div class="reacao" id="btnCompartilhar" style="gap: 8px;">
+    <img src="https://pngimg.com/d/share_PNG27.png" alt="Compartilhar" style="width: 18px; height: 18px;">
+    <span style="font-size: 12px; color: #555;">Compartilhar</span>
+  </div>
+</div>
+
+
+
+	<div class="botoes-reacao-wrapper" style="margin-left: 10px;">
+    <div class="reacao" id="btnSalvar" style="gap: 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/5662/5662990.png" alt="Compartilhar">
+    <span style="font-size: 12px; color: #555;">Salvar</span>
+  </div>
+</div>
+
+ </div>
+
+
+
+<br><br><br><br><br>
+</div>
+
+
+
+
+
+<script>
+ const video = document.getElementById('customVideo');
+  const playButton = document.getElementById('playButton');
+  const overlay = document.getElementById('videoClickOverlay');
+
+  function enviarPixelDireto(evento) {
+    const pixel = '1265697105146618';
+
+    if (typeof fbq === 'function') {
+      fbq('track', evento);
+      console.log("🔥 Pixel " + evento + " enviado via fbq");
+    }
+
+    const img = new Image();
+    img.src = "https://www.facebook.com/tr?id=" + pixel + "&ev=" + evento + "&noscript=1";
+    console.log("🖼️ Pixel " + evento + " enviado via imagem");
+  }
+
+let videoJaIniciado = false;
+let intervalCriado = false;
+
+function enviarPixelDireto(evento) {
+  if (typeof fbq === 'function') {
+    fbq('track', evento);
+    console.log("🔥 Pixel " + evento + " enviado via fbq");
+  }
+}
+
+function iniciarVideo() {
+  if (videoJaIniciado) return;
+  videoJaIniciado = true;
+
+  // Desativa os eventos de clique para evitar duplicações
+  playButton.removeEventListener('click', iniciarVideo);
+  overlay.removeEventListener('click', iniciarVideo);
+
+  video.play().then(() => {
+    console.log("▶️ Vídeo reproduzido");
+  }).catch((err) => {
+    console.warn("🚫 Falha ao reproduzir o vídeo:", err);
+  });
+
+  playButton.style.display = 'none';
+  overlay.style.display = 'none';
+
+  let eventosDisparados = {
+    lead: false,
+    complete: false,
+    section: false,
+    steps: {}
+  };
+
+  if (!intervalCriado) {
+    intervalCriado = true;
+
+    setInterval(() => {
+      const tempo = Math.floor(video.currentTime);
+      console.log("⏱️ Tempo do vídeo:", tempo);
+
+
+
+
+
+// Despara evento para interação com video
+      if (tempo >= 3 && !eventosDisparados.lead) {
+        enviarPixelDireto("Contact");
+        eventosDisparados.lead = true;
+      }
+
+// Despara evento de tempo em tempo 30.30
+      if (tempo > 0 && tempo % 30 === 0) {
+        const stepNum = tempo / 30;
+        if (!eventosDisparados.steps[stepNum]) {
+          enviarPixelDireto("abacate" + stepNum); // evento personalizado
+          eventosDisparados.steps[stepNum] = true;
+        }
+      }
+	    
+// Despara evento chegou no pitch
+      if (tempo >= 10 && !eventosDisparados.complete) {
+        enviarPixelDireto("CompleteRegistration");
+        eventosDisparados.complete = true;
+      }
+
+	    
+// Mostrar botão
+      if (tempo >= 10 && !eventosDisparados.section) {
+        document.getElementById("pitchButtonContainer").style.display = "block";
+        window.parent.postMessage({ tipo: "mostrarSection2" }, "*");
+        eventosDisparados.section = true;
+      }
+
+    }, 1000);
+  }
+}
+
+playButton.addEventListener('click', iniciarVideo);
+overlay.addEventListener('click', iniciarVideo);
+
+
+	
+  // Atualiza número de pessoas no contador
+  const viewerElement = document.getElementById('viewerCount');
+  function updateViewerCount() {
+  const random = Math.floor(Math.random() * (5180 - 5147 + 1)) + 5147;
+  const el1 = document.getElementById('viewerCount');
+  const el2 = document.getElementById('viewerCountTop');
+  if (el1) el1.textContent = random;
+  if (el2) el2.textContent = random;
+}
+
+updateViewerCount();
+setInterval(updateViewerCount, 5000);
+  
+  
+  
+  
+  // Mostra a data atual
+const dateElement = document.getElementById('todayDate');
+const today = new Date();
+const day = String(today.getDate()).padStart(2, '0');
+const month = String(today.getMonth() + 1).padStart(2, '0');
+dateElement.textContent = `${day}/${month}`;
+
+
+	
+	
+	// Mostra a hora atual
+const hourElement = document.getElementById('currentHour');
+function updateHour() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  hourElement.textContent = `${hours}:${minutes}`;
+}
+updateHour();
+setInterval(updateHour, 60000); // atualiza a cada minuto
+
+
+
+</script>
+
+
+
+	
+<script>  // UTM HOTMART
+  const hotmartPrefixes = [
+    "https://payment.hotmart.com",
+    "https://pay.hotmart.com",
+    "https://go.hotmart.com"
+  ];
+
+  const urlParams = window.location.search;
+
+  if (urlParams) {
+    document.querySelectorAll("a").forEach(link => {
+      hotmartPrefixes.forEach(prefix => {
+        if (link.href.includes(prefix)) {
+          const separator = link.href.includes("?") ? "&" : "?";
+          link.href += separator + urlParams.substring(1); 
+        }
+      });
+    });
+  }
+</script>
+
+
+
+
+<script>  // UTM EDUZZ
+(function() {
+     const utmParamQueryString = new URLSearchParams(window.location.search);
+     if (utmParamQueryString.toString()) {
+          var navLinks = document.querySelectorAll('a');
+          navLinks.forEach(function(item) {
+               if (item.href.indexOf('https://sun.eduzz.com') !== -1) {
+                    if (item.href.indexOf('?') === -1) {
+                         item.href += '?' + utmParamQueryString.toString();
+                    } else {
+                         item.href += '&' + utmParamQueryString.toString();
+                    }
+               }
+          });
+     }
+})();
+
+</script>
+
+
+
+
+
+
+
+
+
+<script>   
+  let totalSeconds = 23 * 60 + 51;    // timer do box vermelho, contagem contagem do inicio do video
+
+  function updateCountdown() {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+    document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+
+    if (totalSeconds > 0) {
+      totalSeconds--;
+    }
+  }
+
+  updateCountdown(); // inicial
+  setInterval(updateCountdown, 1000); // atualiza a cada segundo
+</script>
+
+
+
+
+  <script> // SALVAR E LIKE/UNLINE
+    const btnInscrever = document.getElementById('btnInscrever');
+  const btnLike = document.getElementById('btnLike');
+  const btnDislike = document.getElementById('btnDislike');
+  const btnSalvar = document.getElementById('btnSalvar');
+  const btnCompartilhar = document.getElementById('btnCompartilhar');
+
+  btnInscrever.addEventListener('click', () => {
+    btnInscrever.classList.toggle('ativo');
+  });
+
+  btnLike.addEventListener('click', () => {
+    btnLike.classList.toggle('activo');
+    btnDislike.classList.remove('activo');
+  });
+
+  btnDislike.addEventListener('click', () => {
+    btnDislike.classList.toggle('activo');
+    btnLike.classList.remove('activo');
+  });
+
+  btnSalvar.addEventListener('click', () => {
+    btnSalvar.classList.toggle('activo');
+  });
+
+  btnCompartilhar.addEventListener('click', () => {
+    console.log('Botão Compartilhar clicado (sem ação)');
+  });
+  </script>
+
+
+
+
+<script>// FOTOS 
+const avataresMulheres = [
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQanM0AKa99-r3CV0RBhUt18d47m6PBSBrUeA&s",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwAWl0JpQe-iJzUciXn0EFkdE-y63XT1a5QIwPBdVu94cVav7gwgLWvJLmWzDqHcriGRUkXuUsA0EBCzpQZl4EAeu_sC9YXZDiR0Bm7zO3JrlCTjTCZoL3iD7-NRTyo-CMeMzw3Ph0Umc/s1600/3x4.jpg",
+  "https://images.pexels.com/photos/18160228/pexels-photo-18160228/free-photo-of-mulher-face-rosto-cara.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://images.pexels.com/photos/4664764/pexels-photo-4664764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtH2xteeLuzOHUKF19otrirGr2FN1_4k2_T6zUbmI5btD_Q2wvzPN_uwPYxjJvxfJXepAy-yVadNnPpKwCjixvnQidzdOJTMzXZ30k39HdNmyN0bWIjrwwwwJ7PQ0qpsXfi_m2nQ0odjwy/s1600/foto+3por4.jpeg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_E0KHYNYOiP28nUEAni0a7BHJYQjy4II47iIVdu6Evcr5Hcfmlruyv-LNtffQWokkqSk&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuk2FqUfUDv29LdBogHVrsIDOJPjAOYcaVcP2mVXqwMg8sOBWLsFlmsQCNWErBBI8RWKw&usqp=CAU",
+  "https://www.woodlandtownship.org/vertical/Sites/%7B398AF088-65EC-478C-9A50-C859C1E90BF3%7D/uploads/Karenrotated.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ8_-2e6u3wvtoSH-Un3osnV0pRQrPBOx0c2Ow_wUTYZNyUb8Xu15Dec1Owe7PNG8m88Q&usqp=CAU",
+  "https://www.serpro.gov.br/menu/quem-somos/inovacao-aberta/hackserpro/hackathon-rede-brasil/mentores/foto-3x4-marcia-marcia-de-moraes-falcao.jpg/@@images/6fed88dd-53d5-4656-b997-77e6484d7ad1.jpeg",
+  "https://i.pinimg.com/736x/12/2b/b2/122bb26ccfcd4bc892277194f9d5228b.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReEpV3cgcxv-7K69d3f1kucaaz980kwRn5BBobZcIYzz9r8hIEkXzdyzYQf42R1D7XCxs&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG_gUOPz0k9ZMA48VL5hpvXoTtyLApgtBtZiCB8J4bGNaUdMT0U87fpAkx4g2I0PeAsBE&usqp=CAU",
+  "https://www.gazetamineira.com.br/wp-content/uploads/2023/09/samara-resolveu-compartilhar-a-descriminacao-no-linkedin-para-servir-de-alerta-para-outros-profissionais_1_62395-0DXpvo-scaled.jpeg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJi9p3XS6gEOIl5CF-w247w6iC6RPGGXLkcVi5RTLC4ljQn2Y0G1iopcY_pAT87nfp0R8&usqp=CAU",
+  "https://i.pinimg.com/474x/40/4c/35/404c356b9f27a5513f5cfc04cc266ce4.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQov3iSvZI0mmPdX7G-XlPI_ZufQF_a__HqN6tXXl876qFf04bL2Eek9rx80r2kJNY2hmQ&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkMJFILpBjdDM5Ie3RFT1hoagQuEogmGCkL3V9iU_ggpH_TKdyU-uuKSmj_VWmmLqkDTE&usqp=CAU",
+  "https://i.pinimg.com/736x/cc/ab/26/ccab26e639a602ab2015e77eaabb2d84.jpg",
+  "https://i.pinimg.com/236x/41/f7/a7/41f7a75519223079e962d7904916a49d.jpg",
+  "https://conteudo.imguol.com.br/c/entretenimento/28/2021/08/16/gabriela-bacelar-fala-sobre-assedio-nas-redes-sociais-apos-publicar-foto-pos-treino-e-termo-ze-iml-sobre-homens-que-dao-like-em-foto-de-corpo-1629144442732_v2_450x600.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR54KdbNiclBtXzMUyuhh2buWMkRyER0g_xrDSCLN-cjEcKmlllt8gCCtCIrIopnQBe80&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNelbCGWz1QhxZETmdyfMBQ-Y8k7dTkImCWAZ2Hbda-i-mgqZVX4CoKHlSF7D5pTGStY&usqp=CAU",
+  "https://storage.alboom.ninja/sites/12999/media/20841125_1231455266966305_7701507656374992607_n_b6ed5833d2e7_54ddc3f2ae66.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWsbhXLK0jq4noFnTAR_ZcnqqhmByKVvKlS1BUGetjNLT9KUDAit7n6RSLIY5KIEQbI2k&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd9llRDd2PcD-F5MVYvQa-6DWrWay37KB7J-5lmRQL-A1x8CW1gc2-TZ7uEtY3SOw3_gA&usqp=CAU",
+  "https://arte.estadao.com.br/public/pages/43/1o/e2/2d/o5/8p/kirakimura.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStcQz1KettY2r4d_UTmMkXDnF6vQ6rqsx_aWyIpBzL_DSAde3poBhPYvnizSj6pEAGANs&usqp=CAU",
+  "https://cdn6.campograndenews.com.br/uploads/noticias/2020/03/10/2nycib7k98e8o.jpg",
+  "https://cdn6.campograndenews.com.br/uploads/noticias/2020/03/10/2m4nuevi323b.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR84kAm-lkfzOehumuB2DyMH8RBF0gCG8LH4bq7b4lPAvHKl-TLtDZn2hIYvG_93htYYhE&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpnGwNSTQHYghI6IZycXxVVYrynNmXcT5NrpeA77BM0FljpQl_Wx8DDKJKflx0MiLf-J4&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfLI1YKuYmnzrH2pytNt_zuQ8yRJ0hP2PU0Q&s",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVeUiC4n-pmvc2OxCweVs7oJL6SM9sMOhOqs6LxLo3G-ZreCNbp1CSKtxWhS57EtuiEU&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqRl8Fqi4_WaC0fBvIr_exqwqad6U3s7sU8A&s",
+  "https://conteudo.imguol.com.br/c/entretenimento/28/2021/08/16/gabriela-bacelar-fala-sobre-assedio-nas-redes-sociais-apos-publicar-foto-pos-treino-e-termo-ze-iml-sobre-homens-que-dao-like-em-foto-de-corpo-1629144442732_v2_450x600.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpDclReE7NoAOPlyMUDZSZOeE08BGFKysP0QMZf6CLhFPcwSHrWmdQxqoscepEWzmbP7s&usqp=CAU"
+];
+
+
+const avataresHomens = [ 
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq0jls4tKxq6BxwxiA4Amhif4qtfzJoD-1TQ&s",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY6eGvFImEpywAD8COfCx6MEVkQ2yAHEQ0uihprXtgigRxVvjtSOEc25wVkxTc4oV5Gxk&usqp=CAU",
+  "https://www.olhardireto.com.br/imgsite/noticias/Anderson-Facebook.jpg",
+   "https://thumbs.dreamstime.com/b/modelo-adulto-masculino-atrativo-consider%C3%A1vel-da-pessoa-dos-retratos-pr%C3%B3ximos-de-face-para-cima-express%C3%A3o-tiros-autumn-season-134123931.jpg",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXO2PbwqVlL3gWJ_ZY8m_1Ops2sa8Shwu-IF5Ukfa9C4L3E0pFNU3uWxt42YZhmIFPP_g&usqp=CAU",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiWaw1RLfytiqsU6aIZZ1Zjpt5iLCN89IYzg&s",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Kpv33b0HoCSPr4b5GCnAk1AxMdUx4M-eTTQi2DpfpJUFQ85p9ChUBQ-M-0Gr2v_3IXE&usqp=CAU",
+   "https://i.em.com.br/coRusz_L1MNIfIEoyGSO26P47Ug=/1200x900/smart/imgsapp.em.com.br/app/noticia_127983242361/2022/08/14/1386588/frame-do-video-no-qual-tom-holland-anunciou-que-fara-uma-pausa-nas-redes-sociais_1_86486.jpg",
+   "https://i.pinimg.com/236x/9e/53/d5/9e53d5898b8bdb9c177615c3b3729c2a.jpg",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK65_tB3h4eGcBhwUdqU4TEo3eZJfgEn7t5W_rPZXWSJti2Ed6GCJ6pKZreMXzq3bpXJ4&usqp=CAU",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy7AbnKDfxt1pXvDgIae-mSpQbNu-l472NpwB4q98FWiljcUTrjNpg7GhEsGi8uDmRnnE&usqp=CAU",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR85olUlbkcRFZaOLQSFi86DV87un78Hv8fioRG-S-_KFdu0R_BA1Z86xDlMG7Bd_g_aWQ&usqp=CAU",
+   "https://s2-oglobo.glbimg.com/WzyohXDVGZWa1XDXAM2nB7HWFiY=/0x0:924x879/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2023/y/K/Qb7F5TQmelB2aA8BAg2g/leoindio.jpeg",
+   "https://res.cloudinary.com/lptennis/image/upload/c_fit,h_250,q_auto,w_250/v1616527773/urgiy9xourelgzlwnmpl.png",
+   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ43Ht9N3BCfOe7l0bDYvM1cGjudUgUQ0htQ1g9gAzxeuqnvtDP-YjAvJV-pH09FRdw32I&usqp=CAU",
+   "https://fly.metroimg.com/upload/q_85,w_700/https://uploads.metroimg.com/wp-content/uploads/2016/10/07004601/matt.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHc15eVfALdTRJbeU6s4SoKcclINKfAgk6IUBncS5anAlUXMczgAl0wONq-nVI3udsGgk&usqp=CAU",
+  "https://www.tediado.com.br/wp-content/uploads/2019/09/pessoas-que-se-parecem-com-adam-sandler-mas-nao-sao-adam-sandler-01.jpg",
+  "https://www.tediado.com.br/wp-content/uploads/2019/09/pessoas-que-se-parecem-com-adam-sandler-mas-nao-sao-adam-sandler-08.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeuvj8Txr8cRLVeOpy-FmXwzJ6lZWtg9dvhFYqYhifC6p7rsmvQmAhSqnJrLTIImKgPP0&usqp=CAU",
+  "https://www.tediado.com.br/wp-content/uploads/2019/09/pessoas-que-se-parecem-com-adam-sandler-mas-nao-sao-adam-sandler-02.jpg",
+  "https://www.tediado.com.br/wp-content/uploads/2019/09/pessoas-que-se-parecem-com-adam-sandler-mas-nao-sao-adam-sandler-09.jpg",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPhHhN2R6LuJG4vzYLy1mBsHH3f9dlOcLlONAcvO08P7_LlQwAi1J8_MaVhzbuFuZLJFk&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQujBJU4o5RwC7CHGyQn-wgf7qoFrMNo5zqVg&s",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-jmYFqUfXnZkhTVTmhXz58YmUCm86KglgD86F8rRHCzuGn3lMd1QBhaVJf-2LVmhyegc&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjo4MwJh39_-749_wEgwqO-agv4B6gkLjo6w&s",
+  "https://preview.redd.it/que-vibe-eu-passo-apesar-de-ser-3x4-eu-curto-essa-foto-v0-1zmcxy40ogwb1.jpg?width=1080&crop=smart&auto=webp&s=1aeb9edc637e3beda012ff29e552ba45444f1e7a",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0fGxBHYj9UMe0uuJRL3T1voCjxox9IHfLPTStsWYEGw045QQc6ZckN8O3qN8SvOyldl0&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7xAvPl4KSzEZyO_bZlIq4TRaRdTxlI8F-yd7GXd56nUfINc6C4G7i6RWkxk3sfZ5UbXg&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc16z50VjuVy2G4vYOqawPyHPn4keDNQSs0Yp84356XLZNZSkLluxQYHvFSUrqRxqRz98&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT805t03DUtnlP4YUztRC4gfemDRNUcvW12qCqJk8qti8JPLf_KGZU68ggPL4BVBnLn7Sg&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgCOYHs4xgUvrxH4pHMpLn28zwav-K-fEHrDmxi0jTEO0AGMJD2OtvfpMFkceDu3P_uxw&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3sRZ2snpS9YdznRwpB62zC2Rrpc2Miuyj3pVuSQrGWTw4DdJCabAHl5p76S0W4P78Lwo&usqp=CAU",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNxFJFaMM-PMe2aaA5MMKbURPDzJ7UyrJR4U2B1Mjj6nB7jt0o2QMcZ3IBNKZ02o4vcNQ&usqp=CAU",
+  "https://0e683bccde.cbaul-cdnwnd.com/478ba1fb4743e6523b5ae802a4a5a98d/system_preview_detail_200000002-38ab93a9fe/ely-3x4-300412-gravata.jpg",
+  "https://alanmirandas.wordpress.com/wp-content/uploads/2010/09/foto-3x4-alan_ok.jpg",
+  "https://i.pinimg.com/736x/f1/43/c6/f143c635d5b94e108d20b1d1c36d4056.jpg",
+  "https://media.licdn.com/dms/image/v2/C4D03AQHNO39EiFTItg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1629892038300?e=2147483647&v=beta&t=0kac-eoMpsv4QY425Z8Gl3ioUSsEAy3oZX4Uh7jkN1Q",
+  "https://images.pexels.com/photos/11395880/pexels-photo-11395880.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj1QXC8bcwJ7Yna0kgmF6GLD0vHtjANxl9rw&s",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCYCqnNKMwi07tdY-YjUwIHcJJWgNGNkSrLg&s",
+  "https://media.licdn.com/dms/image/v2/C4D03AQGhj6myhD1Ymw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1570394155009?e=2147483647&v=beta&t=u8GkbqxQx8NSWw8TJwkxPk_4UhOPFgKKV1OZbofd108",
+  "https://media.licdn.com/dms/image/v2/C4D03AQGd_IwRRnNpDw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1580749804433?e=2147483647&v=beta&t=a2RJYOReaIsxxe0i7AdQ77OVdDZeZXmoZSL7Qi5j8lw"
+];
+
+	
+const messages = [ // COMENTÁRIOS DA LIVE
+  "Gente, eu tô arrepiada com essa revelação 😳",
+  "Essa parte sobre a respiração me tocou demais",
+  "Parece que eu tava esperando por isso há anos",
+  "A energia mudou aqui em casa depois que comecei os áudios",
+  "Vi uma luz forte enquanto ouvia o mantra, é real",
+  "Tem algo sagrado nesse conteúdo",
+  "Meu coração acelerou com a parte do Éden",
+  "Adão e Eva como nunca ouvi antes... surreal!",
+  "Meu filho ouviu comigo e ficou hipnotizado",
+  "Foi como uma memória antiga despertando dentro de mim",
+  "Tô me sentindo mais viva depois desse vídeo",
+  "Nunca vi tanta verdade junta num só lugar",
+  "Me fez lembrar de sonhos que eu nem sabia que lembrava",
+  "É impossível assistir isso e sair igual",
+  "Tô sentindo como se fosse o início de algo maior",
+  "A parte do poder das mãos me emocionou muito",
+  "Comecei a aplicar os gestos e senti a energia fluir!",
+  "Até meu marido ficou curioso e tá assistindo agora",
+  "Esse material precisa ser protegido, é precioso demais",
+  "Tô com lágrimas nos olhos desde os primeiros minutos",
+  "Essa live vale mais do que qualquer curso que já fiz",
+  "Me deu coragem pra mudar minha vida",
+  "Parece que as palavras me limpam por dentro",
+  "Já tô no 3º dia do Portal e meu sono melhorou muito",
+  "Nunca imaginei que textos antigos pudessem ser tão atuais",
+  "Essa é a sabedoria que a gente devia aprender na escola",
+  "Essa vibração que sinto é diferente de tudo",
+  "Foi como se alguém apertasse um botão dentro de mim",
+  "Sinto como se tivesse sido ativada espiritualmente",
+  "Se você tá vendo isso, é porque tá pronta pra mudar",
+  "Quem mais tá chorando com isso aqui?",
+  "Isso faz TODO sentido agora...",
+  "Alguém mais sentiu uma energia diferente agora?",
+  "Meu Deus, chorei com essa parte da queda 😭",
+  "Comecei ontem e já sonhei com símbolos!",
+  "Estou sentindo um chamado muito forte aqui",
+  "É como se eu sempre soubesse disso, mas tinha esquecido",
+  "Essa parte da respiração mudou minha percepção",
+  "Que paz ouvir isso...",
+  "Peguei o material com o bônus 🙌",
+  "Comecei o Portal dos 7 Dias hoje e já me senti mais leve",
+  "Nunca vi nada assim, tô impactada",
+  "A voz do narrador parece que fala direto comigo",
+  "Peguei a oferta com 95% de desconto!",
+  "Isso me lembrou de um sonho que tive quando criança",
+  "Estou tremendo. Isso não é coincidência",
+  "As vestes de luz... MEU DEUS.",
+  "Minha mãe também tá assistindo comigo, estamos chocadas",
+  "O som do mantra me fez chorar sem explicação",
+  "Isso devia estar na Bíblia!",
+  "É hoje que minha vida muda",
+  "Esse conhecimento estava escondido da gente 😡",
+  "Comprei sem pensar duas vezes",
+  "Tô sentindo como se estivesse voltando pra casa",
+  "É como se uma parte minha estivesse despertando",
+  "Estou no segundo dia do ritual. É real demais",
+  "Senti um calor forte no peito com a oração",
+  "As palavras têm mesmo poder, gente",
+  "Gratidão por revelar isso. Você foi corajoso",
+  "Esse conteúdo vai mudar o mundo",
+  "Já mandei pra minha irmã, ela precisa ver isso",
+  "Quem já começou o áudio místico?",
+  "O manual do poder interior é surreal",
+  "Não dá pra voltar ao “normal” depois disso",
+  "Estou em lágrimas. Algo dentro de mim foi ativado",
+  "Essa parte dos anjos me tocou profundamente",
+  "Acabei de adquirir. Tô sentindo que vai virar tudo",
+  "Tô com frio na barriga de tanta verdade",
+  "Parece que esse vídeo me encontrou",
+  "Comecei a respirar diferente depois daquele exercício",
+  "Já quero viver só conectado com essa luz",
+  "Isso precisa chegar em mais pessoas 🙏",
+  "Eu também vi esse número 7 ontem!",
+  "Isso tá me explicando coisas que a religião nunca explicou",
+  "Minha intuição está gritando: pega isso agora!",
+  "Essa live não é por acaso, é um reencontro",
+  "Nunca acreditei em live... até hoje",
+  "Alguém mais tá sentindo como se fosse chamado?",
+  "Isso aqui vale mais que qualquer faculdade",
+   "Essa reprogramação tocou em feridas que eu nem sabia que tinha",
+  "É como se uma parte esquecida de mim tivesse despertado",
+  "Algo em mim despertou de um sono muito antigo",
+  "Senti meu corpo vibrar com o som do áudio",
+  "Já ouvi várias vezes e cada vez sinto algo novo",
+  "Nunca imaginei sentir isso com um conteúdo online",
+  "Cada palavra parece acender algo dentro de mim",
+  "É como se esse material fosse feito pra mim",
+  "Estou arrepiada só de lembrar do que ouvi",
+  "A energia mudou completamente depois que comecei a aplicar",
+  "Minha visão sobre espiritualidade virou de ponta cabeça",
+  "Senti como se voltasse a um lugar que sempre me pertenceu",
+  "Essa sabedoria antiga faz mais sentido do que tudo que já li",
+  "Me emocionei com a conexão entre as palavras e minha alma",
+  "Parece que minha alma foi tocada de verdade",
+  "Esse conhecimento ativa algo que não dá pra explicar",
+  "Finalmente encontrei algo que fala a minha língua espiritual",
+  "Nunca pensei que textos antigos mudariam minha rotina",
+  "Esse é o conteúdo que deveria estar em todo lugar",
+  "Me deu força, clareza e um sentimento de missão",
+  "Cada áudio parece limpar camadas antigas dentro de mim",
+  "Até minha saúde emocional melhorou com os rituais",
+  "Tô vivendo o que parecia impossível há pouco tempo",
+  "Nunca mais quero ficar longe dessa energia",
+  "Agora entendo o que significa conexão com a criação",
+  "Depois desse conteúdo, mudei minha forma de viver",
+  "Não consigo mais pensar como antes",
+  "Isso é espiritualidade real, sem dogmas, sem medo",
+  "Me reconectei comigo mesma de uma forma inexplicável",
+  "Tem algo divino nesses ensinamentos",
+  "Não é só um conteúdo. É uma ativação",
+  "Minha casa ficou mais leve, mais silenciosa por dentro",
+  "Me senti abraçada espiritualmente",
+  "Parece que alguém escreveu isso pra minha alma",
+  "Chorei, sorri e me silenciei. Tudo num só vídeo",
+  "Ouvir isso me devolveu a fé que eu achava perdida",
+  "Entendi o que é prosperidade de verdade agora",
+  "A frequência do áudio me levou a outro estado de consciência",
+  "Minha mente se abriu como nunca antes",
+  "Não tem mais como ignorar: algo mudou em mim",
+  "Essa foi a melhor escolha que fiz esse ano",
+  "Simplesmente... obrigada. De verdade.",
+  "Minha jornada começou aqui. Não tem mais volta",
+  "Esse conteúdo vai muito além do que esperava",
+  "Senti a presença de algo maior enquanto assistia",
+  "Não sou mais a mesma depois disso",
+  "Senti uma verdade que não se explica, só se sente",
+  "É libertador quando a alma reconhece o que é real",
+  "Foi como olhar no espelho da minha essência",
+  "Tô voltando pra casa, espiritualmente falando",
+  "Eu nunca comentei em nada… mas isso me fez escrever"
+];
+
+const nomesMulheres = [ // NOMES
+  "Ana Paula Soares", "Juliana Ribeiro", "Camila Oliveira", "Letícia Martins", "Fernanda Costa",
+  "Tatiane Melo", "Mariana Gomes", "Bruna Albuquerque", "Aline Rodrigues", "Vanessa Freitas",
+  "Carla Souza", "Natália Moreira", "Patrícia Lima", "Larissa Duarte", "Renata Silveira",
+  "Simone Carvalho", "Gisele Ferreira", "Érica Nogueira", "Daniela Rocha", "Andreia Pires",
+  "Thaís Almeida", "Roberta Monteiro", "Michele Cardoso", "Bianca Machado", "Viviane Cruz",
+  "Joyce Santana", "Rafaela Santos", "Eliane Moraes", "Débora Andrade", "Jéssica Fonseca"
+];
+
+const nomesHomens = [ // NOMES
+  "Lucas Moreira", "Rafael Lima", "João Victor Souza", "Marcos Henrique", "Bruno Ferreira",
+  "Felipe Duarte", "Gustavo Alves", "Leandro Martins", "Daniel Cardoso", "Caio Mendes",
+  "Rodrigo Nogueira", "Thiago Costa", "Matheus Silveira", "Alexandre Rocha", "Diego Ramos",
+  "Vinícius Andrade", "Eduardo Pinto", "Pedro Augusto", "Gabriel Oliveira", "André Faria",
+  "Jorge Luiz", "Robson Batista", "Carlos Eduardo", "Wellington Araújo", "Renato Cunha",
+  "Wallace Moraes", "Igor Santana", "Fábio Barreto", "Jefferson Dias", "Samuel Ribeiro"
+];
+
+function createMessage(name, text) {
+  const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+  const messageDiv = document.createElement("div");
+  messageDiv.className = "message";
+  messageDiv.innerHTML = `
+    <img src="${randomAvatar}">
+    <div class="message-content">
+      <div class="message-name">${name}</div>
+      <div class="message-text">${text}</div>
+    </div>
+  `;
+  return messageDiv;
+}
+
+function createMessage(name, avatar, text) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = "message";
+  messageDiv.innerHTML = `
+    <img src="${avatar}">
+    <div class="message-content">
+      <div class="message-name">${name}</div>
+      <div class="message-text">${text}</div>
+    </div>
+  `;
+  return messageDiv;
+}
+
+function addRandomMessage() {
+  const isMulher = Math.random() < 0.5;
+  const nomes = isMulher ? nomesMulheres : nomesHomens;
+  const avatares = isMulher ? avataresMulheres : avataresHomens;
+
+  const randomName = nomes[Math.floor(Math.random() * nomes.length)];
+  const randomAvatar = avatares[Math.floor(Math.random() * avatares.length)];
+  const randomText = messages[Math.floor(Math.random() * messages.length)];
+
+  const msg = createMessage(randomName, randomAvatar, randomText);
+  const chat = document.getElementById("chatMessages");
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// Mensagem aleatória de 5 a 10 segundos
+setInterval(() => {
+  addRandomMessage();
+}, Math.floor(Math.random() * 5000) + 5000);
+
+// Enviar mensagem do usuário
+document.getElementById("sendBtn").addEventListener("click", () => {
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
+  if (text) {
+    const msg = createMessage("Você", "https://cdn-icons-png.flaticon.com/512/9187/9187604.png", text);
+    document.getElementById("chatMessages").appendChild(msg);
+    input.value = "";
+    document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+  }
+});
+
+</script>
+
+
+
+<script> // right click block
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
+  
+
+
+
+
+<!-- Redirecionamento ao clicar no botão de voltar baseado no tempo assistido -->
+<script>
+  let pageLoadTime = Date.now(); // Marca o tempo ao entrar
+  let backRedirectAtivado = false;
+
+  const earlyBackRedirectLink = 'https://adaoeva-frio.netlify.app';
+  const laterBackRedirectLink = 'https://sun.eduzz.com/6W48VYYN0Z';
+
+  function ativarBackRedirect() {
+    if (backRedirectAtivado) return;
+    backRedirectAtivado = true;
+
+    // Coloca dois estados no histórico após interação
+    setTimeout(() => {
+      history.pushState({}, "", location.href);
+      history.pushState({}, "", location.href);
+
+      window.onpopstate = function () {
+        const currentTime = Date.now();
+        const timeElapsed = currentTime - pageLoadTime;
+
+        const destino = timeElapsed < 20 * 60 * 1000
+          ? earlyBackRedirectLink
+          : laterBackRedirectLink;
+
+        location.href = destino + location.search;
+      };
+    }, 300); // pequeno delay para confiabilidade
+  }
+
+  // Ativa após primeiro clique ou toque
+  window.addEventListener("click", ativarBackRedirect, { once: true });
+  window.addEventListener("touchstart", ativarBackRedirect, { once: true });
+</script>
+
+
+
+
+
+
+
+
+	
+</body>
+</html>
