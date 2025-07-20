@@ -627,12 +627,7 @@ video.addEventListener('timeupdate', function () {
 let videoJaIniciado = false;
 let intervalCriado = false;
 
-function enviarPixelDireto(evento) {
-  if (typeof fbq === 'function') {
-    fbq('track', evento);
-    console.log("🔥 Pixel " + evento + " enviado via fbq");
-  }
-}
+
 
 function iniciarVideo() {
   if (videoJaIniciado) return;
