@@ -534,6 +534,54 @@
   const overlay = document.getElementById('videoClickOverlay');
   const barraTempo = document.getElementById('barraTempo');
 
+
+
+
+
+
+
+// Identificador exclusivo por página e vídeo continuar de onde parou
+const PAGE_ID = window.location.pathname;
+const VIDEO_SRC = video.querySelector('source').src;
+const VIDEO_KEY = 'videoProgress_' + PAGE_ID + '_' + VIDEO_SRC;
+const VIDEO_EXP_KEY = 'videoProgressExp_' + PAGE_ID + '_' + VIDEO_SRC;
+
+window.addEventListener('DOMContentLoaded', function () {
+  const saved = localStorage.getItem(VIDEO_KEY);
+  const exp = parseInt(localStorage.getItem(VIDEO_EXP_KEY), 10);
+
+  function setTime() {
+    video.currentTime = parseFloat(saved) || 0;
+    setTimeout(() => video.pause(), 250);
+    video.removeEventListener('loadedmetadata', setTime);
+  }
+
+  if (saved && exp && Date.now() < exp) {
+    video.addEventListener('loadedmetadata', setTime);
+  } else {
+    localStorage.removeItem(VIDEO_KEY);
+    localStorage.removeItem(VIDEO_EXP_KEY);
+  }
+});
+
+video.addEventListener('timeupdate', function () {
+  localStorage.setItem(VIDEO_KEY, video.currentTime);
+  localStorage.setItem(VIDEO_EXP_KEY, (Date.now() + 3 * 60 * 60 * 1000).toString());
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Atualiza a barra de progresso com a dinâmica especial
 function atualizarBarraTempo() {
   if (!video.duration) return;
@@ -574,36 +622,6 @@ video.addEventListener('ended', () => {
   barraTempo.style.width = '100%';
 });
 
-
-
-
-
-// Fora do DOMContentLoaded, para evitar listener duplo
-const VIDEO_KEY = 'videoProgress';
-const VIDEO_EXP_KEY = 'videoProgressExp';
-
-window.addEventListener('DOMContentLoaded', function () {
-  const saved = localStorage.getItem(VIDEO_KEY);
-  const exp = parseInt(localStorage.getItem(VIDEO_EXP_KEY), 10);
-
-  function setTime() {
-    video.currentTime = parseFloat(saved) || 0;
-    setTimeout(() => video.pause(), 250);
-    video.removeEventListener('loadedmetadata', setTime);
-  }
-
-  if (saved && exp && Date.now() < exp) {
-    video.addEventListener('loadedmetadata', setTime);
-  } else {
-    localStorage.removeItem(VIDEO_KEY);
-    localStorage.removeItem(VIDEO_EXP_KEY);
-  }
-});
-
-video.addEventListener('timeupdate', function () {
-  localStorage.setItem(VIDEO_KEY, video.currentTime);
-  localStorage.setItem(VIDEO_EXP_KEY, (Date.now() + 3 * 60 * 60 * 1000).toString());
-});
 
 
 

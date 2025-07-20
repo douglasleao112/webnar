@@ -496,9 +496,12 @@
   
 
 
-// Fora do DOMContentLoaded, para evitar listener duplo
-const VIDEO_KEY = 'videoProgress';
-const VIDEO_EXP_KEY = 'videoProgressExp';
+
+// Identificador exclusivo por página e vídeo continuar de onde parou
+const PAGE_ID = window.location.pathname;
+const VIDEO_SRC = video.querySelector('source').src;
+const VIDEO_KEY = 'videoProgress_' + PAGE_ID + '_' + VIDEO_SRC;
+const VIDEO_EXP_KEY = 'videoProgressExp_' + PAGE_ID + '_' + VIDEO_SRC;
 
 window.addEventListener('DOMContentLoaded', function () {
   const saved = localStorage.getItem(VIDEO_KEY);
