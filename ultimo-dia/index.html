@@ -369,7 +369,7 @@
   <div class="chat-messages" id="chatMessages"></div>
 
   <div class="chat-input">
-    <input type="text" id="userInput" placeholder="Chat..." />
+    <input type="text" id="userInput" placeholder="Escreva sua mensagem..." />
     <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" id="sendBtn" />
   </div>
 </div>
@@ -532,11 +532,7 @@
  const video = document.getElementById('customVideo');
   const playButton = document.getElementById('playButton');
   const overlay = document.getElementById('videoClickOverlay');
-
-
-
-const barraTempo = document.getElementById('barraTempo');
-
+  const barraTempo = document.getElementById('barraTempo');
 
 // Atualiza a barra de progresso com a dinâmica especial
 function atualizarBarraTempo() {
@@ -582,7 +578,39 @@ video.addEventListener('ended', () => {
 
 
 
+// Fora do DOMContentLoaded, para evitar listener duplo
+const VIDEO_KEY = 'videoProgress';
+const VIDEO_EXP_KEY = 'videoProgressExp';
 
+window.addEventListener('DOMContentLoaded', function () {
+  const saved = localStorage.getItem(VIDEO_KEY);
+  const exp = parseInt(localStorage.getItem(VIDEO_EXP_KEY), 10);
+
+  function setTime() {
+    video.currentTime = parseFloat(saved) || 0;
+    setTimeout(() => video.pause(), 250);
+    video.removeEventListener('loadedmetadata', setTime);
+  }
+
+  if (saved && exp && Date.now() < exp) {
+    video.addEventListener('loadedmetadata', setTime);
+  } else {
+    localStorage.removeItem(VIDEO_KEY);
+    localStorage.removeItem(VIDEO_EXP_KEY);
+  }
+});
+
+video.addEventListener('timeupdate', function () {
+  localStorage.setItem(VIDEO_KEY, video.currentTime);
+  localStorage.setItem(VIDEO_EXP_KEY, (Date.now() + 3 * 60 * 60 * 1000).toString());
+});
+
+
+
+
+
+
+// --- LOGICA DO PIXEL ---
   function enviarPixelDireto(evento) {
     const pixel = '1290378376428374';
 
