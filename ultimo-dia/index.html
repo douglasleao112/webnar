@@ -1090,6 +1090,53 @@ document.getElementById("sendBtn").addEventListener("click", () => {
 
 
 
+<script>
+function getBrowserId() {
+  let id = localStorage.getItem('browserId');
+  if (!id) {
+    id = 'browser-' + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('browserId', id);
+  }
+  return id;
+}
+
+const browserId = getBrowserId();
+
+let horaEntrada = localStorage.getItem('horaEntrada-lead1');
+let dataEntrada = localStorage.getItem('dataEntrada-lead1');
+const agora = new Date();
+
+if (!horaEntrada || !dataEntrada || dataEntrada !== agora.toLocaleDateString('pt-BR')) {
+  horaEntrada = agora.toTimeString().substr(0,8);
+  dataEntrada = agora.toLocaleDateString('pt-BR');
+  localStorage.setItem('horaEntrada-lead1', horaEntrada);
+  localStorage.setItem('dataEntrada-lead1', dataEntrada);
+}
+
+function enviarDados() {
+  const agora = new Date();
+  const horaSaida = agora.toTimeString().substr(0,8);
+  fetch('https://script.google.com/macros/s/AKfycbxDrp0VYFxwfsqeL2rv9ePJIXdm1E9lXjfDyuqwQcD44ITOp1ysW43VTnLQh-CI0mey/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      browserId: browserId,
+      horaEntrada: horaEntrada,
+      horaSaida: horaSaida,
+      data: dataEntrada,
+      paginaOrigem: 'global'
+    })
+  });
+}
+
+// Envia ao entrar e a cada 1s
+enviarDados();
+setInterval(enviarDados, 1000);
+
+</script>
+
+
 
 
 
