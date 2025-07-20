@@ -639,7 +639,7 @@ overlay.addEventListener('click', iniciarVideo);
 }
 
 updateViewerCount();
-setInterval(updateViewerCount, 5000);
+setInterval(updateViewerCount, 15000);
   
   
   
@@ -753,157 +753,64 @@ console.log('%cScript de rastreamento de vendas desenvolvido pela Comunidade NOD
 
 
 
+const messages = window.messages;
 
 
-const messages = [ // COMENTÁRIOS DA LIVE
-  "Gente, eu tô arrepiada com essa revelação 😳",
-  "Essa parte sobre a respiração me tocou demais",
-  "Parece que eu tava esperando por isso há anos",
-  "A energia mudou aqui em casa depois que comecei os áudios",
-  "Vi uma luz forte enquanto ouvia o mantra, é real",
-  "Tem algo sagrado nesse conteúdo",
-  "Meu coração acelerou com a parte do Éden",
-  "Adão e Eva como nunca ouvi antes... surreal!",
-  "Meu filho ouviu comigo e ficou hipnotizado",
-  "Foi como uma memória antiga despertando dentro de mim",
-  "Tô me sentindo mais viva depois desse vídeo",
-  "Nunca vi tanta verdade junta num só lugar",
-  "Me fez lembrar de sonhos que eu nem sabia que lembrava",
-  "É impossível assistir isso e sair igual",
-  "Tô sentindo como se fosse o início de algo maior",
-  "A parte do poder das mãos me emocionou muito",
-  "Comecei a aplicar os gestos e senti a energia fluir!",
-  "Até meu marido ficou curioso e tá assistindo agora",
-  "Esse material precisa ser protegido, é precioso demais",
-  "Tô com lágrimas nos olhos desde os primeiros minutos",
-  "Essa live vale mais do que qualquer curso que já fiz",
-  "Me deu coragem pra mudar minha vida",
-  "Parece que as palavras me limpam por dentro",
-  "Já tô no 3º dia do Portal e meu sono melhorou muito",
-  "Nunca imaginei que textos antigos pudessem ser tão atuais",
-  "Essa é a sabedoria que a gente devia aprender na escola",
-  "Essa vibração que sinto é diferente de tudo",
-  "Foi como se alguém apertasse um botão dentro de mim",
-  "Sinto como se tivesse sido ativada espiritualmente",
-  "Se você tá vendo isso, é porque tá pronta pra mudar",
-  "Quem mais tá chorando com isso aqui?",
-  "Isso faz TODO sentido agora...",
-  "Alguém mais sentiu uma energia diferente agora?",
-  "Meu Deus, chorei com essa parte da queda 😭",
-  "Comecei ontem e já sonhei com símbolos!",
-  "Estou sentindo um chamado muito forte aqui",
-  "É como se eu sempre soubesse disso, mas tinha esquecido",
-  "Essa parte da respiração mudou minha percepção",
-  "Que paz ouvir isso...",
-  "Peguei o material com o bônus 🙌",
-  "Comecei o Portal dos 7 Dias hoje e já me senti mais leve",
-  "Nunca vi nada assim, tô impactada",
-  "A voz do narrador parece que fala direto comigo",
-  "Peguei a oferta com 95% de desconto!",
-  "Isso me lembrou de um sonho que tive quando criança",
-  "Estou tremendo. Isso não é coincidência",
-  "As vestes de luz... MEU DEUS.",
-  "Minha mãe também tá assistindo comigo, estamos chocadas",
-  "O som do mantra me fez chorar sem explicação",
-  "Isso devia estar na Bíblia!",
-  "É hoje que minha vida muda",
-  "Esse conhecimento estava escondido da gente 😡",
-  "Comprei sem pensar duas vezes",
-  "Tô sentindo como se estivesse voltando pra casa",
-  "É como se uma parte minha estivesse despertando",
-  "Estou no segundo dia do ritual. É real demais",
-  "Senti um calor forte no peito com a oração",
-  "As palavras têm mesmo poder, gente",
-  "Gratidão por revelar isso. Você foi corajoso",
-  "Esse conteúdo vai mudar o mundo",
-  "Já mandei pra minha irmã, ela precisa ver isso",
-  "Quem já começou o áudio místico?",
-  "O manual do poder interior é surreal",
-  "Não dá pra voltar ao “normal” depois disso",
-  "Estou em lágrimas. Algo dentro de mim foi ativado",
-  "Essa parte dos anjos me tocou profundamente",
-  "Acabei de adquirir. Tô sentindo que vai virar tudo",
-  "Tô com frio na barriga de tanta verdade",
-  "Parece que esse vídeo me encontrou",
-  "Comecei a respirar diferente depois daquele exercício",
-  "Já quero viver só conectado com essa luz",
-  "Isso precisa chegar em mais pessoas 🙏",
-  "Eu também vi esse número 7 ontem!",
-  "Isso tá me explicando coisas que a religião nunca explicou",
-  "Minha intuição está gritando: pega isso agora!",
-  "Essa live não é por acaso, é um reencontro",
-  "Nunca acreditei em live... até hoje",
-  "Alguém mais tá sentindo como se fosse chamado?",
-  "Isso aqui vale mais que qualquer faculdade",
-   "Essa reprogramação tocou em feridas que eu nem sabia que tinha",
-  "É como se uma parte esquecida de mim tivesse despertado",
-  "Algo em mim despertou de um sono muito antigo",
-  "Senti meu corpo vibrar com o som do áudio",
-  "Já ouvi várias vezes e cada vez sinto algo novo",
-  "Nunca imaginei sentir isso com um conteúdo online",
-  "Cada palavra parece acender algo dentro de mim",
-  "É como se esse material fosse feito pra mim",
-  "Estou arrepiada só de lembrar do que ouvi",
-  "A energia mudou completamente depois que comecei a aplicar",
-  "Minha visão sobre espiritualidade virou de ponta cabeça",
-  "Senti como se voltasse a um lugar que sempre me pertenceu",
-  "Essa sabedoria antiga faz mais sentido do que tudo que já li",
-  "Me emocionei com a conexão entre as palavras e minha alma",
-  "Parece que minha alma foi tocada de verdade",
-  "Esse conhecimento ativa algo que não dá pra explicar",
-  "Finalmente encontrei algo que fala a minha língua espiritual",
-  "Nunca pensei que textos antigos mudariam minha rotina",
-  "Esse é o conteúdo que deveria estar em todo lugar",
-  "Me deu força, clareza e um sentimento de missão",
-  "Cada áudio parece limpar camadas antigas dentro de mim",
-  "Até minha saúde emocional melhorou com os rituais",
-  "Tô vivendo o que parecia impossível há pouco tempo",
-  "Nunca mais quero ficar longe dessa energia",
-  "Agora entendo o que significa conexão com a criação",
-  "Depois desse conteúdo, mudei minha forma de viver",
-  "Não consigo mais pensar como antes",
-  "Isso é espiritualidade real, sem dogmas, sem medo",
-  "Me reconectei comigo mesma de uma forma inexplicável",
-  "Tem algo divino nesses ensinamentos",
-  "Não é só um conteúdo. É uma ativação",
-  "Minha casa ficou mais leve, mais silenciosa por dentro",
-  "Me senti abraçada espiritualmente",
-  "Parece que alguém escreveu isso pra minha alma",
-  "Chorei, sorri e me silenciei. Tudo num só vídeo",
-  "Ouvir isso me devolveu a fé que eu achava perdida",
-  "Entendi o que é prosperidade de verdade agora",
-  "A frequência do áudio me levou a outro estado de consciência",
-  "Minha mente se abriu como nunca antes",
-  "Não tem mais como ignorar: algo mudou em mim",
-  "Essa foi a melhor escolha que fiz esse ano",
-  "Simplesmente... obrigada. De verdade.",
-  "Minha jornada começou aqui. Não tem mais volta",
-  "Esse conteúdo vai muito além do que esperava",
-  "Senti a presença de algo maior enquanto assistia",
-  "Não sou mais a mesma depois disso",
-  "Senti uma verdade que não se explica, só se sente",
-  "É libertador quando a alma reconhece o que é real",
-  "Foi como olhar no espelho da minha essência",
-  "Tô voltando pra casa, espiritualmente falando",
-  "Eu nunca comentei em nada… mas isso me fez escrever"
-];
 
-const nomesMulheres = [ 
+
+const nomesMulheres = [ // NOMES
   "Ana Paula Soares", "Juliana Ribeiro", "Camila Oliveira", "Letícia Martins", "Fernanda Costa",
   "Tatiane Melo", "Mariana Gomes", "Bruna Albuquerque", "Aline Rodrigues", "Vanessa Freitas",
   "Carla Souza", "Natália Moreira", "Patrícia Lima", "Larissa Duarte", "Renata Silveira",
   "Simone Carvalho", "Gisele Ferreira", "Érica Nogueira", "Daniela Rocha", "Andreia Pires",
   "Thaís Almeida", "Roberta Monteiro", "Michele Cardoso", "Bianca Machado", "Viviane Cruz",
-  "Joyce Santana", "Rafaela Santos", "Eliane Moraes", "Débora Andrade", "Jéssica Fonseca"
+  "Joyce Santana", "Rafaela Santos", "Eliane Moraes", "Débora Andrade", "Jéssica Fonseca",
+  "Adriana Reis", "Priscila Antunes", "Alessandra Moura", "Kátia Lopes", "Luciana Barros",
+  "Tatiana Figueiredo", "Cristiane Batista", "Sheila Xavier", "Sandra Peixoto", "Lívia Carvalho",
+  "Sabrina Farias", "Rosana Marques", "Flávia Peixoto", "Isabela Mendonça", "Elenice Couto",
+  "Verônica Miranda", "Patrícia Azevedo", "Cláudia Menezes", "Tânia Ferreira", "Daniele Assis",
+  "Caroline Ramos", "Melissa Furtado", "Paula Aragão", "Josiane Barros", "Raquel Gomes",
+  "Helena Garcia", "Rejane Teixeira", "Fabiola Martins", "Sueli Castro", "Elis Regina",
+  "Karla Mattos", "Vera Lúcia", "Marisa Silveira", "Helena Prado", "Regina Sampaio",
+  "Andreza Barroso", "Maristela Campos", "Amanda Rezende", "Neide Santos", "Lucilene Braga",
+  "Cláudia Rocha", "Nilza Viana", "Mônica Xavier", "Marluce Oliveira", "Janaina Reis",
+  "Vânia Cardoso", "Patrícia Meireles", "Solange Pereira", "Cíntia Barbosa", "Márcia Freire",
+  "Sheila Tavares", "Monique Castro", "Tatiane Carvalho", "Rosângela Nunes", "Danila Pinheiro",
+  "Patrícia Souza", "Sandra Dias", "Paula Morais", "Lilian Pires", "Alessandra Coelho",
+  "Regiane Melo", "Raquel Lima", "Cristina Pacheco", "Adriana Duarte", "Fabiana Almeida",
+  "Fernanda Mendes", "Aline Borges", "Gláucia Teixeira", "Jaqueline Barbosa", "Valéria Prado",
+  "Denise Amorim", "Kelly Guimarães", "Rosa Maria", "Gabriela Rocha", "Lilian Batista",
+  "Janete Pinto", "Tatiane Gomes", "Daniela Bastos", "Flávia Miranda", "Andreia Siqueira",
+  "Lúcia Martins", "Rosa Ferreira", "Cristiane Lopes", "Ângela Silva", "Vera Carvalho",
+  "Mariza Castro", "Lilian Duarte", "Regina Fonseca", "Francisca Souza", "Michele Pereira",
+  "Ivone Albuquerque", "Débora Souza", "Sonia Barros", "Valéria Nascimento", "Ariane Dias"
 ];
 
-const nomesHomens = [ 
+
+const nomesHomens = [ // NOMES
   "Lucas Moreira", "Rafael Lima", "João Victor Souza", "Marcos Henrique", "Bruno Ferreira",
   "Felipe Duarte", "Gustavo Alves", "Leandro Martins", "Daniel Cardoso", "Caio Mendes",
   "Rodrigo Nogueira", "Thiago Costa", "Matheus Silveira", "Alexandre Rocha", "Diego Ramos",
   "Vinícius Andrade", "Eduardo Pinto", "Pedro Augusto", "Gabriel Oliveira", "André Faria",
   "Jorge Luiz", "Robson Batista", "Carlos Eduardo", "Wellington Araújo", "Renato Cunha",
-  "Wallace Moraes", "Igor Santana", "Fábio Barreto", "Jefferson Dias", "Samuel Ribeiro"
+  "Wallace Moraes", "Igor Santana", "Fábio Barreto", "Jefferson Dias", "Samuel Ribeiro",
+  "Douglas Freitas", "Marcelo Araújo", "Bruno Batista", "Maurício Tavares", "Alexandre Almeida",
+  "Sérgio Machado", "Fernando Reis", "Ricardo Lopes", "Cláudio Pires", "Renan Soares",
+  "Anderson Borges", "Juliano Peixoto", "Sandro Mattos", "William Silva", "Roberto Moura",
+  "Leonardo Monteiro", "César Barros", "André Luiz", "Renato Silva", "Cristiano Castro",
+  "Guilherme Teixeira", "Henrique Carvalho", "Evandro Mendes", "Danilo Ferreira", "Luciano Barroso",
+  "Gilberto Faria", "Paulo Sérgio", "Everton Assis", "Alex Sandro", "Rogério Nascimento",
+  "Raphael Carvalho", "Marcelo Lopes", "Robson Oliveira", "Felipe Mattos", "Anderson Martins",
+  "Fernando Cardoso", "Bruno Ribeiro", "Luciano Souza", "Leandro Correia", "Eduardo Bastos",
+  "Edson Miranda", "Marcelo Brito", "Júlio César", "André Castro", "Douglas Henrique",
+  "Fernando Augusto", "Alexandre Mendes", "Rafael Rocha", "Rodrigo Castro", "Márcio Garcia",
+  "Patrick Siqueira", "Leonardo Pinheiro", "Sandro Pereira", "Diego Machado", "Wesley Couto",
+  "Edgar Oliveira", "Antônio Figueiredo", "Cássio Moraes", "André Santos", "Hugo Vasconcelos",
+  "Ricardo Pereira", "Roberto Teixeira", "Bruno Monteiro", "Alex Silva", "Fábio Ramos",
+  "José Ricardo", "Carlos Henrique", "Gilmar Souza", "Fabiano Alves", "Otávio Duarte",
+  "Ailton Soares", "Washington Torres", "Rafael Bastos", "Marcos Vinícius", "Davi Mattos",
+  "Augusto Nunes", "Danilo Rocha", "Marcio Pinheiro", "Cristiano Lopes", "Vitor Andrade",
+  "Paulo César", "Sandro Nascimento", "João Paulo", "Érico Almeida", "Lucas Barbosa"
 ];
 
 function createMessage(name, text) {
@@ -931,10 +838,10 @@ function addRandomMessage() {
 }
 
 
-// Mensagem aleatória de 5 a 10 segundos
+// Mensagem aleatória de 15 a 20 segundos
 setInterval(() => {
   addRandomMessage();
-}, Math.floor(Math.random() * 5000) + 5000);
+}, Math.floor(Math.random() * 5000) + 15000);
 
 
 
@@ -1033,9 +940,9 @@ function enviarDados() {
   });
 }
 
-// Envia ao entrar e a cada 1s
+// Envia ao entrar e a cada 5s
 enviarDados();
-setInterval(enviarDados, 1000);
+setInterval(enviarDados, 5000);
 
 </script>
 
