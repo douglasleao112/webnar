@@ -484,6 +484,8 @@
 
 
 <script src="comentarios.js"></script>
+<script src="nomesMulheres.js"></script>
+<script src="nomesHomens.js"></script>
 
 
 <script>
@@ -752,66 +754,11 @@ console.log('%cScript de rastreamento de vendas desenvolvido pela Comunidade NOD
 
 
 
-
-const messages = window.messages;
-
-
-
-
-const nomesMulheres = [ // NOMES
-  "Ana Paula Soares", "Juliana Ribeiro", "Camila Oliveira", "Letícia Martins", "Fernanda Costa",
-  "Tatiane Melo", "Mariana Gomes", "Bruna Albuquerque", "Aline Rodrigues", "Vanessa Freitas",
-  "Carla Souza", "Natália Moreira", "Patrícia Lima", "Larissa Duarte", "Renata Silveira",
-  "Simone Carvalho", "Gisele Ferreira", "Érica Nogueira", "Daniela Rocha", "Andreia Pires",
-  "Thaís Almeida", "Roberta Monteiro", "Michele Cardoso", "Bianca Machado", "Viviane Cruz",
-  "Joyce Santana", "Rafaela Santos", "Eliane Moraes", "Débora Andrade", "Jéssica Fonseca",
-  "Adriana Reis", "Priscila Antunes", "Alessandra Moura", "Kátia Lopes", "Luciana Barros",
-  "Tatiana Figueiredo", "Cristiane Batista", "Sheila Xavier", "Sandra Peixoto", "Lívia Carvalho",
-  "Sabrina Farias", "Rosana Marques", "Flávia Peixoto", "Isabela Mendonça", "Elenice Couto",
-  "Verônica Miranda", "Patrícia Azevedo", "Cláudia Menezes", "Tânia Ferreira", "Daniele Assis",
-  "Caroline Ramos", "Melissa Furtado", "Paula Aragão", "Josiane Barros", "Raquel Gomes",
-  "Helena Garcia", "Rejane Teixeira", "Fabiola Martins", "Sueli Castro", "Elis Regina",
-  "Karla Mattos", "Vera Lúcia", "Marisa Silveira", "Helena Prado", "Regina Sampaio",
-  "Andreza Barroso", "Maristela Campos", "Amanda Rezende", "Neide Santos", "Lucilene Braga",
-  "Cláudia Rocha", "Nilza Viana", "Mônica Xavier", "Marluce Oliveira", "Janaina Reis",
-  "Vânia Cardoso", "Patrícia Meireles", "Solange Pereira", "Cíntia Barbosa", "Márcia Freire",
-  "Sheila Tavares", "Monique Castro", "Tatiane Carvalho", "Rosângela Nunes", "Danila Pinheiro",
-  "Patrícia Souza", "Sandra Dias", "Paula Morais", "Lilian Pires", "Alessandra Coelho",
-  "Regiane Melo", "Raquel Lima", "Cristina Pacheco", "Adriana Duarte", "Fabiana Almeida",
-  "Fernanda Mendes", "Aline Borges", "Gláucia Teixeira", "Jaqueline Barbosa", "Valéria Prado",
-  "Denise Amorim", "Kelly Guimarães", "Rosa Maria", "Gabriela Rocha", "Lilian Batista",
-  "Janete Pinto", "Tatiane Gomes", "Daniela Bastos", "Flávia Miranda", "Andreia Siqueira",
-  "Lúcia Martins", "Rosa Ferreira", "Cristiane Lopes", "Ângela Silva", "Vera Carvalho",
-  "Mariza Castro", "Lilian Duarte", "Regina Fonseca", "Francisca Souza", "Michele Pereira",
-  "Ivone Albuquerque", "Débora Souza", "Sonia Barros", "Valéria Nascimento", "Ariane Dias"
-];
+  const messages = window.messages;
+  const nomesMulheres = window.nomesMulheres;
+  const nomesHomens = window.nomesHomens;
 
 
-const nomesHomens = [ // NOMES
-  "Lucas Moreira", "Rafael Lima", "João Victor Souza", "Marcos Henrique", "Bruno Ferreira",
-  "Felipe Duarte", "Gustavo Alves", "Leandro Martins", "Daniel Cardoso", "Caio Mendes",
-  "Rodrigo Nogueira", "Thiago Costa", "Matheus Silveira", "Alexandre Rocha", "Diego Ramos",
-  "Vinícius Andrade", "Eduardo Pinto", "Pedro Augusto", "Gabriel Oliveira", "André Faria",
-  "Jorge Luiz", "Robson Batista", "Carlos Eduardo", "Wellington Araújo", "Renato Cunha",
-  "Wallace Moraes", "Igor Santana", "Fábio Barreto", "Jefferson Dias", "Samuel Ribeiro",
-  "Douglas Freitas", "Marcelo Araújo", "Bruno Batista", "Maurício Tavares", "Alexandre Almeida",
-  "Sérgio Machado", "Fernando Reis", "Ricardo Lopes", "Cláudio Pires", "Renan Soares",
-  "Anderson Borges", "Juliano Peixoto", "Sandro Mattos", "William Silva", "Roberto Moura",
-  "Leonardo Monteiro", "César Barros", "André Luiz", "Renato Silva", "Cristiano Castro",
-  "Guilherme Teixeira", "Henrique Carvalho", "Evandro Mendes", "Danilo Ferreira", "Luciano Barroso",
-  "Gilberto Faria", "Paulo Sérgio", "Everton Assis", "Alex Sandro", "Rogério Nascimento",
-  "Raphael Carvalho", "Marcelo Lopes", "Robson Oliveira", "Felipe Mattos", "Anderson Martins",
-  "Fernando Cardoso", "Bruno Ribeiro", "Luciano Souza", "Leandro Correia", "Eduardo Bastos",
-  "Edson Miranda", "Marcelo Brito", "Júlio César", "André Castro", "Douglas Henrique",
-  "Fernando Augusto", "Alexandre Mendes", "Rafael Rocha", "Rodrigo Castro", "Márcio Garcia",
-  "Patrick Siqueira", "Leonardo Pinheiro", "Sandro Pereira", "Diego Machado", "Wesley Couto",
-  "Edgar Oliveira", "Antônio Figueiredo", "Cássio Moraes", "André Santos", "Hugo Vasconcelos",
-  "Ricardo Pereira", "Roberto Teixeira", "Bruno Monteiro", "Alex Silva", "Fábio Ramos",
-  "José Ricardo", "Carlos Henrique", "Gilmar Souza", "Fabiano Alves", "Otávio Duarte",
-  "Ailton Soares", "Washington Torres", "Rafael Bastos", "Marcos Vinícius", "Davi Mattos",
-  "Augusto Nunes", "Danilo Rocha", "Marcio Pinheiro", "Cristiano Lopes", "Vitor Andrade",
-  "Paulo César", "Sandro Nascimento", "João Paulo", "Érico Almeida", "Lucas Barbosa"
-];
 
 function createMessage(name, text) {
   const messageDiv = document.createElement("div");
