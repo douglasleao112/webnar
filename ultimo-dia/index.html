@@ -705,7 +705,7 @@ overlay.addEventListener('click', iniciarVideo);
   // Atualiza número de pessoas no contador
   const viewerElement = document.getElementById('viewerCount');
   function updateViewerCount() {
-  const random = Math.floor(Math.random() * (5180 - 5147 + 1)) + 5147;
+  const random = Math.floor(Math.random() * (1180 - 1547 + 1)) + 1147;
   const el1 = document.getElementById('viewerCount');
   const el2 = document.getElementById('viewerCountTop');
   if (el1) el1.textContent = random;
@@ -787,39 +787,12 @@ setInterval(updateHour, 60000); // atualiza a cada minuto
      }
 })();
 
-</script>
 
 
 
 
 
-
-
-
-
-<script>   
-  let totalSeconds = 23 * 60 + 51;    // timer do box vermelho, contagem contagem do inicio do video
-
-  function updateCountdown() {
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-
-    document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-    document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
-
-    if (totalSeconds > 0) {
-      totalSeconds--;
-    }
-  }
-
-  updateCountdown(); // inicial
-  setInterval(updateCountdown, 1000); // atualiza a cada segundo
-</script>
-
-
-
-
-  <script> // SALVAR E LIKE/UNLINE
+// SALVAR E LIKE/UNLINE
     const btnInscrever = document.getElementById('btnInscrever');
   const btnLike = document.getElementById('btnLike');
   const btnDislike = document.getElementById('btnDislike');
@@ -1046,11 +1019,10 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   }
 });
 
-</script>
 
 
 
-<script> // right click block
+// right click block
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
   });
@@ -1065,8 +1037,8 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   let pageLoadTime = Date.now(); // Marca o tempo ao entrar
   let backRedirectAtivado = false;
 
-  const earlyBackRedirectLink = 'https://adaoeva-frio.netlify.app';
-  const laterBackRedirectLink = 'https://sun.eduzz.com/6W48VYYN0Z';
+  const earlyBackRedirectLink = '/ultimo-dia/';
+  const laterBackRedirectLink = '/ultimo-dia/';
 
   function ativarBackRedirect() {
     if (backRedirectAtivado) return;
@@ -1094,6 +1066,10 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   window.addEventListener("click", ativarBackRedirect, { once: true });
   window.addEventListener("touchstart", ativarBackRedirect, { once: true });
 </script>
+
+
+
+
 
 
 
