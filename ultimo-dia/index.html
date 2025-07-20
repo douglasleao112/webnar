@@ -227,8 +227,26 @@
     cursor: pointer;
     z-index: 4;
   ">
-    ▶
+    
   </button>
+
+
+  <!-- Barra de progresso customizada -->
+<div id="barraTempo"
+  style="
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 8px;
+    width: 0;
+    background: rgba(255,0,0,0.75);
+    border-radius: 0px;
+    z-index: 10;
+    transition: width 0.1s linear;
+    pointer-events: none;
+  "></div>
+
+
 </div>
 
 
@@ -494,17 +512,65 @@
   const playButton = document.getElementById('playButton');
   const overlay = document.getElementById('videoClickOverlay');
 
+
+
+const barraTempo = document.getElementById('barraTempo');
+const video = document.getElementById('customVideo');
+
+// Atualiza a barra de progresso com a dinâmica especial
+function atualizarBarraTempo() {
+  if (!video.duration) return;
+
+  const t = video.currentTime;
+  const d = video.duration;
+
+  let progresso = 0;
+
+  if (d < 6 * 60) {
+    // Caso o vídeo seja menor que 6 minutos, barra normal
+    progresso = (t / d) * 100;
+  } else {
+    // 1º minuto: rápido até 50%
+    if (t <= 60) {
+      progresso = (t / 60) * 50; // 0~1min => 0~50%
+    }
+    // 1~6min: mais lento até 75%
+    else if (t <= 360) {
+      progresso = 50 + ((t - 60) / (300)) * 25; // 1~6min => 50~75%
+    }
+    // 6min até o final: avança para 100%
+    else {
+      progresso = 75 + ((t - 360) / (d - 360)) * 25; // 6min~fim => 75~100%
+    }
+    // Limita entre 0~100%
+    progresso = Math.max(0, Math.min(progresso, 100));
+  }
+
+  barraTempo.style.width = progresso + '%';
+}
+
+video.addEventListener('timeupdate', atualizarBarraTempo);
+video.addEventListener('seeked', atualizarBarraTempo);
+video.addEventListener('play', atualizarBarraTempo);
+video.addEventListener('loadedmetadata', atualizarBarraTempo);
+video.addEventListener('ended', () => {
+  barraTempo.style.width = '100%';
+});
+
+
+
+
+
+
   function enviarPixelDireto(evento) {
-    const pixel = '1265697105146618';
+    const pixel = '1290378376428374';
 
     if (typeof fbq === 'function') {
       fbq('track', evento);
-      console.log("🔥 Pixel " + evento + " enviado via fbq");
     }
 
     const img = new Image();
     img.src = "https://www.facebook.com/tr?id=" + pixel + "&ev=" + evento + "&noscript=1";
-    console.log("🖼️ Pixel " + evento + " enviado via imagem");
   }
 
 let videoJaIniciado = false;
@@ -513,7 +579,6 @@ let intervalCriado = false;
 function enviarPixelDireto(evento) {
   if (typeof fbq === 'function') {
     fbq('track', evento);
-    console.log("🔥 Pixel " + evento + " enviado via fbq");
   }
 }
 
