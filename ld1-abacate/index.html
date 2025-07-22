@@ -918,7 +918,7 @@ if (!horaEntrada || !dataEntrada || dataEntrada !== agora.toLocaleDateString('pt
 function enviarDados() {
   const agora = new Date();
   const horaSaida = agora.toTimeString().substr(0,8);
-  fetch('https://script.google.com/macros/s/AKfycbwV09lD7RUAR4olfJrUycyYjaTxY32M7pyvueF_I7_1cEJ5xy_1bfG941htrL69jszT/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbyj8vDFznkxy22_GsByrSHQn6kcs149R-UH5NC7svjTj8Wa8lDnm1gfosO5pqyaQoM/exec', {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
