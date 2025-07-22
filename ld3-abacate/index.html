@@ -874,6 +874,12 @@ document.addEventListener('keydown', e => {
 video.addEventListener('ended', function() {
   document.getElementById('modalPopup').style.display = 'flex';
 
+  // Dispara o evento Contact do Facebook Pixel
+  if (typeof fbq === "function") {
+    fbq('track', 'Contact');
+    console.log('Evento Contact disparado!');
+  }
+
   let redirecionado = false;
   const destino = "https://wa.me/5562984888498?text=Ol%C3%A1%20gostaria%20de%20ter%20acesso%20ao%20restante%20do%20v%C3%ADdeo!";
 
