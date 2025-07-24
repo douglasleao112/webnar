@@ -99,7 +99,7 @@
 
     function hasExpired(obj) {
       const now = Date.now();
-      return (now - obj.created) > VALID_FOR_HOURS * 1 * 60 * 1000;
+      return (now - obj.created) > VALID_FOR_HOURS * 1 * 1 * 1000;
     }
 
     // Troca entre tela de loading e tela de expirado
