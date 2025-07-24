@@ -2,136 +2,139 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=480">
   <title>Redirecionando...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #fafaff;
+      background: #f8f8f8;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
+      height: 100vh;
       margin: 0;
     }
-    .countdown {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-top: 8px;
-      letter-spacing: 2px;
-      color: #28388d;
-    }
-    .msg-expirou {
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 0 18px #0001;
+      padding: 32px 28px;
+      max-width: 400px;
       text-align: center;
-      background: #fff3f3;
-      border: 1px solid #ffbcbc;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 2px 10px #0001;
-      max-width: 350px;
     }
-    .btn-contato {
-      display: inline-block;
-      margin-top: 18px;
-      background: #28388d;
+    .progress-bar {
+      background: #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 32px;
+      margin: 32px 0 10px 0;
+      position: relative;
+    }
+    .progress {
+      background: linear-gradient(90deg, #5e72e4 0%, #11cdef 100%);
+      height: 100%;
+      width: 0;
+      transition: width 0.2s;
       color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1.1rem;
+      text-align: center;
       font-weight: bold;
+      font-size: 1.1em;
+      line-height: 32px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .hidden {
+      display: none;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 10px 32px;
+      background: #5e72e4;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s;
     }
-    .btn-contato:hover {
-      background: #162252;
+    .btn:hover {
+      background: #3a47bd;
     }
   </style>
 </head>
 <body>
-
-  <div id="main-content">
-    <div style="text-align:center;">
-      <span style="font-size:1.4rem;">Aguarde para ser redirecionado</span>
-      <div class="countdown" id="countdown">3...</div>
+  <div class="container" id="main-content">
+    <div id="loading-content">
+      <h2>Aguarde para ser redirecionado</h2>
+      <div class="progress-bar">
+        <div class="progress" id="progress">0%</div>
+      </div>
+    </div>
+    <div id="expired-content" class="hidden">
+      <h2>Que pena, você chegou tarde demais!</h2>
+      <p>Este link expirou, entre em contato para se informar melhor:</p>
+      <a href="https://wa.me/SEU_NUMERO" class="btn" target="_blank">Entrar em contato</a>
     </div>
   </div>
-
-  <div id="expired-content" style="display:none;">
-    <div class="msg-expirou">
-      <div style="font-size:1.2rem; font-weight: bold; color: #b11111;">Que pena, você chegou tarde demais!</div>
-      <div style="margin:12px 0 4px 0;">Este link expirou, entre em contato para se informar melhor:</div>
-      <a class="btn-contato" href="https://wa.me/SEUNUMEROAQUI" target="_blank">Entrar em contato</a>
-    </div>
-  </div>
-
   <script>
-    // Gere um ID único para o navegador
-    function generateBrowserId() {
-      return 'id-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
-    }
+    const REDIRECT_URL = "https://www.google.com";
+    const VALID_FOR_HOURS = 1;
+    const LOADING_TIME = 3000; // 3s
 
-    // Checa/Salva o ID e timestamp de validade (24h)
-    function getOrCreateBrowserId() {
-      let data = localStorage.getItem('browserAccessData');
-      if (data) {
-        try {
-          data = JSON.parse(data);
-        } catch {
-          data = null;
-        }
-      }
-      const now = Date.now();
-      if (!data || !data.id || !data.expireAt || now > data.expireAt) {
-        // Novo ID e validade de 24h
-        const expireAt = now + 1 * 60 * 1000; // 24 horas em ms
-        data = { id: generateBrowserId(), expireAt };
-        localStorage.setItem('browserAccessData', JSON.stringify(data));
-      }
-      return data;
-    }
-
-    function isExpired() {
-      const data = localStorage.getItem('browserAccessData');
-      if (!data) return false;
+    // Gera ID único (caso não exista) e salva data de criação
+    function getOrSetBrowserId() {
+      let obj = null;
       try {
-        const obj = JSON.parse(data);
-        return Date.now() > obj.expireAt;
-      } catch {
-        return false;
+        obj = JSON.parse(localStorage.getItem("my_redirect_id"));
+      } catch {}
+      if (!obj || !obj.id || !obj.created) {
+        const id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 16);
+        obj = { id, created: Date.now() };
+        localStorage.setItem("my_redirect_id", JSON.stringify(obj));
       }
+      return obj;
     }
 
-    // Fluxo principal
-    window.onload = function() {
-      if (isExpired()) {
-        // Expirado: mostra mensagem
-        document.getElementById('main-content').style.display = 'none';
-        document.getElementById('expired-content').style.display = '';
-        return;
-      }
+    function hasExpired(obj) {
+      const now = Date.now();
+      return (now - obj.created) > VALID_FOR_HOURS * 1 * 60 * 1000;
+    }
 
-      // Ainda válido: cria/renova ID e começa countdown
-      getOrCreateBrowserId();
-      let count = 3;
-      const countdownEl = document.getElementById('countdown');
-      countdownEl.textContent = count + '...';
+    // Troca entre tela de loading e tela de expirado
+    function showExpired() {
+      document.getElementById("loading-content").classList.add("hidden");
+      document.getElementById("expired-content").classList.remove("hidden");
+    }
 
-      const interval = setInterval(() => {
-        count--;
-        if (count > 0) {
-          countdownEl.textContent = count + '...';
-        } else {
-          countdownEl.textContent = '1...';
-          clearInterval(interval);
-          // Redireciona
-          window.location.href = "https://www.google.com";
+    function startLoadingBarAndRedirect() {
+      const progress = document.getElementById("progress");
+      let pct = 0;
+      const interval = 30;
+      const steps = LOADING_TIME / interval;
+      let current = 0;
+      const timer = setInterval(() => {
+        current++;
+        pct = Math.round(100 * (current / steps));
+        progress.style.width = pct + "%";
+        progress.textContent = pct + "%";
+        if (current >= steps) {
+          clearInterval(timer);
+          window.location.href = REDIRECT_URL;
         }
-      }, 1000);
-    };
-  </script>
+      }, interval);
+    }
 
+    // Lógica principal
+    (function () {
+      const browserObj = getOrSetBrowserId();
+      if (hasExpired(browserObj)) {
+        showExpired();
+      } else {
+        startLoadingBarAndRedirect();
+      }
+    })();
+  </script>
 </body>
 </html>
