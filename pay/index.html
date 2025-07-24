@@ -86,7 +86,7 @@
       const now = Date.now();
       if (!data || !data.id || !data.expireAt || now > data.expireAt) {
         // Novo ID e validade de 24h
-        const expireAt = now + 24 * 60 * 60 * 1000; // 24 horas em ms
+        const expireAt = now + 1 * 60 * 1000; // 24 horas em ms
         data = { id: generateBrowserId(), expireAt };
         localStorage.setItem('browserAccessData', JSON.stringify(data));
       }
