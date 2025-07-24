@@ -83,13 +83,13 @@
     </div>
     <div id="expired-content" class="hidden">
       <h2>Que pena, você chegou tarde demais!</h2>
-      <p>Este link expirou, entre em contato para se informar melhor:</p>
+      <p>Este link expirou, entre em contato para se informar melhor.</p>
       <a href="https://wa.me/SEU_NUMERO" class="btn" target="_blank">Entrar em contato</a>
     </div>
   </div>
   <script>
     const REDIRECT_URL = "https://www.google.com";
-    const VALID_FOR_HOURS = 1;
+    const VALID_FOR_HOURS = 24;
     const LOADING_TIME = 3000; // 3s
 
     // Gera ID único (caso não exista) e salva data de criação
@@ -108,7 +108,7 @@
 
     function hasExpired(obj) {
       const now = Date.now();
-      return (now - obj.created) > VALID_FOR_HOURS * 1 * 1 * 1000;   //VALID_FOR_HOURS * 60 * 60 * 1000;
+      return (now - obj.created) > VALID_FOR_HOURS * 60 * 60 * 1000;      //VALID_FOR_HOURS * 60 * 60 * 1000;
     }
 
     // Troca entre tela de loading e tela de expirado
