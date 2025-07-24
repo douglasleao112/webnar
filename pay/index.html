@@ -49,18 +49,27 @@
     }
     .btn {
       display: inline-block;
-      margin-top: 22px;
-      padding: 10px 32px;
-      background: #5e72e4;
+      margin-top: 32px;
+      padding: 22px 80px;
+      background: linear-gradient(90deg, #38d430 0%, #09a80c 100%);
       color: #fff;
       border: none;
-      border-radius: 8px;
-      font-size: 1.1em;
+      border-radius: 16px;
+      font-size: 1.6em;
+      font-weight: bold;
       cursor: pointer;
       text-decoration: none;
+      box-shadow: 0 4px 16px #20bb18a2;
+      animation: zoomBtn 1.2s infinite alternate;
+      transition: background 0.2s;
     }
     .btn:hover {
-      background: #3a47bd;
+      background: linear-gradient(90deg, #43e545 0%, #09a80c 100%);
+    }
+    @keyframes zoomBtn {
+      0%   { transform: scale(1); }
+      70%  { transform: scale(1.12); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
@@ -99,7 +108,7 @@
 
     function hasExpired(obj) {
       const now = Date.now();
-      return (now - obj.created) > VALID_FOR_HOURS * 1 * 1 * 1000;
+      return (now - obj.created) > VALID_FOR_HOURS * 1 * 1 * 1000;     // VALID_FOR_HOURS * 60 * 60 * 1000;
     }
 
     // Troca entre tela de loading e tela de expirado
