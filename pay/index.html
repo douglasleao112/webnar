@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Página Temporária</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f7fb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    #expired-message {
+      display: none;
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px #ccc;
+      text-align: center;
+    }
+    #contact-btn {
+      margin-top: 20px;
+      padding: 12px 28px;
+      border: none;
+      background: #417afc;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="expired-message">
+    <h2>Que pena, você chegou tarde demais!</h2>
+    <p>Este link expirou, entre em contato para se informar melhor:</p>
+    <button id="contact-btn" onclick="window.open('https://wa.me/SEUNUMEROAQUI', '_blank')">Entrar em contato</button>
+  </div>
+
+  <script>
+    // Função para gerar um ID único simples
+    function generateBrowserId() {
+      return 'id-' + Math.random().toString(36).substr(2, 16);
+    }
+
+    const STORAGE_KEY = 'browser_access_v1';
+    const ACCESS_HOURS = 24;
+    const now = Date.now();
+
+    let browserData = localStorage.getItem(STORAGE_KEY);
+    let expired = false;
+
+    if (!browserData) {
+      // Primeiro acesso: salva ID e timestamp
+      const data = {
+        id: generateBrowserId(),
+        timestamp: now
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      browserData = JSON.stringify(data);
+    }
+
+    const data = JSON.parse(browserData);
+    const elapsed = (now - data.timestamp) / (1000 * 60 * 60);
+
+    if (elapsed > ACCESS_HOURS) {
+      expired = true;
+    }
+
+    if (expired) {
+      // Exibe mensagem de expirado
+      document.getElementById('expired-message').style.display = 'block';
+    } else {
+      // Redireciona após 3 segundos
+      setTimeout(function() {
+        window.location.href = "https://www.google.com";
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
