@@ -395,11 +395,11 @@ img, a {
 
 #progressBarOverlay {
   position: absolute;
-  top: 0;
+  bottom: 0; /* <-- Aqui é a mudança */
   left: 0;
   height: 4px;
   width: 0%;
-  background: rgba(255, 0, 0, 0.632); 
+  background: rgba(255, 125, 0, 0.6);
   z-index: 5;
   transition: width 0.2s linear;
   pointer-events: none;
@@ -495,10 +495,10 @@ img, a {
         <source src="https://video.wixstatic.com/video/7f5efc_8e423eaaed074ffa8a0c6b9ffe3900a7/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
         </video>
+        <div id="progressBarOverlay"></div>
         <div id="videoClickOverlay"></div>
         <button id="playButton"></button>
-        <div id="progressBarOverlay"></div>
-    </div>
+     </div>
     </div>
 
 
