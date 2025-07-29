@@ -1317,7 +1317,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (30 * 60 * 60 * 1000));   // IMPORTANTE!  30h precisa cobrir o tempo do replay "Transmissão AO VIVO encerrada"
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (24 * 60 * 60 * 1000));   // IMPORTANTE!  30h precisa cobrir o tempo do replay "Transmissão AO VIVO encerrada"
 
     if (now < webinarStart) {
         showCountdown();
