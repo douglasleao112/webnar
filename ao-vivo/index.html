@@ -563,9 +563,9 @@ img, a {
 
 
 <script>  //PROGRAMAR LIVE      IMPORTANTE!
-    const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 16;         // HORA 
-    const configMinute = 0;      // MINUTO
+    const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
+    const configHour = 23;         // HORA 
+    const configMinute = 53;      // MINUTO
     const durationMinutes = 116;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -1169,15 +1169,19 @@ function startWebinar() {
 
     const offerDelayMs = (webinarStart.getTime() + 5255 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
 
-    if (offerDelayMs > 0) {
-        // se ainda não chegou à hora da oferta, agenda para daqui a offerDelayMs
-        setTimeout(() => {
-            document.getElementById('offerSection').style.display = 'block';
-        }, offerDelayMs);
-    } else {
-        // se já passou do ponto de 1240 s, exibe imediatamente
+   if (offerDelayMs > 0) {
+    setTimeout(() => {
         document.getElementById('offerSection').style.display = 'block';
+        if (typeof fbq === 'function') {
+            fbq('track', 'CustomizeProduct'); // Dispara o evento no pitch
+        }
+    }, offerDelayMs);
+} else {
+    document.getElementById('offerSection').style.display = 'block';
+    if (typeof fbq === 'function') {
+        fbq('track', 'CustomizeProduct'); // Dispara o evento no pitch
     }
+}
 
 
 }
