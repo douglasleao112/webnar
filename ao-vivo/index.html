@@ -1167,21 +1167,25 @@ function startWebinar() {
 
 
 
-    const offerDelayMs = (webinarStart.getTime() + 10 * 1000) - now.getTime();  // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
 
-   if (offerDelayMs > 0) {
-    setTimeout(() => {
-        document.getElementById('offerSection').style.display = 'block';
-        if (typeof fbq === 'function') {
-            fbq('track', 'CustomizeProduct'); // Dispara o evento no pitch
-        }
-    }, offerDelayMs);
-} else {
-    document.getElementById('offerSection').style.display = 'block';
-    if (typeof fbq === 'function') {
-        fbq('track', 'CustomizeProduct'); // Dispara o evento no pitch
-    }
+const offerDelayMs = (webinarStart.getTime() + 20 * 1000) - now.getTime(); // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
+
+function exibirOferta() {
+  document.getElementById('offerSection').style.display = 'block';
+  // Disparar evento do Facebook Pixel
+  if (typeof fbq === "function") {
+    fbq('trackCustom', 'CustomizeProduct');
+  }
 }
+
+if (offerDelayMs > 0) {
+  setTimeout(exibirOferta, offerDelayMs);
+} else {
+  exibirOferta();
+}
+
+
+
 
 
 }
