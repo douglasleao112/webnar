@@ -574,10 +574,10 @@ img, a {
 
 
 <script>  //PROGRAMAR LIVE IMPORTANTE!
-    const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
-    const configHour = 9;         // HORA 
-    const configMinute = 0;      // MINUTO
-    const durationMinutes = 116;    // duração do video
+    const configDay = 2;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6      certo 1h
+    const configHour = 0;         // HORA                                        certo 9h
+    const configMinute = 0;      // MINUTO                                      certo 0h
+    const durationMinutes = 116;    // duração do video                          certo duração
 
     const video = document.getElementById('customVideo');
     const playButton = document.getElementById('playButton');
@@ -1160,13 +1160,18 @@ if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDura
 
 
 
-const tempoParaMostrarBotao = 5255;  // BOTÃO DO PITCH (em segundos) IMPORTANTE!
+const tempoParaMostrarBotao = 30;  // BOTÃO DO PITCH (em segundos) IMPORTANTE!
 let botaoJaApareceu = false;
 
 video.addEventListener('timeupdate', () => {
   if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
     document.getElementById('offerSection').style.display = 'block';
     botaoJaApareceu = true;
+
+    // Dispara o evento do Pixel
+    if (typeof fbq === 'function') {
+      fbq('track', 'AddToWishlist');
+    }
   }
 });
 
