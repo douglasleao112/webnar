@@ -391,6 +391,21 @@ img, a {
     height: 60%;
     opacity: 0.5;
 }
+
+
+#progressBarOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: rgba(255, 0, 0, 0.632); 
+  z-index: 5;
+  transition: width 0.2s linear;
+  pointer-events: none;
+}
+
+
     </style>
 
 
@@ -477,9 +492,10 @@ img, a {
 
     <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline>   <!-- VIDEO MP4  IMPORTANTE! -->
-            <source src="https://video.wixstatic.com/video/7f5efc_8e423eaaed074ffa8a0c6b9ffe3900a7/480p/mp4/file.mp4" type="video/mp4">
+        <source src="https://video.wixstatic.com/video/7f5efc_8e423eaaed074ffa8a0c6b9ffe3900a7/480p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
         </video>
+        <div id="progressBarOverlay"></div>
         <div id="videoClickOverlay"></div>
         <button id="playButton"></button>
     </div>
@@ -1164,6 +1180,29 @@ const tempoParaMostrarBotao = 5255;  // BOTÃO DO PITCH (em segundos) IMPORTANTE
 let botaoJaApareceu = false;
 
 video.addEventListener('timeupdate', () => {
+
+
+    const progressBar = document.getElementById('progressBarOverlay');
+  if (progressBar) {
+    const total = video.duration;
+    const currentTime = video.currentTime;
+    let widthPercent = 0;
+
+    if (currentTime <= 120) {
+      widthPercent = (currentTime / 120) * 50;
+    } else if (currentTime <= 360) {
+      widthPercent = 50 + ((currentTime - 120) / 240) * 25;
+    } else {
+      const remaining = total - 360;
+      const elapsed = currentTime - 360;
+      widthPercent = 75 + (elapsed / remaining) * 25;
+    }
+
+    progressBar.style.width = `${Math.min(widthPercent, 100)}%`;
+  }
+
+
+  
   if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
     document.getElementById('offerSection').style.display = 'block';
     botaoJaApareceu = true;
