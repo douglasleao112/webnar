@@ -1182,24 +1182,26 @@ let botaoJaApareceu = false;
 video.addEventListener('timeupdate', () => {
 
 
-    const progressBar = document.getElementById('progressBarOverlay');
-  if (progressBar) {
-    const total = video.duration;
-    const currentTime = video.currentTime;
-    let widthPercent = 0;
+const progressBar = document.getElementById('progressBarOverlay');
+if (progressBar) {
+  const total = video.duration;
+  const currentTime = video.currentTime;
+  let widthPercent = 0;
 
-    if (currentTime <= 120) {
-      widthPercent = (currentTime / 120) * 50;
-    } else if (currentTime <= 360) {
-      widthPercent = 50 + ((currentTime - 120) / 240) * 25;
-    } else {
-      const remaining = total - 360;
-      const elapsed = currentTime - 360;
-      widthPercent = 75 + (elapsed / remaining) * 25;
-    }
+  if (currentTime <= 240) {
+      widthPercent = (currentTime / 240) * 50;
 
-    progressBar.style.width = `${Math.min(widthPercent, 100)}%`;
+  } else if (currentTime <= 540) {
+      widthPercent = 50 + ((currentTime - 240) / 300) * 25;
+
+  } else {
+    const remaining = total - 540;
+    const elapsed = currentTime - 540;
+    widthPercent = 75 + (elapsed / remaining) * 25;
   }
+
+  progressBar.style.width = `${Math.min(widthPercent, 100)}%`;
+}
 
 
 
