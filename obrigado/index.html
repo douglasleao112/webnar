@@ -112,7 +112,7 @@
     }
   </style>
   <script>
-    // redireciona após 30s
+    // redireciona após 30s   IMPORTANTE!
     setTimeout(function() {
       window.location.href = "/link-grupo-webnar";
     }, 30000);
@@ -125,16 +125,16 @@
       // lógica dinâmica de promo
       const promos = {
         1: { // segunda
-          img: 'https://i.imgur.com/s77vPeF.jpeg',
-          text: '[DOMINGO 16H] Vamos derreter \n toda a gordura 🔥'
+          img: 'https://static.wixstatic.com/media/7f5efc_e52c574bc8164938a44950d3ba0a3ba3~mv2.jpg',
+          text: '[DOMINGO 19H] Vamos derreter \n toda a gordura 🔥'
         },
         2: { // terça
-          img: 'https://i.imgur.com/s77vPeF.jpeg',
-          text: '[DOMINGO 16H] Vamos derreter \n toda a gordura 🔥'
+          img: 'https://static.wixstatic.com/media/7f5efc_e52c574bc8164938a44950d3ba0a3ba3~mv2.jpg',
+          text: '[DOMINGO 19H] Vamos derreter \n toda a gordura 🔥'
         },
         3: { // quarta
-          img: 'https://i.imgur.com/s77vPeF.jpeg',
-          text: '[DOMINGO 16H] Vamos derreter \n toda a gordura 🔥'
+          img: 'https://static.wixstatic.com/media/7f5efc_e52c574bc8164938a44950d3ba0a3ba3~mv2.jpg',
+          text: '[DOMINGO 19H] Vamos derreter \n toda a gordura 🔥'
         },
         4: { // quinta
           img: 'https://static.wixstatic.com/media/7f5efc_916c156145ba49d2a8843a4d0e1d34d0~mv2.jpg',
@@ -149,8 +149,8 @@
           text: '[FALTA 1 DIA] Vamos derreter \n toda a gordura 🔥'
         },
         0: { // domingo
-          img: 'https://i.imgur.com/aOVwLu3.jpeg',
-          text: '[HOJE 16H] Vamos derreter \n toda a gordura 🔥'
+          img: 'https://static.wixstatic.com/media/7f5efc_382e52c3b0e241698c49053bfa1e4c73~mv2.jpg',
+          text: '[HOJE 19H] Vamos derreter \n toda a gordura 🔥'
         }
       };
       const today = new Date().getDay();
@@ -205,7 +205,7 @@
     <!-- Aqui será inserida a imagem e o texto conforme o dia -->
     <div id="dynamicPromo"></div>
     
-  <!-- botão verde -->
+  <!-- botão verde IMPORTANTE!-->
      <a class="btn" href="/link-grupo-webnar">
     Entrar no grupo
   </a>
@@ -231,7 +231,7 @@
     .getElementById('copyLinkBtn')
     .addEventListener('click', function(e) {
       e.preventDefault();
-      const groupLink = 'https://chat.whatsapp.com/HIO6qvhYcwPEUJxcjmaWlE';
+      const groupLink = 'https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF';  //IMPORTANTE! LINK DO BOTÃO COPIAR
 
       // tenta usar a API moderna
       navigator.clipboard.writeText(groupLink)
