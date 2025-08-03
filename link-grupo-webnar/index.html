@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Grupo Exclusivo Whatsapp...</title>
-<script>
-  const linkSemanaImpar = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";     // Link para semana ímpar
-  const linkSemanaPar = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";       // Link para semana par
+<script>// verificar o domingo
+  const linkSemanaImpar = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";     
+  const linkSemanaPar = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";       
 
   // Função para obter o número da semana do ano
   function getWeekNumber(date) {
@@ -28,13 +28,9 @@
   const numeroSemana = getWeekNumber(agora);
   const usarLinkPar = numeroSemana % 2 === 0;
 
-  // Comentários para identificar qual link será usado
-  // Semana par → usar linkSemanaPar
-  // Semana ímpar → usar linkSemanaImpar
-
   setTimeout(() => {
     window.location.href = usarLinkPar ? linkSemanaPar : linkSemanaImpar;
-  }, 3000);
+  }, 2000);
 </script>
 
 
