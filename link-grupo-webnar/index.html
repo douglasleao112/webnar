@@ -4,24 +4,39 @@
   <meta charset="UTF-8">
   <title>Grupo Exclusivo Whatsapp...</title>
 <script>
-  // Define os dois links 
-  const linkAtual = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";    // atual
-  const linkProximo = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";   // próx link
+  const linkSemanaImpar = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";     // Link para semana ímpar
+  const linkSemanaPar = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";       // Link para semana par
 
-  // Pega data/hora atual
+  // Função para obter o número da semana do ano
+  function getWeekNumber(date) {
+    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+  }
+
   const agora = new Date();
-  const dia = agora.getDay(); // 0 = Domingo
-  const horas = agora.getHours();
-  const minutos = agora.getMinutes();
+  const dia = agora.getDay(); // 0 = domingo
+  const hora = agora.getHours();
+  const minuto = agora.getMinutes();
 
-  // Condição: se for domingo às 20h ou depois, usa o linkProximo
-  const usarLinkProximo = (dia === 0 && horas >= 20);
+  // Se for domingo e ainda não passou das 20h, considera como parte da semana anterior
+  const passouDas20h = hora > 20 || (hora === 20 && minuto >= 0);
+  if (dia === 0 && !passouDas20h) {
+    agora.setDate(agora.getDate() - 1); // volta para sábado
+  }
 
-  // Redireciona após 2 segundos
-  setTimeout(function() {
-    window.location.href = usarLinkProximo ? linkProximo : linkAtual;
-  }, 1000);
+  const numeroSemana = getWeekNumber(agora);
+  const usarLinkPar = numeroSemana % 2 === 0;
+
+  // Comentários para identificar qual link será usado
+  // Semana par → usar linkSemanaPar
+  // Semana ímpar → usar linkSemanaImpar
+
+  setTimeout(() => {
+    window.location.href = usarLinkPar ? linkSemanaPar : linkSemanaImpar;
+  }, 3000);
 </script>
+
 
   <!-- Facebook Pixel Code -->
   <script>
