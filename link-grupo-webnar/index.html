@@ -3,35 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Grupo Exclusivo Whatsapp...</title>
-<script>// verificar o domingo
-  const linkSemanaImpar = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";     
-  const linkSemanaPar = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";       
-
-  // Função para obter o número da semana do ano
-  function getWeekNumber(date) {
-    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-    const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
-    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-  }
-
-  const agora = new Date();
-  const dia = agora.getDay(); // 0 = domingo
-  const hora = agora.getHours();
-  const minuto = agora.getMinutes();
-
-  // Se for domingo e ainda não passou das 20h, considera como parte da semana anterior
-  const passouDas20h = hora > 20 || (hora === 20 && minuto >= 0);
-  if (dia === 0 && !passouDas20h) {
-    agora.setDate(agora.getDate() - 1); // volta para sábado
-  }
-
-  const numeroSemana = getWeekNumber(agora);
-  const usarLinkPar = numeroSemana % 2 === 0;
-
-  setTimeout(() => {
-    window.location.href = usarLinkPar ? linkSemanaPar : linkSemanaImpar;
-  }, 2000);
-</script>
+  <script>
+    // Redireciona após 2 segundos
+    setTimeout(function() {
+      window.location.href = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";     
+    }, 2000);
+  </script>
 
 
   <!-- Facebook Pixel Code -->
