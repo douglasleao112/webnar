@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Grupo Exclusivo Whatsapp...</title>
-  <script>
-    // Redireciona após 2 segundos
-    setTimeout(function() {
-      window.location.href = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";   // https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN      
-    }, 2000);
-  </script>
+<script>
+  // Define os dois links 
+  const linkAtual = "https://chat.whatsapp.com/IsHGaocteSaBJh78PRUvGF";    // atual
+  const linkProximo = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";   // próx link
+
+  // Pega data/hora atual
+  const agora = new Date();
+  const dia = agora.getDay(); // 0 = Domingo
+  const horas = agora.getHours();
+  const minutos = agora.getMinutes();
+
+  // Condição: se for domingo às 20h ou depois, usa o linkProximo
+  const usarLinkProximo = (dia === 0 && horas >= 20);
+
+  // Redireciona após 2 segundos
+  setTimeout(function() {
+    window.location.href = usarLinkProximo ? linkProximo : linkAtual;
+  }, 1000);
+</script>
 
   <!-- Facebook Pixel Code -->
   <script>
