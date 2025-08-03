@@ -76,7 +76,7 @@
 <body>
   <div class="container" id="main-content">
     <div id="loading-content">
-      <h2>Aguarde para ser redirecionado</h2>
+      <h2>Aguarde para receber a oferta</h2>
       <div class="progress-bar">
         <div class="progress" id="progress">0%</div>
       </div>
@@ -84,13 +84,15 @@
     <div id="expired-content" class="hidden">
       <h2>Que pena, você chegou tarde demais!</h2>
       <p>Este link expirou, entre em contato para se informar melhor.</p>
-      <a href="https://wa.me/SEU_NUMERO" class="btn" target="_blank">Entrar em contato</a>
+      <a href="https://wa.me/5562984888498?text=Eu%20perdi%20a%20oferta%2C%20como%20fa%C3%A7o%20agora%3F" class="btn" target="_blank">Entrar em contato</a>
     </div>
   </div>
   <script>
-    const REDIRECT_URL = "https://www.google.com";
-    const VALID_FOR_HOURS = 24;
-    const LOADING_TIME = 3000; // 3s
+    const REDIRECT_URL = "https://sun.eduzz.com/fruewagh?cupom=OFF100";   // link da oferta  IMPORTANTE!
+    const VALID_FOR_HOURS = 24; // 24h para o local storage expirar      IMPORTANTE!
+    const LOADING_TIME = 3000; // 3s de loading    IMPORTANTE!
+
+
 
     // Gera ID único (caso não exista) e salva data de criação
     function getOrSetBrowserId() {
