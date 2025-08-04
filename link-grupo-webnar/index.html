@@ -4,12 +4,68 @@
   <meta charset="UTF-8">
   <title>Grupo Exclusivo Whatsapp...</title>
   <script>
-    // Redireciona após 2 segundos
-    setTimeout(function() {
-      window.location.href = "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN";     
+    function getRedirectLink() {
+      const agora = new Date();
+
+      // Lista de períodos e links (formato: [início, fim, link])
+      const periodos = [
+        {
+          inicio: "03/08/2025 19:00", 
+          fim: "10/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/KI3UIaLyxebLyCTTH7IHfN"
+        },
+        {
+          inicio: "10/08/2025 19:00", 
+          fim: "17/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/KI3UIaLyxebLylink2"
+        },
+        {
+          inicio: "17/08/2025 19:00", 
+          fim: "24/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/KI3UIaLyxebLylink3"
+        },
+        {
+          inicio: "24/08/2025 19:00", 
+          fim: "31/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/KI3UIaLyxebLylink4"
+        },
+        {
+          inicio: "31/08/2025 19:00", 
+          fim: "07/09/2025 18:59", 
+          link: "https://chat.whatsapp.com/KI3UIaLyxebLylink5"
+        },
+        {
+          inicio: "07/09/2025 19:00", 
+          fim: "14/09/2025 18:59", 
+          link: "https://chat.whatsapp.com/KI3UIaLyxebLylink6"
+        }
+      ];
+
+      // Função auxiliar para converter data BR para objeto Date
+      function parseDataBR(dataStr) {
+        const [dia, mes, anoHora] = dataStr.split("/");
+        const [ano, hora] = anoHora.split(" ");
+        const [h, m] = hora.split(":");
+        return new Date(`${ano}-${mes}-${dia}T${h}:${m}:00`);
+      }
+
+      for (const periodo of periodos) {
+        const inicio = parseDataBR(periodo.inicio);
+        const fim = parseDataBR(periodo.fim);
+        if (agora >= inicio && agora <= fim) {
+          return periodo.link;
+        }
+      }
+
+      // Link padrão (caso não esteja em nenhum período)
+      return "https://chat.whatsapp.com/GRUPO_PADRAO";
+    }
+
+    setTimeout(function () {
+      const linkDestino = getRedirectLink();
+      window.location.href = linkDestino;
     }, 2000);
   </script>
-
 
   <!-- Facebook Pixel Code -->
   <script>
@@ -22,13 +78,12 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1290378376428374');
-    fbq('track', 'Contact'); // Dispara evento de contato ao carregar
+    fbq('track', 'Contact');
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
          src="https://www.facebook.com/tr?id=1290378376428374&ev=Contact&noscript=1"/>
   </noscript>
-  <!-- End Facebook Pixel Code -->
 </head>
 <body style="background:#fff"></body>
 </html>
