@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vamos queimar toda gordura 🔥</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        #videoContainer, #chatContainer, #nameForm {
+            display: none;
+            margin: 20px auto;
+            max-width: 480px;
+            width: 100%;
+        }
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+        }
+ 
+#nameForm input,
+#chatInputArea input {
+  font-size: 16px;
+}
+        #customVideo {
+            width: 100%;
+            display: block;
+        }
+        #videoClickOverlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            cursor: pointer;
+            z-index: 3;
+        }
+/* botão centralizado e com imagem de play */
+#playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%) scale(1);
+  background: url('https://jornadadaradiestesia.com.br/wp-content/uploads/2023/05/player-thum-youtub.svg') center/contain no-repeat;
+  border: none;
+  cursor: pointer;
+  z-index: 4;
+
+   /* 2) Animação de “zoom in/out” */
+  animation: zoom 1.5s infinite alternate;
+}
+
+/* 3) Keyframes que fazem o zoom ir (scale 1 → 1.2) e voltar */
+@keyframes zoom {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+        /* Chat Layout */
+        #chatContainer {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .chat-message {
+            background: #f1f3f5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #333;
+        }
+        .chat-message strong {
+            color: #365899;
+            display: block;
+            margin-bottom: 4px;
+        }
+        #chatInputArea {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 6px 10px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        #userMessage {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 6px 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+        #sendButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 6px;
+            width: 40px;
+            height: 40px;
+        }
+        #sendButton img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+        }
+#chatContainer h3 {
+    font-size: 13px;      
+    font-weight: bold;
+    color: #333;
+	margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+
+  
+        #nameForm {
+            display: none;
+            max-width: 400px;
+            width: 100%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+            text-align: center;
+        }
+        #nameForm img.logo {
+            width: 200px;
+            margin-bottom: 8px;
+        }
+        #nameForm h3 {
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #nameForm p {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        #nameForm input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        #nameForm button {
+            width: 100%;
+            background-color: #22c55e;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #nameForm .link {
+            display: block;
+            margin-top: 12px;
+            color: #007BFF;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        #nameForm .link:hover {
+            text-decoration: underline;
+        }
+
+  
+        @media (max-width: 500px) {
+            body {
+                padding: 0 !important; 
+            }
+			  .mainContent {
+             padding-left: 12px;
+             padding-right: 12px;
+            }
+            #chatContainer {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+		   #nameForm {
+                margin: 10px auto;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100%;
+            }
+			#videoContainer {
+                margin: 0 !important;
+                padding: 0 !important;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                width: 100% !important; 
+            }
+            #chatInputArea {
+                flex-wrap: wrap;
+            }
+        }
+		
+            #viewerCounter {
+            font-size: 13px;       
+            color: #555;           
+            margin-top: 30px;
+            }
+            #viewerCounter strong {
+            color: rgb(16, 16, 16);           
+            font-size: 13px;
+            }
+            
+#waitingMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* mantêm largura e estilo anteriores */
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  /* remova margens verticais que conflitem */
+  margin: 0;
+}
+
+#waitingMessage h2 {
+    color: #000;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#waitingMessage p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#waitingMessage #countdown {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 20px;   
+  font-family: inherit; 
+}
+
+#countdown {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#nameFormWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+
+
+html, body {
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
+}
+img, a {
+  -webkit-user-drag: none !important;
+}
+
+#eventClosedMessage {
+  height: 100vh;             
+  display: flex;              
+  align-items: center;         
+  justify-content: center;   
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+#offerSection .price-old {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+#offerSection .price-old span {
+  text-decoration: line-through;
+  color: #999;
+}
+
+#offerSection .price-new {
+  color: #28a745;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+#offerSection button {
+  background-color: #ff7d00; 
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 8px;
+}
+
+#offerSection button:hover {
+  opacity: 0.9;
+}
+
+#offerSection .discount-note {
+  color: #333;
+  font-size: 12px;
+}
+
+#chatInputArea {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0; /* Cinza claro */
+    border-radius: 20px;
+    padding: 10px 15px;
+    opacity: 0.7;
+    width: 100%;
+    cursor: not-allowed;
+    position: relative;
+}
+
+#userMessage {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #555; /* Cinza escuro para o texto */
+    font-size: 14px;
+    cursor: not-allowed;
+}
+
+#userMessage::placeholder {
+    color: #555; /* Placeholder em cinza escuro */
+}
+
+#sendButton {
+    background-color: transparent;
+    border: none;
+    cursor: not-allowed;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+#sendButton img {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+}
+
+
+#progressBarOverlay {
+  position: absolute;
+  bottom: 0; /* <-- Aqui é a mudança */
+  left: 0;
+  height: 8px;
+  width: 0%;
+  background: rgba(255, 0, 0, 0.425);
+  z-index: 5;
+  transition: width 0.2s linear;
+  pointer-events: none;
+}
+
+
+    </style>
+
+
+<!-- Meta Pixel Code IMPORTANTE! PIXEL-->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src='https://connect.facebook.net/en_US/fbevents.js';
+  s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script');
+
+  fbq('init', '1290378376428374');
+  fbq('track', 'Search');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1290378376428374&ev=Search&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+
+
+
+
+
+</head>
+<body>
+
+
+<div id="nameFormWrapper">
+<div id="nameForm">
+    <img class="logo" src="https://static.wixstatic.com/media/7f5efc_d57af593df0944798d6d3b833c862d56~mv2.png">
+   <h3 style="font-size: 20px;">Descubra como Eliminar 12kg em 6 Semanas com a Fórmula do Abacate</h3>
+    <p>Por favor, entre com o mesmo <b>Nome</b> e <b>WhatsApp</b> que você informou na inscrição.</p><br/>
+<input type="text" id="userNameInput" placeholder="Nome"
+  autocomplete="name"
+  style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;">
+
+<input 
+  type="text" 
+  id="userWhatsappInput"
+  maxlength="15"
+  placeholder="(11) 99999-9999"
+  oninput="limparDDI(this)"
+  autocomplete="tel"
+  style="width: 100%; padding: 10px; margin: 8px 0 16px 0; box-sizing: border-box;">
+
+
+
+
+
+    <button onclick="saveUserName()">ENTRAR</button>
+    <a href="https://www.dougleao.com.br/cadastrar-videoliberado" class="link">Ou, clique aqui para se inscrever agora.</a>
+</div>
+</div>
+
+
+
+<div id="nextSession"></div>
+
+
+<div id="waitingMessage" style="display:none;">
+    <h2>Quase lá!</h2>
+    <p>Aguarde! Nosso evento começa em breve!</p>
+    <p id="countdown"></p>
+</div>
+
+<div id="eventClosedMessage" style="display:none;">
+  <h2>Evento Encerrado.</h2>
+</div>
+
+
+<div id="videoContainer">    
+ <!-- Headline e subhealine -->
+<div id="viewerCounter" style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
+  <h1 style="font-size: 18px; color: #d62828; margin-bottom: 8px;">Vídeo liberado por tempo limitado</h1>
+  <p style="font-size: 13px; color: #333;">
+    Esse vídeo sairá do ar HOJE,<b> <span id="diaSemana"></span> às 23:59</b>
+  </p>
+</div>
+
+
+    <div class="player-wrapper">
+        <video id="customVideo" preload="metadata" playsinline >  <!--  controls    IMPORTANTE! -->
+        <source src="https://video.wixstatic.com/video/7f5efc_fce99097c9f84987be0da5551ca31990/480p/mp4/file.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div id="progressBarOverlay"></div>
+        <div id="videoClickOverlay"></div>
+        <button id="playButton"></button>
+     </div>
+    </div>
+
+
+
+
+
+
+
+<div class="mainContent">
+<!-- Oferta especial, inicialmente escondida   IMPORTANTE! -->
+<div id="offerSection" style="display:none; text-align:center; max-width:480px; margin:20px auto;">
+  <div style="margin-top: 10px; font-size: 14px; color: #ff0000;">
+    <b>ATENÇÃO:</b> Oferta válida somente durante o evento.<br>
+  </div>
+  <div class="oferta-dupla" style="display: flex; justify-content: center;">
+    <!-- Plano 12 meses -->
+    <div class="plano-oferta" style="flex: 1 1 280px; background: #f2fff4; border-radius: 16px; padding: 22px 12px 16px 12px; box-shadow: 0 4px 24px rgba(40,167,69,0.07); margin:8px;">
+      <div style="font-size:16px; color:#2c9c5e; font-weight:600; margin-bottom:7px;">Tratamento 12 Meses</div>
+      <div style="font-size:13px; color:#333; margin-bottom:7px;">
+        De <span style="text-decoration:line-through;color:#c44;">R$ 4.128</span>
+      </div>
+      <div style="font-size: 23px; color: #28a745; font-weight: bold;">
+        12x R$ 147,90
+      </div>
+      <div style="font-size:13px; color:#333; margin-bottom:13px;">
+        ou R$ 1479 à vista
+      </div>
+      <a href="https://sun.eduzz.com/fruewagh?cupom=OFF100"
+         style="display:block; background:#28a745; color:#fff; font-weight: bold; font-size: 18px; padding:14px 0; border-radius:12px; text-decoration:none; margin:0 auto 10px; transition: background .2s; box-shadow: 0 0 8px #28a74522;  animation: pulse 1.5s infinite, zoomInOut 1.5s infinite;">
+        QUERO 12 MESES COM DESCONTO
+      </a>
+      <div style="font-size:12px; color:#28894e;">Aproveite R$100 de desconto agora mesmo!</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+	
+<style>
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 181, 10, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+a[href*="eduzz"] {
+  animation: zoomInOut 1.5s infinite;
+}
+</style>
+
+
+
+
+
+
+
+
+<div id="chatContainer">
+    <h3>Chat Transmitido Domingo</h3>
+    <div id="messages"></div>
+
+  <div id="chatInputArea">
+    <input type="text" id="userMessage" placeholder="Chat indisponível no Replay" disabled>
+    <button id="sendButton" disabled>
+        <img src="https://cdn-icons-png.flaticon.com/512/876/876777.png" alt="Enviar">
+    </button>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+<script>  //PROGRAMAR LIVE IMPORTANTE!
+    const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6     
+    const configHour = 9;         // HORA                                  
+    const configMinute = 0;      // MINUTO                                   
+    const durationMinutes = 104;    // duração do video                        
+
+    const video = document.getElementById('customVideo');
+    const playButton = document.getElementById('playButton');
+    const overlay = document.getElementById('videoClickOverlay');
+    const videoContainer = document.getElementById('videoContainer');
+    const chatContainer = document.getElementById('chatContainer');
+    const messages = document.getElementById('messages');
+    const nextSession = document.getElementById('nextSession');
+    const nameForm = document.getElementById('nameForm');
+    const videoDuration = durationMinutes * 60;
+
+
+
+
+ const programmedMessages = [   //COMENTARIOS (valores e segundos)     IMPORTANTE!
+{ time: 30, name: "Juliana", text: "Oba, começou.. esperei a semana toda" },
+{ time: 60, name: "Mercia", text: "Pode chamar quem não está no grupo?" },
+{ time: 60, name: "Luciana", text: "Boa noite" },
+{ time: 70, name: "Fabia", text: "boa noite🙌" },
+{ time: 80, name: "Iracelma", text: "boa noiteee!" },
+{ time: 87, name: "Mercia", text: "Ta bom, pode deixar, vou avisar" },
+{ time: 89, name: "Renira", text: "Boa noite! Como vai?" },
+{ time: 93, name: "Priscila", text: "Boa noite" },
+{ time: 95, name: "Meire", text: "Noitee, vai ficar gravada?" },
+{ time: 100, name: "Marcia", text: "Esperei a semana toda" },
+{ time: 105, name: "Fatima", text: "Espero que você possa me ajudar, não aguento mais esse peso." },
+{ time: 120, name: "Silva", text: "Vai começar" },
+{ time: 121, name: "Ana", text: "Ta online será?" },
+{ time: 134, name: "Lays", text: "Domingo abençoado para nós 🙌" },
+{ time: 144, name: "Zenilda", text: "Estou fazendo dieta mas parei de emagrecer" },
+{ time: 146, name: "Flaviane", text: "Jejum e low carb já fiz, só passei fome demais" },
+{ time: 150, name: "Caleane", text: "kkkkk Deus me livre de dieta" },
+{ time: 151, name: "Iara", text: "Vai falar do Mounjaro" },
+{ time: 152, name: "Mercia", text: "Começou agora?" },
+{ time: 153, name: "Ana", text: "Eu estou fazendo dieta com uma que o nutri, mas não to vendo efeito...😔😔😔" },
+{ time: 163, name: "Iara", text: "já chamei, vou chamar mais gente então" },
+{ time: 164, name: "Nubia", text: "Posso enviar o link que está no grupo então!" },
+{ time: 170, name: "Kesia", text: "Eu já não acredito em mais nada" },
+{ time: 159, name: "Zilda", text: "Até Ozempic, não funciona será?" },
+{ time: 170, name: "Pri", text: "Meu metabolismo é lento acho que é minha tireóide" },
+{ time: 190, name: "Jucelia", text: "Começou agora????" },
+{ time: 200, name: "Angela", text: "Está ao vivo????" },
+{ time: 240, name: "Zenilda", text: "Eu vi isso" },
+{ time: 241, name: "Flaviane", text: "Vamos que vamos!!!😃😃😃" },
+{ time: 241, name: "Nubia", text: "Aguardei a semana inteira" },
+{ time: 243, name: "Debora", text: "Tamo junto" },
+{ time: 247, name: "Julia", text: "Vai ficar gravada???" },
+{ time: 250, name: "Iara", text: "eu vi esse comentário dela" },
+{ time: 260, name: "Katiane", text: "Já cai em mentira mais!" },
+{ time: 306, name: "Sara", text: "Realmente eu já não sei mais o que funciona..." },
+{ time: 307, name: "Isa", text: "Cada um fala uma coisa" },
+{ time: 346, name: "Rafaela", text: "Eu estou com esperanças" },
+{ time: 350, name: "Dani", text: "verdade... tudo falso, eu vi que nada disso funciona" },
+{ time: 351, name: "Juventite", text: "Eu estou comendo só ovo, funciona?" },
+{ time: 420, name: "Luciana", text: "Eu estou pra desistir, vamos ver o que você vai mostrar..." },
+{ time: 468, name: "Marcela", text: "Estou tomando mounjaru e só estou passando mal, uma dor terrivel de estomago😓😓" },
+{ time: 490, name: "Juliana", text: "Estou contigo, já desmarquei tudo que tinha hoje pra assistir" },
+{ time: 490, name: "Mercia", text: "Vamos até o fim!!!" },
+{ time: 505, name: "Flaviane", text: "Estou confiante que agora vai....👍👍👍" },
+{ time: 510, name: "Angelina", text: "Tudo certo Douglas, vamos lá!!!!" },
+{ time: 515, name: "Katianne", text: "Quero descobrir hoje aonde estou errando" },
+{ time: 516, name: "Isa", text: "Tudo ok, vou me libertar" },
+{ time: 570, name: "Iracelma", text: "Eu amo arroz e feijão!!!" },
+{ time: 576, name: "Iara", text: "Pão é tudo de bom, com manteiga!!!" },
+{ time: 577, name: "Manu", text: "Já não sei mais o que fazer😔" },
+{ time: 578, name: "Pietra", text: "Já não aguento mais ficar com esse peso!" },
+{ time: 625, name: "Pietra", text: "Chocolaté eu gosto, não do conta de comer pouco" },
+{ time: 626, name: "Isa", text: "Está ao vivo??" },
+{ time: 626, name: "Rafaela", text: "Vai ficar gravada Douglas" },
+{ time: 628, name: "Isa", text: "Eu amo arroz e pãozinho não abro mão" },
+{ time: 630, name: "Iracelma", text: "Estou com esparança, só preciso perder 15kg, será que da?" },
+{ time: 631, name: "Iara", text: "👍👍👍👍 Estou confiante" },
+{ time: 632, name: "Manu", text: "Eu tenho 62 anos, sera que ainda consigo emagrecer?" },
+{ time: 659, name: "Dani", text: "Eu já não acredito mais" },
+{ time: 660, name: "Debora", text: "Já fiz dieta da Lua, só passei fome" },
+{ time: 661, name: "Fabia", text: "Já tentei de tudo" },
+{ time: 703, name: "Isa", text: "Antes era mais facil mesmo" },
+{ time: 704, name: "Iracelma", text: "Eu concordo com isso que vc disse!" },
+{ time: 705, name: "Iara", text: "Meu metabolismo é lento,o que fazer" },
+{ time: 705, name: "Manu", text: "Tamo junto, vamos lá" },
+{ time: 710, name: "Pietra", text: "👍👍👍eu perciso perder 12kg" },
+{ time: 712, name: "Isa", text: "Boraaa" },
+{ time: 715, name: "Rafaela", text: "To junto" },
+{ time: 747, name: "Fabia", text: "Como eu emagreço comendo abacate?" },
+{ time: 750, name: "Zilda", text: "Quero até ver essa do abacate" },
+{ time: 798, name: "Meire", text: "Que legal o depoimento dela" },
+{ time: 803, name: "Jucelia", text: "Eu já não como arroz tem tanto tempo, e eu amo arroz😔" },
+{ time: 807, name: "Nubia", text: "Pão também é bom em..." },
+{ time: 810, name: "Regina", text: "O mais difícil é controlar a fome que vem forte" },
+{ time: 832, name: "Odete", text: "Mas açucar não faz mal???" },
+{ time: 840, name: "Laura", text: "Não é possivel, é bom demais pra ser verdade" },
+{ time: 850, name: "Manu", text: "Não acredito que consigo emagrecer comendo tudo isso..." },
+{ time: 929, name: "Iara", text: "Começou... Agora pode contar tudo..." },
+{ time: 930, name: "Nubia", text: "Isso é verdade" },
+{ time: 932, name: "Layz", text: "Pode contar comigo" },
+{ time: 934, name: "Carla", text: "Tamo junto" },
+{ time: 935, name: "Odete", text: "Eu como só salada e carne" },
+{ time: 940, name: "Maisa", text: "Não é possivel, quero saber" },
+{ time: 650, name: "Samanta", text: "Vamos juntas!" },
+{ time: 964, name: "Zilda", text: "Ele disse que não vai ficar gravada" },
+{ time: 970, name: "Manu", text: "Porque tem pessoas que conseguem mais facil?" },
+{ time: 972, name: "Angelina", text: "Eu tenho tireóide é possível emagrecer?" },
+{ time: 973, name: "Katianne", text: "Douglas, mesmo eu fazendo dieta não funciona" },
+{ time: 974, name: "Lara", text: "Eu acredito que deve ter algum segredo não é possível" },
+{ time: 974, name: "simone", text: "hahahaha" },
+{ time: 977, name: "Neli", text: "👍" },
+{ time: 979, name: "Flaviane", text: "Alguem de Maceió??" },
+{ time: 982, name: "Pietra", text: "Boa noite, começou agora?" },
+{ time: 1026, name: "Dani", text: "Virginia" },
+{ time: 1027, name: "simone", text: "Graianne e Virginia" },
+{ time: 1029, name: "Kesia", text: "Quero saber do abacate" },
+{ time: 1030, name: "Jane", text: "Virginia, Maira Cardi, Gracine" },
+{ time: 1032, name: "Lara", text: "Virginia" },
+{ time: 1034, name: "Manu", text: "Virginia" },
+{ time: 1040, name: "Zilda", text: "Interessante que saber, pode contar tudo" },
+{ time: 1137, name: "Meire", text: "Eu já fiz varios desafios e nunca emagreci" },
+{ time: 1138, name: "Dani", text: "Eu passo por todos esses problemas que você disse" },
+{ time: 1139, name: "Iara", text: "Já tomei muito remédio e nunca deu certo" },
+{ time: 1175, name: "Nubia", text: "Realmente as canetas são bem caras" },
+{ time: 1180, name: "Carla", text: "Eu estou choacada com isso" },
+{ time: 1186, name: "Odete", text: "comendo só um pouco engorda 3kg" },
+{ time: 1197, name: "Meire", text: "Tudo que já como... seria ótimo isso" },
+{ time: 1290, name: "Dani", text: "Nossa, eu engordo muito facil" },
+{ time: 1291, name: "Margareth", text: "Boa noite, filho." },
+{ time: 1407, name: "Iara", text: "Deeeus me livre" },
+{ time: 1408, name: "Sara", text: "Nem lembro quando usei um biquini" },
+{ time: 1409, name: "Isa", text: "Eu tenho uma luta para comprar roupa" },
+{ time: 1410, name: "Rafaela", text: "Balança não gosto não" },
+{ time: 1411, name: "Dani", text: "Estou tendo dificuldade demais, perciso de ajuda" },
+{ time: 1442, name: "Meire", text: "Nossa... só luz apagada no banho" },
+{ time: 1443, name: "Nubia", text: "Espelho não mente mesmo😔" },
+{ time: 1444, name: "Kesia", text: "Eu até podia ficar sem sair tem hora..." },
+{ time: 1445, name: "Odete", text: "Eu só compro roupa larga, malha fria, só elas par entrar" },
+{ time: 1536, name: "Renira", text: "eu sou assim" },
+{ time: 1538, name: "Zenia", text: "Falsa magra👍👍👍" },
+{ time: 1539, name: "Fatima", text: "Eu sou igual essa imagem, tenho a bananinha que me incomoda" },
+{ time: 1581, name: "Carla", text: "Não acredito, é você?" },
+{ time: 1582, name: "Maisa", text: "Ganhou tudo e mais um pouco😁😁😁" },
+{ time: 1583, name: "Katia", text: "Estou gostando de ver, parabéns pelo conteúdo. " },
+{ time: 1584, name: "Flores", text: "Hoje vai ser bom a aula!!" },
+{ time: 1615, name: "Fabia", text: "Sim verdade, regime deixa metabolismo lento" },
+{ time: 1616, name: "Neli", text: "Doce de noite é um perigo" },
+{ time: 1617, name: "Katiane", text: "Verdade" },
+{ time: 1618, name: "Maria Clara", text: "Eu tentei tomar mounjaro e acabei vendo que era bem caro😔" },
+{ time: 1643, name: "Odete", text: "Eu acredito sim, faz total sentido" },
+{ time: 1643, name: "Nubia", text: "já ouvi falar de tudo!!" },
+{ time: 1643, name: "Jane", text: "Chega ser dificil de acreditar, mas faz sentido" },
+{ time: 1643, name: "Meire", text: "Isso é veradade, eu ja fiz kkkk" },
+{ time: 1655, name: "Juliana", text: "Eu faço jejum e quando chega de noite eu sempre sinto muita fome, e acabo pedindo um Ifood" },
+{ time: 1672, name: "Isa", text: "Já usei Ozempic, e só dava conta de comer cois liqudia " },
+{ time: 1673, name: "Dani", text: "Mounjaro, mas n tenho dinheiro para usar" },
+{ time: 1673, name: "Rafaela", text: "Estou usando moujaro" },
+{ time: 1745, name: "Kasia", text: "Parabéns Douglas, exemplo👍👍" },
+{ time: 1754, name: "Samanta", text: "Propósito" },
+{ time: 1760, name: "Joelma", text: "eu tenho 35!" },
+{ time: 1761, name: "Neli", text: "62" },
+{ time: 1762, name: "Iara", text: "tenho 49" },
+{ time: 1763, name: "Mercia", text: "45" },
+{ time: 1764, name: "Ana", text: "53" },
+{ time: 1765, name: "Idiara", text: "37" },
+{ time: 1766, name: "Dani", text: "43" },
+{ time: 1767, name: "Rubia", text: "vou fazer 50" },
+{ time: 1772, name: "Fabia", text: "Eu acredito muito nisso" },
+{ time: 1773, name: "Layz", text: "Que história legal, parabéns Douglas" },
+{ time: 1774, name: "Zilda", text: "Eu confio" },
+{ time: 1777, name: "Deb", text: "O meu bloqueio tem intimidade com o meu propósito" },
+{ time: 1779, name: "Sara", text: "já sim, faz sentido" },
+{ time: 1811, name: "Renira", text: "Já tomei Naltrexona" },
+{ time: 1812, name: "Zenia", text: "Ozempic" },
+{ time: 1815, name: "Zenia", text: "Sibrutamina" },
+{ time: 1861, name: "Fabia", text: "Odeio academia, tem como emagrecer sem?" },
+{ time: 1884, name: "Pri", text: "Ele já falou do abacate??" },
+{ time: 1927, name: "Jucelina", text: "Eu conheço" },
+{ time: 1930, name: "Iracelma", text: "A fome vem forte, e ganha tudo de novo" },
+{ time: 1841, name: "Iara", text: "Eu tenho colesterol" },
+{ time: 1932, name: "Sara", text: "Eu já tomei..." },
+{ time: 1850, name: "Joelma", text: "Tenho diabete" },
+{ time: 1950, name: "Zilda", text: "Passou fome" },
+{ time: 1955, name: "Jucelina", text: "Coitadaa" },
+{ time: 1957, name: "Iracelma", text: "Minha nossa" },
+{ time: 1960, name: "Iara", text: "História complicada emm😔" },
+{ time: 2010, name: "Manu", text: "Calorias" },
+{ time: 2011, name: "Layz", text: "Comer menos, mas eu estou comendo tão pouco..." },
+{ time: 2016, name: "Dani", text: "Você tem que ajudar agende Douglas" },
+{ time: 2020, name: "Fabia", text: "Dificuldade de perder essa pochete" },
+{ time: 2021, name: "Neli", text: "Eu sou assim" },
+{ time: 2080, name: "Debora", text: "Faz sentido muito...😔" },
+{ time: 2082, name: "Layz", text: "Chocada" },
+{ time: 2105, name: "Kesia", text: "Faz sentido kkkk" },
+{ time: 2110, name: "Zilda", text: "Eu só como mato e não vejo perder peso também kkk" },
+{ time: 2130, name: "Renira", text: "Acredito muito nisso viu!" },
+{ time: 2135, name: "Dani", text: "Vivemos por aqui que acreditamos" },
+{ time: 2137, name: "Lays", text: "também sou assim" },
+{ time: 2140, name: "Fabia", text: "Eu acredito muito nisso" },
+{ time: 2141, name: "Layz", text: "já não aguento mais passar fome" },
+{ time: 2147, name: "Zilda", text: "Eu confio, vamos firmes meninas...." },
+{ time: 2199, name: "Debora", text: "O efeito sanfona é terrível, estou passando por isso agora" },
+{ time: 2199, name: "Sara", text: "já sim, faz sentido" },
+{ time: 2290, name: "Cassia", text: "Maiara" },
+{ time: 2291, name: "Elaine", text: "É aquela cantora" },
+{ time: 2295, name: "Lara", text: "Claro! Maira, emagreceu demais!!!" },
+{ time: 2300, name: "Josy", text: "Não fico bom não" },
+{ time: 2305, name: "Carla", text: "Eu não gosto assim" },
+{ time: 2333, name: "Jucelina", text: "Cara de doente" },
+{ time: 2386, name: "Maisa", text: "Meu instino é ruim mesmo, vou 2x na semana" },
+{ time: 2391, name: "Lud", text: "Proteina carboidrat e gordura" },
+{ time: 2392, name: "Katia", text: "Não quero emagrecer assim não" },
+{ time: 2393, name: "Flores", text: "kkkk" },
+{ time: 2397, name: "Meire", text: "Sim verdade" },
+{ time: 2399, name: "Elidiene", text: "Eu já fiz a dieta da proteína" },
+{ time: 2400, name: "Neli", text: "Sempre engordo tudo de novo" },
+{ time: 2400, name: "Katiane", text: "eu amo arroz, não do conta de ficar sem😔" },
+{ time: 2402, name: "Regina", text: "Da certo nada, se for assim prefiro desistir" },
+{ time: 2405, name: "Nubia", text: "Só ilusão essas dieta então👍👍" },
+{ time: 2406, name: "Irani", text: "Perdi 3kg e ganhei 6 depois" },
+{ time: 2410, name: "Renira", text: "sim" },
+{ time: 2410, name: "Dani", text: "Verdade viu" },
+{ time: 2411, name: "Mariana", text: "kkkk cabeça de ozempic primeira vez que escuto" },
+{ time: 2412, name: "Nayara", text: "Sim verdade" },
+{ time: 2490, name: "Zilda", text: "Essas canetas são muito caras" },
+{ time: 2496, name: "Jucelina", text: "Mais de mil reais" },
+{ time: 2497, name: "Fatima", text: "Comer menos, mas como fazer?" },
+{ time: 2500, name: "Iara", text: "Esse efeito rebote é grave, teve uma amiga que perdeu os movimentos das pernas" },
+{ time: 2501, name: "Manu", text: "Isso me desanima sabia..." },
+{ time: 2501, name: "Mercia", text: "Só eu comer menos, mas e a fome que eu fico no final do dia?" },
+{ time: 2505, name: "Dani", text: "verdade...." },
+{ time: 2506, name: "Jurere", text: "Começou agora meninas?" },
+{ time: 2522, name: "Iracelma", text: "Já tentei tudo isso que você falou kkkkk to gorda ainda" },
+{ time: 2532, name: "Manu", text: "Passo sempre por isso" },
+{ time: 2578, name: "Layz", text: "Ja tomei ozempic" },
+{ time: 2580, name: "Renira", text: "Já tomei Manipulado demais também" },
+{ time: 2585, name: "Zenia", text: "já ouvi falar" },
+{ time: 2588, name: "Zenia", text: "faz sentido o metabolismo fica lento" },
+{ time: 2600, name: "Kesia", text: "primeira semana vai 5kg facil facil, depois para" },
+{ time: 2601, name: "Laura", text: "eu sempre fiz assim, por isso não deu certo" },
+{ time: 2604, name: "Iara", text: "você vai audar agente a comer então???" },
+{ time: 2610, name: "Mercia", text: "não sei mais como fazer" },
+{ time: 2617, name: "Ana", text: "Calorias e controlar a fome, realmente faz sentido Douglas" },
+{ time: 2620, name: "Iara", text: "Não sei mesmo" },
+{ time: 2622, name: "Nubia", text: "compulsão eu já tive umas 5x" },
+{ time: 2623, name: "Kesia", text: "Então é por isso👍👍" },
+{ time: 2623, name: "Zilda", text: "Não faço ideia" },
+{ time: 2650, name: "Neli", text: "As canetas então não funciona??" },
+{ time: 2651, name: "Debora", text: "Ja tomei Saxenda, aplica todo dia né. passei mal demaaais credo" },
+{ time: 2656, name: "Layz", text: "Ozempic👍" },
+{ time: 2658, name: "Kesia", text: "Mas precisa de receita pra comprar..." },
+{ time: 2660, name: "Isa", text: "Realmente" },
+{ time: 2670, name: "Fabia", text: "Se deixar eu quero comer um boi" },
+{ time: 2692, name: "Katiane", text: "Doente, não ta legal" },
+{ time: 2693, name: "Angelina", text: "Ta desnutrida ela" },
+{ time: 2695, name: "Katianne", text: "Muito doente parece" },
+{ time: 2679, name: "Lara", text: "Da um prato de comida pra ela gente" },
+{ time: 2710, name: "Iracelma", text: "foi bariatrica parece" },
+{ time: 2711, name: "Simone", text: "Ta com cara de doente" },
+{ time: 2715, name: "Ana Paula", text: "Coitada acabou com o corpo" },
+{ time: 2725, name: "Joelma", text: "Ela não ta bem!" },
+{ time: 2720, name: "Neli", text: "Que horror😖😖" },
+{ time: 2721, name: "Iara", text: "Meu intestino é péssimo, se eu tomar um trem desse eu morro" },
+{ time: 2730, name: "Mercia", text: "Já fiquei uma semana sem ir, meu máximo..." },
+{ time: 2731, name: "Ana", text: "Isso me deixa muito nervosa, sempre acabo tomando lactopurga" },
+{ time: 2772, name: "Rubia", text: "ta claro, e ta me deixando preocupada" },
+{ time: 2775, name: "Julia", text: "Verdade" },
+{ time: 2776, name: "Carla", text: "😖😖😖😖" },
+{ time: 2826, name: "Idiara", text: "entendo, eu passo por isso viu" },
+{ time: 2830, name: "Dani", text: "Verdade faz sentido" },
+{ time: 2840, name: "Lud", text: "Tenso" },
+{ time: 2841, name: "Cida", text: "Sim já ouvi isso" },
+{ time: 2946, name: "Neli", text: "boaaa kkkk" },
+{ time: 3004, name: "Iara", text: "Chegou a hora do abacate" },
+{ time: 3010, name: "Nubia", text: "Agora conta tudo pra gente" },
+{ time: 3011, name: "Kesia", text: "kkkk verdade viu" },
+{ time: 3016, name: "Zilda", text: "Agora eu quero até ver o que ele vai falar" },
+{ time: 3020, name: "Nubia", text: "É só comer abacate emagrece?" },
+{ time: 3068, name: "Josy", text: "O que tem o abacate gente?" },
+{ time: 3070, name: "Isa", text: "triptofano" },
+{ time: 3075, name: "Layz", text: "vou anotar para tomar depois" },
+{ time: 3080, name: "Zilda", text: "legal, gostei. Como chama mesmo?" },
+{ time: 3085, name: "Kesia", text: "Que legal não sabia" },
+{ time: 3090, name: "Jucelina", text: "isso vai me deixar sem fome, eu vou comer menos é isso?" },
+{ time: 3091, name: "Lara", text: "estou chocara" },
+{ time: 3136, name: "Kesia", text: "Que resultado legal, gostei" },
+{ time: 3140, name: "Layz", text: "Bloquear a gordura, já vi algo parecido" },
+{ time: 3141, name: "Renira", text: "que legal, eu percebo que meu coco fica com gordura no vaso" },
+{ time: 3142, name: "Zenia", text: "Você podia ajudar a gente" },
+{ time: 3147, name: "Zenia", text: "será que agora eu consigo emagrecer Douglas😭😭" },
+{ time: 3150, name: "Katianne", text: "econtr aonde esses produtos???" },
+{ time: 3223, name: "Iara", text: "Nunca ouv falar, onde compra" },
+{ time: 3224, name: "Mercia", text: "Psyllium mounjaro de pobre" },
+{ time: 3230, name: "Ana", text: "é ótimo eses eu já tomei" },
+{ time: 3268, name: "Marcia", text: "Eu tenho dificudlade de emagrecer " },
+{ time: 3270, name: "Lucia", text: "Não consigo perder nenhuma grama" },
+{ time: 3272, name: "Josy", text: "É até dificil de acreditar que faz tudo isso" },
+{ time: 3277, name: "Fabia", text: "é maravilhoso isso em" },
+{ time: 3280, name: "Layz", text: "Eu queria um produto assim" },
+{ time: 3306, name: "Iara", text: "Que legal essas substâncias, onde compra?" },
+{ time: 3310, name: "Mercia", text: "que lega" },
+{ time: 3371, name: "Flores", text: "Será que ele vai passar pra gente" },
+{ time: 3375, name: "Meire", text: "E quero fazer o acopanhamento com você!!!" },
+{ time: 3380, name: "Meire", text: "Essa é a fórmula do abacate então" },
+{ time: 3413, name: "Layane", text: "Que resultado maravilhoso, já quero" },
+{ time: 3416, name: "Jucelia", text: "perderam muito peso..." },
+{ time: 3419, name: "Luciana", text: "O que são macros?" },
+{ time: 3420, name: "Zenilda", text: "essas mulheres estão magras ainda depois de tomar?" },
+{ time: 3421, name: "flaviane", text: "Conheço só dois, vou procurar os outros" },
+{ time: 3425, name: "Debora", text: "Conheço a cafeína" },
+{ time: 3438, name: "Fabia", text: "Gostei, tem como repetir?" },
+{ time: 3440, name: "Meire", text: "Fabia, Proteina e Carboidrato e gordura" },
+{ time: 3515, name: "Iracelma", text: "Eu gosto de pescar" },
+{ time: 3518, name: "Margareth", text: "Estou aqui, firme filho" },
+{ time: 3519, name: "Isa", text: "para mim faz sentido agora" },
+{ time: 3520, name: "simone", text: "Legal, não sabia diso" },
+{ time: 3565, name: "Kesia", text: "Muito legal" },
+{ time: 3570, name: "Laura", text: "Parabéns" },
+{ time: 3579, name: "flaviane", text: "Aonde encontra?" },
+{ time: 3582, name: "Odete", text: "Que lega, também quero!" },
+{ time: 3590, name: "Rafaela", text: "adorei já quero" },
+{ time: 3601, name: "Luciana", text: "Meus parabéns" },
+{ time: 3605, name: "Angela", text: "Eu também quero" },
+{ time: 3610, name: "Rubia", text: "Realmente, faz todo sentido" },
+{ time: 3615, name: "Paula", text: "Que legal, parabéns Douglas" },
+{ time: 3620, name: "Kesia", text: "Muito legal" },
+{ time: 3622, name: "Laura", text: "Parabéns" },
+{ time: 3635, name: "Ana Clara", text: "Que top, meus parabéns" },
+{ time: 3640, name: "Iracelma", text: "Bora que quero mais, estou adorando..." },
+{ time: 3641, name: "Iara", text: "Show, vamos firme" },
+{ time: 3661, name: "Manu", text: "Triptofano que chama??" },
+{ time: 3662, name: "Luci", text: "Como escreve?" },
+{ time: 3680, name: "Iara", text: "Vamos lá!!!!!" },
+{ time: 3685, name: "Nubia", text: "Eu quero!" },
+{ time: 3689, name: "Manu", text: "Estamos preparadas" },
+{ time: 3690, name: "Pri", text: "Eu quero muito, estou precisando pra ontem" },
+{ time: 3695, name: "Angelina", text: "Vamos láaa👍👍👍" },
+{ time: 3696, name: "Katianne", text: "Eu quero" },
+{ time: 3700, name: "Lara", text: "Obaaa chegou!!" },
+{ time: 3703, name: "simone", text: "reset" },
+{ time: 3704, name: "Neli", text: "reset 👍👍👍" },
+{ time: 3705, name: "Iracelma", text: "vamos começar" },
+{ time: 3710, name: "Iara", text: "Conte comigo👍" },
+{ time: 3715, name: "Manu", text: "Tamo junto" },
+{ time: 3756, name: "Layz", text: "Reset" },
+{ time: 3760, name: "Iracelma", text: "Eu quero fazer." },
+{ time: 3761, name: "Iara", text: "como faz?" },
+{ time: 3770, name: "Manu", text: "Vai fazer pra gente Douglas??" },
+{ time: 3788, name: "Layz", text: "Eu quero esse remédio como faço??" },
+{ time: 3790, name: "Mercia", text: "compreendi" },
+{ time: 3795, name: "Marcia", text: "Só tem guerreira aqui hoje! Vamos lá meninas..." },
+{ time: 3832, name: "Ana", text: "já quero, gosto de produto natural" },
+{ time: 3840, name: "Lays", text: "manipulado da pra fazer então..." },
+{ time: 3841, name: "Zenilda", text: "todas suas pacientes usam então..." },
+{ time: 3845, name: "Flaviane", text: "👍👍 eu quero seu acompanhamento" },
+{ time: 3861, name: "Odete", text: "Você vai acompanhar a gente?!" },
+{ time: 3866, name: "Rafaela", text: "adorei já quero" },
+{ time: 3877, name: "Renira", text: "Eu gosto de Cafeína, é otimo, deve ser maravilhoso esse suplemento" },
+{ time: 3880, name: "Zenia", text: "é individual ou é grupo?" },
+{ time: 3881, name: "Fatima", text: "Você vai passar o que precisa fazer??" },
+{ time: 3886, name: "Lucia", text: "Adorei a combinação, parabéns Douglas" },
+{ time: 3890, name: "Josy", text: "Parabéns pelo programa, muito legal, como faz para começar?" },
+{ time: 3899, name: "Fabia", text: "Adorei, gostei demais." },
+{ time: 3940, name: "Iara", text: "Enfezada kkkk" },
+{ time: 3994, name: "Zenilda", text: "Eu preciso disso!" },
+{ time: 3995, name: "Katiane", text: "Perfeito!!!" },
+{ time: 3999, name: "Meire", text: "Eu quero Douglas, como faz?" },
+{ time: 4040, name: "Caleane", text: "10kg é um sonho" },
+{ time: 4050, name: "Maiza", text: "Perfeito, só do intestino funcionar eu acho ótimo" },
+{ time: 4060, name: "Debora", text: "eu tenho depressão desde quando engordei😭😭" },
+{ time: 4151, name: "Renira", text: "Meus parabéns, incrível" },
+{ time: 4155, name: "Pricila", text: "ahhhh... eu quero esse resultado" },
+{ time: 4160, name: "Meire", text: "Sim, concordo" },
+{ time: 4197, name: "Lud", text: "Eu já tinha ouvido falar sobre controlar as calorias, mas não sei como fazer" },
+{ time: 4200, name: "Cassia", text: "achei que era só cortar arroz..." },
+{ time: 4254, name: "Iara", text: "Ela deve ter uns 30 e poucos!!!!!" },
+{ time: 4255, name: "Nubia", text: "36!" },
+{ time: 4259, name: "Manu", text: "34" },
+{ time: 4300, name: "Pri", text: "Eu quero muito, estou precisando pra ontem" },
+{ time: 4305, name: "Angelina", text: "Vamos láaa, também quero👍👍👍" },
+{ time: 4306, name: "Katianne", text: "Eu quero" },
+{ time: 4307, name: "Lara", text: "Incrível esses resultados!!" },
+{ time: 4308, name: "simone", text: "reset" },
+{ time: 4310, name: "Neli", text: "reset 👍👍👍" },
+{ time: 4335, name: "Iracelma", text: "vamos começar" },
+{ time: 4340, name: "Iara", text: "Bora começar👍" },
+{ time: 4341, name: "Manu", text: "Tamo junto" },
+{ time: 4350, name: "🤖SUPORTE", text: "AGUARDEM MENINAS!!!" },
+{ time: 4410, name: "Jucelina", text: "isso vai me deixar sem fome, eu quero" },
+{ time: 4415, name: "Lara", text: "como faz, eu quero??" },
+{ time: 4420, name: "Kesia", text: "aonde compra???" },
+{ time: 4425, name: "Layz", text: "vai liberar pra nós Douglas" },
+{ time: 4430, name: "Renira", text: "que legal, eu quero" },
+{ time: 4435, name: "Zenia", text: "aceita cartão???/" },
+{ time: 4453, name: "Isa", text: "Eu quero o Triptoplus" },
+{ time: 4455, name: "Rafaela", text: "adorei já quero" },
+{ time: 4459, name: "Isa", text: "Eu quero" },
+{ time: 4501, name: "Iara", text: "Quero começar hoje" },
+{ time: 4513, name: "Manu", text: "eu preciso perder 25kg, vou comprar" },
+{ time: 4525, name: "Layz", text: "12 meses eu consigo ficar do jeito que eu quero, com sua ajuda" },
+{ time: 4537, name: "Mercia", text: "compreendi" },
+{ time: 4578, name: "Flores", text: "Vamos lá!" },
+{ time: 4588, name: "Luciana", text: "Eu quero fazer o RESET" },
+{ time: 4598, name: "simone", text: "Já quero Douglas" },
+{ time: 4600, name: "Iracelma", text: "vamos começar" },
+{ time: 4622, name: "Katianne", text: "Olha... já tentei tanto, agora não é possível😔😔" },
+{ time: 4625, name: "Lara", text: "Ai que sonho" },
+{ time: 4654, name: "Maria", text: "Sim, é ótimo todo suporte que você dá!" },
+{ time: 4659, name: "Natanna", text: "Esse atendimento humanizado, mais de perto... isso me da muita confiança" },
+{ time: 4700, name: "Ana Paula", text: "Melhor investimento que já fiz, obrigada Douglas" },
+{ time: 4719, name: "Nathalia", text: "To aqui, firme forte, obrigada por tudo Douglas!" },
+{ time: 4727, name: "Isa", text: "Nosssa Muito barato" },
+{ time: 4730, name: "Josy", text: "Eu quero!!!" },
+{ time: 4752, name: "Juventite", text: "Quero, como faz para comprar?" },
+{ time: 4763, name: "Juliana", text: "Eu também quero" },
+{ time: 4773, name: "Maria", text: "Obrigado por tudo Douglas, estou adorando os resultados!!!" },
+{ time: 4809, name: "Laura", text: "Aprendi muita coisa nova" },
+{ time: 4814, name: "Manu", text: "Conhecimento é libertador mesmo" },
+{ time: 4819, name: "Katia", text: "Parabéns Douglas, por entregar tanto...." },
+{ time: 4820, name: "Angelina", text: "Eu só conhecia as dietas kkkk mas não sabia por que dava errado" },
+{ time: 4822, name: "Nubia", text: "Eu quero um resultado deste!!" },
+{ time: 4825, name: "Kesia", text: "Que lindas" },
+{ time: 4830, name: "Zilda", text: "Adorei, quero começar também" },
+{ time: 4831, name: "Pri", text: "Parabéns para vocês meninas, que conseguiram, ficaram muito bonitas" },
+{ time: 4840, name: "Jucelia", text: "A próxima será eu!!!😃😃" },
+{ time: 4845, name: "Zenilda", text: "Realmente não tem como ter desculpa, muito barato" },
+{ time: 4846, name: "flaviane", text: "Quero começar com esse desconto" },
+{ time: 4895, name: "Nubia", text: "Eu entrei" },
+{ time: 4896, name: "🤖SUPORTE", text: "VAGAS LIMITADAS: https://sun.eduzz.com/fruewagh?cupom=OFF100" },
+{ time: 4899, name: "Ana Paula", text: "Quero começar, o que devo fazer depois que contratar" },
+{ time: 4931, name: "Julia", text: "Vou tomar cedo e de tarde para ter mais resultado kkkkk" },
+{ time: 4934, name: "Flores", text: "Vamos lá!" },
+{ time: 4935, name: "Luciana", text: "Eu quero fazer o RESET" },
+{ time: 4940, name: "Sara", text: "Realmente eu já tentei muita coisa." },
+{ time: 4941, name: "Isa", text: "nooossa o que já gastei não ta escrito" },
+{ time: 5021, name: "Rafaela", text: "Verdade, eu topo essa chance" },
+{ time: 5033, name: "Dani", text: "Fiz tratamento com ozempic gastei quase 10mil e não ficou da forma como eu queria." },
+{ time: 5057, name: "Isa", text: "Nosssa Muito barato" },
+{ time: 5060, name: "Thais Santos", text: "Eu já garanti com o desconto!!!" },
+{ time: 5122, name: "Fernanda", text: "To dentro, aproveitar o desconto..." },
+{ time: 5133, name: "Maria Inês", text: "Eu entrei" },
+{ time: 5188, name: "Mercia", text: "Nossa muito barato mesmo" },
+{ time: 5196, name: "Fabia", text: "Separa o meu Douglas👍👍👍" },
+{ time: 5199, name: "Angelina", text: "Posso pegar contigo no consultório??" },
+{ time: 5200, name: "Katianne", text: "Quero começar hj, pode??😃😃" },
+{ time: 5203, name: "Angela", text: "Tudo ok, vamos começar" },
+{ time: 5205, name: "Iracelma", text: "Combinado" },
+{ time: 5244, name: "Iara", text: "Eu topo!!!" },
+{ time: 5246, name: "Manu", text: "Quero começar" },
+{ time: 5250, name: "Iracelma", text: "Pode começar amanhã, oba!!!" },
+{ time: 5251, name: "Iara", text: "Já garanti o meu!!! ihuullll" },
+{ time: 5256, name: "Odete", text: "Acabei de entrar!" },
+{ time: 5260, name: "Laura", text: "Top eu quero, 30 dias de garantia" },
+{ time: 5289, name: "Lara", text: "Eu consegui adquirir com o desconto de R$ 100,00!!!" },
+{ time: 5317, name: "Josi", text: "Realmente ta bem barato" },
+{ time: 5378, name: "Raquel", text: "Após o pagamento o que devo fazer?" },
+{ time: 5380, name: "Manu", text: "Entrei, e agora Douglas???" },
+{ time: 5381, name: "Marcia", text: "E topo, vou entrar agora!!!" },
+{ time: 5391, name: "Juliana", text: "Como é a forma de pagamento?" },
+{ time: 5420, name: "Marcia S.", text: "Consegue segurar até quinta?" },
+{ time: 5425, name: "Jucelina", text: "Vai até que dia mesmo?" },
+{ time: 5430, name: "Carla", text: "Meu marido pode tomar também?" },
+{ time: 5445, name: "Jane", text: "Em quanto tempo eu vou receber o suplemento?" },
+{ time: 5448, name: "Meire", text: "VIXXXXX😔" },
+{ time: 5450, name: "Meire", text: "Posso dar para meu filho?" },
+{ time: 5455, name: "Lay", text: "É verdade" },
+{ time: 5459, name: "Rosa", text: "Moro no interior, como eu faço?" },
+{ time: 5490, name: "Natalia", text: "Aceita pagamento via boleto?" },
+{ time: 5495, name: "Rosana", text: "Tomo remédio para pressão, posso tomar o Triptoplus?" },
+{ time: 5549, name: "Marcia", text: "Tem alguma contraindicação???" },
+{ time: 5565, name: "Maisa", text: "Posso comprar para minha amiga também?" },
+{ time: 5575, name: "Iracelma", text: "O melhor plano é o que eu consigo seguir!!!" },
+{ time: 5579, name: "Rosana", text: "Eu tomo remédio para pressão, eu posso tomar?" },
+{ time: 5610, name: "Silvia Carlos", text: "Você falou que eu ia perder 12kg e eu já perdi 16, o que eu faço agora?" },
+{ time: 5580, name: "Simone", text: "Adorei demais!!!" },
+{ time: 5610, name: "Daiane", text: "Você é médico?" },
+{ time: 5616, name: "Angelica", text: "Sim, faz sentido" },
+{ time: 5625, name: "Luciana", text: "A garantia me fez ter confiança!!! Já entrei" },
+{ time: 5630, name: "Jurema", text: "Realmente, não tenho mais tempo para ficar perdendo..." },
+{ time: 5641, name: "Samanta", text: "E se eu não conseguir seguir?" },
+{ time: 5685, name: "Zenilda", text: "Realmente eu faço isso😔😔" },
+{ time: 5688, name: "Simone", text: "eu perciso de ajuda, vou entrar!!!" },
+{ time: 5699, name: "Mariana", text: "Como eu vou receber os acessos?" },
+{ time: 5700, name: "Kesia", text: "Acabei de adquirir, obrigada Douglas e a equipe já recebi mensagem" },
+{ time: 5730, name: "Laura", text: "Alguém aqui conseguiu o desconto de 100?" },
+{ time: 5736, name: "Iara", text: "Alguem aqui comprou?? A página não esta abrindo mais..." },
+{ time: 5736, name: "Simone", text: "Parabéns!!!" },
+{ time: 5800, name: "Mercia", text: "Tá vou te chamar no privado para tirar algumas dúvidas..." },
+{ time: 5810, name: "Manu", text: "Muito obrigada, foi sensacional" },
+{ time: 5820, name: "Layz", text: "Gostei muito, adorei" },
+{ time: 5822, name: "Dani", text: "Parabéns Douglas, belíssimo trabalho" },
+{ time: 5835, name: "Fabia", text: "Que linda!!" },
+{ time: 5860, name: "Neli", text: "Já entrei, vou começar amanhã" },
+{ time: 5864, name: "Debora", text: "Boa meninas!!" },
+{ time: 5989, name: "Ana Paula", text: "Ainda tem o deconto??" },
+{ time: 5999, name: "Maria Clara", text: "Será que a equipe vai enviar novamente o link ou esgotou?" },
+{ time: 6000, name: "Layz", text: "Ja tomei ozempic" },
+{ time: 6005, name: "Renira", text: "Já tomei tanta coisa, essa é a última que vou tentar.🙏🙏" },
+{ time: 6030, name: "Zenia", text: "Ozempic" },
+{ time: 6031, name: "Zenia", text: "Detox, e nunca tive resultado" },
+{ time: 6065, name: "Katianne", text: "Olha... ninguem nunca me ensino isso😔😔" },
+{ time: 6080, name: "Katia", text: "Parabéns Douglas, por entregar tanto...." },
+{ time: 6090, name: "Angelina", text: "Eu só conhecia as dietas kkkk mas não sabia porque dava errado" },
+{ time: 6094, name: "Lara", text: "Ai que sonho" },
+{ time: 6100, name: "Nubia", text: "Eu quero um resultado deste!!" },
+{ time: 6110, name: "Kesia", text: "Que linda" },
+{ time: 6120, name: "Zilda", text: "Adorei, quero começar também" },
+{ time: 6134, name: "Pri", text: "Parabéns para vocês que conseguiram, ficaram muito bonitas" },
+{ time: 6162, name: "Jucelia", text: "A próxima será eu!!!😃😃" },
+{ time: 6169, name: "Zenilda", text: "Realmente não tem como ter desculpa" },
+{ time: 6170, name: "Zilda", text: "Quem ai conseguiu comprar? Não esta abrindo aqui pra mim" },
+{ time: 6240, name: "Pri", text: "Parabéns para vocês, lindas" },
+{ time: 6250, name: "Jucelia", text: "Boa noite, obrigado meninas" },
+{ time: 6255, name: "🤖SUPORTE", text: "Encerrando transmissão em 15 segundos!" }
+       
+		
+    ];
+
+
+
+
+    let shownProgrammedMessages = new Set();
+    let videoJaIniciado = false;
+	let tempoJaDefinido = false;
+	let viewerInterval;
+    let userName = "";
+	let monitoramentoAtivo = false;
+
+    function isWebinarTime() {
+        const now = new Date();
+        const day = now.getDay();
+        const webinarStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+        const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
+        return day === configDay && now >= webinarStart && now <= webinarEnd;
+    }
+
+    function getNextSessionDate() {
+        const now = new Date();
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+            daysUntilNext = 7;
+        }
+        const nextDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+        return nextDate.toLocaleString('pt-BR');
+    }
+
+
+
+
+  
+    
+function startWebinar() {
+    messages.innerHTML = "";
+    shownProgrammedMessages.clear();
+
+    videoContainer.style.display = "block";
+    chatContainer.style.display = "block";
+
+    const now = new Date();
+    const webinarStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        configHour,
+        configMinute,
+        0
+    );
+
+    const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
+
+if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+  video.currentTime = secondsSinceStart;
+}
+
+    programmedMessages.forEach(msg => {
+        if (msg.time < secondsSinceStart) {
+            shownProgrammedMessages.add(msg.time + '-' + msg.name);
+        }
+    });
+
+
+    
+
+
+
+
+const tempoParaMostrarBotao = 4830;  // BOTÃO DO PITCH (em segundos) IMPORTANTE!
+let botaoJaApareceu = false;
+
+video.addEventListener('timeupdate', () => {
+
+
+const progressBar = document.getElementById('progressBarOverlay');
+if (progressBar) {
+  const total = video.duration;
+  const currentTime = video.currentTime;
+  let widthPercent = 0;
+
+  if (currentTime <= 240) {
+      widthPercent = (currentTime / 240) * 50;
+
+  } else if (currentTime <= 540) {
+      widthPercent = 50 + ((currentTime - 240) / 300) * 25;
+
+  } else {
+    const remaining = total - 540;
+    const elapsed = currentTime - 540;
+    widthPercent = 75 + (elapsed / remaining) * 25;
+  }
+
+  progressBar.style.width = `${Math.min(widthPercent, 100)}%`;
+}
+
+
+
+  if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
+    document.getElementById('offerSection').style.display = 'block';
+    botaoJaApareceu = true;
+
+    // Dispara o evento do Pixel no Pitch IMPORTANTE!
+    if (typeof fbq === 'function') {
+      fbq('track', 'AddToWishlist');
+    }
+  }
+});
+
+
+	
+overlay.style.display = 'block';
+playButton.style.display = 'block';
+   
+}
+
+
+
+
+
+
+    function sendMessage() {
+        const input = document.getElementById('userMessage');
+        const text = input.value.trim();
+        if (text) {
+            addMessage(userName, text);
+            input.value = '';
+        }
+    }
+
+
+function iniciarVideo() {
+    if (videoJaIniciado) return;
+    videoJaIniciado = true;
+
+    playButton.style.display = 'none';
+    overlay.style.display = 'none';
+
+    video.play().then(() => {
+        // Inicia a checagem do tempo de vídeo só depois que o vídeo começou a rodar
+        setInterval(() => {
+            const currentTime = Math.floor(video.currentTime);
+
+            programmedMessages.forEach(msg => {
+                if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
+                    addMessage(msg.name, msg.text);
+                    shownProgrammedMessages.add(msg.time);
+                }
+            });
+        }, 1000);
+    }).catch(err => console.warn("Erro ao iniciar vídeo:", err));
+}
+
+
+function saveUserName() {
+  const nameInput = document.getElementById('userNameInput');
+  const name = nameInput.value.trim();
+const whatsappInput = document.getElementById('userWhatsappInput');
+const whatsappRaw = whatsappInput.value.trim();
+const whatsapp = whatsappRaw.replace(/\D/g, ''); // Apenas números!
+  const nameFormWrapper = document.getElementById('nameFormWrapper');
+
+  if (!name) {
+    return alert("Por favor, digite seu nome.");
+  }
+   if (!whatsapp) {
+    return alert("Por favor, digite seu WhatsApp.");
+ }
+  if (whatsapp.length !== 11) {
+    alert("O número do WhatsApp deve ter 11 dígitos (DDD + número). Exemplo: (11) 99999-9999");
+    whatsappInput.focus();
+    return;
+  }
+
+
+  window.userName = name;
+  window.userWhatsapp  = whatsapp;
+  userName = name;
+
+  localStorage.setItem('webinarUserName', name);
+  localStorage.setItem('webinarUserWhatsapp', whatsapp);
+
+  nameFormWrapper.style.display = "none";
+
+  // Sempre iniciar o webinar logo após o cadastro do nome
+  startWebinar();
+ 
+}
+
+
+// logica do campo de coleta whatsapp
+function formatarWhatsapp(input) {
+  let valor = input.value.replace(/\D/g, '').slice(0, 11); // só números, máx 11
+  if (valor.length > 2) {
+    valor = '(' + valor.slice(0,2) + ') ' + valor.slice(2);
+  }
+  if (valor.length > 9) {
+    valor = valor.slice(0, 10) + '-' + valor.slice(10);
+  }
+  input.value = valor;
+}
+
+
+
+function limparDDI(input) {
+  let valor = input.value.trim();
+  // Remove tudo que não for número
+  valor = valor.replace(/\D/g, '');
+
+  // Se começar com 55 (DDI Brasil) e tiver 13 dígitos ou mais, remove o DDI
+  if (valor.length >= 13 && valor.startsWith('55')) {
+    valor = valor.substring(2);
+  }
+
+  // Continua a formatação normal
+  if (valor.length > 2) {
+    valor = '(' + valor.slice(0,2) + ') ' + valor.slice(2);
+  }
+  if (valor.length > 9) {
+    valor = valor.slice(0, 10) + '-' + valor.slice(10);
+  }
+  input.value = valor;
+}
+
+
+
+
+    playButton.addEventListener('click', iniciarVideo);
+    overlay.addEventListener('click', iniciarVideo);
+
+    
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+ 
+  
+  
+window.onload = function() {
+    const now = new Date();
+    const day = now.getDay();
+
+    // Configuração: dia e hora da live
+    const liveDay = configDay; 
+    const liveHour = configHour;
+    const liveMinute = configMinute;
+
+    const startDate = new Date(now);
+    const daysSinceLive = (day - liveDay + 7) % 7;
+    startDate.setDate(now.getDate() - daysSinceLive);
+    startDate.setHours(liveHour, liveMinute, 0, 0);
+
+    const endDate = new Date(startDate.getTime() + 168 * 60 * 60 * 1000);  // IMPORTANTE! tempo que o video fica disponível
+
+    if (now >= startDate && now <= endDate) {
+    document.getElementById('nameFormWrapper').style.display = "flex";
+    document.getElementById('nameForm').style.display = "block";  // Exibe o formulário também
+} else {
+    window.location.href = "/ao-vivo/";
+}
+};
+
+
+function showCountdown() {
+    const waitingDiv = document.getElementById('waitingMessage');
+    waitingDiv.style.display = "block";
+
+    const targetDate = getNextWebinarDate();
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            location.reload();  // Quando chega o horário, recarrega a página
+            return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+         document.getElementById('countdown').textContent =
+    `${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos`;
+
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+function getNextSessionDateObject() {
+    const now = new Date();
+    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), configHour, configMinute, 0);
+
+    if (now >= targetDate) {
+        // Se já passou o horário de hoje, calcula para a próxima semana
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0) daysUntilNext = 7;  // Garante que seja a próxima semana
+        targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    } else {
+        // Se ainda não chegou o horário de hoje, mas é o mesmo dia
+        let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+        if (daysUntilNext === 0 && now < targetDate) {
+            // Continua com o horário de hoje
+        } else {
+            targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+        }
+    }
+
+    return targetDate;
+}
+
+
+function showEventClosed() {
+    // Esconde os outros blocos
+    document.getElementById('nameFormWrapper').style.display = "none";
+    document.getElementById('waitingMessage').style.display = "none";
+    document.getElementById('videoContainer').style.display = "none";
+    document.getElementById('chatContainer').style.display = "none";
+
+    // Mostra a mensagem de encerrado
+    document.getElementById('eventClosedMessage').style.display = "block";
+}
+
+
+
+function getNextWebinarDate() {
+    const now = new Date();
+    let daysUntilNext = (configDay - now.getDay() + 7) % 7;
+
+    // Se hoje for domingo e já passou do horário, joga para o domingo da próxima semana
+    if (daysUntilNext === 0 && (now.getHours() > configHour || (now.getHours() === configHour && now.getMinutes() >= configMinute))) {
+        daysUntilNext = 7;
+    }
+
+    const nextWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilNext, configHour, configMinute, 0);
+    return nextWebinar;
+}
+
+
+
+function getLastWebinarDate() {
+    const now = new Date();
+    let daysSinceLast = (now.getDay() - configDay + 7) % 7;
+
+    // Se hoje for domingo mas ainda não chegou o horário, pega o domingo anterior
+    if (daysSinceLast === 0 && now.getHours() < configHour) {
+        daysSinceLast = 7;
+    }
+
+    const lastWebinar = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceLast, configHour, configMinute, 0);
+    return lastWebinar;
+}
+
+
+
+
+
+
+  // Função simples para transformar URLs em <a> clicáveis
+  function linkify(text) {
+    return text
+      // https:// ou http://
+      .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+      // www. algo
+      .replace(/\b(www\.[^\s]+)/g, '<a href="http://$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+
+function addMessage(user, text) {
+  const div = document.createElement('div');
+  div.className = 'chat-message';
+  const safeText = linkify(text);
+  div.innerHTML = `<strong>${user}:</strong> ${safeText}`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+
+
+// Bloqueia pinça (touchmove com 2 dedos)
+document.addEventListener('touchmove', function(e) {
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// Bloqueia duplo-toque rápido
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+// Bloqueia gestos específicos no iOS
+document.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
+});
+
+
+
+// Bloqueia o menu de contexto (clique direito)
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Impede copiar/recortar/selecionar texto
+['copy','cut','selectstart','dragstart'].forEach(evt =>
+  document.addEventListener(evt, e => e.preventDefault())
+);
+
+// Bloqueia atalho Ctrl+C, Ctrl+U (ver fonte), Ctrl+S, Ctrl+P e F12
+document.addEventListener('keydown', e => {
+  const forbidden =
+    // combinações de Ctrl + C, U, S, P, A
+    (e.ctrlKey &&
+      ['c','u','s','p','a'].includes(e.key.toLowerCase()))
+    // F12
+    || e.key === 'F12';
+  if (forbidden) e.preventDefault();
+});
+
+
+
+// Salva o tempo do vídeo a cada 5 segundos
+setInterval(() => {
+    if (!video.paused && !video.ended) {
+        localStorage.setItem('webinarVideoTime', video.currentTime);
+    }
+}, 5000);
+
+
+
+
+// VERIFICA E CARREGA O TEMPO SALVO DA PAGINA
+video.addEventListener('loadedmetadata', () => {
+  const savedTime = parseFloat(localStorage.getItem('webinarVideoTime'));
+  const expirado = expirouLimiteDeTempo();
+
+  if (!isNaN(savedTime) && savedTime > 0 && savedTime < video.duration && !expirado) {
+    // Se tem tempo salvo e ainda é válido (não expirou)
+    video.currentTime = savedTime;
+    tempoJaDefinido = true;
+
+    programmedMessages.forEach(msg => {
+      if (msg.time < savedTime) {
+        shownProgrammedMessages.add(msg.time + '-' + msg.name);
+      }
+    });
+  } else {
+    // Se expirou ou não tem tempo salvo
+    video.currentTime = 0;
+    tempoJaDefinido = true;
+    localStorage.removeItem('webinarVideoTime');
+    localStorage.setItem('webinarFirstVisit', Date.now());
+  }
+});
+
+
+
+
+
+
+
+// Define o tempo máximo para relembrar (em milissegundos)
+const LIMITE_MEMORIA = 24 * 60 * 60 * 1000; // IMPORTANTE! TEMPO QUE RESETA O LOCAL STORAGE 1 * 60 * 60 * 1000 = 1HORA
+
+// Salva o tempo da primeira visita
+if (!localStorage.getItem('webinarFirstVisit')) {
+  localStorage.setItem('webinarFirstVisit', Date.now());
+}
+
+// Função para verificar se o tempo expirou
+function expirouLimiteDeTempo() {
+  const firstVisit = parseInt(localStorage.getItem('webinarFirstVisit'), 10);
+  const agora = Date.now();
+  return isNaN(firstVisit) || (agora - firstVisit > LIMITE_MEMORIA);
+}
+
+
+
+
+
+
+function iniciarMonitoramentoDeMensagens() {
+    if (monitoramentoAtivo) return;  // Evita criar múltiplos intervals
+    monitoramentoAtivo = true;
+
+    setInterval(() => {
+        const currentTime = Math.floor(video.currentTime);
+        programmedMessages.forEach(msg => {
+            const key = msg.time + '-' + msg.name;
+            if (currentTime >= msg.time && !shownProgrammedMessages.has(key)) {
+                addMessage(msg.name, msg.text);
+                shownProgrammedMessages.add(key);
+            }
+        });
+    }, 1000);
+}
+
+
+// DATA DO TOPO DA PAGINA IMPORTANTE!
+const diasSemana = ["DOMINGO", "2ª FEIRA", "3ª FEIRA", "4ª FEIRA", "5ª FEIRA", "6ª FEIRA", "SÁBADO"];
+  const hoje = new Date();
+  document.getElementById("diaSemana").textContent = diasSemana[hoje.getDay()];
+   
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const horaEntrada = new Date();
+
+function getBrowserId() {
+  let id = localStorage.getItem('browserId');
+  if (!id) {
+    id = 'browser-' + Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('browserId', id);
+  }
+  return id;
+}
+
+const browserId = getBrowserId();
+
+function enviarDados() {
+  const agora = new Date();
+  const tempoPagina = Math.floor((agora - horaEntrada) / 1000);   // IMPORTANTE! APPSCRIPT GOOGLE
+  const horaSaida = agora.toLocaleTimeString();
+
+  fetch('https://script.google.com/macros/s/AKfycbwr7lIgGaQuUcsndimervAM1LIzd0ph0aRwXFtNP5rPBLp4GkqxIKx-w3N96DXriGldCw/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+  browserId: browserId,
+  nome: window.userName || 'Desconhecido',
+  whatsapp: window.userWhatsapp || 'sem-whatsapp',
+  horaEntrada: horaEntrada.toLocaleTimeString(),
+  tempoPagina: tempoPagina,
+  horaSaida: horaSaida,
+  paginaOrigem: 'video-liberado'
+})
+  });
+}
+
+setInterval(enviarDados, 10000);
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
