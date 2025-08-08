@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Evento Exclusivo</title>
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --fg: #ffffff;
+      --accent: #22c55e;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: system-ui, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: clamp(24px, 6vw, 36px);
+      margin-bottom: 20px;
+    }
+    .loader {
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid var(--accent);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Evento Exclusivo Domingo 19h</h1>
+  <div class="loader"></div>
+
+  <script>
+    setTimeout(() => {
+      const day = new Date().getDay(); // 0 = Domingo, 1 = Segunda...
+      let target = "";
+      if (day >= 1 && day <= 5) {
+        target = "https://www.dougleao.com.br/checkin-sex"; // Seg a Sex
+      } else if (day === 6) {
+        target = "https://www.dougleao.com.br/checkin-sab"; // Sábado
+      } else {
+        target = "https://www.dougleao.com.br/checkin-dom"; // Domingo
+      }
+      window.location.replace(target);
+    }, 3000);
+  </script>
+</body>
+</html>
