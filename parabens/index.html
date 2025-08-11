@@ -33,6 +33,8 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
+      background-size: cover;
+      background-position: center;
     }
 
     .section h2 {
@@ -43,36 +45,23 @@
       z-index: 2;
     }
 
-.btn {
-  background-color: #28a745;
-  color: white;
-  padding: 20px 40px; /* Aumentado */
-  font-size: 22px;    /* Aumentado */
-  border: none;
-  border-radius: 10px;
-  text-decoration: none;
-  box-shadow: 0 6px 10px rgba(0,0,0,0.4);
-  z-index: 2;
-  max-width: 90%;
-  display: inline-block;
-}
+    .btn {
+      background-color: #28a745;
+      color: white;
+      padding: 20px 40px;
+      font-size: 22px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+      z-index: 2;
+      max-width: 90%;
+      display: inline-block;
+    }
 
     /* --- SESSÃO 1 --- */
     .section1 {
       background: linear-gradient(180deg,rgb(154, 54, 205) 0%, #4d4da7 100%);
-    }
-
-    .section1::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background: url('https://triptoplus.com/img/Header-CERTO-1.png') no-repeat left bottom;
-      background-size: 208px;
-      width: 208px;
-      height: 208px;
-      opacity: 0.5; /* antes 0.3 */
-      z-index: 1;
     }
 
     /* --- SESSÃO 2 --- */
@@ -80,41 +69,14 @@
       background: linear-gradient(to right, #000000 0%, #292bc0 100%);
     }
 
-    .section2::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      right: 10px;
-      background: url('https://static.thenounproject.com/png/428433-200.png') no-repeat;
-      background-size: 208px;
-      width: 208px;
-      height: 208px;
-      opacity: 0.5; /* antes 0.3 */
-      z-index: 1;
-    }
-
     /* --- SESSÃO 3 --- */
     .section3 {
       background: linear-gradient(0deg,rgb(5, 94, 71) 0%,rgb(113, 254, 148) 100%);
     }
 
-    .section3::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 10px;
-      background: url('https://cdn3d.iconscout.com/3d/free/thumb/free-whatsapp-3d-icon-download-in-png-blend-fbx-gltf-file-formats--logo-social-media-pack-logos-icons-8973408.png') no-repeat;
-      background-size: 182px;
-      width: 182px;
-      height: 182px;
-      opacity: 0.5; /* antes 0.3 */
-      z-index: 1;
-    }
-
-    .section h2,
-    .section .btn {
-      position: relative;
-      z-index: 2;
+    /* --- SESSÃO 4 --- */
+    .section4 {
+      background-image: url('e1193d11-8839-479b-b069-e390fb6a96a5.png');
     }
 
     @media (max-width: 600px) {
@@ -122,27 +84,9 @@
         font-size: 20px;
       }
 
-  .btn {
-    font-size: 20px;
-    padding: 18px 32px;
-  }
-
-      .section1::after {
-        background-size: 156px;
-        width: 156px;
-        height: 156px;
-      }
-
-      .section2::after {
-        background-size: 156px;
-        width: 156px;
-        height: 156px;
-      }
-
-      .section3::after {
-        background-size: 130px;
-        width: 130px;
-        height: 130px;
+      .btn {
+        font-size: 20px;
+        padding: 18px 32px;
       }
     }
   </style>
@@ -166,6 +110,11 @@
   <div class="section section3">
     <h2>Grupo de Dicas</h2>
     <a class="btn" href="http://dougleao.com.br/grupo-reset" target="_blank">Clique aqui</a>
+  </div>
+
+  <div class="section section4">
+    <h2>Livro de Receitas</h2>
+    <a class="btn" href="https://drive.google.com/drive/u/0/folders/17J18gWYq85ZGdzQVv192JRcgE-i2_TNY" target="_blank">Clique aqui</a>
   </div>
 
 </body>
