@@ -50,8 +50,7 @@
     </div>
     <div id="expired-content" class="hidden">
       <h2>Que pena, você chegou tarde demais!</h2>
-      <p>Este link está disponível apenas no(s) dia(s) configurado(s).</p>
-      <a href="https://wa.me/5562984888498?text=Eu%20perdi%20a%20oferta%2C%20como%20fa%C3%A7o%20agora%3F" class="btn" target="_blank">Entrar em contato</a>
+     <a href="https://wa.me/5562984888498?text=Eu%20perdi%20a%20oferta%2C%20como%20fa%C3%A7o%20agora%3F" class="btn" target="_blank">Entrar em contato</a>
     </div>
   </div>
 
@@ -105,7 +104,7 @@
       const now = getNowInTimezone(TIMEZONE);
       const allowedList = listAllowedDays(ALLOWED_WEEKDAYS);
       const hint = document.getElementById("hint");
-      if (hint) hint.textContent = "Disponível em: " + allowedList;
+      if (hint) hint.textContent = "Disponível somente Hoje!";
 
       if (isAllowedDay(now, ALLOWED_WEEKDAYS)) {
         startLoadingBarAndRedirect();
