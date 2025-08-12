@@ -5,72 +5,38 @@
   <meta name="viewport" content="width=480">
   <title>Redirecionando...</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: Arial, sans-serif;
       background: #f8f8f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; margin: 0;
     }
     .container {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 0 18px #0001;
-      padding: 32px 28px;
-      max-width: 400px;
-      text-align: center;
+      background: #fff; border-radius: 16px; box-shadow: 0 0 18px #0001;
+      padding: 32px 28px; max-width: 400px; text-align: center;
     }
     .progress-bar {
-      background: #eee;
-      border-radius: 10px;
-      overflow: hidden;
-      height: 32px;
-      margin: 32px 0 10px 0;
-      position: relative;
+      background: #eee; border-radius: 10px; overflow: hidden;
+      height: 32px; margin: 32px 0 10px 0; position: relative;
     }
     .progress {
       background: linear-gradient(90deg, #5e72e4 0%, #11cdef 100%);
-      height: 100%;
-      width: 0;
-      transition: width 0.2s;
-      color: #fff;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.1em;
-      line-height: 32px;
-      position: absolute;
-      top: 0;
-      left: 0;
+      height: 100%; width: 0; transition: width 0.2s; color: #fff;
+      text-align: center; font-weight: bold; font-size: 1.1em; line-height: 32px;
+      position: absolute; top: 0; left: 0;
     }
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
     .btn {
-      display: inline-block;
-      margin-top: 28px;
-      padding: 14px 48px;
+      display: inline-block; margin-top: 28px; padding: 14px 48px;
       background: linear-gradient(90deg, #38d430 0%, #09a80c 100%);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.2em;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 16px #20bb18a2;
-      animation: zoomBtn 1.2s infinite alternate;
-      transition: background 0.2s;
+      color: #fff; border: none; border-radius: 12px; font-size: 1.2em; font-weight: bold;
+      cursor: pointer; text-decoration: none; box-shadow: 0 4px 16px #20bb18a2;
+      animation: zoomBtn 1.2s infinite alternate; transition: background 0.2s;
     }
-    .btn:hover {
-      background: linear-gradient(90deg, #43e545 0%, #09a80c 100%);
-    }
-    @keyframes zoomBtn {
-      0%   { transform: scale(1); }
-      70%  { transform: scale(1.09); }
-      100% { transform: scale(1); }
-    }
+    .btn:hover { background: linear-gradient(90deg, #43e545 0%, #09a80c 100%); }
+    @keyframes zoomBtn { 0%{transform:scale(1)}70%{transform:scale(1.09)}100%{transform:scale(1)} }
+    small { color:#666; display:block; margin-top:12px }
   </style>
 </head>
 <body>
@@ -80,40 +46,41 @@
       <div class="progress-bar">
         <div class="progress" id="progress">0%</div>
       </div>
+      <small id="hint"></small>
     </div>
     <div id="expired-content" class="hidden">
       <h2>Que pena, você chegou tarde demais!</h2>
-      <p>Este link expirou, entre em contato para se informar melhor.</p>
+      <p>Este link está disponível apenas no(s) dia(s) configurado(s).</p>
       <a href="https://wa.me/5562984888498?text=Eu%20perdi%20a%20oferta%2C%20como%20fa%C3%A7o%20agora%3F" class="btn" target="_blank">Entrar em contato</a>
     </div>
   </div>
+
   <script>
-    const REDIRECT_URL = "https://chk.eduzz.com/E9OOGE2Q9B";   // link da oferta  IMPORTANTE!
-    const VALID_FOR_HOURS = 30; // hora para local storage expirar      IMPORTANTE!
-    const LOADING_TIME = 3000; // 3s de loading    IMPORTANTE!
+    // ================== CONFIGURAÇÃO FÁCIL ==================
+    const REDIRECT_URL = "https://chk.eduzz.com/E9OOGE2Q9B"; // link da oferta (EdUzz)
+    const LOADING_TIME = 3000; // tempo de "carregando" antes do redirecionamento (ms)
+    // Dias permitidos: 0=Dom, 1=Seg, 2=Ter, 3=Qua, 4=Qui, 5=Sex, 6=Sab
+    const ALLOWED_WEEKDAYS = [2]; // ← Só terça-feira
+    // Opcional: defina o fuso explícito (Brasil)
+    const TIMEZONE = "America/Sao_Paulo";
+    // ========================================================
 
+    const WEEKDAY_NAMES = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
 
-
-    // Gera ID único (caso não exista) e salva data de criação
-    function getOrSetBrowserId() {
-      let obj = null;
-      try {
-        obj = JSON.parse(localStorage.getItem("my_redirect_id"));
-      } catch {}
-      if (!obj || !obj.id || !obj.created) {
-        const id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 16);
-        obj = { id, created: Date.now() };
-        localStorage.setItem("my_redirect_id", JSON.stringify(obj));
-      }
-      return obj;
+    function getNowInTimezone(tz) {
+      // Garante que o dia da semana seja avaliado no fuso de São Paulo
+      const localStr = new Date().toLocaleString('en-US', { timeZone: tz });
+      return new Date(localStr);
     }
 
-    function hasExpired(obj) {
-      const now = Date.now();
-      return (now - obj.created) > VALID_FOR_HOURS * 60 * 60 * 1000;      //VALID_FOR_HOURS * 60 * 60 * 1000;
+    function isAllowedDay(date, allowedDays) {
+      return allowedDays.includes(date.getDay());
     }
 
-    // Troca entre tela de loading e tela de expirado
+    function listAllowedDays(allowedDays) {
+      return allowedDays.map(d => WEEKDAY_NAMES[d]).join(", ");
+    }
+
     function showExpired() {
       document.getElementById("loading-content").classList.add("hidden");
       document.getElementById("expired-content").classList.remove("hidden");
@@ -123,7 +90,7 @@
       const progress = document.getElementById("progress");
       let pct = 0;
       const interval = 30;
-      const steps = LOADING_TIME / interval;
+      const steps = Math.max(1, Math.round(LOADING_TIME / interval));
       let current = 0;
       const timer = setInterval(() => {
         current++;
@@ -137,13 +104,17 @@
       }, interval);
     }
 
-    // Lógica principal
-    (function () {
-      const browserObj = getOrSetBrowserId();
-      if (hasExpired(browserObj)) {
-        showExpired();
-      } else {
+    // Inicialização
+    (function init() {
+      const now = getNowInTimezone(TIMEZONE);
+      const allowedList = listAllowedDays(ALLOWED_WEEKDAYS);
+      const hint = document.getElementById("hint");
+      if (hint) hint.textContent = "Disponível em: " + allowedList;
+
+      if (isAllowedDay(now, ALLOWED_WEEKDAYS)) {
         startLoadingBarAndRedirect();
+      } else {
+        showExpired();
       }
     })();
   </script>
