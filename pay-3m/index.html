@@ -104,7 +104,7 @@
       const now = getNowInTimezone(TIMEZONE);
       const allowedList = listAllowedDays(ALLOWED_WEEKDAYS);
       const hint = document.getElementById("hint");
-      if (hint) hint.textContent = "Disponível somente Hoje!";
+      if (hint) hint.textContent = "Disponível Somente Hoje!";
 
       if (isAllowedDay(now, ALLOWED_WEEKDAYS)) {
         startLoadingBarAndRedirect();
