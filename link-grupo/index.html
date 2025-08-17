@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Grupo Exclusivo Whatsapp...</title>
+  <script>
+    function getRedirectLink() {
+      const agora = new Date();
+
+      // Lista de períodos e links (formato: [início, fim, link])
+      const periodos = [
+        {
+          inicio: "03/08/2025 19:00", 
+          fim: "10/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/L3cz99ZoDU4E9w71Wl8JL1"
+        },
+        {
+          inicio: "10/08/2025 19:00", 
+          fim: "17/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/B7mn1aPLJsiAxn3WfxNGE8"
+        },
+        {
+          inicio: "17/08/2025 19:00", 
+          fim: "24/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/FhrvNHI0KI9F9mYzmzSdv8"
+        },
+        {
+          inicio: "24/08/2025 19:00", 
+          fim: "31/08/2025 18:59", 
+          link: "https://chat.whatsapp.com/GG2MajBVkERIrj9OViszUb"
+        },
+        {
+          inicio: "31/08/2025 19:00", 
+          fim: "07/09/2025 18:59", 
+          link: "https://chat.whatsapp.com/DWALtPlRQpX5CwX1E7Wqe4"
+        },
+        {
+          inicio: "07/09/2025 19:00", 
+          fim: "14/09/2025 18:59", 
+          link: "https://chat.whatsapp.com/Jzb10LOm7Px8T4VgfeBuoi"
+        }
+      ];
+
+      // Função auxiliar para converter data BR para objeto Date
+      function parseDataBR(dataStr) {
+        const [dia, mes, anoHora] = dataStr.split("/");
+        const [ano, hora] = anoHora.split(" ");
+        const [h, m] = hora.split(":");
+        return new Date(`${ano}-${mes}-${dia}T${h}:${m}:00`);
+      }
+
+      for (const periodo of periodos) {
+        const inicio = parseDataBR(periodo.inicio);
+        const fim = parseDataBR(periodo.fim);
+        if (agora >= inicio && agora <= fim) {
+          return periodo.link;
+        }
+      }
+
+      // Link padrão (caso não esteja em nenhum período)
+      return "https://chat.whatsapp.com/L3cz99ZoDU4E9w71Wl8JL1";
+    }
+
+    setTimeout(function () {
+      const linkDestino = getRedirectLink();
+      window.location.href = linkDestino;
+    }, 2000);
+  </script>
+
+  
+
+</head>
+<body style="background:#fff"></body>
+</html>
