@@ -460,7 +460,7 @@ img, a {
 
 
     <button onclick="saveUserName()">ENTRAR</button>
-    <a href="https://www.dougleao.com.br/cadastrar-replay" class="link">Ou, clique aqui para se inscrever agora.</a>
+    <a href="https://www.dougleao.com.br/cadastrar-videoliberado" class="link">Ou, clique aqui para se inscrever agora.</a>
 </div>
 </div>
 
@@ -613,6 +613,15 @@ a[href*="eduzz"] {
 
 
 
+
+function hhmmssToSeconds(hhmmss) {
+    const [h, m, s] = hhmmss.split(":").map(Number);
+    return h * 3600 + m * 60 + s;
+}
+
+
+
+
     let shownProgrammedMessages = new Set();
     let videoJaIniciado = false;
 	let tempoJaDefinido = false;
@@ -748,19 +757,11 @@ function iniciarVideo() {
     overlay.style.display = 'none';
 
     video.play().then(() => {
-        // Inicia a checagem do tempo de vídeo só depois que o vídeo começou a rodar
-        setInterval(() => {
-            const currentTime = Math.floor(video.currentTime);
-
-            programmedMessages.forEach(msg => {
-                if (currentTime >= msg.time && !shownProgrammedMessages.has(msg.time)) {
-                    addMessage(msg.name, msg.text);
-                    shownProgrammedMessages.add(msg.time);
-                }
-            });
-        }, 1000);
+        // ✅ CORRIGIDO: Agora apenas chama a função correta que já existe no seu código
+        iniciarMonitoramentoDeMensagens();
     }).catch(err => console.warn("Erro ao iniciar vídeo:", err));
 }
+
 
 
 function saveUserName() {
@@ -1077,7 +1078,7 @@ video.addEventListener('loadedmetadata', () => {
 
 
 // Define o tempo máximo para relembrar (em milissegundos)
-const LIMITE_MEMORIA = 24 * 60 * 60 * 1000; // IMPORTANTE! TEMPO QUE RESETA O LOCAL STORAGE 1 * 60 * 60 * 1000 = 1HORA
+const LIMITE_MEMORIA = 6 * 60 * 60 * 1000; // IMPORTANTE! TEMPO QUE RESETA O LOCAL STORAGE 1 * 60 * 60 * 1000 = 1HORA
 
 // Salva o tempo da primeira visita
 if (!localStorage.getItem('webinarFirstVisit')) {
@@ -1103,8 +1104,12 @@ function iniciarMonitoramentoDeMensagens() {
     setInterval(() => {
         const currentTime = Math.floor(video.currentTime);
         programmedMessages.forEach(msg => {
-            const key = msg.time + '-' + msg.name;
-            if (currentTime >= msg.time && !shownProgrammedMessages.has(key)) {
+            const key = msg.time + '-' + msg.name; // Chave única para evitar repetições
+            
+            // Converte o tempo do comentário para segundos ANTES de comparar
+            const msgTimeInSeconds = hhmmssToSeconds(msg.time);
+
+            if (currentTime >= msgTimeInSeconds && !shownProgrammedMessages.has(key)) {
                 addMessage(msg.name, msg.text);
                 shownProgrammedMessages.add(key);
             }
@@ -1125,11 +1130,9 @@ const diasSemana = ["DOMINGO", "2ª FEIRA", "3ª FEIRA", "4ª FEIRA", "5ª FEIRA
 
 
 
+
+
  <script src="https://abacate-secret.netlify.app/ao-vivo/comentarios.js"></script>
-
-
-
-
 
 
 
@@ -1166,7 +1169,7 @@ function enviarDados() {
   horaEntrada: horaEntrada.toLocaleTimeString(),
   tempoPagina: tempoPagina,
   horaSaida: horaSaida,
-  paginaOrigem: 'video-liberado'
+  paginaOrigem: 'replay'
 })
   });
 }
