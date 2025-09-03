@@ -225,7 +225,9 @@
 
 
 <!-- BOTÃO -->
-<a href="#form" class="mt-8 inline-block bg-green-500 text-center hover:bg-green-600 text-white font-bold py-5 px-6 w-full rounded-xl text-lg transition-all btn-pulsante">
+<a id="cta-btn"
+   href="#"
+   class="mt-8 inline-block bg-green-500 text-center hover:bg-green-600 text-white font-bold py-5 px-6 w-full rounded-xl text-lg transition-all btn-pulsante">
   QUERO PARTICIPAR
 </a>
 </div>
@@ -331,22 +333,32 @@ document.getElementById("data-evento").textContent = formatarDataEvento(targetDa
 
 <script>
   // Mapeamento dos links por dia da semana
-  const linksPorDia = {
-    0: 'https://www.dougleao.com.br/webnar-start-dom',
-    1: 'https://www.dougleao.com.br/webnar-start-seg',
-    2: 'https://www.dougleao.com.br/webnar-start-ter',
-    3: 'https://www.dougleao.com.br/webnar-start-qua',
-    4: 'https://www.dougleao.com.br/webnar-start-qui',
-    5: 'https://www.dougleao.com.br/webnar-start-sex',
-    6: 'https://www.dougleao.com.br/webnar-start-sab'
-  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const linksPorDia = {
+      0: 'https://www.dougleao.com.br/webnar-start-dom',
+      1: 'https://www.dougleao.com.br/webnar-start-seg',
+      2: 'https://www.dougleao.com.br/webnar-start-ter',
+      3: 'https://www.dougleao.com.br/webnar-start-qua',
+      4: 'https://www.dougleao.com.br/webnar-start-qui',
+      5: 'https://www.dougleao.com.br/webnar-start-sex',
+      6: 'https://www.dougleao.com.br/webnar-start-sab'
+    };
 
-  // Detecta o dia atual
-  const diaAtual = new Date().getDay();
-  const linkDoDia = linksPorDia[diaAtual];
+      // Detecta o dia atual
+    const diaAtual = new Date().getDay();         
+    const linkDoDia = linksPorDia[diaAtual];
 
-  
-  
+    const cta = document.getElementById('cta-btn');
+    if (cta && linkDoDia) {
+      cta.href = linkDoDia;                      
+    }
+
+    // fallback: garante navegação mesmo se algo sobrescrever o href
+    cta?.addEventListener('click', (e) => {
+      if (!linkDoDia) return;
+      if (!cta.href || cta.href === '#') cta.href = linkDoDia;
+    });
+  });
   
   
   
