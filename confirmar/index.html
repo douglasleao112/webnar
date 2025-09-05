@@ -50,11 +50,11 @@
       const day = new Date().getDay(); // 0 = Domingo, 1 = Segunda...
       let target = "";
       if (day >= 1 && day <= 5) {
-        target = "/checkin"; // Seg a Sex   https://www.dougleao.com.br/checkin-sex
+        target = "/checkin"; // Seg a Sex   
       } else if (day === 6) {
-        target = "/checkin"; // Sábado  https://www.dougleao.com.br/checkin-sab
+        target = "/checkin"; // Sábado  
       } else {
-        target = "/checkin"; // Domingo  https://www.dougleao.com.br/checkin-dom
+        target = "/checkin"; // Domingo  
       }
       window.location.replace(target);
     }, 3000);
