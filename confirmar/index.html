@@ -89,7 +89,7 @@
       <p class="muted">Você será redirecionado em <strong id="count">5</strong> segundos…</p>
       <div class="bar" aria-label="Progresso do redirecionamento"><span aria-hidden="true"></span></div>
       <a id="goNow" class="cta" href="#" rel="noopener">Entrar no Grupo</a>
-     <a id="fallbackLink" class="ghost" href="#" rel="noopener"> </a>
+
  
     </div>
   </section>
@@ -118,11 +118,11 @@
       const $confirm = document.getElementById("view-confirm");
       const $count = document.getElementById("count");
       const $goNow = document.getElementById("goNow");
-      const $fallback = document.getElementById("fallbackLink");
+    
 
       // Ajusta os links dos botões
       $goNow.href = TARGET_URL;
-      $fallback.href = TARGET_URL;
+   
 
       // Troca de views
       function show(elToShow, elToHide){
