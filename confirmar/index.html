@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Evento Exclusivo</title>
   <style>
     :root{
@@ -19,49 +19,48 @@
       background:var(--bg);
       color:var(--fg);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-      display:flex;align-items:center;justify-content:center;flex-direction:column;
-      text-align:center;padding:24px;overflow:hidden;
+      text-align:center;
     }
 
-    /* Containers (etapas) */
+    /* Cada etapa ocupa a tela toda e fica centralizada */
+    .view{
+      position:fixed;     /* full-screen sem empurrar a outra */
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center; /* centraliza vertical e horizontal */
+      padding:24px;
+      transition:opacity .25s ease, transform .25s ease;
+    }
+    .hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transform:translateY(6px);
+    }
 
-    .hidden{opacity:0;pointer-events:none;transform:translateY(8px)}
+    /* Conteúdos */
+    h1{font-size:clamp(24px,6vw,36px);margin:0 0 20px}
+    .loader{
+      border:5px solid rgba(255,255,255,.2);
+      border-top:5px solid var(--accent);
+      border-radius:50%;width:56px;height:56px;animation:spin 1s linear infinite
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
     .centerCard{
+      width:100%;
+      max-width:var(--maxw);
       background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));
       border:1px solid rgba(255,255,255,.1);
       border-radius:var(--radius);
       padding:28px;
       backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
       box-shadow:0 10px 30px rgba(0,0,0,.25);
-      margin:auto
-    }
-
-    .view {
-  width: 100%;
-  max-width: var(--maxw);
-  transition: opacity .4s ease, transform .4s ease;
-  
-  /* CENTRALIZAÇÃO */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* ocupa a tela toda */
-}
-
-
-    /* Etapa 1: Splash */
-    h1{font-size:clamp(24px,6vw,36px);margin:0 0 20px}
-    .loader{
-      border:5px solid rgba(255,255,255,.2);
-      border-top:5px solid var(--accent);
-      border-radius:50%;width:56px;height:56px;
       margin:0 auto;
-      animation:spin 1s linear infinite
+      text-align:center;
     }
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* Etapa 2: Check-in/Confirmado */
     .checkmark{width:80px;height:auto;margin:0 auto 16px;display:block}
     .title{margin:0 0 10px;font-size:clamp(28px,5vw,40px);line-height:1.1;letter-spacing:-.02em}
     .muted{color:var(--muted);margin:0 0 18px;font-size:clamp(14px,3.5vw,16px)}
@@ -73,33 +72,45 @@
   </style>
 </head>
 <body>
-  <!-- Etapa 1: Splash (Evento Exclusivo) -->
+  <!-- ETAPA 1: Splash -->
   <section id="view-splash" class="view">
-    <h1>Evento Exclusivo<br>Domingo 19h</h1>
-    <div class="loader" role="status" aria-label="Carregando"></div>
+    <div>
+      <h1>Evento Exclusivo<br>Domingo 19h</h1>
+      <div class="loader" role="status" aria-label="Carregando"></div>
+    </div>
   </section>
 
-  <!-- Etapa 2: Confirmação + contagem + redirecionamento -->
+  <!-- ETAPA 2: Confirmado -->
   <section id="view-confirm" class="view hidden" aria-live="polite">
     <div class="centerCard">
       <img class="checkmark" alt="Inscrição confirmada"
         src="https://static.vecteezy.com/system/resources/thumbnails/016/774/415/small/green-check-mark-icon-on-transparent-background-free-png.png" />
       <h2 class="title">Inscrição Confirmada!</h2>
       <p class="muted">Você será redirecionado em <strong id="count">5</strong> segundos…</p>
-      <div class="bar" aria-label="Progresso do redirecionamento">
-        <span aria-hidden="true"></span>
-      </div>
+      <div class="bar" aria-label="Progresso do redirecionamento"><span aria-hidden="true"></span></div>
       <a id="goNow" class="cta" href="#" rel="noopener">Entrar no Grupo</a>
-      <a id="fallbackLink" class="ghost" href="#" rel="noopener"> </a>
+    
     </div>
   </section>
 
   <script>
     (function () {
-      // Configurações
-      const SPLASH_MS = 3000;           // tempo na tela "Evento Exclusivo"
-      const CONFIRM_MS = 5000;          // tempo até redirecionar na tela "Inscrição Confirmada"
-      const TARGET_URL = "/link-grupo";
+      const SPLASH_MS = 3000;   // tempo na tela "Evento Exclusivo"
+      const CONFIRM_MS = 5000;  // tempo até redirecionar na confirmação
+
+      const LINKS = {
+        0: "/link-grupo",    // 0 = Domingo
+        1: "/link-grupo",    // 1 = seg
+        2: "/link-grupo",    // 2 = ter
+        3: "/link-grupo",   // qua
+        4: "/link-grupo",   // qui
+        5: "/link-grupo",   // sex
+        6: "/link-grupo"    // sab
+      };
+
+      // Detecta o dia e escolhe o alvo
+      const today = new Date().getDay();
+      const TARGET_URL = LINKS[today] || "/link-grupo";
 
       // Elementos
       const $splash = document.getElementById("view-splash");
@@ -108,24 +119,22 @@
       const $goNow = document.getElementById("goNow");
       const $fallback = document.getElementById("fallbackLink");
 
-      // Define links
+      // Ajusta os links dos botões
       $goNow.href = TARGET_URL;
       $fallback.href = TARGET_URL;
 
-      // Util: troca de views com fade
+      // Troca de views
       function show(elToShow, elToHide){
         if (elToHide){ elToHide.classList.add("hidden"); }
         if (elToShow){ elToShow.classList.remove("hidden"); }
       }
 
-      // 1) Mostra splash e, após 3s, vai para "confirmado"
+      // 1) Splash por 3s → 2) Confirmação com contagem de 5s → 3) Redireciona
       setTimeout(() => {
         show($confirm, $splash);
 
-        // 2) Inicia contagem regressiva de 5s
         const start = Date.now();
         const totalMs = CONFIRM_MS;
-
         function tick(){
           const elapsed = Date.now() - start;
           const remain = Math.max(0, totalMs - elapsed);
@@ -135,12 +144,9 @@
         }
         tick();
 
-        // 3) Redireciona ao final
         setTimeout(() => {
-          // usar replace para não permitir "voltar" para a tela intermediária
           window.location.replace(TARGET_URL);
         }, totalMs);
-
       }, SPLASH_MS);
     })();
   </script>
@@ -148,7 +154,7 @@
   <noscript>
     <div style="max-width:560px;margin:12px auto;color:#fff;text-align:center;font-family:system-ui,Roboto,Arial">
       O redirecionamento automático precisa de JavaScript.
-      <a href="https://abacate-secret.netlify.app/link-grupo" style="color:#22c55e">Toque aqui</a> para continuar.
+      <a href="/link-grupo" style="color:#22c55e">Toque aqui</a> para continuar.
     </div>
   </noscript>
 </body>
