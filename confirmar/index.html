@@ -58,7 +58,6 @@
   gap: 20px;                
 }
 
-
     .centerCard{
       width:100%;
       max-width:var(--maxw);
@@ -71,14 +70,72 @@
       margin:0 auto;
       text-align:center;
     }
-    .checkmark{width:80px;height:auto;margin:0 auto 16px;display:block}
-    .title{margin:0 0 10px;font-size:clamp(28px,5vw,40px);line-height:1.1;letter-spacing:-.02em}
-    .muted{color:var(--muted);margin:0 0 18px;font-size:clamp(14px,3.5vw,16px)}
-    .bar{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:8px}
-    .bar>span{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);animation:fill 5s linear forwards}
-    @keyframes fill{to{width:100%}}
-    .cta{display:inline-block;margin-top:16px;padding:12px 16px;background:var(--accent);color:#0a0a0a;text-decoration:none;border-radius:12px;font-weight:700;font-size:16px}
-    .ghost{display:block;margin-top:10px;color:var(--muted);font-size:14px;text-decoration:underline}
+    .checkmark{
+      width:80px;
+      height:auto;
+      margin:0 auto 16px;
+      display:block
+    }
+
+    .title{
+      margin:0 0 10px;
+      font-size:clamp(28px,5vw,40px);
+      line-height:1.1;
+      letter-spacing:-.02em
+    }
+
+    .muted{
+      color:var(--muted);
+      margin:0 0 18px;
+      font-size:clamp(14px,3.5vw,16px)
+    }
+
+    .bar{
+      position:relative;
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      overflow:hidden;margin-top:8px
+    }
+
+    
+    .bar>span{
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:0%;
+  background:var(--accent);
+}
+
+
+
+.bar>span.animate{
+  animation:fill 5s linear forwards;
+}
+
+@keyframes fill{ to{ width:100% } 
+}
+
+.cta{
+      display:inline-block;
+      margin-top:16px;
+      padding:12px 16px;
+      background:var(--accent);
+      color:#0a0a0a;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:700;
+      font-size:16px
+    }
+
+    .ghost{
+      display:block;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:14px;
+      text-decoration:underline
+    }
+
+
   </style>
 </head>
 <body>
@@ -143,6 +200,16 @@
       // 1) Splash por 3s → 2) Confirmação com contagem de 5s → 3) Redireciona
       setTimeout(() => {
         show($confirm, $splash);
+
+
+// inicia a barra do zero e dispara a animação
+const barSpan = document.querySelector(".bar > span");
+barSpan.classList.remove("animate");
+barSpan.style.width = "0%";   // garante início em 0
+void barSpan.offsetWidth;     // reflow para resetar a animação
+barSpan.classList.add("animate");
+
+
 
         const start = Date.now();
         const totalMs = CONFIRM_MS;
