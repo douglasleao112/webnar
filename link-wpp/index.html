@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Grupo Exclusivo Whatsapp...</title>
+    <script>
+    function getRedirectLink() {
+      const agora = new Date();
+
+      // Lista de períodos e links (formato: [início, fim, link])
+      const periodos = [
+        {
+          inicio: "14/09/2025 17:55", 
+          fim: "21/09/2025 17:54", 
+          link: "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!"   //#2
+        },
+        {
+          inicio: "21/09/2025 17:55", 
+          fim: "28/09/2025 17:54", 
+          link: "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!"    //#2
+        },
+        {
+          inicio: "28/09/2025 17:55", 
+          fim: "05/10/2025 17:54", 
+          link: "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!"    //#2
+        },
+        {
+          inicio: "24/08/2025 17:55", 
+          fim: "31/08/2025 17:54", 
+          link: "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!" //#2
+        },
+        {
+          inicio: "31/08/2025 17:55", 
+          fim: "07/09/2025 17:54", 
+          link: "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!"  //#7
+        },
+        {
+          inicio: "07/09/2025 17:55", 
+          fim: "14/09/2025 17:54", 
+          link: "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!"   //#8
+        }
+      ];
+
+      // Função auxiliar para converter data BR para objeto Date
+      function parseDataBR(dataStr) {
+        const [dia, mes, anoHora] = dataStr.split("/");
+        const [ano, hora] = anoHora.split(" ");
+        const [h, m] = hora.split(":");
+        return new Date(`${ano}-${mes}-${dia}T${h}:${m}:00`);
+      }
+
+      for (const periodo of periodos) {
+        const inicio = parseDataBR(periodo.inicio);
+        const fim = parseDataBR(periodo.fim);
+        if (agora >= inicio && agora <= fim) {
+          return periodo.link;
+        }
+      }
+
+      // Link padrão (caso não esteja em nenhum período)
+      return "https://api.whatsapp.com/send?phone=5511960630307&text=Ol%C3%A1,%20gostaria%20participar%20do%20desafio%20RESET%20METAB%C3%93LICO!";    //#2
+    }
+
+    setTimeout(function () {
+      const linkDestino = getRedirectLink();
+      window.location.href = linkDestino;
+    }, 2000);
+  </script>
+
+  
+
+</head>
+<body style="background:#fff"></body>
+</html>
