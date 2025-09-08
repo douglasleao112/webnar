@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-
-  <script>
-    // Lista de links possíveis
+    <script>
+    // 1) Links base (sem query)
     const links = [
       "https://typebot.co/webnario-abacate1",
       "https://typebot.co/webnario-abacate2",
@@ -14,19 +13,28 @@
       "https://typebot.co/webnario-abacate6"
     ];
 
-    // Escolhe aleatoriamente um link
-    const linkAleatorio = links[Math.floor(Math.random() * links.length)];
+    // 2) Escolhe um link aleatório
+    const base = links[Math.floor(Math.random() * links.length)];
 
-    // Redireciona
-    window.location.replace(linkAleatorio);
+    // 3) Captura TUDO que veio na URL (ex.: ?utm_source=...&nome=...&email=...&whatsapp=...)
+    const qs = window.location.search.replace(/^\?/, ""); // sem o "?"
+
+    // 4) Monta destino preservando a query (e hash, se houver)
+    const hasQuery = base.includes("?");
+    const sep = hasQuery ? "&" : "?";
+    const target = qs ? (base + sep + qs + window.location.hash) : (base + window.location.hash);
+
+    // 5) Redireciona
+    window.location.replace(target);
+
+    // Expõe para o fallback
+    window.__target = target;
   </script>
 </head>
 <body>
   Se não redirecionar, <a id="fallback" href="#">clique aqui</a>.
-
   <script>
-    // Ajusta o link do fallback também
-    document.getElementById("fallback").href = linkAleatorio;
+    document.getElementById("fallback").href = window.__target || "#";
   </script>
 </body>
 </html>
