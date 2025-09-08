@@ -859,7 +859,7 @@ window.onload = function() {
     startDate.setDate(now.getDate() - daysSinceLive);
     startDate.setHours(liveHour, liveMinute, 0, 0);
 
-    const endDate = new Date(startDate.getTime() + 168 * 60 * 60 * 1000);  // IMPORTANTE! tempo que o video fica disponível
+    const endDate = new Date(startDate.getTime() + 268 * 60 * 60 * 1000);  // IMPORTANTE! tempo que o video fica disponível
 
     if (now >= startDate && now <= endDate) {
     document.getElementById('nameFormWrapper').style.display = "flex";
