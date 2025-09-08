@@ -605,6 +605,7 @@ a[href*="eduzz"] {
     const nextSession = document.getElementById('nextSession');
     const nameForm = document.getElementById('nameForm');
     const videoDuration = durationMinutes * 60;
+    const REPLAY_MODE = true; // vídeo sempre liberado   IMPORTANTE!
 
 
 
@@ -647,88 +648,79 @@ function hhmmssToSeconds(hhmmss) {
 
 
   
-    
-function startWebinar() {
-    messages.innerHTML = "";
-    shownProgrammedMessages.clear();
+    function startWebinar() {
+  messages.innerHTML = "";
+  shownProgrammedMessages.clear();
 
-    videoContainer.style.display = "block";
-    chatContainer.style.display = "block";
+  videoContainer.style.display = "block";
+  chatContainer.style.display = "block";
 
+  if (REPLAY_MODE) {
+    // Replay: começa do início. Se já tiver tempo salvo no localStorage,
+    // o trecho "loadedmetadata" mais abaixo já cuida de posicionar.
+    if (!tempoJaDefinido) {
+      video.currentTime = 0;
+      tempoJaDefinido = true;
+    }
+  } else {
+    // Modo "ao vivo" antigo, mantido caso queira usar no futuro
     const now = new Date();
     const webinarStart = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        configHour,
-        configMinute,
-        0
+      now.getFullYear(), now.getMonth(), now.getDate(),
+      configHour, configMinute, 0
     );
-
     const secondsSinceStart = Math.floor((now - webinarStart) / 1000);
 
-if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
-  video.currentTime = secondsSinceStart;
-}
+    if (!tempoJaDefinido && secondsSinceStart >= 0 && secondsSinceStart <= videoDuration) {
+      video.currentTime = secondsSinceStart;
+      tempoJaDefinido = true;
+    }
 
-    programmedMessages.forEach(msg => {
-        if (msg.time < secondsSinceStart) {
-            shownProgrammedMessages.add(msg.time + '-' + msg.name);
+    if (typeof programmedMessages !== 'undefined') {
+      programmedMessages.forEach(msg => {
+        if (hhmmssToSeconds(msg.time) < secondsSinceStart) {
+          shownProgrammedMessages.add(msg.time + '-' + msg.name);
         }
-    });
-
-
-    
-
-
-
-
-const tempoParaMostrarBotao = 4570;  // BOTÃO DO PITCH (em segundos) IMPORTANTE!
-let botaoJaApareceu = false;
-
-video.addEventListener('timeupdate', () => {
-
-
-const progressBar = document.getElementById('progressBarOverlay');
-if (progressBar) {
-  const total = video.duration;
-  const currentTime = video.currentTime;
-  let widthPercent = 0;
-
-  if (currentTime <= 240) {
-      widthPercent = (currentTime / 240) * 50;
-
-  } else if (currentTime <= 540) {
-      widthPercent = 50 + ((currentTime - 240) / 300) * 25;
-
-  } else {
-    const remaining = total - 540;
-    const elapsed = currentTime - 540;
-    widthPercent = 75 + (elapsed / remaining) * 25;
-  }
-
-  progressBar.style.width = `${Math.min(widthPercent, 100)}%`;
-}
-
-
-
-  if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
-    document.getElementById('offerSection').style.display = 'block';
-    botaoJaApareceu = true;
-
-    // Dispara o evento do Pixel no Pitch IMPORTANTE!
-    if (typeof fbq === 'function') {
-      fbq('track', 'AddToWishlist');
+      });
     }
   }
-});
 
+  const tempoParaMostrarBotao = 4570;  // segundos pitch  IMPORTANTE!
+  let botaoJaApareceu = false;
 
-	
-overlay.style.display = 'block';
-playButton.style.display = 'block';
-   
+  video.addEventListener('timeupdate', () => {
+    const progressBar = document.getElementById('progressBarOverlay');
+    if (progressBar) {
+      const total = video.duration;
+      const currentTime = video.currentTime;
+      let widthPercent = 0;
+
+      if (currentTime <= 240) {
+        widthPercent = (currentTime / 240) * 50;
+      } else if (currentTime <= 540) {
+        widthPercent = 50 + ((currentTime - 240) / 300) * 25;
+      } else {
+        const remaining = total - 540;
+        const elapsed = currentTime - 540;
+        widthPercent = 75 + (elapsed / remaining) * 25;
+      }
+      progressBar.style.width = `${Math.min(widthPercent, 100)}%`;
+    }
+
+    if (!botaoJaApareceu && video.currentTime >= tempoParaMostrarBotao) {
+      document.getElementById('offerSection').style.display = 'block';
+      botaoJaApareceu = true;
+
+      if (typeof fbq === 'function') {
+        fbq('track', 'AddToWishlist');   // evento facebook pitch  IMPORTANTE!
+      }
+    }
+  });
+
+  overlay.style.display = 'block';
+  playButton.style.display = 'block';
 }
+
 
 
 
@@ -845,29 +837,15 @@ function limparDDI(input) {
  
   
   
-window.onload = function() {
-    const now = new Date();
-    const day = now.getDay();
 
-    // Configuração: dia e hora da live
-    const liveDay = configDay; 
-    const liveHour = configHour;
-    const liveMinute = configMinute;
+window.addEventListener('DOMContentLoaded', function () {
+  // Mostra o formulário logo que abrir a página
+  document.getElementById('nameFormWrapper').style.display = "flex";
+  document.getElementById('nameForm').style.display = "block";
+});
 
-    const startDate = new Date(now);
-    const daysSinceLive = (day - liveDay + 7) % 7;
-    startDate.setDate(now.getDate() - daysSinceLive);
-    startDate.setHours(liveHour, liveMinute, 0, 0);
 
-    const endDate = new Date(startDate.getTime() + 268 * 60 * 60 * 1000);  // IMPORTANTE! tempo que o video fica disponível
 
-    if (now >= startDate && now <= endDate) {
-    document.getElementById('nameFormWrapper').style.display = "flex";
-    document.getElementById('nameForm').style.display = "block";  // Exibe o formulário também
-} else {
-    window.location.href = "/ao-vivo/";
-}
-};
 
 
 function showCountdown() {
