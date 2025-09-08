@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+
+  <script>
+    // Lista de links possíveis
+    const links = [
+      "https://typebot.co/webnario-abacate1",
+      "https://typebot.co/webnario-abacate2",
+      "https://typebot.co/webnario-abacate3",
+      "https://typebot.co/webnario-abacate4",
+      "https://typebot.co/webnario-abacate5",
+      "https://typebot.co/webnario-abacate6"
+    ];
+
+    // Escolhe aleatoriamente um link
+    const linkAleatorio = links[Math.floor(Math.random() * links.length)];
+
+    // Redireciona
+    window.location.replace(linkAleatorio);
+  </script>
+</head>
+<body>
+  Se não redirecionar, <a id="fallback" href="#">clique aqui</a>.
+
+  <script>
+    // Ajusta o link do fallback também
+    document.getElementById("fallback").href = linkAleatorio;
+  </script>
+</body>
+</html>

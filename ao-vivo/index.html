@@ -773,6 +773,17 @@ function saveUserName() {
     nextSession.innerHTML =
       `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
   }
+
+
+// Disparar ViewContent somente após preencher nome e WhatsApp
+try {
+  if (typeof fbq === 'function' && !localStorage.getItem('vc_fired')) {
+    fbq('track', 'ViewContent');           // ou 'CompleteRegistration' se preferir
+    localStorage.setItem('vc_fired', '1'); // garante que não repita em recargas
+  }
+} catch(e) { console.warn('FB Pixel error:', e); }
+
+
 }
 
 
