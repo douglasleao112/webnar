@@ -372,16 +372,16 @@ img, a {
     </style>
 
 
-<!-- Meta Pixel Code (SEM disparo inicial) -->
+<!-- Meta Pixel Code (sem disparo inicial) -->
 <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);
-  t.async=!0;t.src='https://connect.facebook.net/en_US/fbevents.js';
-  s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script');
-  fbq('init', '1290378376428374'); 
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);
+t.async=!0;t.src='https://connect.facebook.net/en_US/fbevents.js';
+s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script');
+
+fbq('init','1290378376428374'); // não chamamos track aqui
 </script>
-<!-- End Meta Pixel Code -->
 
 
 
@@ -551,7 +551,7 @@ a[href*="eduzz"] {
 <script>  //PROGRAMAR LIVE      IMPORTANTE!
     const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 21;         // HORA 
-    const configMinute = 12;      // MINUTO
+    const configMinute = 5;      // MINUTO
     const durationMinutes = 104;    // duração do video
 
     const video = document.getElementById('customVideo');
@@ -745,6 +745,19 @@ function saveUserName() {
     return;
   }
 
+
+  // Disparar ViewContent somente após preencher nome e WhatsApp
+try {
+  if (typeof fbq === 'function' && !localStorage.getItem('vc_fired')) {
+    fbq('track', 'ViewContent');           // ou 'CompleteRegistration' se preferir
+    localStorage.setItem('vc_fired', '1'); // garante que não repita em recargas
+  }
+} catch(e) { console.warn('FB Pixel error:', e); }
+
+
+
+
+
   // 1️⃣ guarda globalmente pro tracker ler depois
   window.userName = name;
   window.userWhatsapp  = whatsapp;
@@ -763,16 +776,6 @@ function saveUserName() {
     nextSession.innerHTML =
       `<p>A próxima transmissão será: <strong>${getNextSessionDate()}</strong></p>`;
   }
-
-
-// Disparar ViewContent somente após preencher nome e WhatsApp
-try {
-  if (typeof fbq === 'function' && !localStorage.getItem('vc_fired')) {
-    fbq('track', 'ViewContent');           // ou 'CompleteRegistration' se preferir
-    localStorage.setItem('vc_fired', '1'); // garante que não repita em recargas
-  }
-} catch(e) { console.warn('FB Pixel error:', e); }
-
 
 }
 
