@@ -2,16 +2,29 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  
-  <!-- Fallback imediato via meta -->
-  <meta http-equiv="refresh" content="0;url=https://typebot.co/checkin-abacate">
 
   <script>
-    // Redirecionamento instantâneo via JS
-    location.replace("https://typebot.co/checkin-abacate");
+    // Lista de links possíveis
+    const links = [
+      "https://typebot.co/checkin-abacate1",
+      "https://typebot.co/checkin-abacate2",
+      "https://typebot.co/checkin-abacate3",
+      "https://typebot.co/checkin-abacate4"
+    ];
+
+    // Escolhe aleatoriamente um link
+    const linkAleatorio = links[Math.floor(Math.random() * links.length)];
+
+    // Redireciona
+    window.location.replace(linkAleatorio);
   </script>
 </head>
 <body>
-  Se não redirecionar, <a href="https://typebot.co/checkin-abacate">clique aqui</a>.
+  Se não redirecionar, <a id="fallback" href="#">clique aqui</a>.
+
+  <script>
+    // Ajusta o link do fallback também
+    document.getElementById("fallback").href = linkAleatorio;
+  </script>
 </body>
 </html>
