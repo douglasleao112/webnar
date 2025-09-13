@@ -214,10 +214,10 @@
                 width: 100%;
             }
           #videoContainer {
-            margin: 0 !important; /* Altere esta linha para 0 !important */
-            padding: 0 !important; /* Altere esta linha para 0 !important */
+            margin: 0 !important; 
+            padding: 0 !important; 
             box-sizing: border-box;
-            width: 100% !important; /* Adicione esta linha */
+            width: 100% !important; 
         }
             #chatInputArea {
                 flex-wrap: wrap;
@@ -239,7 +239,7 @@
               top: 50%;
               left: 50%;
                           transform: translate(-50%, -50%);
-              /* mantêm largura e estilo anteriores */
+             
               max-width: 400px;
               width: 100%;
                           padding: 20px;
@@ -247,7 +247,7 @@
               text-align: center;
               border-radius: 10px;
               box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-              /* remova margens verticais que conflitem */
+          
               margin: 0;
             }
 
@@ -436,8 +436,8 @@ img, a {
 
 
 <div id="eventClosedMessage" style="margin-top: 35vh; text-align: center; display:none;">
-  <h2>Transmissão AO VIVO encerrada.</h2>
-  <a href="/video-liberado" class="link">Clique aqui para conferir se a gravação está disponível.</a>
+  <h2>Transmissão AO VIVO encerrada.</h2> 
+ <!--   <a href="/video-liberado" class="link">Clique aqui para conferir se a gravação está disponível.</a>    -->
 </div>
 
 
@@ -450,8 +450,8 @@ img, a {
     <div class="live-badge">
       <img src="https://imagepng.org/wp-content/uploads/2020/04/ao-vivo-4.png" />
     </div>
-    <video id="customVideo" preload="metadata" playsinline > <!--  controls    IMPORTANTE! -->
-      <source src="https://video.wixstatic.com/video/7f5efc_fce99097c9f84987be0da5551ca31990/480p/mp4/file.mp4" type="video/mp4">
+    <video id="customVideo" preload="metadata" playsinline > <!--    controls      IMPORTANTE! -->
+      <source src="https://video.wixstatic.com/video/7f5efc_c2d3a2398153429ba31f28c2305d8359/720p/mp4/file.mp4" type="video/mp4">
       Seu navegador não suporta vídeo HTML5.
     </video>
     <div id="videoClickOverlay"></div>
@@ -557,7 +557,7 @@ a[href*="eduzz"] {
     const configDay = 0;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6   
     const configHour = 19;         // HORA 
     const configMinute = 0;      // MINUTO
-    const durationMinutes = 104;    // duração do video
+    const durationMinutes = 63;    // duração do video em minutos
 
     const video = document.getElementById('customVideo');
     const playButton = document.getElementById('playButton');
@@ -651,7 +651,7 @@ programmedMessages.forEach(msg => {
   const viewerElement = document.getElementById('viewerCounter');
 
   function updateViewerCount() {
-    const random = Math.floor(Math.random() * (2180 - 2147 + 1)) + 1147;    //Pessoas assistindo ao vivo IMPORTANTE!
+    const random = Math.floor(Math.random() * (491 - 437 + 1)) + 447;    //Pessoas assistindo ao vivo IMPORTANTE!
     viewerElement.innerHTML = `
       <img src="https://static.thenounproject.com/png/4154905-200.png"
            alt="👥"
@@ -667,7 +667,7 @@ programmedMessages.forEach(msg => {
 
 
 
-const offerDelayMs = (webinarStart.getTime() + 4570 * 1000) - now.getTime(); // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
+const offerDelayMs = (webinarStart.getTime() + 2289 * 1000) - now.getTime(); // ⏱️ PITCH BOTÃO (segundos) OFERTA IMPORTANTE!
 
 function exibirOferta() {
   document.getElementById('offerSection').style.display = 'block';
@@ -825,7 +825,7 @@ window.onload = function() {
     const lastWebinar = getLastWebinarDate();
     const webinarStart = lastWebinar;
     const webinarEnd = new Date(webinarStart.getTime() + (durationMinutes * 60000));
-    const encerramentoEnd = new Date(webinarEnd.getTime() + (28 * 60 * 60 * 1000));   // IMPORTANTE!  30h precisa cobrir o tempo do replay "Transmissão AO VIVO encerrada"
+    const encerramentoEnd = new Date(webinarEnd.getTime() + (4 * 60 * 60 * 1000));   // IMPORTANTE!  30h precisa cobrir o tempo do replay "Transmissão AO VIVO encerrada"
 
     if (now < webinarStart) {
         showCountdown();

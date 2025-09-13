@@ -488,7 +488,7 @@ img, a {
 
     <div class="player-wrapper">
         <video id="customVideo" preload="metadata" playsinline >  <!--  controls    IMPORTANTE! -->
-        <source src="https://video.wixstatic.com/video/7f5efc_fce99097c9f84987be0da5551ca31990/480p/mp4/file.mp4" type="video/mp4">
+        <source src="https://video.wixstatic.com/video/7f5efc_c2d3a2398153429ba31f28c2305d8359/720p/mp4/file.mp4" type="video/mp4">
             Seu navegador não suporta vídeo HTML5.
         </video>
         <div id="progressBarOverlay"></div>
@@ -594,7 +594,7 @@ a[href*="eduzz"] {
     const configDay = 1;        // dom0  seg1  ter2  qua3   qui4   sex5   sab6     
     const configHour = 9;         // HORA                                  
     const configMinute = 0;      // MINUTO                                   
-    const durationMinutes = 104;    // duração do video                        
+    const durationMinutes = 63;    // duração do video                        
 
     const video = document.getElementById('customVideo');
     const playButton = document.getElementById('playButton');
@@ -685,7 +685,7 @@ function hhmmssToSeconds(hhmmss) {
     }
   }
 
-  const tempoParaMostrarBotao = 4570;  // segundos pitch  IMPORTANTE!
+  const tempoParaMostrarBotao = 2289;  // segundos pitch  IMPORTANTE!
   let botaoJaApareceu = false;
 
   video.addEventListener('timeupdate', () => {
