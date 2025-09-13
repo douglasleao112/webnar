@@ -1,4 +1,4 @@
-  const programmedMessages = [   //COMENTARIOS     IMPORTANTE!
+  const programmedMessages = [   
 { time: "00:00:30", name: "Juliana", text: "Oba, começou.. esperei a semana toda" },
 { time: "00:01:00", name: "Mercia", text: "Pode chamar quem não está no grupo?" },
 { time: "00:01:01", name: "Luciana", text: "Boa noite" },
