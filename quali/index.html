@@ -1,40 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-    <script>
-    // 1) Links base (sem query)
-    const links = [
-      "https://typebot.co/webnario-abacate2",
-      "https://typebot.co/webnario-abacate7",
-      "https://typebot.co/webnario-abacate3",
-      "https://typebot.co/webnario-abacate4",
-      "https://typebot.co/webnario-abacate5",
-      "https://typebot.co/webnario-abacate6"
-    ];
+<meta charset="utf-8">
+<script>
+  // destinos
+  const links = [
+    "https://typebot.co/webnario-abacate2",
+    "https://typebot.co/webnario-abacate7",
+    "https://typebot.co/webnario-abacate3",
+    "https://typebot.co/webnario-abacate4",
+    "https://typebot.co/webnario-abacate5",
+    "https://typebot.co/webnario-abacate6"
+  ];
+  const base = links[Math.floor(Math.random() * links.length)];
 
-    // 2) Escolhe um link aleatório
-    const base = links[Math.floor(Math.random() * links.length)];
+  // helpers
+  const parseQS = s => Object.fromEntries(new URLSearchParams(s));
+  const buildQS = o => new URLSearchParams(o).toString();
+  const qsObj = parseQS(location.search);
+  const hashObj = parseQS((location.hash||'').replace(/^#/, ''));
 
-    // 3) Captura TUDO que veio na URL (ex.: ?utm_source=...&nome=...&email=...&whatsapp=...)
-    const qs = window.location.search.replace(/^\?/, ""); // sem o "?"
+  // tenta decodificar pacote r (Base64 JSON)
+  let pack = {};
+  if (qsObj.r) {
+    try { pack = JSON.parse(atob(qsObj.r)); } catch(e){}
+  }
 
-    // 4) Monta destino preservando a query (e hash, se houver)
-    const hasQuery = base.includes("?");
-    const sep = hasQuery ? "&" : "?";
-    const target = qs ? (base + sep + qs + window.location.hash) : (base + window.location.hash);
+  // garante utm_* usando backups
+  const ensured = { ...qsObj };
 
-    // 5) Redireciona
-    window.location.replace(target);
+  // preferências: qs.utms > pack > qs.nome/email/whatsapp > hash
+  ensured.utm_source   = qsObj.utm_source   || pack.utm_source   || qsObj.nome     || hashObj.us || '';
+  ensured.utm_medium   = qsObj.utm_medium   || pack.utm_medium   || qsObj.email    || hashObj.um || '';
+  ensured.utm_campaign = qsObj.utm_campaign || pack.utm_campaign || (qsObj.whatsapp|| hashObj.uc || '').replace(/\D/g,'');
 
-    // Expõe para o fallback
-    window.__target = target;
-  </script>
+  // se tiver nome/email/whatsapp no pack, replica também
+  ensured.nome      = qsObj.nome      || pack.nome      || hashObj.us || ensured.utm_source;
+  ensured.email     = qsObj.email     || pack.email     || hashObj.um || ensured.utm_medium;
+  ensured.whatsapp  = (qsObj.whatsapp || pack.whatsapp || hashObj.uc || ensured.utm_campaign).toString();
+
+  // mantém UTMs originais (o_*) se vieram
+  ['o_utm_source','o_utm_medium','o_utm_campaign','o_utm_content','o_utm_term','o_gclid','o_fbclid']
+    .forEach(k => { if (qsObj[k] && !ensured[k]) ensured[k]=qsObj[k]; });
+
+  // monta destino preservando tudo
+  const sep = base.includes('?') ? '&' : '?';
+  const target = base + sep + buildQS(ensured);
+
+  // redireciona
+  window.location.replace(target);
+  window.__target = target;
+</script>
 </head>
 <body>
   Se não redirecionar, <a id="fallback" href="#">clique aqui</a>.
-  <script>
-    document.getElementById("fallback").href = window.__target || "#";
-  </script>
+  <script>document.getElementById('fallback').href = window.__target || '#';</script>
 </body>
 </html>
