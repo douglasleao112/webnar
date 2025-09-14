@@ -275,7 +275,7 @@
 { time: "00:54:56", name: "🤖SUPORTE", text: "12 MESES: http://dougleao.com.br/webnar-plano12" },
 { time: "00:55:36", name: "Simone", text: "Parabéns Renata!!!" },
 { time: "00:55:57", name: "🤖SUPORTE", text: "12 VAGAS" },
-{ time: "00:56:40", name: "Mercia", text: "Tá vou te chamar no privado para tirar algumas dúvidas..." },
+{ time: "00:56:40", name: "Mercia", text: "Vou te chamar no privado para tirar algumas dúvidas..." },
 { time: "00:56:50", name: "Manu", text: "Muito obrigada, foi sensacional" },
 { time: "00:56:00", name: "Layz", text: "Gostei muito, adorei" },
 { time: "00:56:32", name: "Dani", text: "Parabéns Douglas, belíssimo trabalho" },
