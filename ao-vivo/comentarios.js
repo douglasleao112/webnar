@@ -265,7 +265,7 @@
 { time: "00:53:25", name: "Luciana", text: "A garantia é real mesmo?! Já entrei" },
 { time: "00:53:36", name: "Angelica", text: "Sim, faz sentido" },
 { time: "00:53:50", name: "Jurema", text: "Realmente, não tenho mais tempo para ficar perdendo..." },
-{ time: "00:54:04", name: "🤖SUPORTE", text: "Instagram: @doug.leao" },
+{ time: "00:54:04", name: "🤖SUPORTE", text: "CORRE MENINAS!!!" },
 { time: "00:54:45", name: "Zenilda", text: "Realmente eu faço isso😔😔" },
 { time: "00:54:38", name: "Simone", text: "eu perciso de ajuda, vou entrar!!!" },
 { time: "00:53:42", name: "Mariana", text: "Como eu vou receber os acessos?" },
