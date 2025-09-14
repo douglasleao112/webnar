@@ -261,7 +261,7 @@
 { time: "00:52:41", name: "🤖SUPORTE", text: "VAGAS ESGOTANDO!!!" },
 { time: "00:52:59", name: "Samanta", text: "E se eu não conseguir seguir?" },
 { time: "00:53:00", name: "Simone", text: "Adorei demais!!!" },
-{ time: "00:53:00", name: "🤖SUPORTE", text: "Instagram:  DOUG.LEAO" },
+{ time: "00:53:00", name: "🤖SUPORTE", text: "Cupom R$ 100 sai do ar em instantes" },
 { time: "00:53:25", name: "Luciana", text: "A garantia é real mesmo?! Já entrei" },
 { time: "00:53:36", name: "Angelica", text: "Sim, faz sentido" },
 { time: "00:53:50", name: "Jurema", text: "Realmente, não tenho mais tempo para ficar perdendo..." },
